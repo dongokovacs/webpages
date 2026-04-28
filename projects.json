@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Bübe virágbolt",
+    "description": "Modern virágbolt landing oldal, letisztult designnal.",
+    "image": "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1600&q=80&auto=format&fit=crop",
+    "link": "bube-viragbolt/"
+  },
+  {
+    "title": "Projekt 2",
+    "description": "Teszt projekt leírása ide.",
+    "image": "https://via.placeholder.com/600x300",
+    "link": "projekt2/"
+  },
+  {
+    "title": "Projekt 3",
+    "description": "Teszt projekt leírása ide.",
+    "image": "https://via.placeholder.com/600x300",
+    "link": "projekt3/"
+  }
+]

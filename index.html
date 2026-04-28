@@ -1,323 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projektjeim</title>
 
-  <!-- Primary SEO -->
-  <title>Bübe Virág | Virágkötészet – Maglód</title>
-  <meta name="description" content="Bübe Virág virágkötészet Maglódon. Esküvői csokrok, rendezvénydekoráció, szezonális és egyedi virágkompozíciók. Rákóczi utca, 2234 Maglód." />
-  <meta name="keywords" content="virágbolt, virágkötészet, csokrok, esküvői virágdekor, rendezvénydekoráció, Maglód, Pest megye, Bübe Virág" />
-  <meta name="author" content="Bübe Virág" />
-  <meta name="robots" content="index, follow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-  <!-- Geo (keresőmotorok és térinformatika) -->
-  <meta name="geo.region" content="HU-PE" />
-  <meta name="geo.placename" content="Bübe Virág – Maglód, Magyarország" />
-  <meta name="geo.position" content="47.4429858;19.3510605" />
-  <meta name="ICBM" content="47.4429858, 19.3510605" />
+<body class="bg-gray-100 text-gray-900">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="business.business" />
-  <meta property="og:title" content="Bübe Virág | Virágkötészet – Maglód" />
-  <meta property="og:description" content="Bübe Virág virágkötészet Maglódon. Esküvői csokrok, rendezvénydekoráció és egyedi virágkompozíciók." />
-  <meta property="og:image" content="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOTSK4rTM4y68SFwYFPqcxaT-RE_jk4GPaNJmqfERCk4tiE6F2Xe0B_xkZUPQNDuOu6SyYImfqDrHC_EU5FH1tz1wsj6Uc7ydAUu6B7zlcZDN572RzKOe0urmBJ11BOSfJVWg3=w1200-h900-k-no" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="900" />
-  <meta property="og:image:alt" content="Bübe Virág – virágkötészet üzlet Maglódon" />
-  <meta property="og:locale" content="hu_HU" />
-  <meta property="og:site_name" content="Bübe Virág" />
-  <meta property="business:contact_data:street_address" content="Rákóczi utca" />
-  <meta property="business:contact_data:locality" content="Maglód" />
-  <meta property="business:contact_data:postal_code" content="2234" />
-  <meta property="business:contact_data:country_name" content="Magyarország" />
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-8">🚀 Projektjeim</h1>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bübe Virág | Virágkötészet – Maglód" />
-  <meta name="twitter:description" content="Bübe Virág virágkötészet Maglódon. Egyedi csokrok, esküvői dekoráció és szezonális virágkompozíciók." />
-  <meta name="twitter:image" content="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOTSK4rTM4y68SFwYFPqcxaT-RE_jk4GPaNJmqfERCk4tiE6F2Xe0B_xkZUPQNDuOu6SyYImfqDrHC_EU5FH1tz1wsj6Uc7ydAUu6B7zlcZDN572RzKOe0urmBJ11BOSfJVWg3=w1200-h900-k-no" />
-  <meta name="twitter:image:alt" content="Bübe Virág – virágkötészet Maglódon" />
+    <div id="projects" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
 
-  <!-- Schema.org – Florist / LocalBusiness -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Florist",
-    "name": "Bübe Virág",
-    "description": "Virágkötészet Maglódon. Esküvői csokrok, rendezvénydekoráció, szezonális és egyedi virágkompozíciók.",
-    "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOTSK4rTM4y68SFwYFPqcxaT-RE_jk4GPaNJmqfERCk4tiE6F2Xe0B_xkZUPQNDuOu6SyYImfqDrHC_EU5FH1tz1wsj6Uc7ydAUu6B7zlcZDN572RzKOe0urmBJ11BOSfJVWg3=w1200-h900-k-no",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Rákóczi utca",
-      "addressLocality": "Maglód",
-      "postalCode": "2234",
-      "addressRegion": "Pest vármegye",
-      "addressCountry": "HU"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 47.4429858,
-      "longitude": 19.3510605
-    },
-    "hasMap": "https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu",
-    "sameAs": [
-      "https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu"
-    ],
-    "inLanguage": "hu",
-    "currenciesAccepted": "HUF",
-    "paymentAccepted": "Készpénz",
-    "priceRange": "$$",
-    "openingHours": [
-      "Mo 08:00-17:00",
-      "Tu 08:00-17:00",
-      "We 08:00-17:00",
-      "Th 08:00-17:00",
-      "Fr 08:00-17:00",
-      "Sa 08:00-14:00",
-      "Su 08:00-12:00"
-    ],
-    "areaServed": [
-      { "@type": "City", "name": "Maglód" },
-      { "@type": "AdministrativeArea", "name": "Pest vármegye" }
-    ],
-    "knowsLanguage": { "@type": "Language", "name": "Magyar", "alternateName": "hu" }
-  }
+  <script>
+    fetch('./projects.json')
+      .then(res => res.json())
+      .then(projects => {
+        const container = document.getElementById('projects');
+
+        projects.forEach(p => {
+          const card = document.createElement('div');
+          card.className = "bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden";
+
+          card.innerHTML = `
+            <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover"/>
+
+            <div class="p-5">
+              <h2 class="text-xl font-semibold mb-2">${p.title}</h2>
+              <p class="text-sm text-gray-600 mb-4">${p.description}</p>
+
+              <a href="${p.link}" 
+                 class="inline-block w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
+                Megnyitás →
+              </a>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        document.getElementById('projects').innerHTML =
+          "<p class='text-red-500'>Hiba a projektek betöltésekor 😢</p>";
+        console.error(err);
+      });
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="bg-glow bg-glow-1"></div>
-  <div class="bg-glow bg-glow-2"></div>
-
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a href="#kezdolap" class="brand">
-        <span class="brand-dot"></span>
-        Bübe Virág
-      </a>
-      <nav class="nav-links">
-        <a href="#rolunk">Rólunk</a>
-        <a href="#galeria">Galéria</a>
-        <a href="#szolgaltatasok">Szolgáltatások</a>
-        <a href="#folyamat">Hogyan dolgozunk</a>
-        <a href="#nyitvatartas">Nyitvatartás</a>
-        <a href="#kapcsolat">Kapcsolat</a>
-      </nav>
-      <a class="btn btn-small" href="https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu" target="_blank" rel="noopener noreferrer">Útvonal</a>
-    </div>
-  </header>
-
-  <main id="kezdolap">
-    <section class="hero container reveal">
-      <p class="eyebrow">Virágok, amik mesélnek</p>
-      <h1>Bübe Virág</h1>
-      <p class="lead">
-        Letisztult, mégis karakteres virágkötészet mindennapokra és különleges alkalmakra.
-        A célunk, hogy minden csokor személyes, harmonikus és emlékezetes legyen.
-      </p>
-      <div class="hero-actions">
-        <a class="btn" href="#kapcsolat">Kapcsolatfelvétel</a>
-        <a class="btn btn-ghost" href="#szolgaltatasok">Szolgáltatások</a>
-      </div>
-    </section>
-
-    <section id="galeria" class="section container reveal" aria-label="Galéria">
-      <div class="section-head">
-        <p class="eyebrow">Galéria</p>
-        <h2>Az üzletünk</h2>
-      </div>
-      <div class="gallery-grid">
-        <figure class="gallery-main">
-          <img
-            src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOTSK4rTM4y68SFwYFPqcxaT-RE_jk4GPaNJmqfERCk4tiE6F2Xe0B_xkZUPQNDuOu6SyYImfqDrHC_EU5FH1tz1wsj6Uc7ydAUu6B7zlcZDN572RzKOe0urmBJ11BOSfJVWg3=w1200-h900-k-no"
-            alt="Bübe Virág üzlet – Maglód, Rákóczi utca"
-            loading="lazy"
-            width="1200"
-            height="900"
-          />
-          <figcaption>Bübe Virág – Rákóczi utca, 2234 Maglód &nbsp;·&nbsp; © Google Maps</figcaption>
-        </figure>
-        <div class="gallery-info">
-          <p>Látogass el hozzánk Maglódra és válassz a friss, szezonális virágkínálatunkból!</p>
-          <address>
-            <strong>Bübe Virág</strong><br />
-            Rákóczi utca<br />
-            2234 Maglód<br />
-            Pest vármegye, Magyarország
-          </address>
-          <a class="btn" href="https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu" target="_blank" rel="noopener noreferrer">Útvonaltervezés</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="rolunk" class="section container reveal">
-      <div class="section-head">
-        <p class="eyebrow">Rólunk</p>
-        <h2>Friss szemlélet, klasszikus alapok</h2>
-      </div>
-      <div class="about-grid">
-        <article class="card">
-          <h3>Egyedi stílus</h3>
-          <p>
-            Minden kompozíciót a szezon színei, formái és a megrendelő igényei alapján tervezünk.
-            Nem sablonokban gondolkodunk, hanem hangulatban.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Minőségi viráganyag</h3>
-          <p>
-            A csokrok és dekorációk friss, válogatott virágokból készülnek, hogy a végeredmény
-            tartós és esztétikus legyen.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Gyors, pontos kommunikáció</h3>
-          <p>
-            Az érdeklődéstől az átadásig átlátható folyamatban dolgozunk, így pontosan tudod,
-            mire számíthatsz és mikor.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section id="szolgaltatasok" class="section container reveal">
-      <div class="section-head">
-        <p class="eyebrow">Szolgáltatások</p>
-        <h2>Amiben számíthatsz ránk</h2>
-      </div>
-      <div class="service-grid">
-        <article class="service-card">
-          <h3>Napi és alkalmi csokrok</h3>
-          <p>Ajándékba, köszöntéshez vagy csak úgy - személyre szabott összeállításokkal.</p>
-        </article>
-        <article class="service-card">
-          <h3>Esküvői virágdekor</h3>
-          <p>Menyasszonyi csokor, kitűzők, asztaldíszek és teljes virágkoncepció.</p>
-        </article>
-        <article class="service-card">
-          <h3>Rendezvénydekoráció</h3>
-          <p>Üzleti és családi eseményekhez hangulathoz igazított virágdesign.</p>
-        </article>
-        <article class="service-card">
-          <h3>Szezonális kompozíciók</h3>
-          <p>Ünnepi, tavaszi, őszi és adventi díszek modern kivitelezésben.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="folyamat" class="section container reveal">
-      <div class="section-head">
-        <p class="eyebrow">Hogyan dolgozunk</p>
-        <h2>Egyszerű és átlátható lépések</h2>
-      </div>
-      <ol class="timeline">
-        <li>
-          <span>1</span>
-          <div>
-            <h3>Igényfelmérés</h3>
-            <p>Átbeszéljük az alkalmat, a színeket, a stílust és a kívánt költségkeretet.</p>
-          </div>
-        </li>
-        <li>
-          <span>2</span>
-          <div>
-            <h3>Javaslat és finomhangolás</h3>
-            <p>Ötleteket adunk, majd közösen véglegesítjük a koncepciót.</p>
-          </div>
-        </li>
-        <li>
-          <span>3</span>
-          <div>
-            <h3>Kivitelezés és átadás</h3>
-            <p>Időre elkészítjük a megrendelést, hogy te már csak az élményre figyelj.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <section id="nyitvatartas" class="section container reveal">
-      <div class="section-head">
-        <p class="eyebrow">Nyitvatartás</p>
-        <h2>Mikor találsz meg minket?</h2>
-      </div>
-      <div class="hours-wrap">
-        <div class="hours-card">
-          <ul class="hours-list">
-            <li data-days="1">
-              <span class="hours-day">Hétfő</span>
-              <span class="hours-time">8:00–17:00</span>
-            </li>
-            <li data-days="2">
-              <span class="hours-day">Kedd</span>
-              <span class="hours-time">8:00–17:00</span>
-            </li>
-            <li data-days="3">
-              <span class="hours-day">Szerda</span>
-              <span class="hours-time">8:00–17:00</span>
-            </li>
-            <li data-days="4">
-              <span class="hours-day">Csütörtök</span>
-              <span class="hours-time">8:00–17:00</span>
-            </li>
-            <li data-days="5">
-              <span class="hours-day">Péntek</span>
-              <span class="hours-time">8:00–17:00</span>
-            </li>
-            <li data-days="6">
-              <span class="hours-day">Szombat</span>
-              <span class="hours-time">8:00–14:00</span>
-            </li>
-            <li data-days="0">
-              <span class="hours-day">Vasárnap</span>
-              <span class="hours-time">8:00–12:00</span>
-            </li>
-          </ul>
-          <p class="hours-note">Az aktuális nyitvatartást ellenőrizze a <a href="https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu" target="_blank" rel="noopener noreferrer">Google Térképen</a>.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="kapcsolat" class="section container reveal">
-      <div class="section-head">
-        <p class="eyebrow">Kapcsolat</p>
-        <h2>Lépj velünk kapcsolatba</h2>
-      </div>
-      <div class="contact-wrap">
-        <article class="contact-card">
-          <h3>Bübe Virág</h3>
-          <address>
-            Rákóczi utca<br />
-            2234 Maglód<br />
-            Pest vármegye, Magyarország
-          </address>
-          <p class="contact-note">A pontos nyitvatartásért és értékelésekért látogass el a Google Térképre.</p>
-          <a class="btn" href="https://www.google.com/maps/place/B%C3%BCbe+Vir%C3%A1g/@47.442979,19.3150163,14z/data=!4m12!1m2!2m1!1svir%C3%A1g+bolt!3m8!1s0x4741bf2c6a15c033:0x8267dc5d226f937a!8m2!3d47.4429858!4d19.3510605!9m1!1b1!15sCgt2aXLDoWcgYm9sdFoNIgt2aXLDoWcgYm9sdJIBB2Zsb3Jpc3SaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVTjFkMUJ1Y1hoQlJSQULgAQD6AQQIWxA4!16s%2Fg%2F11h7z1wfbr?entry=ttu" target="_blank" rel="noopener noreferrer">Megnyitás Google Térképen</a>
-        </article>
-        <aside class="highlight">
-          <h3>Miért ezt az oldalt érdemes használni?</h3>
-          <ul>
-            <li>Gyors áttekintés a szolgáltatásokról</li>
-            <li>Egyszerű kapcsolatfelvétel</li>
-            <li>Mobilbarát, gyors betöltés</li>
-            <li>Modern, 2026-os vizuális stílus</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-wrap">
-      <p>© 2026 Bübe Virág. Minden jog fenntartva.</p>
-      <a href="#kezdolap">Vissza az oldal tetejére</a>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
