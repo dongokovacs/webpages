@@ -33,9 +33,10 @@
               <h2 class="text-xl font-semibold mb-2">${p.title}</h2>
               <p class="text-sm text-gray-600 mb-4">${p.description}</p>
 
-              <a href="${p.link}" 
+              <a href="${p.link}"
+                 ${p.download ? 'download' : ''}
                  class="inline-block w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
-                Megnyitás →
+                ${p.download ? 'Letöltés ↓' : 'Megnyitás →'}
               </a>
             </div>
           `;

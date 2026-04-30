@@ -1,5 +1,12 @@
 [
   {
+    "title": "Homework 3",
+    "description": "3. házi feladat – ZIP archívum letöltése.",
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80&auto=format&fit=crop",
+    "link": "homework3kd.zip",
+    "download": true
+  },
+  {
     "title": "Bübe virágbolt",
     "description": "Modern virágbolt landing oldal, letisztult designnal.",
     "image": "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1600&q=80&auto=format&fit=crop",
