@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/",                    "destination": "/api/admin" },
+    { "source": "/api/login",           "destination": "/api/admin" },
+    { "source": "/api/logout",          "destination": "/api/admin" },
+    { "source": "/api/me",              "destination": "/api/admin" },
+    { "source": "/api/fields/:site",    "destination": "/api/admin" },
+    { "source": "/api/save/:site",      "destination": "/api/admin" }
+  ]
+}
