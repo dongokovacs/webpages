@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galiba Társulat — gyerekszínház Miskolcról</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1413;
+    --paper:#FFF6E6;
+    --paper-2:#FFEFCF;
+    --orange:#FF8A1E;
+    --orange-deep:#E26A00;
+    --sun:#FFC93C;
+    --red:#E63946;
+    --leaf:#3DA35D;
+    --sky:#5BC0EB;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Fredoka',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    font-size:18px;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Bagel Fat One',cursive;font-weight:400;letter-spacing:.5px;line-height:1.05;margin:0}
+  .scribble{font-family:'Caveat',cursive;font-weight:700}
+  a{color:inherit}
+
+  /* ——— Sticky top nav ——— */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:3px solid var(--ink);
+    box-shadow:0 4px 0 var(--ink);
+  }
+  .nav-inner{
+    max-width:1200px;margin:0 auto;padding:14px 28px;
+    display:flex;align-items:center;gap:20px;justify-content:space-between;
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand-mark{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--orange);
+    border:3px solid var(--ink);
+    display:grid;place-items:center;
+    font-family:'Bagel Fat One';color:#fff;font-size:24px;
+    box-shadow:3px 3px 0 var(--ink);
+    transform:rotate(-6deg);
+  }
+  .brand-name{font-family:'Bagel Fat One';font-size:22px;color:var(--ink)}
+  .nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
+  .nav ul a{
+    text-decoration:none;font-weight:600;font-size:16px;
+    padding:6px 2px;border-bottom:3px solid transparent;
+    transition:border-color .15s, color .15s;
+  }
+  .nav ul a:hover{color:var(--orange-deep);border-color:var(--orange)}
+  .nav-cta{
+    text-decoration:none;font-weight:700;font-size:15px;
+    background:var(--ink);color:var(--paper);
+    padding:10px 18px;border-radius:999px;
+    border:2px solid var(--ink);
+    box-shadow:3px 3px 0 var(--orange);
+    transition:transform .15s, box-shadow .15s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--orange)}
+
+  /* ——— Hero ——— */
+  .hero{
+    position:relative;
+    padding:90px 28px 120px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(0,0,0,0) 0 38%, rgba(0,0,0,0) 38%),
+      conic-gradient(from 0deg at 50% 100%,
+        var(--sun) 0 12deg, var(--orange) 12deg 24deg,
+        var(--sun) 24deg 36deg, var(--orange) 36deg 48deg,
+        var(--sun) 48deg 60deg, var(--orange) 60deg 72deg,
+        var(--sun) 72deg 84deg, var(--orange) 84deg 96deg,
+        var(--sun) 96deg 108deg, var(--orange) 108deg 120deg,
+        var(--sun) 120deg 132deg, var(--orange) 132deg 144deg,
+        var(--sun) 144deg 156deg, var(--orange) 156deg 168deg,
+        var(--sun) 168deg 180deg, var(--orange) 180deg 360deg);
+    background-blend-mode:normal;
+  }
+  .hero::after{
+    /* paper fade at top, soft horizon at bottom */
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(255,246,230,.55) 0%, rgba(255,246,230,0) 35%),
+      radial-gradient(ellipse at 50% 95%, rgba(255,201,60,.0) 0 40%, rgba(0,0,0,.06) 100%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:#fff;border:3px solid var(--ink);
+    padding:6px 14px;border-radius:999px;
+    font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;
+    transform:rotate(-2deg);
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .hero h1{
+    font-size:clamp(54px,8vw,108px);
+    color:var(--ink);
+    margin:18px 0 14px;
+    text-shadow:4px 4px 0 #fff, 8px 8px 0 var(--ink);
+  }
+  .hero h1 .word-1{color:var(--orange-deep);display:inline-block;transform:rotate(-3deg)}
+  .hero h1 .word-2{color:var(--ink);display:inline-block;transform:rotate(2deg) translateY(6px)}
+  .hero p.lead{
+    font-size:22px;max-width:540px;
+    background:#fff;border:3px solid var(--ink);
+    padding:18px 22px;border-radius:22px;
+    box-shadow:5px 5px 0 var(--ink);
+    margin:24px 0 28px;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    text-decoration:none;font-weight:700;font-size:17px;
+    padding:14px 22px;border-radius:999px;
+    border:3px solid var(--ink);
+    transition:transform .15s, box-shadow .15s;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);box-shadow:5px 5px 0 var(--orange)}
+  .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--orange)}
+  .btn-ghost{background:#fff;color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+  .btn-ghost:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+
+  /* hero photo placeholder */
+  .hero-photo{
+    position:relative;
+    background:#fff;border:3px solid var(--ink);
+    border-radius:18px;
+    aspect-ratio: 4/5;
+    box-shadow:8px 8px 0 var(--ink);
+    transform:rotate(3deg);
+    overflow:hidden;
+  }
+  .hero-photo .ph-bg{
+    position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(45deg, #FFE2B5 0 14px, #FFD799 14px 28px);
+  }
+  .hero-photo .ph-label{
+    position:absolute;inset:auto 14px 14px 14px;
+    background:var(--ink);color:var(--paper);
+    font-family:ui-monospace,Menlo,monospace;font-size:12px;
+    padding:8px 12px;border-radius:8px;
+  }
+  .hero-photo .tape{
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-4deg);
+    width:120px;height:28px;background:rgba(255,201,60,.85);
+    border:2px solid var(--ink);
+  }
+  .hero-sticker{
+    position:absolute;background:var(--red);color:#fff;
+    border:3px solid var(--ink);border-radius:50%;
+    width:120px;height:120px;display:grid;place-items:center;
+    text-align:center;font-family:'Bagel Fat One';font-size:18px;line-height:1;
+    box-shadow:4px 4px 0 var(--ink);
+    transform:rotate(-12deg);
+    padding:10px;
+  }
+  .hero-sticker.s1{top:-22px;right:-22px;background:var(--red)}
+  .hero-sticker.s2{bottom:-30px;left:-26px;background:var(--leaf);width:110px;height:110px;font-size:16px}
+
+  .hero-badges{
+    position:relative;z-index:2;
+    max-width:1200px;margin:50px auto 0;padding:0 28px;
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:center;
+  }
+  .pill{
+    background:#fff;border:3px solid var(--ink);
+    padding:10px 18px;border-radius:999px;
+    font-weight:700;font-size:15px;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .pill.alt{background:var(--sun)}
+  .pill.alt2{background:var(--orange);color:#fff}
+
+  /* ——— Section base ——— */
+  section{padding:90px 28px;position:relative}
+  .wrap{max-width:1200px;margin:0 auto}
+  .sec-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:40px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(38px,5vw,68px);color:var(--ink)}
+  .sec-head h2 em{font-style:normal;color:var(--orange-deep)}
+  .sec-head p{max-width:480px;font-size:17px;color:#3a2f28;margin:0}
+
+  /* ——— About ——— */
+  .about{background:var(--paper)}
+  .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+  .about-card{
+    background:#fff;border:3px solid var(--ink);border-radius:22px;
+    padding:30px 32px;box-shadow:6px 6px 0 var(--ink);
+    font-size:18px;
+  }
+  .about-card p{margin:0 0 14px}
+  .about-card p:last-child{margin:0}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+  .stat{
+    background:var(--sun);border:3px solid var(--ink);border-radius:18px;
+    padding:18px 20px;box-shadow:4px 4px 0 var(--ink);
+  }
+  .stat:nth-child(2){background:var(--orange);color:#fff;transform:rotate(1.5deg)}
+  .stat:nth-child(3){background:#fff;transform:rotate(-1deg)}
+  .stat:nth-child(4){background:var(--leaf);color:#fff;transform:rotate(.5deg)}
+  .stat .num{font-family:'Bagel Fat One';font-size:42px;line-height:1}
+  .stat .lbl{font-weight:600;font-size:15px;margin-top:4px}
+
+  /* ——— Shows ——— */
+  .shows{background:var(--paper-2);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .shows-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .show{
+    background:#fff;border:3px solid var(--ink);border-radius:20px;
+    overflow:hidden;box-shadow:6px 6px 0 var(--ink);
+    display:flex;flex-direction:column;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .show:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .show .cover{
+    position:relative;aspect-ratio:4/3;
+    border-bottom:3px solid var(--ink);
+  }
+  .show .cover .ph-bg{
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(45deg,#FFE0B0 0 12px,#FFD18A 12px 24px);
+  }
+  .show .cover .age{
+    position:absolute;top:14px;left:14px;
+    background:var(--ink);color:var(--paper);
+    padding:6px 12px;border-radius:999px;font-weight:700;font-size:13px;
+  }
+  .show .cover .ph-label{
+    position:absolute;left:14px;bottom:14px;
+    font-family:ui-monospace,Menlo,monospace;font-size:11px;
+    background:#fff;border:2px solid var(--ink);padding:4px 8px;border-radius:6px;
+  }
+  .show .body{padding:22px 24px 24px}
+  .show h3{font-size:26px;margin-bottom:8px;color:var(--ink)}
+  .show .tag{
+    display:inline-block;background:var(--sun);border:2px solid var(--ink);
+    padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;
+    margin-bottom:10px;
+  }
+  .show p{margin:0;font-size:15.5px;color:#3a2f28}
+  .show .meta{
+    margin-top:14px;display:flex;gap:14px;font-size:13px;font-weight:600;color:#5a4a3e;
+    border-top:2px dashed #d6c5a8;padding-top:12px;
+  }
+
+  /* ——— Audience ——— */
+  .audience{background:var(--paper)}
+  .aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .aud{
+    background:#fff;border:3px solid var(--ink);border-radius:18px;
+    padding:24px 22px;box-shadow:5px 5px 0 var(--ink);
+    transition:transform .2s;
+  }
+  .aud:hover{transform:translateY(-4px)}
+  .aud .ico{
+    width:56px;height:56px;border-radius:14px;
+    background:var(--orange);border:3px solid var(--ink);
+    display:grid;place-items:center;
+    font-family:'Bagel Fat One';color:#fff;font-size:28px;
+    margin-bottom:14px;
+    box-shadow:3px 3px 0 var(--ink);
+  }
+  .aud:nth-child(2) .ico{background:var(--sun);color:var(--ink)}
+  .aud:nth-child(3) .ico{background:var(--leaf)}
+  .aud:nth-child(4) .ico{background:var(--sky);color:var(--ink)}
+  .aud h3{font-size:22px;margin-bottom:6px}
+  .aud p{margin:0;font-size:15px;color:#3a2f28}
+
+  /* ——— Gallery ——— */
+  .gallery{background:var(--orange);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);color:#fff}
+  .gallery .sec-head h2{color:#fff}
+  .gallery .sec-head h2 em{color:var(--ink)}
+  .gallery .sec-head p{color:#fff}
+  .gal-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:140px;gap:14px}
+  .gal{
+    background:#fff;border:3px solid var(--ink);border-radius:14px;
+    box-shadow:4px 4px 0 var(--ink);
+    overflow:hidden;position:relative;
+  }
+  .gal .ph-bg{position:absolute;inset:0;background:repeating-linear-gradient(45deg,#FFE0B0 0 12px,#FFD18A 12px 24px)}
+  .gal .ph-label{
+    position:absolute;left:10px;bottom:10px;
+    font-family:ui-monospace,Menlo,monospace;font-size:11px;
+    background:var(--ink);color:var(--paper);padding:4px 8px;border-radius:6px;
+  }
+  .gal.span-2{grid-column:span 2}
+  .gal.row-2{grid-row:span 2}
+  .gal.span-3{grid-column:span 3}
+  .gal:nth-child(odd){transform:rotate(-1deg)}
+  .gal:nth-child(even){transform:rotate(1deg)}
+
+  /* ——— Booking / contact ——— */
+  .booking{background:var(--paper-2)}
+  .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .form-card{
+    background:#fff;border:3px solid var(--ink);border-radius:22px;
+    padding:30px;box-shadow:6px 6px 0 var(--ink);
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.full{grid-column:1/-1}
+  .field label{font-weight:700;font-size:14px}
+  .field input,.field select,.field textarea{
+    font:inherit;padding:12px 14px;border-radius:12px;
+    border:2.5px solid var(--ink);background:var(--paper);
+    outline:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    background:#fff;box-shadow:3px 3px 0 var(--orange);
+  }
+  .field textarea{min-height:110px;resize:vertical}
+  .form-status{
+    margin-top:14px;font-weight:700;
+    padding:10px 14px;border-radius:10px;
+    background:var(--leaf);color:#fff;
+    display:none;
+  }
+  .form-status.show{display:block}
+  .submit{
+    width:100%;font-size:17px;padding:14px 18px;border-radius:14px;
+    background:var(--orange);color:#fff;
+    border:3px solid var(--ink);font-weight:800;
+    cursor:pointer;box-shadow:5px 5px 0 var(--ink);
+    transition:transform .15s, box-shadow .15s;
+    font-family:'Fredoka';
+  }
+  .submit:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+
+  .contact-list{display:flex;flex-direction:column;gap:14px}
+  .contact-row{
+    display:flex;align-items:center;gap:16px;
+    background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:18px 20px;box-shadow:5px 5px 0 var(--ink);
+    text-decoration:none;color:var(--ink);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .contact-row:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .contact-row .ico{
+    width:48px;height:48px;border-radius:12px;
+    background:var(--sun);border:3px solid var(--ink);
+    display:grid;place-items:center;flex:none;
+    box-shadow:2px 2px 0 var(--ink);
+  }
+  .contact-row .ico svg{width:24px;height:24px}
+  .contact-row.fb .ico{background:#5BC0EB}
+  .contact-row.tt .ico{background:var(--ink);color:#fff}
+  .contact-row.mail .ico{background:var(--orange);color:#fff}
+  .contact-row .label{font-size:13px;color:#5a4a3e;font-weight:600}
+  .contact-row .val{font-family:'Bagel Fat One';font-size:20px;line-height:1.1;margin-top:2px}
+  .contact-row .arrow{margin-left:auto;font-weight:800;font-size:24px}
+
+  .quick-fact{
+    background:var(--ink);color:var(--paper);
+    border:3px solid var(--ink);border-radius:18px;padding:22px 24px;
+    box-shadow:6px 6px 0 var(--orange);
+  }
+  .quick-fact .scribble{color:var(--sun);font-size:24px}
+  .quick-fact ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+  .quick-fact li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+  .quick-fact li::before{content:"★";color:var(--sun);font-size:18px;line-height:1.3}
+
+  /* ——— FAQ ——— */
+  .faq{background:var(--paper)}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  details.q{
+    background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:18px 22px;box-shadow:4px 4px 0 var(--ink);
+    cursor:pointer;
+  }
+  details.q[open]{background:var(--sun)}
+  details.q summary{
+    list-style:none;font-weight:700;font-size:17px;
+    display:flex;justify-content:space-between;gap:14px;align-items:center;
+  }
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary::after{
+    content:"+";font-family:'Bagel Fat One';font-size:28px;line-height:.6;color:var(--orange-deep);
+  }
+  details.q[open] summary::after{content:"–";color:var(--ink)}
+  details.q p{margin:12px 0 0;font-size:15.5px;color:#3a2f28}
+
+  /* ——— Steeldecor partner banner ——— */
+  .partner{
+    padding:60px 28px 80px;background:var(--paper);
+  }
+  .partner-banner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;gap:28px;
+    background:#fff;
+    border:1.5px solid #d9cdb6;
+    border-radius:18px;
+    padding:22px 28px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    text-decoration:none;color:inherit;
+  }
+  .partner-banner:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 30px -10px rgba(26,20,19,.18);
+    border-color:#b8a98a;
+  }
+  .partner-mark{
+    width:64px;height:64px;border-radius:14px;flex:none;
+    background:linear-gradient(135deg,#3a3a3a,#1a1a1a);
+    display:grid;place-items:center;color:#fff;
+    font-family:'Bagel Fat One';font-size:24px;letter-spacing:1px;
+    border:1.5px solid #2a2a2a;
+  }
+  .partner-text{flex:1;min-width:0}
+  .partner-text .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#8a7d68;font-weight:700}
+  .partner-text .name{font-family:'Bagel Fat One';font-size:24px;color:var(--ink);margin-top:4px}
+  .partner-text .desc{font-size:14.5px;color:#5a4a3e;margin-top:4px}
+  .partner-arrow{
+    font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;
+    color:#5a4a3e;display:flex;align-items:center;gap:8px;flex:none;
+  }
+  .partner-banner:hover .partner-arrow{color:var(--ink)}
+
+  /* ——— Footer ——— */
+  footer{
+    background:var(--ink);color:var(--paper);
+    padding:46px 28px 30px;
+    border-top:3px solid var(--ink);
+  }
+  .foot-inner{max-width:1200px;margin:0 auto;display:flex;gap:28px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+  .foot-brand{display:flex;align-items:center;gap:12px}
+  .foot-brand .brand-mark{box-shadow:3px 3px 0 var(--orange)}
+  .foot-brand .brand-name{color:var(--paper)}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a{color:var(--paper);text-decoration:none;font-weight:600;font-size:15px;opacity:.85}
+  .foot-links a:hover{opacity:1;color:var(--sun)}
+  .foot-fine{font-size:13px;opacity:.6;margin-top:18px;text-align:center}
+
+  /* — Marquee — */
+  .marquee{
+    border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+    background:var(--ink);color:var(--sun);
+    overflow:hidden;
+  }
+  .marquee-track{
+    display:flex;gap:50px;
+    padding:14px 0;
+    white-space:nowrap;
+    animation:scroll 30s linear infinite;
+    font-family:'Bagel Fat One';font-size:26px;
+  }
+  .marquee-track span{display:inline-flex;align-items:center;gap:50px}
+  .marquee-track .dot{color:var(--orange)}
+  @keyframes scroll{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+  }
+
+  /* ——— Responsive ——— */
+  @media (max-width:980px){
+    .nav ul{display:none}
+    .hero-inner,.about-grid,.shows-grid,.aud-grid,.booking-grid,.faq-grid{grid-template-columns:1fr}
+    .gal-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:120px}
+    .gal.span-3{grid-column:span 3}.gal.span-2{grid-column:span 2}
+    .hero h1{font-size:64px}
+    .partner-banner{flex-direction:column;text-align:center;align-items:flex-start}
+    .partner-arrow{align-self:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <div class="brand-mark">G</div>
+      <div class="brand-name">Galiba Társulat</div>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#rolunk">Rólunk</a></li>
+        <li><a href="#musor">Műsor</a></li>
+        <li><a href="#kinek">Kinek</a></li>
+        <li><a href="#galeria">Galéria</a></li>
+        <li><a href="#gyik">GYIK</a></li>
+      </ul>
+    </nav>
+    <a href="#felkeres" class="nav-cta">Hívj minket! →</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">★ Miskolci gyerekszínház · 2014 óta ★</span>
+      <h1>
+        <span class="word-1">Galiba</span><br>
+        <span class="word-2">Társulat</span>
+      </h1>
+      <p class="lead">
+        Szia! Mi vidám előadásokat csinálunk gyerekeknek — bohóckodunk, énekelünk,
+        és néha mi magunk is libává változunk. Ha a tiéd a buli, az óvoda, az
+        iskola vagy a falunap, mi jövünk és galibát csinálunk. <span class="scribble">jó értelemben!</span>
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#felkeres">📞 Kérj időpontot</a>
+        <a class="btn btn-ghost" href="#musor">Mit játszunk?</a>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div class="hero-photo">
+        <div class="ph-bg"></div>
+        <div class="tape"></div>
+        <div class="ph-label">[ Fotó · társulat előadás közben ]</div>
+      </div>
+      <div class="hero-sticker s1">VIDÁM!<br>HANGOS!<br>JÓ!</div>
+      <div class="hero-sticker s2">MISKOLC<br>★ ★ ★</div>
+    </div>
+  </div>
+
+  <div class="hero-badges">
+    <div class="pill">🎭 Élő előadás</div>
+    <div class="pill alt">🎵 Saját zenék</div>
+    <div class="pill alt2">🎪 Bárhova megyünk</div>
+    <div class="pill">👶 3 évestől</div>
+    <div class="pill alt">🤝 Tegeződünk</div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>
+      GALIBA <span class="dot">●</span> NEVETÉS <span class="dot">●</span> ZENE <span class="dot">●</span> BOHÓCKODÁS <span class="dot">●</span> MESE <span class="dot">●</span> TÁNC <span class="dot">●</span>
+      GALIBA <span class="dot">●</span> NEVETÉS <span class="dot">●</span> ZENE <span class="dot">●</span> BOHÓCKODÁS <span class="dot">●</span> MESE <span class="dot">●</span> TÁNC <span class="dot">●</span>
+    </span>
+    <span>
+      GALIBA <span class="dot">●</span> NEVETÉS <span class="dot">●</span> ZENE <span class="dot">●</span> BOHÓCKODÁS <span class="dot">●</span> MESE <span class="dot">●</span> TÁNC <span class="dot">●</span>
+      GALIBA <span class="dot">●</span> NEVETÉS <span class="dot">●</span> ZENE <span class="dot">●</span> BOHÓCKODÁS <span class="dot">●</span> MESE <span class="dot">●</span> TÁNC <span class="dot">●</span>
+    </span>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="rolunk">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Mi a <em>Galiba</em>?</h2>
+      <p>Egy lelkes csapat Miskolcról, akik a gyerekek nevetésére esküdtünk fel. Komolyan. Papírunk is van róla. (Nincs.)</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <p>
+          A <strong>Galiba Társulat</strong> két bolond barát ötletéből nőtte ki magát egy
+          igazi gyerekszínházzá. Játszunk óvodákban, iskolákban, művelődési házakban,
+          szülinapokon, falunapokon — sőt, egyszer egy traktorról is.
+        </p>
+        <p>
+          Az előadásaink élnek: bevonjuk a gyerekeket, énekelünk velük, és nem
+          haragszunk meg, ha valaki közbekiabál. <span class="scribble">sőt!</span>
+          Hiszünk benne, hogy a színház akkor jó, ha utána is mindenki a poénokat ismételgeti.
+        </p>
+        <p>
+          Ha keresel egy programot, ami nem unalmas, nem hosszú, és nem akar
+          mindenáron tanítani — mi vagyunk azok.
+        </p>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="stat"><div class="num">10+</div><div class="lbl">év a színpadon</div></div>
+          <div class="stat"><div class="num">500+</div><div class="lbl">előadás</div></div>
+          <div class="stat"><div class="num">7</div><div class="lbl">saját műsor</div></div>
+          <div class="stat"><div class="num">∞</div><div class="lbl">galiba</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOWS ================= -->
+<section class="shows" id="musor">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Műsoraink</h2>
+      <p>Kattints, írj nekünk, és kiválasztjuk együtt, melyik passzol legjobban a ti közönségetekhez. Minden műsor 35–55 perces.</p>
+    </div>
+    <div class="shows-grid">
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">3–8 év</span>
+          <span class="ph-label">[ borító · A Lúd, aki túl sokat tudott ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">★ Legnépszerűbb</span>
+          <h3>A Lúd, aki túl<br>sokat tudott</h3>
+          <p>Egy gyanús kalapos és egy még gyanúsabb lúd. Nyomozós-bohóckodós zenés mese, amiben a gyerekek a detektívek.</p>
+          <div class="meta"><span>⏱ 45 perc</span><span>👥 3–8 év</span><span>🎵 élő zene</span></div>
+        </div>
+      </article>
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">5–10 év</span>
+          <span class="ph-label">[ borító · Galiba a vásárban ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">🎪 Interaktív</span>
+          <h3>Galiba a<br>vásárban</h3>
+          <p>Vurstli, sátrak, kikiáltók, és egy elveszett mézeskalács szív. A gyerekek segítenek megtalálni — ha mernek!</p>
+          <div class="meta"><span>⏱ 50 perc</span><span>👥 5–10 év</span><span>🎵 élő zene</span></div>
+        </div>
+      </article>
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">3–7 év</span>
+          <span class="ph-label">[ borító · A nagy nyári koncert ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">🎵 Zenés</span>
+          <h3>A nagy nyári<br>koncert</h3>
+          <p>Saját dalok, kórusban énekelt refrének, és egy igazi gitár, amin néha el is szakad a húr. Napsütésre kitalálva.</p>
+          <div class="meta"><span>⏱ 40 perc</span><span>👥 3–7 év</span><span>☀ szabadtér</span></div>
+        </div>
+      </article>
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">6–12 év</span>
+          <span class="ph-label">[ borító · Pikk-pakk Pista ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">🦸 Hős</span>
+          <h3>Pikk-pakk<br>Pista</h3>
+          <p>Pista lassú. Túl lassú. De amikor a falu bajba kerül, kiderül, hogy a lassúság néha pont elég gyors. Tanulság nélkül.</p>
+          <div class="meta"><span>⏱ 45 perc</span><span>👥 6–12 év</span><span>🎭 báb is</span></div>
+        </div>
+      </article>
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">4–9 év</span>
+          <span class="ph-label">[ borító · Mese a fülbevalóról ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">🎭 Klasszikus</span>
+          <h3>Mese a<br>fülbevalóról</h3>
+          <p>Régi népmesére hangolt, de modern füllel. Kicsit szomorú, kicsit vicces, kicsit ijesztő — pont, ahogy egy mese kell.</p>
+          <div class="meta"><span>⏱ 35 perc</span><span>👥 4–9 év</span><span>🎵 ének</span></div>
+        </div>
+      </article>
+
+      <article class="show">
+        <div class="cover">
+          <div class="ph-bg"></div>
+          <span class="age">minden kor</span>
+          <span class="ph-label">[ borító · Galiba Csúcs ]</span>
+        </div>
+        <div class="body">
+          <span class="tag">🎉 Esemény</span>
+          <h3>Galiba<br>Csúcs</h3>
+          <p>Falunapokra, szülinapokra, vásárokra: 60 perc kavalkád dalokkal, játékokkal és tombolával. Mindenki nyer valamit.</p>
+          <div class="meta"><span>⏱ 60 perc</span><span>👥 minden kor</span><span>🎁 ajándékok</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= AUDIENCE ================= -->
+<section class="audience" id="kinek">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Kinek <em>játszunk?</em></h2>
+      <p>Mindenkinek, aki nem fél a nevetéstől. Lehet egy ovis csoport, vagy egy egész falu — mi mindkettőre felkészültünk.</p>
+    </div>
+    <div class="aud-grid">
+      <div class="aud">
+        <div class="ico">Ó</div>
+        <h3>Óvodák</h3>
+        <p>Csoportszobás kis darabok, kevés kellékkel. Minden gyerek bekerül a sztoriba.</p>
+      </div>
+      <div class="aud">
+        <div class="ico">I</div>
+        <h3>Iskolák</h3>
+        <p>Tornaterem, aula, osztályterem — bárhol felépítjük a színpadot. Akár tanórán is.</p>
+      </div>
+      <div class="aud">
+        <div class="ico">F</div>
+        <h3>Falunapok</h3>
+        <p>Nagy színpad, hangosítás, full műsor. 30 főtől 3000-ig — élvezzük.</p>
+      </div>
+      <div class="aud">
+        <div class="ico">SZ</div>
+        <h3>Szülinapok</h3>
+        <p>Otthon, kertben, kerthelyiségben. Egy órás privát galiba a szülinapos köré építve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Galiba <em>pillanatok</em></h2>
+      <p>Néhány kép a hátizsák mélyéről. Ide majd a ti igazi fotóitok kerülnek!</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal span-2 row-2"><div class="ph-bg"></div><div class="ph-label">[ főkép · színpad ]</div></div>
+      <div class="gal"><div class="ph-bg"></div><div class="ph-label">[ közönség ]</div></div>
+      <div class="gal"><div class="ph-bg"></div><div class="ph-label">[ kellék ]</div></div>
+      <div class="gal span-2"><div class="ph-bg"></div><div class="ph-label">[ falunap ]</div></div>
+      <div class="gal span-2"><div class="ph-bg"></div><div class="ph-label">[ portré · társulat ]</div></div>
+      <div class="gal"><div class="ph-bg"></div><div class="ph-label">[ jelenet ]</div></div>
+      <div class="gal"><div class="ph-bg"></div><div class="ph-label">[ ének ]</div></div>
+      <div class="gal span-2"><div class="ph-bg"></div><div class="ph-label">[ backstage ]</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOOKING / CONTACT ================= -->
+<section class="booking" id="felkeres">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Hívj <em>fel minket!</em></h2>
+      <p>Írj pár sort, és 1–2 napon belül visszajelzünk időponttal és árajánlattal. Tegeződünk, így nyugodtan írj kötetlenül!</p>
+    </div>
+
+    <div class="booking-grid">
+      <form class="form-card" id="bookForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Hogy hívnak?</label>
+            <input id="name" name="name" type="text" placeholder="Pl. Kovács Anna" required>
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="anna@pelda.hu" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="event">Milyen alkalom?</label>
+            <select id="event" name="event">
+              <option>Óvodai / iskolai előadás</option>
+              <option>Falunap</option>
+              <option>Szülinap</option>
+              <option>Vállalati / családi nap</option>
+              <option>Egyéb</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Mikorra szeretnéd?</label>
+            <input id="date" name="date" type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="audience">Hány gyerek várható?</label>
+            <input id="audience" name="audience" type="text" placeholder="Pl. kb. 60">
+          </div>
+          <div class="field">
+            <label for="city">Hol legyen?</label>
+            <input id="city" name="city" type="text" placeholder="Település, helyszín">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field full">
+            <label for="msg">Mesélj egy kicsit róla</label>
+            <textarea id="msg" name="msg" placeholder="Mi az alkalom, milyen korú gyerekek, van-e színpad/hangosítás… bármi, ami eszedbe jut!"></textarea>
+          </div>
+        </div>
+        <button class="submit" type="submit">Galibát kérek! ✨</button>
+        <div class="form-status" id="status">Köszi! Megkaptuk az üzeneted, hamarosan jelentkezünk. 🎭</div>
+      </form>
+
+      <aside>
+        <div class="contact-list">
+          <a class="contact-row mail" href="mailto:hello@galibatarsulat.hu">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </div>
+            <div>
+              <div class="label">E-mail</div>
+              <div class="val">hello@galibatarsulat.hu</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="contact-row fb" href="https://www.facebook.com/galibatarsulat/?locale=hu_HU" target="_blank" rel="noopener">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.4-1.8 2-1.8h2V2.2C16.6 2.1 15.6 2 14.5 2 11.9 2 10 3.6 10 6.6V10H7v4h3v8h3z"/></svg>
+            </div>
+            <div>
+              <div class="label">Facebook</div>
+              <div class="val">@galibatarsulat</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="contact-row tt" href="https://www.tiktok.com/@galibamatyi" target="_blank" rel="noopener">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3v3.4c1.2 1 2.6 1.6 4 1.6v3.5c-1.5 0-3-.4-4.3-1.2v6.2A6.5 6.5 0 1 1 9.2 10v3.6A3 3 0 1 0 12 16.5V3h4z"/></svg>
+            </div>
+            <div>
+              <div class="label">TikTok</div>
+              <div class="val">@galibamatyi</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="contact-row" href="tel:+36301234567">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
+            </div>
+            <div>
+              <div class="label">Telefon</div>
+              <div class="val">+36 30 123 4567</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+        </div>
+
+        <div class="quick-fact" style="margin-top:18px">
+          <div class="scribble">Mit jó tudni…</div>
+          <ul>
+            <li>Bárhova megyünk Magyarországon (Miskolcról indulunk).</li>
+            <li>Saját hangtechnikát is tudunk hozni 200 főig.</li>
+            <li>Beltér, kültér — mindkettő OK, csak kérünk egy fa alá árnyékot. ☂</li>
+            <li>Számlát adunk, ÁFÁsan / alanyi mentesen, ahogy kell.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq" id="gyik">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Gyakori <em>kérdések</em></h2>
+      <p>Amit a legtöbben kérdeznek, mielőtt felkérnek minket. Ha valami hiányzik, kérdezd meg te is!</p>
+    </div>
+    <div class="faq-grid">
+      <details class="q" open>
+        <summary>Mennyibe kerül egy előadás?</summary>
+        <p>A távolságtól, a közönség méretétől és a műsortól függ. Egy ovis előadás Miskolcon és környékén olcsóbb, mint egy 800 fős falunap a túlsó megyében — de ne rettenj meg, írj nekünk és pont rád szabunk árat.</p>
+      </details>
+      <details class="q">
+        <summary>Milyen technika kell?</summary>
+        <p>Kis közönséghez (50 fő) elég egy konnektor és pár négyzetméter. Nagyobb eseményhez tudunk vinni saját hangtechnikát, vagy rácsatlakozunk a meglévőre.</p>
+      </details>
+      <details class="q">
+        <summary>Hány éves kortól ajánljátok?</summary>
+        <p>3 éves kortól van programunk. Minden műsornál jelezzük a célkorosztályt, és igény szerint kicsit hangoljuk a darabot a tényleges közönséghez.</p>
+      </details>
+      <details class="q">
+        <summary>Mennyi idő egy előadás?</summary>
+        <p>35–60 perc között, attól függően melyik műsort választjátok. Falunapra van 60 perces blokkos verzió is.</p>
+      </details>
+      <details class="q">
+        <summary>Mennyi idővel előre kell szólni?</summary>
+        <p>Minél hamarabb, annál jobb! Tavasz és kora ősz a legnagyobb szezon, ilyenkor 1–2 hónappal előre szoktunk telni.</p>
+      </details>
+      <details class="q">
+        <summary>Tudtok angolul, németül játszani?</summary>
+        <p>Nem, viszont a nevetésnek nincs nyelve, így vegyes nyelvű közönségen is jól szoktunk működni. :)</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEELDECOR PARTNER ================= -->
+<section class="partner" aria-label="Partnerünk">
+  <a class="partner-banner" href="https://steeldecor.hu" target="_blank" rel="noopener">
+    <div class="partner-mark">SD</div>
+    <div class="partner-text">
+      <div class="kicker">Partnerünk</div>
+      <div class="name">Steeldecor</div>
+      <div class="desc">Egyedi fém dekorációk, díszek és berendezési tárgyak — steeldecor.hu</div>
+    </div>
+    <div class="partner-arrow">Megnézem →</div>
+  </a>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="brand-mark">G</div>
+      <div class="brand-name">Galiba Társulat</div>
+    </div>
+    <div class="foot-links">
+      <a href="#rolunk">Rólunk</a>
+      <a href="#musor">Műsor</a>
+      <a href="#kinek">Kinek</a>
+      <a href="#galeria">Galéria</a>
+      <a href="#felkeres">Kapcsolat</a>
+      <a href="https://www.facebook.com/galibatarsulat/?locale=hu_HU" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.tiktok.com/@galibamatyi" target="_blank" rel="noopener">TikTok</a>
+    </div>
+  </div>
+  <div class="foot-fine">© Galiba Társulat · Miskolc · Készült sok nevetéssel.</div>
+</footer>
+
+<script>
+  // simple form handler
+  const form = document.getElementById('bookForm');
+  const status = document.getElementById('status');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    status.classList.add('show');
+    form.reset();
+    setTimeout(()=>status.classList.remove('show'), 5000);
+  });
+
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href');
+      if(id.length>1){
+        const t = document.querySelector(id);
+        if(t){ e.preventDefault(); t.scrollIntoView ? window.scrollTo({top:t.offsetTop-80, behavior:'smooth'}) : null; }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

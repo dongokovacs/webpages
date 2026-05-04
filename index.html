@@ -6,14 +6,78 @@
   <title>Projektjeim</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Hero fade-in */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-title {
+      animation: fadeDown 0.6s ease both;
+    }
+
+    /* Skeleton pulse */
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.4s infinite linear;
+      border-radius: 1rem;
+    }
+
+    /* Card entrance */
+    .card {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.5s ease, transform 0.5s ease,
+                  box-shadow 0.25s ease, scale 0.25s ease;
+    }
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card:hover {
+      scale: 1.03;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    /* Button arrow slide */
+    .card-btn {
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .card-btn::after {
+      content: '→';
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: right 0.2s ease;
+    }
+    .card-btn:hover::after {
+      right: 1rem;
+    }
+    .card-btn:hover {
+      padding-right: 2.5rem;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 text-gray-900">
 
   <div class="max-w-6xl mx-auto px-4 py-10">
-    <h1 class="text-4xl font-bold mb-8">🚀 Projektjeim</h1>
+    <h1 class="text-4xl font-bold mb-8 hero-title">🚀 Projektjeim</h1>
 
-    <div id="projects" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="projects" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- skeleton placeholders -->
+      <div class="skeleton h-72"></div>
+      <div class="skeleton h-72"></div>
+      <div class="skeleton h-72"></div>
+    </div>
   </div>
 
   <script>
@@ -21,27 +85,37 @@
       .then(res => res.json())
       .then(projects => {
         const container = document.getElementById('projects');
+        container.innerHTML = '';
 
-        projects.forEach(p => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        projects.forEach((p, i) => {
           const card = document.createElement('div');
-          card.className = "bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden";
+          card.className = "card bg-white rounded-2xl shadow overflow-hidden";
+          card.style.transitionDelay = `${i * 80}ms`;
 
           card.innerHTML = `
             <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover"/>
-
             <div class="p-5">
               <h2 class="text-xl font-semibold mb-2">${p.title}</h2>
               <p class="text-sm text-gray-600 mb-4">${p.description}</p>
-
               <a href="${p.link}"
                  ${p.download ? 'download' : ''}
-                 class="inline-block w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
-                ${p.download ? 'Letöltés ↓' : 'Megnyitás →'}
+                 class="card-btn inline-block w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800">
+                ${p.download ? 'Letöltés ↓' : 'Megnyitás'}
               </a>
             </div>
           `;
 
           container.appendChild(card);
+          observer.observe(card);
         });
       })
       .catch(err => {

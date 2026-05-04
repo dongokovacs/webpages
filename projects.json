@@ -1,27 +1,20 @@
 [
   {
-    "title": "Homework 3",
-    "description": "3. házi feladat – ZIP archívum letöltése.",
-    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80&auto=format&fit=crop",
-    "link": "homework3kd.zip",
-    "download": true
+    "title": "Galiba Társulat – Portfolio",
+    "description": "Galiba Társulat bemutatkozó portfólió oldal.",
+    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80&auto=format&fit=crop",
+    "link": "Galiba2/Galiba-Portfolio.html"
+  },
+  {
+    "title": "Galiba Társulat – Landing",
+    "description": "Gyerekszínház Miskolcról – vidám előadások, bohóckodás, galiba.",
+    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80&auto=format&fit=crop",
+    "link": "galiba/"
   },
   {
     "title": "Bübe virágbolt",
     "description": "Modern virágbolt landing oldal, letisztult designnal.",
     "image": "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1600&q=80&auto=format&fit=crop",
     "link": "bube-viragbolt/"
-  },
-  {
-    "title": "Projekt 2",
-    "description": "Teszt projekt leírása ide.",
-    "image": "https://via.placeholder.com/600x300",
-    "link": "projekt2/"
-  },
-  {
-    "title": "Projekt 3",
-    "description": "Teszt projekt leírása ide.",
-    "image": "https://via.placeholder.com/600x300",
-    "link": "projekt3/"
   }
 ]
