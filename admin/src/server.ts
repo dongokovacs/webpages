@@ -32,16 +32,18 @@ function loadUsers(): Record<string, UserConfig> {
   return {};
 }
 
-const SITES: Record<string, { label: string; ghPath: string; localPath: string }> = {
+const SITES: Record<string, { label: string; ghPath: string; localPath: string; previewUrl: string }> = {
   galiba: {
     label: 'Galiba Társulat',
     ghPath: 'galiba/index.html',
     localPath: path.join(ROOT, 'galiba/index.html'),
+    previewUrl: 'https://dongokovacs.github.io/webpages/galiba/',
   },
   'bube-viragbolt': {
     label: 'Bübe virágbolt',
     ghPath: 'bube-viragbolt/index.html',
     localPath: path.join(ROOT, 'bube-viragbolt/index.html'),
+    previewUrl: 'https://dongokovacs.github.io/webpages/bube-viragbolt/',
   },
 };
 
@@ -299,7 +301,8 @@ app.get('/', (_req: Request, res: Response) => {
 </div>
 
 <script>
-  const SITE_LABELS = { galiba: 'Galiba Társulat', 'bube-viragbolt': 'Bübe virágbolt' };
+  const SITE_LABELS   = { galiba: 'Galiba Társulat', 'bube-viragbolt': 'Bübe virágbolt' };
+  const SITE_PREVIEWS = { galiba: 'https://dongokovacs.github.io/webpages/galiba/', 'bube-viragbolt': 'https://dongokovacs.github.io/webpages/bube-viragbolt/' };
 
   const $ = id => document.getElementById(id);
   const loginScreen = $('login-screen'), appScreen = $('app-screen');
@@ -362,7 +365,7 @@ app.get('/', (_req: Request, res: Response) => {
       container.innerHTML = '<p class="empty">Válassz egy oldalt fent!</p>';
       saveBtn.disabled = true; previewBtn.style.display = 'none'; return;
     }
-    previewBtn.href = '/' + currentSite + '/';
+    previewBtn.href = SITE_PREVIEWS[currentSite] || '/' + currentSite + '/';
     previewBtn.style.display = 'inline-block';
     loadFields(currentSite);
   });

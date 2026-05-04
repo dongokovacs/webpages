@@ -209,17 +209,16 @@
     }
 
     .hero-logo {
-      font-family: 'Baloo 2', cursive;
-      font-size: clamp(3.5rem, 12vw, 8rem);
+      margin: 0;
       line-height: 1;
-      color: var(--orange);
-      text-shadow:
-        4px 4px 0 var(--orange-dark),
-        -2px -2px 0 #000,
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-      letter-spacing: 2px;
+    }
+
+    .hero-logo-img {
+      width: clamp(220px, 55vw, 520px);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(4px 6px 0px rgba(0,0,0,0.25));
     }
 
     .hero-sub {
@@ -696,6 +695,108 @@
       50% { transform: rotate(3deg); }
     }
 
+    /* ── GALLERY ACCORDION ── */
+    .gallery { background: var(--cream); }
+
+    .gallery-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    details.gal-item {
+      background: white;
+      border: 4px solid var(--dark);
+      border-radius: var(--radius);
+      box-shadow: 6px 6px 0 var(--orange);
+      overflow: hidden;
+    }
+
+    details.gal-item[open] {
+      box-shadow: 6px 6px 0 var(--orange-dark);
+    }
+
+    details.gal-item > summary {
+      list-style: none;
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      padding: 1.2rem 1.6rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      user-select: none;
+    }
+
+    details.gal-item > summary::-webkit-details-marker { display: none; }
+
+    details.gal-item > summary::after {
+      content: "+";
+      font-family: 'Baloo 2', cursive;
+      font-size: 2rem;
+      color: var(--orange);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    details.gal-item[open] > summary {
+      background: var(--yellow-light);
+      border-bottom: 3px solid var(--orange);
+    }
+
+    details.gal-item[open] > summary::after {
+      content: "–";
+      color: var(--orange-dark);
+    }
+
+    .gal-body {
+      padding: 1.5rem 1.6rem 2rem;
+    }
+
+    .gal-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .gal-photos img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid var(--orange);
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gal-photos img:hover {
+      transform: scale(1.03);
+      box-shadow: 4px 4px 0 var(--orange-dark);
+    }
+
+    .gal-text {
+      font-size: 1rem;
+      line-height: 1.75;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--yellow-light);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      border-left: 5px solid var(--orange);
+    }
+
+    .gal-summary-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .gal-summary-icon { font-size: 1.5rem; }
+
     /* ── RESPONSIVE NAV ── */
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -712,7 +813,9 @@
 <section class="hero" id="kezdolap">
   <div class="sunburst"></div>
   <div class="hero-content">
-    <h1 class="hero-logo" data-editable="hero-cim" data-label="Hero – Főcím">Galiba<br>Társulat</h1>
+    <h1 class="hero-logo">
+      <img src="galiba-logo.png" alt="Galiba Társulat" class="hero-logo-img">
+    </h1>
     <div class="hero-sub" data-editable="hero-alcim" data-label="Hero – Alcím">🎭 Miskolc legjáratosabb gyerekszínháza 🎭</div>
     <div class="hero-tagline">
       <span class="wobble">🤹</span>
@@ -732,6 +835,7 @@
   <ul class="nav-links">
     <li><a href="#rolunk">Rólunk</a></li>
     <li><a href="#eloadasok">Előadások</a></li>
+    <li><a href="#emlekek">Emlékek</a></li>
     <li><a href="#felkeres">Hogyan kérj fel?</a></li>
     <li><a href="#kapcsolat">Kapcsolat</a></li>
   </ul>
@@ -830,6 +934,78 @@
         <span class="tag">Fesztivál</span>
         <span class="tag">Falunapok</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section class="gallery" id="emlekek">
+  <div class="container">
+    <h2 class="section-title" data-editable="emlekek-cim" data-label="Emlékek – Szekció cím">Emlékek a pályáról 📸</h2>
+    <div class="gallery-list">
+
+      <details class="gal-item">
+        <summary>
+          <span class="gal-summary-inner"><span class="gal-summary-icon">🎅</span> <span data-editable="emlekek-1-cim" data-label="Emlékek 1 – Cím">Miskolci Mikulás Vonat</span></span>
+        </summary>
+        <div class="gal-body">
+          <div class="gal-photos">
+            <img src="https://picsum.photos/seed/mikulas-vonat-1/600/450" alt="Mikulás vonat télen">
+            <img src="https://picsum.photos/seed/mikulas-vonat-2/600/450" alt="Gyerekek a Mikulással">
+            <img src="https://picsum.photos/seed/mikulas-vonat-3/600/450" alt="Téli vasúti hangulat">
+            <img src="https://picsum.photos/seed/mikulas-vonat-4/600/450" alt="Karácsonyi ajándékok">
+          </div>
+          <p class="gal-text" data-editable="emlekek-1-szoveg" data-label="Emlékek 1 – Szöveg">A miskolci Mikulás vonat igazi téli varázslat volt – a sínek mentén hóesés, a vagonokban pedig csupa nevetés. Megérkezett a Mikulás, és a gyerekek szemében azonnal felragyogott a csoda. Hideg volt odakint, de nem vette észre senki, mert mi gondoskodtunk róla, hogy mindenki mozgásban maradjon – játszottunk, énekeltünk, táncoltunk, és persze egy kicsit galibáztunk. A kicsik sorban álltak a közös fotóért, mi meg biztosítottuk a háttérzajt. Az egész nap olyan volt, mintha benne lett volna egy mesekönyvben – csak vontatott egy igazi mozgó mozdony. Hazafelé mindenki boldog arccal ment, a szülők meg azt mondták, hogy már jövőre is eljönnek. Mi sem kívánhattunk volna szebbet.</p>
+        </div>
+      </details>
+
+      <details class="gal-item">
+        <summary>
+          <span class="gal-summary-inner"><span class="gal-summary-icon">🌳</span> <span data-editable="emlekek-2-cim" data-label="Emlékek 2 – Cím">Budapest – Városligeti Napok</span></span>
+        </summary>
+        <div class="gal-body">
+          <div class="gal-photos">
+            <img src="https://picsum.photos/seed/varosliget-1/600/450" alt="Városligeti park tavasszal">
+            <img src="https://picsum.photos/seed/varosliget-2/600/450" alt="Szabadtéri előadás gyerekekkel">
+            <img src="https://picsum.photos/seed/varosliget-3/600/450" alt="Tavaszi fesztivál hangulat">
+            <img src="https://picsum.photos/seed/varosliget-4/600/450" alt="Lelkes gyerek közönség">
+            <img src="https://picsum.photos/seed/varosliget-5/600/450" alt="Napsütéses parki show">
+          </div>
+          <p class="gal-text" data-editable="emlekek-2-szoveg" data-label="Emlékek 2 – Szöveg">A Városliget adott otthont ennek a csodálatos tavaszi rendezvénynek, ahol több ezer gyerek és szülő töltötte az egész napot a szabadban. Mi is kaptunk egy szép nagy színpadot – és teli lett nézőkkel pillanatok alatt. Az első pár sorban egy hangos kis csapat ült, akik minden egyes szóra reagáltak: kiabáltak, nevettek, és a végén táncra perdültek. Budapest közepén, a százéves fák alatt játszani teljesen más érzés, mint egy iskolai tornateremben. A nap végére a hangunkat is elhasználtuk, de megérte minden egyes pillanat. Olyan lelkesen tapsoltak, hogy még a fák levelei is megrezzentek. Máris visszahívtak jövőre – és mi természetesen igent mondtunk.</p>
+        </div>
+      </details>
+
+      <details class="gal-item">
+        <summary>
+          <span class="gal-summary-inner"><span class="gal-summary-icon">🍖</span> <span data-editable="emlekek-3-cim" data-label="Emlékek 3 – Cím">Miskolci Kocsonyafesztivál</span></span>
+        </summary>
+        <div class="gal-body">
+          <div class="gal-photos">
+            <img src="https://picsum.photos/seed/kocsonya-1/600/450" alt="Téli szabadtéri fesztivál">
+            <img src="https://picsum.photos/seed/kocsonya-2/600/450" alt="Gasztrofesztivál hangulat">
+            <img src="https://picsum.photos/seed/kocsonya-3/600/450" alt="Havas tömeg a rendezvényen">
+            <img src="https://picsum.photos/seed/kocsonya-4/600/450" alt="Gyerekek téli előadáson">
+          </div>
+          <p class="gal-text" data-editable="emlekek-3-szoveg" data-label="Emlékek 3 – Szöveg">A Kocsonyafesztivál az egyik leghangulatosabb téli rendezvény Miskolcon – ahol kocsonya, sólet és egy kis galiba is elfér egymás mellett. Mi hoztuk a gyerekprogramot, miközben a felnőttek degusztatáltak. Kemény hideg volt, a hó csikorgott minden lépésnél, de mi játszottunk, mintha nyár lett volna. A kis nézők bundában, sapkában és sállal a nyakukban tolakodtak az első sorba – és senki sem akart hazamenni. Volt, aki ötödször is visszajött megnézni az előadást, mert "még egyszer szeretnék nevetni". A kocsonya illata meg a mi hangos nevetésünk – nem szokványos kombináció, de működik. Miskolc télen is tud ünnepelni, és mi büszkék vagyunk, hogy részei lehettünk ennek.</p>
+        </div>
+      </details>
+
+      <details class="gal-item">
+        <summary>
+          <span class="gal-summary-inner"><span class="gal-summary-icon">🎡</span> <span data-editable="emlekek-4-cim" data-label="Emlékek 4 – Cím">Sajószentpéteri Napok</span></span>
+        </summary>
+        <div class="gal-body">
+          <div class="gal-photos">
+            <img src="https://picsum.photos/seed/sajoszentpeter-1/600/450" alt="Helyi falunap hangulat">
+            <img src="https://picsum.photos/seed/sajoszentpeter-2/600/450" alt="Szabadtéri népi színpad">
+            <img src="https://picsum.photos/seed/sajoszentpeter-3/600/450" alt="Táncoló gyerekek">
+            <img src="https://picsum.photos/seed/sajoszentpeter-4/600/450" alt="Nyári főtéri előadás">
+            <img src="https://picsum.photos/seed/sajoszentpeter-5/600/450" alt="Közönség a városünnepen">
+          </div>
+          <p class="gal-text" data-editable="emlekek-4-szoveg" data-label="Emlékek 4 – Szöveg">Sajószentpéter fogadta be a Galiba Társulatot a helyi városünnepen, ahol a fő téren volt a mi kis színpadunk – és milyen tér volt az! Sürgő-forgó az egész rendezvény, mindenki ismert mindenkit, és mi csak fokozni tudtuk a hangulatot. A gyerekek az élet legjobb közönsége – kiabáltak, mulattak, és a vége felé már ők vezényeltek minket. Egy kisfiú annyira belelendült a játékba, hogy kis híján átvette az egész előadást tőlünk – mi meg hagytuk, mert zseniálisan csinálta. Máig emlegetjük ezt a napot, mert ilyen spontán, örömteli hangulatba ritkán kerülünk. Sajószentpéter, visszajövünk – ezt megígérjük!</p>
+        </div>
+      </details>
+
     </div>
   </div>
 </section>
