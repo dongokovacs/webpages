@@ -14,9 +14,22 @@ const USE_GITHUB  = !!process.env.GITHUB_TOKEN;
 interface UserConfig { password: string; sites: string[] }
 
 function loadUsers(): Record<string, UserConfig> {
-  if (process.env.ADMIN_USERS) return JSON.parse(process.env.ADMIN_USERS);
-  const f = path.join(__dirname, '../users.json');
-  return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf-8')) : {};
+  if (process.env.ADMIN_USERS) {
+    try { return JSON.parse(process.env.ADMIN_USERS); }
+    catch { console.error('ADMIN_USERS env var: érvénytelen JSON'); }
+  }
+  const candidates = [
+    path.join(__dirname, '../users.json'),          // lokális: admin/src -> admin/
+    path.join(process.cwd(), 'admin/users.json'),   // Vercel: /var/task/admin/
+    path.join(process.cwd(), 'users.json'),
+  ];
+  for (const f of candidates) {
+    try {
+      if (fs.existsSync(f)) return JSON.parse(fs.readFileSync(f, 'utf-8'));
+    } catch { continue; }
+  }
+  console.error('Nem található users.json, ellenőrizd az ADMIN_USERS env var-t!');
+  return {};
 }
 
 const SITES: Record<string, { label: string; ghPath: string; localPath: string }> = {
