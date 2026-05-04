@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($job = Start-Job -ScriptBlock { cd \"c:\\\\Users\\\\megye\\\\Documents\\\\dani\\\\git\\\\webpages\\\\admin\"; npx tsx src/server.ts }; Start-Sleep 4; \\(Invoke-WebRequest -Uri \"http://localhost:3333/api/fields/galiba\" -UseBasicParsing\\).Content | ConvertFrom-Json | Select-Object key, label | Format-Table -AutoSize)"
+    ]
+  }
+}
