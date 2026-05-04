@@ -1,10 +1,15 @@
 {
-  "rewrites": [
-    { "source": "/",                    "destination": "/api/admin" },
-    { "source": "/api/login",           "destination": "/api/admin" },
-    { "source": "/api/logout",          "destination": "/api/admin" },
-    { "source": "/api/me",              "destination": "/api/admin" },
-    { "source": "/api/fields/:site",    "destination": "/api/admin" },
-    { "source": "/api/save/:site",      "destination": "/api/admin" }
+  "version": 2,
+  "builds": [
+    { "src": "api/admin.ts", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/login",                  "dest": "/api/admin.ts" },
+    { "src": "/api/logout",                 "dest": "/api/admin.ts" },
+    { "src": "/api/me",                     "dest": "/api/admin.ts" },
+    { "src": "/api/fields/([^/]+)",         "dest": "/api/admin.ts" },
+    { "src": "/api/save/([^/]+)",           "dest": "/api/admin.ts" },
+    { "src": "/",                           "dest": "/api/admin.ts" },
+    { "handle": "filesystem" }
   ]
 }
