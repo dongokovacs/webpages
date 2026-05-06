@@ -36,9 +36,10 @@ jobs:
 
       - name: Assemble site
         run: |
-          mkdir _site
-          rsync -a --exclude=_site --exclude=.git --exclude=.github --exclude=node_modules --exclude=bube-viragbolt . _site/
-          cp -r bube-viragbolt/dist _site/bube-viragbolt
+          mkdir -p _site/bube-viragbolt
+          cp index.html projects.json robots.txt sitemap.xml _site/
+          cp -r galiba Galiba2 _site/
+          cp -r bube-viragbolt/dist/. _site/bube-viragbolt/
 
       - uses: actions/configure-pages@v5
 
