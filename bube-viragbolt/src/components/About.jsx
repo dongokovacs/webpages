@@ -27,14 +27,16 @@ export default function About({ fontClass }) {
             </h2>
             <div className="mt-7 space-y-5 text-ink-700/85 text-lg leading-relaxed max-w-xl">
               <p>
-                A Bübe Virág egy családias kis virágüzlet a Szent István téren. Évek óta
-                kötjük a környékbeli ünnepek, esküvők és csendes búcsúk csokrait — mindig
-                kézzel, mindig egyedi módon.
+                A Bübe Virág egy családias virágüzlet Maglód szívében, a Szent István téren.
+                Évek óta kötjük a Maglód, Ecser, Üllő, Vecsés és Gyömrő környékén élők
+                ünnepeinek, esküvőinek és csendes búcsúinak csokrait — mindig kézzel,
+                mindig egyedi módon.
               </p>
               <p>
-                Hiszünk abban, hogy egy szál virág is lehet csodás, és hogy egy jó csokor
-                több, mint a részei összege. Beszélgessünk: mondja el, kinek és milyen
-                alkalomra szól, mi pedig megálmodjuk önnel együtt.
+                Ünnepi élőcsokroktól és menyasszonyi boukettektől a kegyeleti koszorúkig,
+                asztaldíszektől az autódíszekig — minden szezonális virágból, személyre
+                szabva. Hiszünk abban, hogy egy szál virág is lehet csodás. Mondja el,
+                kinek és milyen alkalomra szól, mi megálmodjuk Önnel együtt.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-eucalypt-500 font-mono uppercase tracking-wider">

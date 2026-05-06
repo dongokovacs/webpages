@@ -7,8 +7,12 @@ const faqs = [
     a: 'Igen, telefonon is szívesen fogadunk rendeléseket a +36 70 633 0498 számon. Kegyeleti koszorúknál különösen ajánljuk a telefonos egyeztetést a gyors kiszolgálás érdekében.',
   },
   {
-    q: 'Mikor nyit a virágüzlet Maglódon?',
-    a: 'Hétfőtől péntekig 8:00–17:00, szombaton 8:00–14:00, vasárnap 8:00–12:00 között várjuk vendégeinket a 2234 Maglód, Szent István tér 5. szám alatt.',
+    q: 'Vállaltok-e aznapi virágküldést Maglódra és környékére?',
+    a: 'Aznapi virágküldést vállalunk Maglódra, Ecserre, Üllőre, Vécsésre és Gyömrőre, ha a megrendelés reggel 10 óráig beérkezik. Hívjon minket a +36 70 633 0498 számon.',
+  },
+  {
+    q: 'Mennyibe kerül egy menyasszonyi csokor Maglódon?',
+    a: 'A menyasszonyi csokrok ára az egyedi elképzelések, a virágok típusa és a szezonalitás szerint változik. Személyes egyeztetésen — telefonon vagy a boltban — részletes ajánlatot adunk. Hívjon minket a +36 70 633 0498 számon.',
   },
   {
     q: 'Vállalnak esküvői virágdíszítést?',
@@ -17,6 +21,10 @@ const faqs = [
   {
     q: 'Milyen alkalmi csokrokat lehet rendelni?',
     a: 'Születésnap, évforduló, ballagás, anyák napja és minden egyéb ünnepi alkalom — szezonális virágokból, kézzel kötve. Mondja el, kinek és milyen alkalomra szól, mi megálmodjuk Önnel együtt.',
+  },
+  {
+    q: 'Mikor nyit a virágüzlet Maglódon?',
+    a: 'Hétfőtől péntekig 8:00–17:00, szombaton 8:00–14:00, vasárnap 8:00–12:00 között várjuk vendégeinket a 2234 Maglód, Szent István tér 5. szám alatt.',
   },
   {
     q: 'Hol található a Bübe Virág virágüzlet?',
