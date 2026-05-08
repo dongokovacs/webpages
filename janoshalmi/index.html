@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jánoshalmi Pálinkafőzde Kft — Mesterszintű pálinkák</title>
+<meta name="description" content="Limitált sorozatú, mesterszintű párlatok. Corvinus pálinkamesteri képzés, vad erdei gyümölcsök, kézműves minőség. 1171 Budapest, Körömvirág utca 42.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0d0b09;
+    --bg-2:     #141008;
+    --bg-3:     #1c1610;
+    --surface:  #261e14;
+    --cream:    #f0e8d8;
+    --text:     #ddd0bc;
+    --text-soft:#9a8870;
+    --text-mute:#5a5038;
+    --line:     rgba(200,155,80,.16);
+    --copper:   #c87838;
+    --copper-2: #e09440;
+    --gold:     #d4a850;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Geist", -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+  /* ── NAV ── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 22px 0;
+    transition: background .4s, padding .4s, border-color .4s;
+    border-bottom: 1px solid transparent;
+  }
+  .topbar.scrolled {
+    background: rgba(13,11,9,.9);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    padding: 14px 0;
+    border-color: var(--line);
+  }
+  .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand {
+    font-family: "Instrument Serif", serif;
+    font-size: 20px; letter-spacing: -0.015em; color: var(--cream);
+    display: flex; align-items: baseline; gap: 2px; flex-shrink: 0;
+  }
+  .brand em { font-style: italic; color: var(--copper); }
+  .nav-links { display: flex; gap: 2px; margin-left: auto; }
+  .nav-link {
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; color: var(--text-soft);
+    transition: color .2s, background .2s; white-space: nowrap;
+  }
+  .nav-link:hover { color: var(--cream); background: rgba(255,255,255,.06); }
+  .nav-cta {
+    background: var(--copper); color: var(--bg);
+    padding: 9px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; white-space: nowrap;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--copper-2); transform: translateY(-1px); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100svh; min-height: 680px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  #hero-bg {
+    position: absolute;
+    top: -25%; left: 0; right: 0; bottom: -25%;
+    z-index: 0; will-change: transform;
+  }
+  #hero-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(to top, var(--bg) 0%, rgba(13,11,9,.72) 45%, rgba(13,11,9,.25) 100%),
+      radial-gradient(ellipse 55% 70% at 75% 25%, rgba(200,120,56,.28), transparent);
+  }
+  #hero-content {
+    position: relative; z-index: 2;
+    width: 100%; padding-bottom: 88px;
+    will-change: transform;
+  }
+  .hero-kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-kicker::before { content: ""; width: 32px; height: 1px; background: var(--copper); flex-shrink: 0; }
+  h1.hero-title {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.9; letter-spacing: -0.03em;
+    color: var(--cream); margin-bottom: 40px;
+    max-width: 1000px;
+  }
+  h1.hero-title em { font-style: italic; color: var(--copper); }
+  .hero-bottom {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 40px; flex-wrap: wrap;
+  }
+  .hero-desc { max-width: 420px; color: var(--text-soft); font-size: 16px; line-height: 1.75; }
+  .hero-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; color: var(--text-mute); letter-spacing: 0.1em;
+    text-transform: uppercase; line-height: 2; text-align: right;
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 28px; left: 50%; z-index: 3;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--text-mute); animation: si-fade 2s 1.5s both;
+  }
+  .scroll-indicator .bar {
+    width: 1px; height: 44px; background: linear-gradient(to bottom, var(--copper), transparent);
+    animation: bar-grow 2.4s ease-in-out infinite;
+  }
+  @keyframes si-fade { from { opacity:0; transform: translateX(-50%) translateY(12px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+  @keyframes bar-grow { 0%,100%{opacity:.3;transform:scaleY(.5);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
+
+  /* ── MARQUEE ── */
+  .marquee {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    background: var(--bg-2); padding: 22px 0; overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 52px; width: max-content;
+    animation: marq 50s linear infinite;
+  }
+  .marquee-track span {
+    font-family: "Instrument Serif", serif; font-style: italic;
+    font-size: 30px; color: var(--text-soft); white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 52px;
+  }
+  .marquee-track span::after { content: "✦"; color: var(--copper); font-size: 16px; font-style: normal; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+
+  /* ── GENERAL SECTION HELPERS ── */
+  .skicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skicker::before { content: ""; width: 28px; height: 1px; background: var(--copper); }
+  .section-title {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(36px, 4.8vw, 72px);
+    line-height: 1; letter-spacing: -0.02em; color: var(--cream);
+  }
+  .section-title em { font-style: italic; color: var(--copper); }
+
+  /* ── ABOUT ── */
+  .about { padding: 140px 0; border-bottom: 1px solid var(--line); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  @media (max-width: 960px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .about h2 { margin-bottom: 36px; }
+  .about p { color: var(--text-soft); font-size: 16px; line-height: 1.8; margin-bottom: 22px; }
+  .about p:last-child { margin-bottom: 0; }
+  .about-visual { position: relative; }
+  .about-img {
+    aspect-ratio: 3/4; border-radius: 2px; overflow: hidden;
+    position: relative; background: var(--surface);
+  }
+  .about-img img {
+    width: 100%; height: 120%;
+    object-fit: cover; will-change: transform;
+    transform-origin: center top;
+  }
+  .about-badge {
+    position: absolute; bottom: -24px; left: -24px;
+    background: var(--copper); color: var(--bg);
+    border-radius: 2px; padding: 22px 26px;
+  }
+  .about-badge .num {
+    font-family: "Instrument Serif", serif;
+    font-size: 50px; line-height: 1; font-style: italic;
+  }
+  .about-badge .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: .7; margin-top: 6px;
+  }
+  @media (max-width: 960px) { .about-badge { position: static; display: inline-block; margin-top: 20px; } }
+  .about-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; margin-top: 72px;
+    border: 1px solid var(--line); border-radius: 2px; overflow: hidden;
+  }
+  @media (max-width: 560px) { .about-stats { grid-template-columns: 1fr; } }
+  .astat {
+    padding: 28px 24px; border-right: 1px solid var(--line);
+  }
+  .astat:last-child { border-right: none; }
+  @media (max-width: 560px) { .astat { border-right: none; border-bottom: 1px solid var(--line); } .astat:last-child { border-bottom: none; } }
+  .astat .num {
+    font-family: "Instrument Serif", serif; font-style: italic;
+    font-size: 44px; line-height: 1; color: var(--copper); margin-bottom: 8px;
+  }
+  .astat .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  /* ── PROCESS ── */
+  .process {
+    padding: 140px 0; background: var(--bg-2);
+    border-bottom: 1px solid var(--line); position: relative; overflow: hidden;
+  }
+  .process-parallax {
+    position: absolute; top: -20%; left: 0; right: 0; bottom: -20%;
+    opacity: .06; pointer-events: none; z-index: 0; will-change: transform;
+  }
+  .process-parallax img { width: 100%; height: 100%; object-fit: cover; }
+  .process-inner { position: relative; z-index: 1; }
+  .process-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 720px) { .process-head { grid-template-columns: 1fr; } }
+  .process-sub { color: var(--text-soft); font-size: 16px; line-height: 1.7; max-width: 400px; }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line); border-radius: 2px; overflow: hidden;
+  }
+  @media (max-width: 960px) { .process-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .process-grid { grid-template-columns: 1fr; } }
+  .pstep {
+    padding: 40px 32px;
+    border-right: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  .pstep:last-child { border-right: none; }
+  @media (max-width: 960px) { .pstep:nth-child(2n) { border-right: none; } .pstep:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+  @media (max-width: 560px) { .pstep { border-right: none; border-bottom: 1px solid var(--line); } .pstep:last-child { border-bottom: none; } }
+  .pstep::after {
+    content: attr(data-n);
+    position: absolute; bottom: -16px; right: 12px;
+    font-family: "Instrument Serif", serif; font-style: italic;
+    font-size: 110px; line-height: 1;
+    color: rgba(200,120,56,.07); pointer-events: none; select: none;
+  }
+  .pstep-n {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 22px;
+  }
+  .pstep h3 {
+    font-family: "Instrument Serif", serif;
+    font-size: 26px; color: var(--cream); margin-bottom: 14px; line-height: 1.1;
+  }
+  .pstep p { font-size: 14px; color: var(--text-soft); line-height: 1.75; }
+  .pstep.plus { background: color-mix(in oklab, var(--copper) 8%, var(--bg-2)); }
+
+  /* ── SPECIALTIES ── */
+  .specialties { padding: 140px 0; border-bottom: 1px solid var(--line); }
+  .spec-head { margin-bottom: 64px; }
+  .spec-head h2 { margin-bottom: 20px; }
+  .spec-sub { color: var(--text-soft); font-size: 16px; line-height: 1.7; max-width: 580px; }
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
+  }
+  .scard { grid-column: span 4; }
+  .scard.wide { grid-column: span 6; }
+  @media (max-width: 960px) { .scard, .scard.wide { grid-column: span 12; } }
+  .scard-inner {
+    background: var(--bg-3); border: 1px solid var(--line); border-radius: 2px;
+    overflow: hidden; height: 100%;
+    transition: border-color .3s, transform .3s;
+    cursor: default;
+  }
+  .scard-inner:hover { border-color: rgba(200,155,80,.45); transform: translateY(-4px); }
+  .scard-img {
+    aspect-ratio: 16/9; overflow: hidden;
+    background: var(--surface); position: relative;
+  }
+  .scard-img img { width: 100%; height: 120%; object-fit: cover; will-change: transform; transition: transform .6s; }
+  .scard-inner:hover .scard-img img { transform: scale(1.04); }
+  .scard-body { padding: 28px 28px 32px; }
+  .scard-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 12px;
+  }
+  .scard-body h3 {
+    font-family: "Instrument Serif", serif;
+    font-size: 26px; color: var(--cream); margin-bottom: 10px; line-height: 1.1;
+  }
+  .scard-body p { font-size: 14px; color: var(--text-soft); line-height: 1.75; }
+
+  /* ── PARALLAX SECTION DIVIDER ── */
+  .parallax-divider {
+    height: 480px; position: relative; overflow: hidden;
+  }
+  .parallax-divider .pdiv-bg {
+    position: absolute; top: -25%; left: 0; right: 0; bottom: -25%;
+    will-change: transform;
+  }
+  .parallax-divider .pdiv-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .parallax-divider .pdiv-overlay {
+    position: absolute; inset: 0;
+    background: rgba(13,11,9,.65);
+  }
+  .parallax-divider .pdiv-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .pdiv-quote {
+    font-family: "Instrument Serif", serif; font-style: italic;
+    font-size: clamp(22px, 3.5vw, 46px);
+    line-height: 1.25; letter-spacing: -0.015em;
+    color: var(--cream); text-align: center;
+    max-width: 820px; padding: 0 32px;
+  }
+  .pdiv-quote::before { content: "\201E"; color: var(--copper); }
+  .pdiv-quote::after  { content: "\201D"; color: var(--copper); }
+  .pdiv-attr {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(240,232,216,.45); white-space: nowrap; z-index: 2;
+  }
+
+  /* ── TEAM ── */
+  .team {
+    padding: 140px 0; background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .team h2 { margin-bottom: 64px; }
+  .team-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--line); border-radius: 2px; overflow: hidden;
+  }
+  @media (max-width: 720px) { .team-grid { grid-template-columns: 1fr; } }
+  .tmember {
+    padding: 48px 40px;
+    border-right: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  .tmember:last-child { border-right: none; }
+  @media (max-width: 720px) { .tmember { border-right: none; border-bottom: 1px solid var(--line); } .tmember:last-child { border-bottom: none; } }
+  .tmember::before {
+    content: "";
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,120,56,.1), transparent 70%);
+    pointer-events: none;
+  }
+  .tm-role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 16px;
+  }
+  .tm-name {
+    font-family: "Instrument Serif", serif;
+    font-size: 38px; color: var(--cream); margin-bottom: 20px; line-height: 1;
+  }
+  .tm-bio { font-size: 14px; color: var(--text-soft); line-height: 1.8; }
+  .tm-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tm-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 12px; color: var(--text-mute);
+  }
+
+  /* ── CONTACT ── */
+  .contact { padding: 140px 0; border-bottom: 1px solid var(--line); }
+  .contact h2 { margin-bottom: 64px; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  @media (max-width: 960px) { .contact-grid { grid-template-columns: 1fr; } }
+  .map-wrap {
+    aspect-ratio: 4/3; border-radius: 2px; overflow: hidden;
+    border: 1px solid var(--line); position: relative;
+  }
+  .map-wrap iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; border: none;
+    filter: invert(92%) hue-rotate(180deg) brightness(.88) contrast(.95);
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 0; }
+  .info-row {
+    border-top: 1px solid var(--line); padding: 24px 0;
+    display: grid; grid-template-columns: 140px 1fr; gap: 16px;
+  }
+  .info-row:last-child { border-bottom: 1px solid var(--line); }
+  .info-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-mute); padding-top: 4px;
+  }
+  .info-val { color: var(--text); font-size: 15px; line-height: 1.6; }
+  .info-val strong { font-family: "Instrument Serif", serif; font-size: 20px; color: var(--cream); font-weight: 400; }
+
+  /* ── STEELDECOR ── */
+  .steeldecor {
+    border-top: 1px solid var(--line); overflow: hidden; position: relative;
+    background: linear-gradient(135deg, #191410 0%, #22190f 60%, #2e2012 100%);
+  }
+  .steeldecor::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 500px at 80% 50%, rgba(200,120,56,.2), transparent),
+      repeating-linear-gradient(90deg, transparent 0 80px, rgba(200,120,56,.05) 80px 81px);
+    pointer-events: none;
+  }
+  .sdec-inner {
+    position: relative;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 52px;
+    align-items: center; padding: 64px 0;
+  }
+  @media (max-width: 960px) { .sdec-inner { grid-template-columns: auto 1fr; gap: 28px; padding: 48px 0; } .sdec-cta { grid-column: 1/-1; } }
+  @media (max-width: 560px) { .sdec-inner { grid-template-columns: 1fr; gap: 18px; padding: 36px 0; } }
+  .sdec-mark { display: flex; align-items: center; gap: 16px; }
+  .sdec-icon {
+    width: 72px; height: 72px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, #c8a870 0%, #8c6035 100%);
+    display: grid; place-items: center;
+    font-family: "Instrument Serif", serif; font-size: 36px; color: var(--bg);
+    box-shadow: 0 16px 40px -8px rgba(200,120,56,.5);
+  }
+  .sdec-mark .lab small {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #c8a870; display: block; margin-bottom: 4px;
+  }
+  .sdec-mark .lab b {
+    font-family: "Instrument Serif", serif; font-weight: 400;
+    font-size: 28px; color: var(--cream);
+  }
+  .sdec-body { display: flex; flex-direction: column; gap: 12px; }
+  .sdec-text { font-size: 15px; color: rgba(220,200,170,.7); max-width: 520px; line-height: 1.65; }
+  .sdec-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sdec-pill {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #c8a870; border: 1px solid rgba(200,120,56,.28);
+    border-radius: 999px; padding: 4px 12px;
+  }
+  .sdec-cta {
+    background: var(--copper); color: var(--bg);
+    padding: 15px 28px; border-radius: 999px;
+    font-size: 14px; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: background .25s, transform .25s, box-shadow .25s;
+    white-space: nowrap; align-self: center;
+    box-shadow: 0 12px 28px -8px rgba(200,120,56,.5);
+  }
+  .sdec-cta:hover { background: var(--copper-2); transform: translateY(-2px); box-shadow: 0 18px 36px -8px rgba(200,120,56,.6); }
+  .sdec-cta::after { content: "↗"; font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--line);
+    padding: 44px 0 32px;
+  }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .foot-brand {
+    font-family: "Instrument Serif", serif; font-size: 22px; color: var(--cream);
+  }
+  .foot-brand em { font-style: italic; color: var(--copper); }
+  .foot-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-mute); line-height: 1.9; text-align: right;
+  }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: .1s; }
+  .reveal-d2 { transition-delay: .2s; }
+  .reveal-d3 { transition-delay: .3s; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<header class="topbar" id="topbar">
+  <div class="wrap topbar-inner">
+    <a href="#" class="brand">Jánoshalmi <em>Pálinkafőzde</em></a>
+    <nav class="nav-links">
+      <a class="nav-link" href="#story">Rólunk</a>
+      <a class="nav-link" href="#process">Folyamat</a>
+      <a class="nav-link" href="#specialties">Specialitások</a>
+      <a class="nav-link" href="#contact">Kapcsolat</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Kapcsolat →</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <div id="hero-bg">
+    <img src="https://images.unsplash.com/photo-1765989506097-e8f1a3e03844?w=1800&q=80&auto=format&fit=crop" alt="Réz pálinkafőző üstök">
+  </div>
+  <div class="hero-overlay"></div>
+  <div id="hero-content">
+    <div class="wrap">
+      <div class="hero-kicker">1171 Budapest · Pálinkamesterek</div>
+      <h1 class="hero-title">
+        A tűz,<br>a réz,<br>az <em>arány.</em>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Limitált sorozatú, mesterszintű párlatok — Corvinus pálinkamesteri
+          képzéssel, vad erdei gyümölcsökből, kompromisszum nélkül.
+          A Jánoshalmi Pálinkafőzde Kft a középpárlatért él.
+        </p>
+        <div class="hero-meta">
+          Jánoshalmi Pálinkafőzde Kft.<br>
+          Cg. 01-09-952512<br>
+          Desztillált szeszes ital gyártása
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    scroll<div class="bar"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Desztilláció</span><span>Középpárlat</span><span>Limitált sorozat</span>
+    <span>Madárberkenye</span><span>Som</span><span>Kökény</span>
+    <span>Pálinkamester</span><span>Corvinus</span><span>Szigetköz Lelke</span>
+    <span>Desztilláció</span><span>Középpárlat</span><span>Limitált sorozat</span>
+    <span>Madárberkenye</span><span>Som</span><span>Kökény</span>
+    <span>Pálinkamester</span><span>Corvinus</span><span>Szigetköz Lelke</span>
+  </div>
+</div>
+
+<!-- ── ABOUT / STORY ── -->
+<section class="about" id="story">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="skicker">Rólunk</div>
+        <h2 class="section-title">Minőségi<br>párlat nem<br><em>véletlen.</em></h2>
+        <p>
+          A Jánoshalmi Pálinkafőzde Kft.-t Pekk Antallal ketten alapítottuk.
+          Közös döntés volt: pálinkával foglalkozunk, de nem akárhogyan. A megfelelő
+          tudás hiányát egyértelműen kezeltük — elvégeztük a Budapesti Corvinus Egyetem
+          másoddiplomás pálinkamesteri képzését, és ezzel párhuzamosan piacra kerültek
+          első, magas minőségű, limitált sorozataink.
+        </p>
+        <p>
+          Pár éve felkérést kaptam a Szigetköz Lelke Pálinkaháztól, hogy master
+          distillerként segítsem a tevékenységüket. Az együttműködés olyan jól alakult,
+          hogy azóta négy éve dolgozunk együtt — miközben a Jánoshalmi Pálinkafőzde
+          saját sorozatai sem álltak meg.
+        </p>
+        <p>
+          Ami bennünket vezet: a középpárlat. Csak az kerül az üvegbe, ami valóban
+          az — sem előpárlat, sem utópárlat. Ez nem szlogen, hanem a napi munka.
+        </p>
+
+        <div class="about-stats reveal reveal-d1">
+          <div class="astat">
+            <div class="num">Corvinus</div>
+            <div class="lbl">Pálinkamesteri diploma</div>
+          </div>
+          <div class="astat">
+            <div class="num"><em>4+</em></div>
+            <div class="lbl">Év Szigetköz Lelkénél</div>
+          </div>
+          <div class="astat">
+            <div class="num">Limitált</div>
+            <div class="lbl">Sorozatok, mindig</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual reveal reveal-d2">
+        <div class="about-img">
+          <img id="about-img" src="https://images.unsplash.com/photo-1445140463371-d8036feedc2f?w=900&q=80&auto=format&fit=crop" alt="Réz lepárló üst közelről" loading="lazy">
+        </div>
+        <div class="about-badge">
+          <div class="num">2</div>
+          <div class="lbl">Pálinkamester alapító</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="process" id="process">
+  <div class="process-parallax" id="proc-bg">
+    <img src="https://images.unsplash.com/photo-1765989431827-99068486f4d8?w=1600&q=60&auto=format&fit=crop" alt="" aria-hidden="true" loading="lazy">
+  </div>
+  <div class="process-inner">
+    <div class="wrap">
+      <div class="process-head reveal">
+        <div>
+          <div class="skicker">A folyamat</div>
+          <h2 class="section-title">3+1 lépés,<br>egy cél: <em>tökéletes</em><br>középpárlat.</h2>
+        </div>
+        <p class="process-sub">
+          A pálinkakészítésnek 3+1 fő ága van. A mesterek dolga az, hogy
+          mindegyikben maximumot hozzanak ki — különös tekintettel a desztillációra,
+          ahol a finomság a részletekben lakik.
+        </p>
+      </div>
+
+      <div class="process-grid reveal">
+        <div class="pstep" data-n="1">
+          <div class="pstep-n">→ 01</div>
+          <h3>Gyümölcs &amp; termőhely</h3>
+          <p>
+            A gyümölcs fajtája, a termőhely karaktere, az évjárati hatások —
+            ezek együttese dönti el, hogy a desztilláció során milyen
+            párlatvezetési lehetőségeink vannak. A kezdet a minden.
+          </p>
+        </div>
+        <div class="pstep" data-n="2">
+          <div class="pstep-n">→ 02</div>
+          <h3>Cefrézés &amp; fermentáció</h3>
+          <p>
+            A fermentációs ismeretek nélkülözhetetlenek. A cefre minősége
+            szinte teljes egészében meghatározza a végső párlat karakterét —
+            itt dől el, hogy lesz-e esély a prémiumra.
+          </p>
+        </div>
+        <div class="pstep" data-n="3">
+          <div class="pstep-n">→ 03</div>
+          <h3>Desztilláció</h3>
+          <p>
+            Előpárlat, középpárlat, utópárlat. Prémium pálinkában csak
+            a középpárlat jöhet szóba. A pontos vágási pont megtalálása —
+            érzékszervileg és számszerűen egyaránt — ez a mester dolga.
+          </p>
+        </div>
+        <div class="pstep plus" data-n="+">
+          <div class="pstep-n">→ +1</div>
+          <h3>Pihentetés &amp; érlelés</h3>
+          <p>
+            A plusz egy lehetőség: a pihentetés és érlelési szakaszban
+            tovább formálható a pálinka íz- és aromaprofilja. Ez az a
+            terület, ahol a kreativitásnak is van helye.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPECIALTIES ── -->
+<section class="specialties" id="specialties">
+  <div class="wrap">
+    <div class="spec-head reveal">
+      <div class="skicker">Specialitások</div>
+      <h2 class="section-title">Az igazi <em>szerelem</em><br>az erdei bogyósoknál<br>kezdődik.</h2>
+      <p class="spec-sub">
+        Az alapgyümölcsökön — körte, alma, szilva, sárgabarack — túl a vad, nehezen megszelídíthető
+        erdei gyümölcsök feldolgozása jelenti az igazi kihívást. Madárberkenye, fekete berkenye,
+        som, kökény — ezek a mi igazi szakterületeink.
+      </p>
+    </div>
+
+    <div class="spec-grid">
+      <div class="scard reveal">
+        <div class="scard-inner">
+          <div class="scard-img">
+            <img src="https://images.unsplash.com/photo-1638286629485-bb417ced482e?w=700&q=80&auto=format&fit=crop" alt="Erdei bogyós pálinkák" loading="lazy">
+          </div>
+          <div class="scard-body">
+            <div class="scard-tag">Specialitás · Erdei</div>
+            <h3>Madárberkenye &amp; fekete berkenye</h3>
+            <p>Ritka, kesernyés karakterű bogyósok, amelyek a desztillációban teljesen átalakul — ha jól csinálja az ember. Limitált mennyiségben elérhető.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scard reveal reveal-d1">
+        <div class="scard-inner">
+          <div class="scard-img">
+            <img src="https://images.unsplash.com/photo-1643087448435-72f70bd4ce88?w=700&q=80&auto=format&fit=crop" alt="Som és kökény párlat" loading="lazy">
+          </div>
+          <div class="scard-body">
+            <div class="scard-tag">Specialitás · Vadgyümölcs</div>
+            <h3>Som &amp; kökény</h3>
+            <p>A kökénypálinka elkészítése évek kihagyása után ismét a repertoárban — és szép lett a végeredmény. A som karakteres savasságát a desztilláció tompítja, de megőrzi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scard reveal reveal-d2">
+        <div class="scard-inner">
+          <div class="scard-img">
+            <img src="https://images.unsplash.com/photo-1765989393169-40faf2dc1a3f?w=700&q=80&auto=format&fit=crop" alt="Alapgyümölcs párlatok" loading="lazy">
+          </div>
+          <div class="scard-body">
+            <div class="scard-tag">Alapsorozat</div>
+            <h3>Körte, alma, szilva, sárgabarack</h3>
+            <p>A klasszikus alapgyümölcsök feldolgozása — prémium minőségben, a középpárlatnál pontos vágással. Limitált évjáratos sorozatokban.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scard wide reveal">
+        <div class="scard-inner">
+          <div class="scard-img">
+            <img src="https://images.unsplash.com/photo-1560411375-a276bdcefef5?w=1000&q=80&auto=format&fit=crop" alt="Szigetköz Lelke együttműködés" loading="lazy">
+          </div>
+          <div class="scard-body">
+            <div class="scard-tag">Együttműködés · Master Distiller</div>
+            <h3>Szigetköz Lelke Pálinkaház</h3>
+            <p>
+              Négy éve dolgozunk a Szigetköz Lelkénél master distillerként. A közös munka Ruby's Gin-nel is gyümölcsözött: mediterrán fűszerezés, kirobbanó gyümölcsösség — és két sorozat egy éven belül.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="scard wide reveal reveal-d1">
+        <div class="scard-inner">
+          <div class="scard-img">
+            <img src="https://images.unsplash.com/photo-1529264978834-666a0e99f884?w=1000&q=80&auto=format&fit=crop" alt="Limitált pálinka sorozatok" loading="lazy">
+          </div>
+          <div class="scard-body">
+            <div class="scard-tag">Exkluzív · Limitált</div>
+            <h3>Limitált sorozatok</h3>
+            <p>
+              Minden sorozatból csak annyi készül, amennyit a minőség megenged. Nincs kompromisszum a mennyiség és a középpárlat pontatlan leválasztása között.
+              Márkahű vásárlóinknak prioritást biztosítunk.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARALLAX QUOTE DIVIDER ── -->
+<div class="parallax-divider">
+  <div class="pdiv-bg" id="pdiv-bg">
+    <img src="https://images.unsplash.com/photo-1771154767182-d91ed5106636?w=1600&q=75&auto=format&fit=crop" alt="" aria-hidden="true" loading="lazy">
+  </div>
+  <div class="pdiv-overlay"></div>
+  <div class="pdiv-text">
+    <p class="pdiv-quote">
+      A finomság a részletekben lakik — egy nagyon pici plusz dönti el,
+      hogy jó minőségű asztali pálinkát vagy prémium terméket állítottunk elő.
+    </p>
+  </div>
+  <div class="pdiv-attr">— Jánoshalmi Pálinkamester</div>
+</div>
+
+<!-- ── TEAM ── -->
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="skicker reveal">Alapítók</div>
+    <h2 class="section-title reveal">A két <em>mester.</em></h2>
+    <div class="team-grid reveal">
+      <div class="tmember">
+        <div class="tm-role">Alapító · Pálinkamester · Master Distiller</div>
+        <div class="tm-name">Jánoshalmi<br>Pálinkamester</div>
+        <p class="tm-bio">
+          Corvinus-diplomás pálinkamester, a Jánoshalmi Pálinkafőzde és a Szigetköz
+          Lelke Pálinkaház master distillere. Szakmai fókusza a desztilláció precizitása
+          és az erdei bogyós gyümölcsök „pálinkásítása" — madárberkenye, som, kökény.
+          A vágási pont megtalálása nem tudomány: kézműves ösztön és mérési pontosság egyszerre.
+        </p>
+        <div class="tm-tags">
+          <span class="tm-tag">Corvinus Pálinkamesteri diploma</span>
+          <span class="tm-tag">Master Distiller</span>
+          <span class="tm-tag">Erdei bogyósok</span>
+          <span class="tm-tag">Szigetköz Lelke</span>
+        </div>
+      </div>
+      <div class="tmember">
+        <div class="tm-role">Alapító társ</div>
+        <div class="tm-name">Pekk<br>Antal</div>
+        <p class="tm-bio">
+          A Jánoshalmi Pálinkafőzde Kft. társalapítója. A közös döntés 2011-ben
+          egyértelmű volt: vagy megszerezzük a megfelelő tudást, vagy nem kezdünk bele.
+          A Corvinus másoddiplomás képzés elvégzése után indultak el a saját, limitált
+          sorozatok — és a minőség iránti elkötelezettsége azóta sem változott.
+        </p>
+        <div class="tm-tags">
+          <span class="tm-tag">Corvinus Pálinkamesteri diploma</span>
+          <span class="tm-tag">Társalapító</span>
+          <span class="tm-tag">Limitált sorozatok</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="skicker reveal">Elérhetőség</div>
+    <h2 class="section-title reveal">Ahol a <em>párlat</em><br>készül.</h2>
+    <div class="contact-grid reveal">
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=1171+Budapest,+K%C3%B6r%C3%B6mivir%C3%A1g+utca+42&output=embed&z=16&hl=hu"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Jánoshalmi Pálinkafőzde Kft térkép">
+        </iframe>
+      </div>
+      <div class="contact-info">
+        <div class="info-row">
+          <span class="info-label">Teljes név</span>
+          <span class="info-val"><strong>Jánoshalmi Pálinkafőzde Kft.</strong></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Cím</span>
+          <span class="info-val">1171 Budapest<br>Körömvirág utca 42.</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Fő tevékenység</span>
+          <span class="info-val">1101.25 Desztillált szeszes ital gyártása</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Adószám</span>
+          <span class="info-val">23091498-2-42</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Cégjegyzékszám</span>
+          <span class="info-val">01-09-952512</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Együttműködés</span>
+          <span class="info-val">Szigetköz Lelke Pálinkaház<br><span style="color:var(--text-mute);font-size:13px;">Master Distiller kapcsolat, 4 éve</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEELDECOR BANNER ── -->
+<a class="steeldecor" href="https://steeldecor.hu" target="_blank" rel="noopener">
+  <div class="wrap sdec-inner">
+    <div class="sdec-mark">
+      <div class="sdec-icon">S</div>
+      <div class="lab">
+        <small>Partner webshop · Testvérbolt</small>
+        <b>steeldecor<span style="color:var(--copper-2)">.hu</span></b>
+      </div>
+    </div>
+    <div class="sdec-body">
+      <p class="sdec-text">
+        Rozsdamentes és vörösréz kiegészítők, dekor- és üzemi acélelemek —
+        csapok, csövek, szerelvények, egyedi acélelemek egy helyen.
+      </p>
+      <div class="sdec-pills">
+        <span class="sdec-pill">Vörösréz szerelvények</span>
+        <span class="sdec-pill">Rozsdamentes kiegészítők</span>
+        <span class="sdec-pill">Üzemi acélelemek</span>
+        <span class="sdec-pill">Egyedi gyártás</span>
+      </div>
+    </div>
+    <div class="sdec-cta">Tovább a webshopra</div>
+  </div>
+</a>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">Jánoshalmi <em>Pálinkafőzde</em> Kft.</div>
+      <div class="foot-meta">
+        © 2026 · Jánoshalmi Pálinkafőzde Kft.<br>
+        1171 Budapest, Körömvirág utca 42.<br>
+        Cg. 01-09-952512 · Adószám: 23091498-2-42
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── NAV scroll state
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Hero parallax (bg moves slower than scroll)
+  const heroBg = document.getElementById('hero-bg');
+  const heroContent = document.getElementById('hero-content');
+  function heroParallax() {
+    const y = window.scrollY;
+    if (y < window.innerHeight * 1.5) {
+      heroBg.style.transform = `translateY(${y * 0.45}px)`;
+      heroContent.style.transform = `translateY(${y * 0.12}px)`;
+    }
+  }
+
+  // ── Section parallax (images inside sections)
+  const parallaxSections = [
+    { el: document.getElementById('proc-bg'),  speed: 0.35 },
+    { el: document.getElementById('pdiv-bg'),  speed: 0.4  },
+    { el: document.getElementById('about-img'), speed: 0.18 },
+  ];
+  function sectionParallax() {
+    parallaxSections.forEach(({ el, speed }) => {
+      if (!el) return;
+      const rect = el.closest('section, .parallax-divider, .about-img')?.getBoundingClientRect()
+                   ?? el.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed * -0.28;
+      el.style.transform = `translateY(${offset.toFixed(1)}px)`;
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        heroParallax();
+        sectionParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+  heroParallax();
+  sectionParallax();
+
+  // ── Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
