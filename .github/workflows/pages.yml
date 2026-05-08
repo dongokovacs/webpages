@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p _site/bube-viragbolt
           cp index.html projects.json robots.txt sitemap.xml _site/
-          cp -r galiba Galiba2 _site/
+          cp -r galiba Galiba2 serpa_sorfozde _site/
           cp -r bube-viragbolt/dist/. _site/bube-viragbolt/
 
       - uses: actions/configure-pages@v5
