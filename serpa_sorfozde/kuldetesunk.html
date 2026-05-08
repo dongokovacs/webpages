@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Küldetésünk — Pálinkafőzés.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3ede2;
+    --bg-deep:   #ebe2d2;
+    --paper:     #f8f4eb;
+    --ink:       #1a1612;
+    --ink-soft:  #4a3f33;
+    --ink-mute:  #8a7c69;
+    --line:      #d9cdb6;
+    --copper:    #b8612a;
+    --copper-2:  #d97a3a;
+    --ember:     #c4451d;
+    --moss:      #3d4a2e;
+    --gold:      #c89a4a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "Geist", -apple-system, system-ui, sans-serif;
+    font-weight: 400; font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .serif { font-family: "Instrument Serif", serif; font-weight: 400; }
+  .mono  { font-family: "JetBrains Mono", monospace; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 720px) { .wrap { padding: 0 24px; } }
+
+  /* ── NAV ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid color-mix(in oklab, var(--line) 55%, transparent);
+  }
+  .topbar-inner {
+    display: flex; align-items: center; gap: 28px;
+    height: 72px;
+  }
+  .brand {
+    display: flex; align-items: baseline; gap: 10px;
+    font-family: "Instrument Serif", serif;
+    font-size: 26px; letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--copper); display: inline-block;
+    transform: translateY(-2px);
+  }
+  .brand small {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.14em;
+    color: var(--ink-mute); text-transform: uppercase;
+    margin-left: 4px;
+  }
+  .nav-back {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--ink-soft);
+    padding: 10px 18px; border-radius: 999px;
+    border: 1px solid var(--line);
+    transition: background .25s, color .25s, border-color .25s;
+  }
+  .nav-back:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .nav-back::before { content: "←"; }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(700px 500px at 80% 30%, color-mix(in oklab, var(--copper) 14%, transparent), transparent),
+      radial-gradient(600px 400px at 10% 80%, color-mix(in oklab, var(--moss) 10%, transparent), transparent);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--ink-mute); text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .hero-kicker::before {
+    content: ""; width: 28px; height: 1px; background: var(--copper); display: inline-block;
+  }
+  .page-hero h1 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(52px, 7vw, 108px);
+    line-height: 0.95; letter-spacing: -0.025em;
+    margin-bottom: 36px;
+    max-width: 900px;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--copper); }
+  .page-hero .lede {
+    font-size: 19px; color: var(--ink-soft);
+    max-width: 640px; line-height: 1.65;
+  }
+
+  /* ── SECTIONS ── */
+  .skicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--ink-mute); text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skicker::before {
+    content: ""; width: 28px; height: 1px; background: var(--copper); display: inline-block;
+  }
+
+  /* ── STORY ── */
+  .story {
+    padding: 120px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .story-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  @media (max-width: 960px) { .story-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .story h2 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .story h2 em { font-style: italic; color: var(--copper); }
+  .story p {
+    color: var(--ink-soft); font-size: 16px; line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .story p:last-child { margin-bottom: 0; }
+  .story-visual {
+    position: relative;
+  }
+  .story-img {
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+  .story-img img { width: 100%; height: 100%; object-fit: cover; }
+  .story-badge {
+    position: absolute; bottom: -24px; left: -24px;
+    background: var(--ink); color: var(--bg);
+    border-radius: 18px;
+    padding: 24px 28px;
+    font-family: "Instrument Serif", serif;
+  }
+  .story-badge .num { font-size: 52px; line-height: 1; color: var(--copper-2); font-style: italic; }
+  .story-badge .lbl { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in oklab, var(--bg) 60%, transparent); margin-top: 6px; }
+  @media (max-width: 960px) { .story-badge { position: static; margin-top: 24px; display: inline-block; } }
+
+  /* ── VALUES ── */
+  .values {
+    padding: 120px 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .values-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 720px) { .values-head { grid-template-columns: 1fr; } }
+  .values h2 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .values h2 em { font-style: italic; color: var(--copper); }
+  .values-sub { color: var(--ink-soft); max-width: 420px; line-height: 1.7; }
+  .values-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1px solid var(--line); border-radius: 20px;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) { .values-grid { grid-template-columns: 1fr; } }
+  .vcard {
+    padding: 40px 36px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .vcard:last-child { border-right: none; }
+  @media (max-width: 720px) { .vcard { border-right: none; border-bottom: 1px solid var(--line); } .vcard:last-child { border-bottom: none; } }
+  .vcard-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 20px;
+  }
+  .vcard h3 {
+    font-family: "Instrument Serif", serif;
+    font-size: 28px; line-height: 1.1; letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .vcard p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    padding: 120px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline h2 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 64px;
+  }
+  .timeline h2 em { font-style: italic; color: var(--copper); }
+  .tl-list { display: flex; flex-direction: column; }
+  .tl-item {
+    display: grid; grid-template-columns: 100px 1fr;
+    gap: 40px; align-items: start;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .tl-item:last-child { border-bottom: 1px solid var(--line); }
+  @media (max-width: 560px) { .tl-item { grid-template-columns: 1fr; gap: 10px; } }
+  .tl-year {
+    font-family: "Instrument Serif", serif;
+    font-size: 32px; line-height: 1;
+    color: var(--copper); font-style: italic;
+    padding-top: 4px;
+  }
+  .tl-content h4 {
+    font-family: "Instrument Serif", serif;
+    font-size: 22px; margin-bottom: 8px;
+  }
+  .tl-content p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* ── TEAM ── */
+  .team {
+    padding: 120px 0;
+    background: var(--ink); color: var(--bg);
+    position: relative; overflow: hidden;
+  }
+  .team::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(800px 500px at 70% 30%, color-mix(in oklab, var(--copper) 22%, transparent), transparent);
+    pointer-events: none;
+  }
+  .team-inner { position: relative; }
+  .team h2 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 64px;
+  }
+  .team h2 em { font-style: italic; color: var(--copper-2); }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid color-mix(in oklab, var(--bg) 15%, transparent);
+  }
+  @media (max-width: 720px) { .team-grid { grid-template-columns: 1fr; } }
+  .tmember {
+    padding: 40px 0 40px;
+    border-right: 1px solid color-mix(in oklab, var(--bg) 15%, transparent);
+    padding-right: 40px;
+    padding-left: 0;
+  }
+  .tmember:not(:first-child) { padding-left: 40px; }
+  .tmember:last-child { border-right: none; }
+  @media (max-width: 720px) { .tmember, .tmember:not(:first-child) { padding: 32px 0; border-right: none; border-bottom: 1px solid color-mix(in oklab, var(--bg) 15%, transparent); } }
+  .tmember-role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--copper-2); margin-bottom: 12px;
+  }
+  .tmember h3 {
+    font-family: "Instrument Serif", serif;
+    font-size: 30px; line-height: 1.05; margin-bottom: 8px;
+  }
+  .tmember .phone {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px; color: color-mix(in oklab, var(--bg) 65%, transparent);
+    margin-top: 14px;
+  }
+
+  /* ── MOTTO BLOCK ── */
+  .motto-block {
+    padding: 160px 0;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .motto-block::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(700px 400px at 30% 60%, color-mix(in oklab, var(--copper) 20%, transparent), transparent),
+      radial-gradient(800px 500px at 70% 40%, color-mix(in oklab, var(--moss) 18%, transparent), transparent);
+    pointer-events: none;
+  }
+  .motto-block blockquote {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 58px);
+    line-height: 1.2; letter-spacing: -0.015em;
+    max-width: 1000px; margin: 0 auto;
+    position: relative;
+  }
+  .motto-block blockquote::before { content: "\201E"; color: var(--copper); }
+  .motto-block blockquote::after  { content: "\201D"; color: var(--copper); }
+  .motto-source {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-mute); margin-top: 36px;
+  }
+
+  /* ── FOOTER ── */
+  footer.foot {
+    background: var(--ink); color: var(--bg);
+    padding: 56px 0 40px;
+    border-top: 1px solid color-mix(in oklab, var(--bg) 10%, transparent);
+  }
+  .foot-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; color: color-mix(in oklab, var(--bg) 50%, transparent);
+    letter-spacing: 0.06em;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .foot-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: color-mix(in oklab, var(--bg) 65%, transparent);
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    padding: 8px 16px; border: 1px solid color-mix(in oklab, var(--bg) 18%, transparent);
+    border-radius: 999px;
+    transition: background .2s, color .2s;
+  }
+  .foot-back:hover { background: var(--copper); color: var(--ink); border-color: var(--copper); }
+  .foot-back::before { content: "←"; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="dot"></span>
+      Pálinkafőzés<span style="font-style:italic; color:var(--copper)">.com</span>
+      <small>EST. 2011</small>
+    </a>
+    <a href="index.html" class="nav-back">Vissza a főoldalra</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-kicker">Rólunk</div>
+    <h1>Küldetésünk:<br><em>a pálinka</em><br>méltósága.</h1>
+    <p class="lede">
+      2011 óta egyetlen céllal: hogy a magyar pálinkafőzés tudása,
+      berendezései és kultúrája méltó helyen legyen. Magyar gyártás,
+      kézi munka, generációkon átívelő tudás.
+    </p>
+  </div>
+</section>
+
+<!-- ── STORY ── -->
+<section class="story">
+  <div class="wrap">
+    <div class="story-grid reveal">
+      <div>
+        <div class="skicker">Történetünk</div>
+        <h2>Egy műhelyből<br>indult minden <em>dolog.</em></h2>
+        <p>
+          A Pálinkafőzés.com 2011-ben született, amikor Magyar László alapító
+          tulajdonos felismerte: Magyarországon nincs olyan hely, ahol a
+          pálinkafőző hobbiista és a bérfőzde-tulajdonos egyaránt megtalálja
+          a megfelelő berendezést, a szükséges tudást és a szakmai támogatást.
+        </p>
+        <p>
+          Az első üst a budapesti Simongát utcai műhelyből került ki.
+          Ma a Vidámvásár utcai bemutatóteremben — hétfőtől péntekig nyitva —
+          tizenkét különböző modelltípus várja azokat, akik komolyan gondolják
+          a pálinkát: vörösréztől rozsdamentes acélig, 5 literes hobbikiviteltől
+          az 1000 literes üzemi lepárlóig.
+        </p>
+        <p>
+          Nem csak főzőt adunk el. Betanítást, próbafőzést, jogi tanácsadást,
+          OKJ-s tanfolyamot és szervizhátteret nyújtunk — mert a berendezés
+          csak annyit ér, amennyit a mögötte álló tudás.
+        </p>
+      </div>
+      <div class="story-visual">
+        <div class="story-img">
+          <img src="https://images.unsplash.com/photo-1445140463371-d8036feedc2f?w=900&q=80&auto=format&fit=crop" alt="Réz pálinkafőző üst közelről">
+        </div>
+        <div class="story-badge">
+          <div class="num">15+</div>
+          <div class="lbl">Év szakmai tapasztalat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VALUES ── -->
+<section class="values">
+  <div class="wrap">
+    <div class="values-head reveal">
+      <div>
+        <div class="skicker">Értékeink</div>
+        <h2>Amit soha nem<br>adunk <em>fel.</em></h2>
+      </div>
+      <p class="values-sub">
+        Három alapelv, amelyek 2011 óta változatlanul irányítják a munkánkat —
+        a legelső üsttől a legújabb modellünkig.
+      </p>
+    </div>
+    <div class="values-grid reveal">
+      <div class="vcard">
+        <div class="vcard-num">→ 01</div>
+        <h3>Magyar gyártás, kézi munka</h3>
+        <p>
+          Minden berendezés Magyarországon készül, kézzel forrasztott
+          vörösréz- vagy rozsdamentes acélból. Nem importálunk, nem közvetítünk:
+          saját műhelyünkből kerül ki minden darab.
+        </p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-num">→ 02</div>
+        <h3>Tudás, nem csak termék</h3>
+        <p>
+          A berendezés eladásával a kapcsolat kezdődik, nem végződik.
+          Betanítás, OKJ-s képzés, próbafőzés, szerviz — a pálinkafőzés
+          kultúráját adjuk át, nem csak réz- és acélszerkezeteket.
+        </p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-num">→ 03</div>
+        <h3>Minden méretre, minden igényre</h3>
+        <p>
+          A 35 literes Pálinka Mester Dávidtól az 1000 literes üzemi
+          Herkulesig — a kínálatunk lefedi az összes szintet. Nincs kis
+          ügyfél és nagy ügyfél: mindenki egyforma figyelmet kap.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TIMELINE ── -->
+<section class="timeline">
+  <div class="wrap">
+    <div class="skicker reveal">Mérföldkövek</div>
+    <h2 class="reveal">Egy évtized <em>pálinkában</em><br>mérve.</h2>
+    <div class="tl-list">
+      <div class="tl-item reveal">
+        <div class="tl-year">2011</div>
+        <div class="tl-content">
+          <h4>Alapítás — az első üst</h4>
+          <p>Magyar László alapítja a Kontur Bt. pálinka divízióját. Az első vörösréz pálinkafőző berendezés a Simongát utcai műhelyből kerül ki, magánmegrendelőknek.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2014</div>
+        <div class="tl-content">
+          <h4>Pálinka Mester sorozat indítása</h4>
+          <p>Piaci igény alapján kidolgozzák a dupla-falú, vízfürdős Pálinka Mester sorozatot. A 35 literes Dávid modell azonnal a legjobban fogyó termék lesz.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2016</div>
+        <div class="tl-content">
+          <h4>Oktatási program indítása</h4>
+          <p>Az OKJ-s pálinkafőző tanfolyam és a helyszíni betanítási program elindulása. Ettől fogva minden eladott berendezéshez szakmai kíséretet nyújtanak.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2019</div>
+        <div class="tl-content">
+          <h4>Bemutatóterem — Vidámvásár utca</h4>
+          <p>Megnyílik a Vidámvásár utcai bemutatóterem Budapesten. Az összes modell megtekinthető és kipróbálható, helyszíni szakmai tanácsadással.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2022</div>
+        <div class="tl-content">
+          <h4>SerPa — sör és pálinka egy üstben</h4>
+          <p>Egy hobbisörfőző ötlete nyomán megszületik a SerPa: 80 literes, dupla-falú, egy-edényes berendezés, amely cefrézéstől komlóforralásig és pálinkafőzésig alkalmas.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">2026</div>
+        <div class="tl-content">
+          <h4>Pálinka Mester 118L — rekord méret</h4>
+          <p>Az egylépcsős, vízfürdős sorozat eddigi legnagyobb háztartási modellje piacra lép. 12 modell, 5-től 1000 literig — a kínálat teljessé vált.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section class="team">
+  <div class="wrap team-inner">
+    <div class="skicker reveal" style="color: color-mix(in oklab, var(--bg) 55%, transparent);">Csapatunk</div>
+    <h2 class="reveal">Az emberek<br>a <em>réz mögött.</em></h2>
+    <div class="team-grid reveal">
+      <div class="tmember">
+        <div class="tmember-role">Alapító tulajdonos</div>
+        <h3>Magyar László</h3>
+        <p style="font-size:14px; color: color-mix(in oklab, var(--bg) 65%, transparent); line-height:1.7; margin-top:12px;">
+          A pálinkafőzés szenvedélye és a kézműves minőség iránti elkötelezettsége
+          vezette a vállalkozás megalapításához. 15 éve ő a garancia arra, hogy
+          minden berendezés a legjobb anyagokból, a legjobb tudással készül.
+        </p>
+        <div class="phone">+36 30 522 1099</div>
+      </div>
+      <div class="tmember">
+        <div class="tmember-role">Ügyvezető</div>
+        <h3>Szabó Ferenc Ignác</h3>
+        <p style="font-size:14px; color: color-mix(in oklab, var(--bg) 65%, transparent); line-height:1.7; margin-top:12px;">
+          Az értékesítés, a vevői kapcsolatok és a termékfejlesztés irányítója.
+          Ha kérdése van a megfelelő modell kiválasztásáról, ő az ember,
+          akivel érdemes kezdeni a beszélgetést.
+        </p>
+        <div class="phone">+36 30 932 9396</div>
+      </div>
+      <div class="tmember">
+        <div class="tmember-role">Telephelyvezető</div>
+        <h3>Szabó Ferenc</h3>
+        <p style="font-size:14px; color: color-mix(in oklab, var(--bg) 65%, transparent); line-height:1.7; margin-top:12px;">
+          A Vidámvásár utcai bemutatóterem és műhely napi üzemeltetője.
+          Ő felel a gyártás minőségéért, a szervizért és azért, hogy
+          a bemutatóterem hétfőtől péntekig tényleg nyitva legyen.
+        </p>
+        <div class="phone">+36 70 946 9600</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MOTTO ── -->
+<section class="motto-block reveal">
+  <div class="wrap">
+    <blockquote>
+      A pálinkafőzés szabadsága, a pálinkafőző csillogása,
+      a pálinka magyarsága, szívünk büszkés boldogsága.
+    </blockquote>
+    <div class="motto-source">— Pálinkafőzés.com hitvallás · 2011 óta</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© Palinkafozes.com · 2011 — 2026 · Kontur Bt. · 1164 Budapest, Simongát u. 43.</span>
+      <a href="index.html" class="foot-back">Vissza a főoldalra</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

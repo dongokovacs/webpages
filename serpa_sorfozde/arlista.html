@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Árlista — Pálinkafőzés.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f3ede2;
+    --bg-deep:   #ebe2d2;
+    --paper:     #f8f4eb;
+    --ink:       #1a1612;
+    --ink-soft:  #4a3f33;
+    --ink-mute:  #8a7c69;
+    --line:      #d9cdb6;
+    --copper:    #b8612a;
+    --copper-2:  #d97a3a;
+    --moss:      #3d4a2e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "Geist", -apple-system, system-ui, sans-serif;
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: "Instrument Serif", serif; }
+  .mono  { font-family: "JetBrains Mono", monospace; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 720px) { .wrap { padding: 0 24px; } }
+
+  /* topbar (slim) */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid color-mix(in oklab, var(--line) 55%, transparent);
+  }
+  .topbar-inner { display: flex; align-items: center; gap: 28px; height: 72px; }
+  .brand {
+    display: flex; align-items: baseline; gap: 10px;
+    font-family: "Instrument Serif", serif; font-size: 26px; letter-spacing: -0.01em;
+  }
+  .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--copper); display: inline-block; transform: translateY(-2px); }
+  .brand small { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--ink-mute); text-transform: uppercase; margin-left: 4px; }
+  .nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+  .nav-item { padding: 10px 14px; font-size: 14px; color: var(--ink-soft); border-radius: 999px; transition: background .25s; }
+  .nav-item:hover { background: color-mix(in oklab, var(--copper) 10%, transparent); color: var(--ink); }
+  .nav-item.active { color: var(--ink); background: color-mix(in oklab, var(--copper) 12%, transparent); }
+  .nav-cta { background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 500; transition: background .25s; }
+  .nav-cta:hover { background: var(--copper); }
+
+  /* page hero */
+  .ph {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .ph::before {
+    content: "";
+    position: absolute; right: -260px; top: -160px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: var(--copper-2);
+    filter: blur(100px); opacity: .25;
+    pointer-events: none;
+  }
+  .ph-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: end; }
+  @media (max-width: 960px) { .ph-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .crumb {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em;
+    color: var(--ink-mute); text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex; gap: 10px; align-items: center;
+  }
+  .crumb a { color: var(--ink-mute); }
+  .crumb a:hover { color: var(--copper); }
+  .crumb .sep { opacity: .5; }
+  .ph h1 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(56px, 8vw, 128px);
+    line-height: 0.95; letter-spacing: -0.025em;
+    margin-bottom: 24px;
+  }
+  .ph h1 em { font-style: italic; color: var(--copper); }
+  .ph p { color: var(--ink-soft); max-width: 520px; }
+  .ph-meta {
+    border-left: 1px solid var(--line);
+    padding-left: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-soft);
+  }
+  .ph-meta .k { color: var(--ink-mute); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px; }
+  .ph-meta .v { font-size: 13px; line-height: 1.4; }
+  @media (max-width: 960px) { .ph-meta { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 24px; } }
+
+  /* filter bar */
+  .filter {
+    position: sticky; top: 72px; z-index: 30;
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .filter-inner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 0; flex-wrap: wrap;
+  }
+  .chip {
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; cursor: pointer;
+    border: 1px solid var(--line); color: var(--ink-soft);
+    transition: background .2s, color .2s, border-color .2s;
+    user-select: none;
+    background: var(--paper);
+  }
+  .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .chip.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .chip .ct { font-family: "JetBrains Mono", monospace; font-size: 10px; opacity: .6; margin-left: 6px; }
+  .filter-spacer { flex: 1; }
+  .filter-note { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--ink-mute); text-transform: uppercase; }
+
+  /* main */
+  main { padding: 64px 0 120px; }
+
+  .cat-head {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px;
+    padding: 64px 0 28px; align-items: end;
+  }
+  .cat-head:first-child { padding-top: 0; }
+  @media (max-width: 720px) { .cat-head { grid-template-columns: 1fr; gap: 16px; } }
+  .cat-num {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em;
+    color: var(--copper); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .cat-name {
+    font-family: "Instrument Serif", serif; font-size: clamp(40px, 5vw, 64px);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .cat-name em { font-style: italic; color: var(--copper); }
+  .cat-blurb { color: var(--ink-soft); font-size: 15px; max-width: 460px; }
+
+  /* table */
+  .ptable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+  }
+  .ptable th {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-mute); font-weight: 400;
+    text-align: left;
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .ptable th.num { text-align: right; }
+  .ptable tbody tr {
+    border-bottom: 1px solid var(--line);
+    transition: background .2s;
+  }
+  .ptable tbody tr:hover { background: var(--paper); }
+  .ptable td { padding: 22px 12px; vertical-align: middle; }
+  .ptable td.name {
+    font-family: "Instrument Serif", serif;
+    font-size: 24px; line-height: 1.15; letter-spacing: -0.005em;
+    width: 38%;
+  }
+  .ptable td.name small {
+    display: block; font-family: "Geist", sans-serif;
+    font-size: 13px; color: var(--ink-soft);
+    margin-top: 4px; line-height: 1.4;
+  }
+  .ptable td.spec {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .ptable td.spec span { display: block; }
+  .ptable td.spec span.k { color: var(--ink-mute); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .ptable td.price { text-align: right; font-family: "Instrument Serif", serif; font-size: 28px; white-space: nowrap; }
+  .ptable td.price small { font-family: "Geist", sans-serif; font-size: 11px; color: var(--ink-mute); display: block; margin-top: 2px; }
+  .ptable td.price.muted { color: var(--ink-mute); font-style: italic; }
+  .ptable td.price em { color: var(--copper); font-style: italic; }
+  .ptable td.cta { text-align: right; width: 1%; padding-left: 24px; }
+  .ptable td.cta a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border: 1px solid var(--line); border-radius: 50%;
+    transition: background .2s, color .2s, border-color .2s, transform .2s;
+  }
+  .ptable td.cta a:hover { background: var(--copper); color: var(--bg); border-color: var(--copper); transform: translate(2px, -2px); }
+  .ptable td.cta a::after { content: "↗"; font-size: 16px; }
+
+  .badge {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px;
+    margin-left: 8px; vertical-align: middle;
+    font-weight: 400;
+  }
+  .badge.new { background: var(--copper); color: var(--bg); }
+  .badge.feat { background: var(--moss); color: var(--bg); }
+  .badge.disc { background: var(--ink); color: var(--bg); }
+
+  @media (max-width: 720px) {
+    .ptable, .ptable thead, .ptable tbody, .ptable tr, .ptable td, .ptable th { display: block; }
+    .ptable thead { display: none; }
+    .ptable tr { padding: 18px 0; }
+    .ptable td { padding: 6px 0; }
+    .ptable td.cta { display: none; }
+    .ptable td.price { text-align: left; }
+  }
+
+  /* notes */
+  .notes {
+    margin-top: 80px; padding: 36px;
+    border: 1px solid var(--line); border-radius: 18px;
+    background: var(--paper);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  @media (max-width: 720px) { .notes { grid-template-columns: 1fr; padding: 24px; } }
+  .notes h4 { font-family: "Instrument Serif", serif; font-size: 26px; margin-bottom: 12px; }
+  .notes p, .notes li { font-size: 14px; color: var(--ink-soft); }
+  .notes ul { padding-left: 18px; margin-top: 8px; }
+  .notes ul li { margin-bottom: 8px; }
+
+  /* CTA strip */
+  .cta-strip {
+    margin-top: 80px;
+    background: var(--ink); color: var(--bg);
+    border-radius: 24px;
+    padding: 56px;
+    display: grid; grid-template-columns: 2fr 1fr; gap: 32px;
+    align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-strip::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(500px 300px at 90% 100%, color-mix(in oklab, var(--copper) 28%, transparent), transparent);
+  }
+  @media (max-width: 720px) { .cta-strip { grid-template-columns: 1fr; padding: 36px; } }
+  .cta-strip h3 {
+    position: relative;
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(32px, 4vw, 56px); line-height: 1; letter-spacing: -0.02em;
+  }
+  .cta-strip h3 em { font-style: italic; color: var(--copper-2); }
+  .cta-strip p { position: relative; color: color-mix(in oklab, var(--bg) 70%, transparent); margin-top: 12px; max-width: 420px; }
+  .cta-actions { position: relative; display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+  @media (max-width: 720px) { .cta-actions { justify-content: flex-start; } }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px; border-radius: 999px;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: background .25s, color .25s, transform .25s;
+    border: 1px solid transparent;
+  }
+  .btn.primary { background: var(--copper); color: var(--bg); }
+  .btn.primary:hover { background: var(--bg); color: var(--ink); transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--bg); border-color: color-mix(in oklab, var(--bg) 30%, transparent); }
+  .btn.ghost:hover { border-color: var(--bg); }
+
+  /* steeldecor */
+  .steeldecor {
+    background: linear-gradient(135deg, #2a2a2e 0%, #3a3032 100%);
+    color: #f1ece1; overflow: hidden; position: relative;
+  }
+  .steeldecor::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0 80px, color-mix(in oklab, var(--copper) 8%, transparent) 80px 81px);
+    pointer-events: none; opacity: .6;
+  }
+  .sdec-inner { position: relative; display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center; padding: 32px 0; }
+  @media (max-width: 720px) { .sdec-inner { grid-template-columns: 1fr; gap: 18px; padding: 28px 0; text-align: center; } }
+  .sdec-mark { display: flex; align-items: center; gap: 14px; }
+  .sdec-icon { width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #b8a070 0%, #826039 100%); display: grid; place-items: center; font-family: "Instrument Serif", serif; font-size: 28px; color: #1a1612; flex: 0 0 auto; }
+  .sdec-mark .lab small { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #c8b88c; display: block; margin-bottom: 4px; }
+  .sdec-mark .lab b { font-family: "Instrument Serif", serif; font-weight: 400; font-size: 26px; }
+  .sdec-text { font-size: 15px; color: color-mix(in oklab, #f1ece1 80%, transparent); max-width: 520px; }
+  .sdec-cta { background: #f1ece1; color: #1a1612; padding: 14px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; transition: background .25s, transform .25s; white-space: nowrap; }
+  .sdec-cta:hover { background: #c8b88c; transform: translateY(-2px); }
+  .sdec-cta::after { content: "↗"; }
+
+  /* footer slim */
+  footer.foot {
+    background: var(--ink); color: var(--bg);
+    padding: 48px 0;
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 0.06em;
+    color: color-mix(in oklab, var(--bg) 60%, transparent);
+  }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .foot-inner a { color: color-mix(in oklab, var(--bg) 80%, transparent); }
+  .foot-inner a:hover { color: var(--copper-2); }
+  .foot-inner .links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="dot"></span>
+      Pálinkafőzés<span style="color:var(--copper); font-style: italic;">.com</span>
+      <small>EST. 2011</small>
+    </a>
+    <nav class="nav">
+      <a class="nav-item" href="index.html#products">Pálinkafőzők</a>
+      <a class="nav-item" href="index.html#products">Üzemi</a>
+      <a class="nav-item" href="index.html#serpa">SerPa sörfőző</a>
+      <a class="nav-item active" href="arlista.html">Árlista</a>
+      <a class="nav-item" href="index.html#edu">Oktatás</a>
+      <a class="nav-item" href="index.html#faq">Tudástár</a>
+      <a class="nav-cta" href="index.html#contact">Ajánlatkérés →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="ph">
+  <div class="wrap">
+    <div class="ph-grid">
+      <div>
+        <div class="crumb">
+          <a href="index.html">Főoldal</a>
+          <span class="sep">/</span>
+          <span>Árlista</span>
+          <span class="sep">/</span>
+          <span style="color:var(--copper)">2026</span>
+        </div>
+        <h1>Árlista <em>2026.</em></h1>
+        <p>
+          A teljes berendezés-paletta egy oldalon — kategóriánként rendezve,
+          átlátható, kereshető, mindig naprakész. A korábbi PDF-et leváltottuk:
+          a frissítéseket innen, valós időben követheti.
+        </p>
+      </div>
+      <div class="ph-meta">
+        <div>
+          <div class="k">Verzió</div>
+          <div class="v">v.2026.05 — frissítve május 8.</div>
+        </div>
+        <div>
+          <div class="k">Pénznem</div>
+          <div class="v">HUF · Bruttó (27% ÁFA-val)</div>
+        </div>
+        <div>
+          <div class="k">Érvényesség</div>
+          <div class="v">Készleterejéig · írásos ajánlat 30 napig</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter">
+  <div class="wrap filter-inner">
+    <div class="chip on" data-filter="all">Összes <span class="ct">14</span></div>
+    <div class="chip" data-filter="hazi">Házi <span class="ct">7</span></div>
+    <div class="chip" data-filter="uzemi">Üzemi <span class="ct">3</span></div>
+    <div class="chip" data-filter="serpa">SerPa sörfőző <span class="ct">2</span></div>
+    <div class="chip" data-filter="kieg">Kiegészítők <span class="ct">2</span></div>
+    <div class="filter-spacer"></div>
+    <span class="filter-note">↻ Az árak tájékoztató jellegűek</span>
+  </div>
+</div>
+
+<!-- TABLE -->
+<main>
+  <div class="wrap">
+
+    <!-- HÁZI -->
+    <div class="cat" data-cat="hazi">
+      <div class="cat-head">
+        <div>
+          <div class="cat-num">01 — Kategória</div>
+          <h2 class="cat-name">Házi <em>pálinkafőzők</em></h2>
+        </div>
+        <p class="cat-blurb">
+          A 5 literes hobbi-mérettől a 150 literes háztáji egylépcsős lepárlóig.
+          Magánfőzdékhez, családoknak, kísérletezőknek.
+        </p>
+      </div>
+
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Modell</th>
+            <th>Műszaki adatok</th>
+            <th class="num">Bruttó ár</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">Hobby pálinkafőző<small>5 literes, forrasztott vörösréz, hagyma-kupolás. Kísérletezésre, borpárlat-készítésre.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>5 L · Vörösréz</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős</span></td>
+            <td class="price">189 000 Ft<small>kupolával</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester Dávid 35L<small>A Pálinka Mester kombi lepárló kis testvére. Egylépcsős, refluxos.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>35 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős / kombi</span></td>
+            <td class="price">315 000 Ft<small>kupola + finomító oszlop</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester Dávid+ 45L<small>A Dávid bővített, 45 literes változata — családi kapacitásra.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>45 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős</span></td>
+            <td class="price">389 000 Ft<small>kupola + oszlop</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester Klasszik<small>Kétlépcsős, kisüsti karakter — a hagyományos technológia mai biztonsággal.</small><span class="badge feat">Klasszikus</span></td>
+            <td class="spec"><span class="k">Üst</span><span>30 / 50 L</span><span class="k" style="margin-top:6px;">Technológia</span><span>Kétlépcsős kisüsti</span></td>
+            <td class="price">429 000 Ft<small>30 literes kivitel</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Prof. egylépcsős<small>Háztáji kategória csúcsa, refluxos finomító oszlop, megerősített szerelvények.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>60 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős</span></td>
+            <td class="price">468 000 Ft<small>kupola + oszlop</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester 98L<small>A „nagy" Pálinka Mester. Háztáji-üzemi határterület, 98 literes egylépcsős.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>98 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős</span></td>
+            <td class="price">748 000 Ft<small>vízfürdős kivitel</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester 118L<small>Az egylépcsős zászlóshajó legnagyobb háztartási mérete.</small><span class="badge new">Új termék</span></td>
+            <td class="spec"><span class="k">Üst</span><span>118 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős, refluxos</span></td>
+            <td class="price">875 000 Ft<small>15% szezon-akció · meghosszabbítva</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester Góliát 150L<small>A háztáji csúcs: 150 literes egylépcsős lepárló, indulófőzdéknek.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>150 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős</span></td>
+            <td class="price">1 245 000 Ft<small>alapfelszereltség</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ÜZEMI -->
+    <div class="cat" data-cat="uzemi">
+      <div class="cat-head">
+        <div>
+          <div class="cat-num">02 — Kategória</div>
+          <h2 class="cat-name">Üzemi <em>lepárlók</em></h2>
+        </div>
+        <p class="cat-blurb">
+          100 litertől 1000 liter felett — kereskedelmi szeszfőzde, bérfőzde,
+          kisüzemi pálinkaház. Egyedi méretezés, csőszerelés, beüzemelés.
+        </p>
+      </div>
+
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Modell</th>
+            <th>Műszaki adatok</th>
+            <th class="num">Bruttó ár</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">Pálinka Mester Herkules<small>Üzemi méretű egylépcsős lepárló. Kereskedelmi pálinkaházak, bérfőzdék számára.</small><span class="badge feat">Kiemelt</span></td>
+            <td class="spec"><span class="k">Üst</span><span>200–500 L</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős, ipari</span></td>
+            <td class="price"><em>Egyedi árajánlat</em><small>200L-től · konzultáció szükséges</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Hagyományos kétlépcsős üzemi<small>Klasszikus alszesz + finomítás. 100–600 literes méretekben.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>100–600 L</span><span class="k" style="margin-top:6px;">Technológia</span><span>Kétlépcsős kisüsti</span></td>
+            <td class="price"><em>Egyedi árajánlat</em><small>3–4 hó gyártási idő</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Nagykapacitású ipari lepárló<small>1000 liter feletti, egyedi tervezésű kivitel — desztilláló oszlopos.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>1000+ L</span><span class="k" style="margin-top:6px;">Technológia</span><span>Egylépcsős, oszlopos</span></td>
+            <td class="price muted">érdeklődésre<small>email vagy telefon</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SERPA -->
+    <div class="cat" data-cat="serpa">
+      <div class="cat-head">
+        <div>
+          <div class="cat-num">03 — Kategória</div>
+          <h2 class="cat-name">SerPa <em>sörfőző</em></h2>
+        </div>
+        <p class="cat-blurb">
+          Saját fejlesztésű, együstös, dupla-falú, többfunkciós sör- és
+          pálinkafőző berendezés. Egy edényben cefrézés, szűrés, máslás,
+          komlóforralás.
+        </p>
+      </div>
+
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Modell</th>
+            <th>Műszaki adatok</th>
+            <th class="num">Bruttó ár</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">SerPa 40L — gáz üzemű<small>Belépő szintű együstös sör- és pálinkafőző gázégős kivitelben.</small></td>
+            <td class="spec"><span class="k">Üst</span><span>40 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Üzemmód</span><span>Gáz</span></td>
+            <td class="price">755 000 Ft<small>alapkiszerelés</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">SerPa 40L — gáz + elektromos<small>Vegyes üzemű, kényelmesebb hőmérséklet-szabályozás.</small><span class="badge feat">Ajánlott</span></td>
+            <td class="spec"><span class="k">Üst</span><span>40 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Üzemmód</span><span>Gáz / Elektromos</span></td>
+            <td class="price">826 000 Ft<small>alapkiszerelés</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">SerPa 80L — multifunkciós<small>A 80 literes zászlóshajó. Pálinkafőző opcióval kiegészíthető (kupola + oszlop).</small><span class="badge new">Csúcs</span></td>
+            <td class="spec"><span class="k">Üst</span><span>80 L · Dupla-falú</span><span class="k" style="margin-top:6px;">Üzemmód</span><span>Gáz / Elektromos</span></td>
+            <td class="price">1 245 000 Ft<small>+ pálinka kupola opció: 468 000 Ft</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- KIEG -->
+    <div class="cat" data-cat="kieg">
+      <div class="cat-head">
+        <div>
+          <div class="cat-num">04 — Kategória</div>
+          <h2 class="cat-name">Kiegészítők &amp; <em>opciók</em></h2>
+        </div>
+        <p class="cat-blurb">
+          Kupolák, oszlopok, szeszmérők, csapok, tartályok — a teljes párlatfőző
+          ökoszisztéma egy helyen.
+        </p>
+      </div>
+
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Tétel</th>
+            <th>Leírás</th>
+            <th class="num">Bruttó ár</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">Pálinka Mester kupola + oszlop<small>Megvásárolható különböző főzőkhöz mint kiegészítő.</small></td>
+            <td class="spec"><span class="k">Tartozék</span><span>Egylépcsős kupola</span><span class="k" style="margin-top:6px;">Anyag</span><span>Vörösréz / rozsdamentes</span></td>
+            <td class="price">468 000 Ft</td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Pálinka Mester Dávid kupola + oszlop<small>A Dávid méretéhez illeszkedő egylépcsős kupola és finomító oszlop.</small></td>
+            <td class="spec"><span class="k">Tartozék</span><span>Dávid-kompatibilis</span><span class="k" style="margin-top:6px;">Anyag</span><span>Vörösréz</span></td>
+            <td class="price">315 000 Ft</td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Szeszmérő, epruvetta, hőmérő<small>Mérőeszköz-csomag — házi és üzemi főzéshez.</small></td>
+            <td class="spec"><span class="k">Csomag</span><span>3 db szett</span><span class="k" style="margin-top:6px;">Pontosság</span><span>±0.5 V%</span></td>
+            <td class="price">14 900 Ft</td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+          <tr>
+            <td class="name">Helyszíni betanítás &amp; próbafőzés<small>Vásárlóknak, a berendezés helyszínén — minden új főzőhöz ajánlott.</small></td>
+            <td class="spec"><span class="k">Időtartam</span><span>4–6 óra</span><span class="k" style="margin-top:6px;">Kiszállás</span><span>országosan</span></td>
+            <td class="price">35 000 Ft<small>+ km-díj</small></td>
+            <td class="cta"><a href="#"></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- NOTES -->
+    <div class="notes reveal">
+      <div>
+        <h4>Fontos tudnivalók</h4>
+        <ul>
+          <li>Az árak bruttó, magyar forintban értendők, 27% ÁFA-tartalommal.</li>
+          <li>Az üzemi készülékek ára nem tartalmaz szeszmérő gépet, mintavevő csapot, elektromos kapcsolószekrényt és egyéb kiegészítő eszközöket.</li>
+          <li>Az üzemi készülékek ára nem tartalmazza a helyszíni összeszerelést, beüzemelést, cefre vonal kiépítést, csőszerelés anyag- és munkadíját.</li>
+          <li>A 150 literes méret felett egyedi árazás — kérjük érdeklődjön email-en vagy telefonon.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Megrendelés &amp; szállítás</h4>
+        <ul>
+          <li>Legyártási és szállítási határidő az első részlet fizetését követő 3–4 hónap (üzemi méret esetén).</li>
+          <li>Pontos árajánlat előtt személyes konzultáció szükséges.</li>
+          <li>Ajánlatkérés: <strong>info@palinkafozes.com</strong>, +36 30 932 9396, +36 30 522 1099.</li>
+          <li>Házhozszállítás országszerte, minden főzőhöz külön szervezve.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip reveal">
+      <div>
+        <h3>Egyedi méret? <em>Egyedi ár.</em></h3>
+        <p>200 literes felett, kereskedelmi főzde tervezéséhez konzultációt egyeztetünk — a méréstől a csőszerelésig.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="index.html#contact" class="btn primary">Ajánlatkérés →</a>
+        <a href="tel:+36309329396" class="btn ghost">+36 30 932 9396</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- STEELDECOR -->
+<a class="steeldecor" href="https://steeldecor.hu" target="_blank" rel="noopener">
+  <div class="wrap sdec-inner">
+    <div class="sdec-mark">
+      <div class="sdec-icon">S</div>
+      <div class="lab">
+        <small>Partner webshop</small>
+        <b>steeldecor<span style="color:var(--copper-2)">.hu</span></b>
+      </div>
+    </div>
+    <div class="sdec-text">
+      Rozsdamentes és vörösréz kiegészítők, dekor- és üzemi acélelemek
+      — a műhelyünk testvérboltja.
+    </div>
+    <div class="sdec-cta">Tovább a webshopra</div>
+  </div>
+</a>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span>© Palinkafozes.com · 2011 — 2026 · Kontur Bt.</span>
+    <div class="links">
+      <a href="index.html">Főoldal</a>
+      <a href="index.html#products">Berendezések</a>
+      <a href="index.html#edu">Oktatás</a>
+      <a href="index.html#faq">Tudástár</a>
+      <a href="index.html#contact">Kapcsolat</a>
+      <a href="#">Adatkezelés</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // filter
+  const chips = document.querySelectorAll('.chip');
+  const cats = document.querySelectorAll('.cat');
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    const f = c.dataset.filter;
+    cats.forEach(cat => {
+      cat.style.display = (f === 'all' || cat.dataset.cat === f) ? '' : 'none';
+    });
+  }));
+
+  // reveal
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
