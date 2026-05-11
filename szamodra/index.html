@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Ajándék – Egyedi, személyes, felejthetetlen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:   #3a7d5c;
+      --green-l: #e8f5ee;
+      --green-d: #1f4d37;
+      --orange:  #e8855b;
+      --cream:   #faf7f2;
+      --dark:    #1a1a1a;
+      --mid:     #555;
+      --border:  #e2ddd6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(250,247,242,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-weight: 900; font-size: 1.3rem; letter-spacing: -.5px;
+      color: var(--green-d);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-icon { font-size: 1.4rem; }
+    nav a.cta-nav {
+      background: var(--green); color: #fff;
+      padding: 10px 22px; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: .9rem;
+      transition: background .2s, transform .15s;
+    }
+    nav a.cta-nav:hover { background: var(--green-d); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: 120px 7% 80px;
+      background: linear-gradient(135deg, #faf7f2 60%, #e8f5ee 100%);
+    }
+    .hero-text { max-width: 560px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-l); color: var(--green-d);
+      border: 1px solid #b8dfc9;
+      padding: 6px 14px; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .4px;
+      margin-bottom: 24px;
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 22px;
+    }
+    h1 span { color: var(--green); position: relative; }
+    h1 span::after {
+      content: '';
+      position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 4px; background: var(--orange); border-radius: 2px;
+      opacity: .6;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--mid);
+      line-height: 1.7; margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: #fff;
+      padding: 15px 32px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: 1rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(58,125,92,.3);
+    }
+    .btn-primary:hover { background: var(--green-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,125,92,.4); }
+    .btn-secondary {
+      background: transparent; color: var(--dark);
+      padding: 15px 28px; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: 1rem;
+      border: 2px solid var(--border);
+      transition: border-color .2s, transform .15s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 900; color: var(--green-d); }
+    .stat-label { font-size: .8rem; color: var(--mid); margin-top: 2px; }
+
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-wrap {
+      position: relative; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.15);
+      width: 100%; max-width: 480px;
+    }
+    .hero-img-wrap img { width: 100%; height: 480px; object-fit: cover; display: block; }
+    .float-card {
+      position: absolute;
+      background: #fff; border-radius: 14px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      font-size: .85rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .float-card.top-left  { top: 24px; left: -20px; }
+    .float-card.bot-right { bottom: 32px; right: -20px; }
+    .float-icon { font-size: 1.2rem; }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-wrap {
+      overflow: hidden; background: var(--green-d);
+      padding: 14px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 48px; width: max-content;
+      animation: marquee 22s linear infinite;
+      color: rgba(255,255,255,.8); font-size: .9rem; font-weight: 500;
+    }
+    .marquee-item { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+    .marquee-sep { color: rgba(255,255,255,.3); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 90px 7%; }
+    .section-tag {
+      font-size: .8rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900; letter-spacing: -1px;
+      line-height: 1.2;
+    }
+    .section-sub { color: var(--mid); font-size: 1.05rem; line-height: 1.7; margin-top: 14px; max-width: 540px; }
+
+    /* ── PRODUCTS ── */
+    #termekek { background: #fff; }
+    .products-header { text-align: center; margin-bottom: 56px; }
+    .products-header .section-sub { margin: 14px auto 0; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      border-radius: 20px; overflow: hidden;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      transition: transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+    .product-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+    .product-info { padding: 20px; }
+    .product-name { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .product-desc { font-size: .85rem; color: var(--mid); line-height: 1.5; margin-bottom: 14px; }
+    .product-tag {
+      display: inline-block;
+      background: var(--green-l); color: var(--green-d);
+      font-size: .75rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 50px;
+    }
+
+    /* ── WHY US ── */
+    #miert { background: var(--cream); }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      margin-top: 60px;
+    }
+    .why-visual { position: relative; }
+    .why-img-main {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+    .why-img-main img { width: 100%; height: 420px; object-fit: cover; display: block; }
+    .why-img-small {
+      position: absolute; bottom: -24px; right: -20px;
+      width: 45%; border-radius: 16px; overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 12px 40px rgba(0,0,0,.15);
+    }
+    .why-img-small img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .features { display: flex; flex-direction: column; gap: 28px; }
+    .feature-item { display: flex; gap: 18px; align-items: flex-start; }
+    .feature-icon-wrap {
+      flex-shrink: 0; width: 52px; height: 52px;
+      background: var(--green-l); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
+    .feature-text { font-size: .9rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── PROCESS ── */
+    #folyamat { background: var(--green-d); color: #fff; }
+    #folyamat .section-tag { color: #8fd4a8; }
+    #folyamat .section-title { color: #fff; }
+    #folyamat .section-sub { color: rgba(255,255,255,.65); max-width: 480px; }
+    .process-header { margin-bottom: 64px; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+    .step {
+      text-align: center;
+      padding: 36px 24px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      transition: background .2s;
+    }
+    .step:hover { background: rgba(255,255,255,.1); }
+    .step-num {
+      font-size: 3rem; font-weight: 900;
+      color: rgba(255,255,255,.15);
+      line-height: 1; margin-bottom: 16px;
+    }
+    .step-icon { font-size: 2rem; margin-bottom: 14px; }
+    .step-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+    .step-text { font-size: .87rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+
+    /* ── GALLERY STRIP ── */
+    #galeria { background: #fff; padding-bottom: 0; }
+    .gallery-header { text-align: center; margin-bottom: 48px; }
+    .gallery-header .section-sub { margin: 14px auto 0; }
+    .gallery-scroll {
+      display: flex; gap: 16px; overflow-x: auto;
+      padding: 0 7% 60px;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .gallery-scroll::-webkit-scrollbar { height: 4px; }
+    .gallery-scroll::-webkit-scrollbar-track { background: transparent; }
+    .gallery-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .gallery-item {
+      flex-shrink: 0; border-radius: 16px; overflow: hidden;
+      width: 260px; height: 320px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      transition: transform .25s;
+    }
+    .gallery-item:hover { transform: scale(1.03); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── CTA ── */
+    #kapcsolat {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-d) 100%);
+      color: #fff; text-align: center;
+    }
+    #kapcsolat .section-title { color: #fff; font-size: clamp(2rem, 4vw, 3rem); }
+    #kapcsolat .section-sub { color: rgba(255,255,255,.75); margin: 16px auto 40px; }
+    .cta-email-form {
+      display: flex; gap: 12px; justify-content: center;
+      flex-wrap: wrap; max-width: 480px; margin: 0 auto;
+    }
+    .cta-email-form input {
+      flex: 1; min-width: 220px;
+      padding: 14px 20px; border-radius: 50px;
+      border: none; outline: none;
+      font-size: .95rem; font-family: inherit;
+      background: rgba(255,255,255,.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .cta-email-form input::placeholder { color: rgba(255,255,255,.6); }
+    .cta-email-form input:focus { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
+    .btn-cta {
+      background: #fff; color: var(--green-d);
+      padding: 14px 28px; border-radius: 50px;
+      border: none; cursor: pointer;
+      font-weight: 700; font-size: .95rem; font-family: inherit;
+      transition: transform .15s, box-shadow .2s;
+    }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .cta-note { margin-top: 16px; font-size: .82rem; color: rgba(255,255,255,.55); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.5);
+      padding: 32px 7%; text-align: center;
+      font-size: .85rem;
+    }
+    footer span { color: rgba(255,255,255,.8); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 6% 60px; gap: 40px; }
+      .hero-visual { order: -1; }
+      .hero-img-wrap img { height: 320px; }
+      .float-card.top-left { left: 10px; }
+      .float-card.bot-right { right: 10px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 14px 5%; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .hero-img-wrap img { height: 260px; }
+    }
+    @media (max-width: 420px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIM ── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <span class="logo-icon">🌿</span>
+      3D Ajándék
+    </div>
+    <a href="#kapcsolat" class="cta-nav">Megrendelem →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text fade-up">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Kézzel tervezett · 3D nyomtatva
+      </div>
+      <h1>Ajándék, ami <span>tényleg</span> megmarad</h1>
+      <p class="hero-sub">
+        Felejtsd el az unalmas boltokat. Mi egyedi, személyre szabott 3D nyomtatott ajándékokat készítünk – cserepeink mindenki szívét megnyerik.
+      </p>
+      <div class="hero-btns">
+        <a href="#termekek" class="btn-primary">Nézd meg a termékeket</a>
+        <a href="#folyamat" class="btn-secondary">
+          <span>Hogyan működik?</span> ↓
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Egyedi design</div>
+        </div>
+        <div>
+          <div class="stat-num">3D</div>
+          <div class="stat-label">Nyomtatott</div>
+        </div>
+        <div>
+          <div class="stat-num">✓</div>
+          <div class="stat-label">Személyes ajándék</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual fade-up">
+      <div class="hero-img-wrap">
+        <img src="images/cserep/animal-cserep.jpg" alt="3D nyomtatott állatcserepek" />
+      </div>
+      <div class="float-card top-left">
+        <span class="float-icon">🐾</span> Állat cserepeink
+      </div>
+      <div class="float-card bot-right">
+        <span class="float-icon">🎁</span> Tökéletes ajándék
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">🌱 Egyedi tervezés <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🖨️ 3D nyomtatás <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🎁 Személyes ajándék <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🐾 Állatos cserepeek <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🌵 Szukulens tartók <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">😄 Vicces karakterek <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🌱 Egyedi tervezés <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🖨️ 3D nyomtatás <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🎁 Személyes ajándék <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🐾 Állatos cserepeek <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">🌵 Szukulens tartók <span class="marquee-sep">·</span></span>
+      <span class="marquee-item">😄 Vicces karakterek <span class="marquee-sep">·</span></span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="termekek">
+    <div class="products-header fade-up">
+      <div class="section-tag">Termékeink</div>
+      <h2 class="section-title">Minden darab egy sztori</h2>
+      <p class="section-sub">Állatos cserepeektől a vicces karakterekig – nálunk biztosan találsz olyat, ami leejti az állát a megajándékozottnak.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card fade-up">
+        <img src="images/cserep/animal-cserep.jpg" alt="Állat cserepeek" />
+        <div class="product-info">
+          <div class="product-name">Állatos cserepek</div>
+          <div class="product-desc">Aranyos, 3D nyomtatott cserepeek kedvenc állatokkal – kutyus, béka, sün, elefánt és még sok más.</div>
+          <span class="product-tag">Bestseller</span>
+        </div>
+      </div>
+      <div class="product-card fade-up">
+        <img src="images/cserep/devitohead.jpg" alt="Fejcserép" />
+        <div class="product-info">
+          <div class="product-name">Karakter fejcserép</div>
+          <div class="product-desc">Felismered a fejet? Egyedi figurák 3D-ben – tökéletes ajándék filmrajongóknak és humor szeretőknek.</div>
+          <span class="product-tag">Egyedi</span>
+        </div>
+      </div>
+      <div class="product-card fade-up">
+        <img src="images/cserep/lovika.jpg" alt="Vicces cserép" />
+        <div class="product-info">
+          <div class="product-name">Karakteres cserép</div>
+          <div class="product-desc">Szívvel emelt karú kis figura – ülő pozícióban, imádnivaló arccal. Szukulensek legjobb barátja.</div>
+          <span class="product-tag">Imádnivaló</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="miert">
+    <div class="why-grid">
+      <div class="why-visual">
+        <div class="why-img-main">
+          <img src="images/cserep/animal-cserep-close.jpg" alt="Közeli részlet" />
+        </div>
+        <div class="why-img-small">
+          <img src="images/cserep/handcserep.jpg" alt="Kéz cserép" />
+        </div>
+      </div>
+      <div>
+        <div class="section-tag fade-up">Miért mi?</div>
+        <h2 class="section-title fade-up">Nem csak egy cserép.<br/>Egy élmény.</h2>
+        <p class="section-sub fade-up">Minden darabot szeretettel tervezünk és nyomtatunk – hogy te olyat adhass, amit máshol nem kapsz.</p>
+        <div class="features" style="margin-top: 36px;">
+          <div class="feature-item fade-up">
+            <div class="feature-icon-wrap">🖨️</div>
+            <div>
+              <div class="feature-title">Prémium 3D nyomtatás</div>
+              <div class="feature-text">Professzionális anyagok és pontosság – minden apró részlet tökéletesen kijön. Tartós, strapabíró termékek.</div>
+            </div>
+          </div>
+          <div class="feature-item fade-up">
+            <div class="feature-icon-wrap">✏️</div>
+            <div>
+              <div class="feature-title">Személyre szabható</div>
+              <div class="feature-text">Egyedi szín, egyedi méret, egyedi design – kérd pontosan úgy, ahogy elképzelted, mi megcsináljuk.</div>
+            </div>
+          </div>
+          <div class="feature-item fade-up">
+            <div class="feature-icon-wrap">💝</div>
+            <div>
+              <div class="feature-title">Tökéletes ajándék</div>
+              <div class="feature-text">Születésnap, névnap, karácsony, vagy csak úgy – mindig tudni fogod, mit adj, és a fogadó sosem felejti el.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="folyamat">
+    <div class="process-header fade-up">
+      <div class="section-tag">Hogyan működik?</div>
+      <h2 class="section-title">3 lépés az egyedi ajándékig</h2>
+      <p class="section-sub">Könnyű, gyors, stresszfree. Kezeld le percek alatt, mi elvégezzük a többit.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-icon">💬</div>
+        <div class="step-title">Írj nekünk</div>
+        <div class="step-text">Mondj el mit szeretnél – milyen állat, karakter, szín, méret. Mi segítünk kitalálni a legjobbat.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-icon">🖨️</div>
+        <div class="step-title">Nyomtatjuk</div>
+        <div class="step-text">A terv alapján kinyomtatjuk a terméket. Minden darab gondosan ellenőrizve kerül ki a gépből.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <div class="step-icon">📦</div>
+        <div class="step-title">Megkapod</div>
+        <div class="step-text">Szépen csomagolva, sérülésmentesen érkezik meg hozzád – vagy egyenesen a megajándékozotthoz.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">04</div>
+        <div class="step-icon">😍</div>
+        <div class="step-title">Mindenki ámul</div>
+        <div class="step-text">A megajándékozott leesett állal néz, te pedig büszke leszel. Garantált "ezt hol vetted?!" pillanatok.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="galeria" style="padding-bottom: 0;">
+    <div class="gallery-header fade-up" style="padding: 0 7%;">
+      <div class="section-tag">Galéria</div>
+      <h2 class="section-title">Látni kell, hogy elhidd</h2>
+      <p class="section-sub">Görgess jobbra a képeken – minden darab valós termék, amit mi nyomtattunk.</p>
+    </div>
+    <div class="gallery-scroll">
+      <div class="gallery-item"><img src="images/cserep/animal-cserep.jpg" alt="Állatos cserepeek" /></div>
+      <div class="gallery-item"><img src="images/cserep/lovika.jpg" alt="Lovika cserép" /></div>
+      <div class="gallery-item"><img src="images/cserep/devitohead.jpg" alt="DeVito fej cserép" /></div>
+      <div class="gallery-item"><img src="images/cserep/handcserep.jpg" alt="Kéz cserép" /></div>
+      <div class="gallery-item"><img src="images/cserep/animal-cserep-close.jpg" alt="Közeli részlet" /></div>
+      <div class="gallery-item"><img src="images/cserep/ulocserep.jpg" alt="Ülő cserép" /></div>
+      <div class="gallery-item"><img src="images/cserep/ulul.jpg" alt="Ülő ülő cserép" /></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="kapcsolat">
+    <div class="section-tag fade-up">Rendeld meg</div>
+    <h2 class="section-title fade-up">Kész vagy a tökéletes ajándékra?</h2>
+    <p class="section-sub fade-up">Írj nekünk és egyeztetünk – ingyen, kötelezettség nélkül. Általában 24 órán belül válaszolunk.</p>
+    <div class="cta-email-form fade-up">
+      <input type="email" placeholder="Az email címed..." />
+      <button class="btn-cta">Érdekel! →</button>
+    </div>
+    <p class="cta-note">Spam-mentes zóna. Csak akkor írunk, ha válaszolunk a kérésedre.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>3D Ajándék</span> – Egyedi, személyes, felejthetetlen.</p>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // CTA form
+    document.querySelector('.btn-cta').addEventListener('click', () => {
+      const input = document.querySelector('.cta-email-form input');
+      if (input.value && input.value.includes('@')) {
+        input.value = '';
+        input.placeholder = 'Köszönjük! Hamarosan keresünk. 🎉';
+        input.style.color = '#fff';
+      } else {
+        input.style.borderColor = 'rgba(255,100,100,.6)';
+        input.placeholder = 'Kérjük adj meg egy érvényes email címet!';
+        setTimeout(() => { input.style.borderColor = ''; }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>
