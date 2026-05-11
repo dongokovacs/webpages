@@ -230,33 +230,17 @@
     }
     #kapcsolat .section-title { color: #fff; font-size: clamp(2rem, 4vw, 3rem); }
     #kapcsolat .section-sub { color: rgba(255,255,255,.75); margin: 16px auto 40px; }
-    .cta-form {
-      max-width: 480px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .cta-form input,
-    .cta-form textarea {
-      width: 100%;
-      padding: 14px 20px; border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.25); outline: none;
-      font-size: .95rem; font-family: inherit;
-      background: rgba(255,255,255,.15);
-      color: #fff; resize: none;
-    }
-    .cta-form input::placeholder,
-    .cta-form textarea::placeholder { color: rgba(255,255,255,.6); }
-    .cta-form input:focus,
-    .cta-form textarea:focus { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
     .btn-cta {
+      display: inline-block;
       background: #fff; color: var(--green-d);
-      padding: 15px 28px; border-radius: 50px;
-      border: none; cursor: pointer;
-      font-weight: 700; font-size: .95rem; font-family: inherit;
+      padding: 16px 36px; border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700; font-size: 1.05rem; font-family: inherit;
       transition: transform .15s, box-shadow .2s;
-      width: 100%;
+      margin-top: 8px;
     }
     .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-    .cta-note { margin-top: 12px; font-size: .82rem; color: rgba(255,255,255,.55); }
+    .cta-note { margin-top: 16px; font-size: .85rem; color: rgba(255,255,255,.55); }
 
     /* ── FOOTER ── */
     footer {
@@ -503,16 +487,11 @@
 
   <!-- CTA -->
   <section id="kapcsolat">
-    <div class="section-tag fade-up">Rendelés</div>
-    <h2 class="section-title fade-up">Melyik arc a tiéd?</h2>
-    <p class="section-sub fade-up">Töltsd ki az űrlapot – megnyílik az email kliensed, és elküldheted az érdeklődésed.</p>
-    <div class="cta-form fade-up">
-      <input type="text" id="cta-name" placeholder="A neved..." />
-      <input type="text" id="cta-kaspo" placeholder="Melyik kaspót szeretnéd? (pl. Smile, Love, Jee...)" />
-      <textarea id="cta-msg" rows="4" placeholder="Bármilyen kérdés, megjegyzés..."></textarea>
-      <button class="btn-cta" id="cta-btn">Email küldése →</button>
-    </div>
-    <p class="cta-note">Megnyílik az email kliensed – csak küldj, és visszaírunk 24 órán belül.</p>
+    <div class="section-tag fade-up">Érdekel?</div>
+    <h2 class="section-title fade-up">Írj nekünk!</h2>
+    <p class="section-sub fade-up">Ha tetszik valamelyik kaspó, írj egy emailt – megbeszéljük a részleteket.</p>
+    <a class="btn-cta fade-up" href="mailto:info@steeldecor.hu?subject=Szám'odra kaspó érdeklődés">Email küldése →</a>
+    <p class="cta-note">info@steeldecor.hu · Általában 24 órán belül válaszolunk.</p>
   </section>
 
   <!-- FOOTER -->
@@ -532,29 +511,14 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    const TARGET_EMAIL = 'kovacsdani04@gmail.com';
-
-    // Individual order buttons — scroll to CTA and prefill kaspo field
+    // Individual order buttons — scroll to CTA
     document.querySelectorAll('.face-order-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.getElementById('cta-kaspo').value = btn.dataset.name;
+        const kaspo = btn.dataset.name;
+        const link = document.querySelector('#kapcsolat .btn-cta');
+        link.href = `mailto:info@steeldecor.hu?subject=${encodeURIComponent("Szám'odra – " + kaspo)}`;
         document.getElementById('kapcsolat').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => document.getElementById('cta-name').focus(), 600);
       });
-    });
-
-    // CTA form — build mailto and open
-    document.getElementById('cta-btn').addEventListener('click', () => {
-      const name   = document.getElementById('cta-name').value.trim();
-      const kaspo  = document.getElementById('cta-kaspo').value.trim();
-      const msg    = document.getElementById('cta-msg').value.trim();
-
-      const subject = encodeURIComponent(`Szám'odra rendelés${kaspo ? ' – ' + kaspo : ''}`);
-      const body    = encodeURIComponent(
-        `Szia!\n\nNevem: ${name || '–'}\nKiválasztott kaspó: ${kaspo || '–'}\n\n${msg || ''}\n\nVárom a visszajelzést!`
-      );
-
-      window.location.href = `mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
