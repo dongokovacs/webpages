@@ -56,7 +56,7 @@ jobs:
           mkdir -p _site/v0-ai-chat
           mkdir -p _site/steeldecor-story
           cp index.html projects.json robots.txt sitemap.xml _site/
-          cp -r galiba Galiba2 serpa_sorfozde janoshalmi _site/
+          cp -r galiba Galiba2 serpa_sorfozde janoshalmi szamodra _site/
           cp -r bube-viragbolt/dist/. _site/bube-viragbolt/
           cp -r v0-ai-chat/dist/. _site/v0-ai-chat/
           cp -r steeldecor-story/dist/. _site/steeldecor-story/
