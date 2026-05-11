@@ -230,29 +230,33 @@
     }
     #kapcsolat .section-title { color: #fff; font-size: clamp(2rem, 4vw, 3rem); }
     #kapcsolat .section-sub { color: rgba(255,255,255,.75); margin: 16px auto 40px; }
-    .cta-email-form {
-      display: flex; gap: 12px; justify-content: center;
-      flex-wrap: wrap; max-width: 480px; margin: 0 auto;
+    .cta-form {
+      max-width: 480px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 12px;
     }
-    .cta-email-form input {
-      flex: 1; min-width: 220px;
-      padding: 14px 20px; border-radius: 50px;
+    .cta-form input,
+    .cta-form textarea {
+      width: 100%;
+      padding: 14px 20px; border-radius: 16px;
       border: 1px solid rgba(255,255,255,.25); outline: none;
       font-size: .95rem; font-family: inherit;
       background: rgba(255,255,255,.15);
-      color: #fff;
+      color: #fff; resize: none;
     }
-    .cta-email-form input::placeholder { color: rgba(255,255,255,.6); }
-    .cta-email-form input:focus { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
+    .cta-form input::placeholder,
+    .cta-form textarea::placeholder { color: rgba(255,255,255,.6); }
+    .cta-form input:focus,
+    .cta-form textarea:focus { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
     .btn-cta {
       background: #fff; color: var(--green-d);
-      padding: 14px 28px; border-radius: 50px;
+      padding: 15px 28px; border-radius: 50px;
       border: none; cursor: pointer;
       font-weight: 700; font-size: .95rem; font-family: inherit;
       transition: transform .15s, box-shadow .2s;
+      width: 100%;
     }
     .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-    .cta-note { margin-top: 16px; font-size: .82rem; color: rgba(255,255,255,.55); }
+    .cta-note { margin-top: 12px; font-size: .82rem; color: rgba(255,255,255,.55); }
 
     /* ── FOOTER ── */
     footer {
@@ -501,12 +505,14 @@
   <section id="kapcsolat">
     <div class="section-tag fade-up">Rendelés</div>
     <h2 class="section-title fade-up">Melyik arc a tiéd?</h2>
-    <p class="section-sub fade-up">Adj meg egy email-t, és visszaírunk a részletekkel – általában 24 órán belül.</p>
-    <div class="cta-email-form fade-up">
-      <input type="email" id="cta-input" placeholder="Az email címed..." />
-      <button class="btn-cta" id="cta-btn">Érdekel! →</button>
+    <p class="section-sub fade-up">Töltsd ki az űrlapot – megnyílik az email kliensed, és elküldheted az érdeklődésed.</p>
+    <div class="cta-form fade-up">
+      <input type="text" id="cta-name" placeholder="A neved..." />
+      <input type="text" id="cta-kaspo" placeholder="Melyik kaspót szeretnéd? (pl. Smile, Love, Jee...)" />
+      <textarea id="cta-msg" rows="4" placeholder="Bármilyen kérdés, megjegyzés..."></textarea>
+      <button class="btn-cta" id="cta-btn">Email küldése →</button>
     </div>
-    <p class="cta-note" id="cta-note"></p>
+    <p class="cta-note">Megnyílik az email kliensed – csak küldj, és visszaírunk 24 órán belül.</p>
   </section>
 
   <!-- FOOTER -->
@@ -526,29 +532,29 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Individual order buttons — scroll to CTA and prefill note
+    const TARGET_EMAIL = 'kovacsdani04@gmail.com';
+
+    // Individual order buttons — scroll to CTA and prefill kaspo field
     document.querySelectorAll('.face-order-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const name = btn.dataset.name;
-        document.getElementById('cta-note').textContent = `Kiválasztva: ${name} – add meg az email-ed és visszaírunk!`;
-        document.getElementById('cta-note').style.color = '#fff';
+        document.getElementById('cta-kaspo').value = btn.dataset.name;
         document.getElementById('kapcsolat').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => document.getElementById('cta-input').focus(), 600);
+        setTimeout(() => document.getElementById('cta-name').focus(), 600);
       });
     });
 
-    // CTA form submit
+    // CTA form — build mailto and open
     document.getElementById('cta-btn').addEventListener('click', () => {
-      const input = document.getElementById('cta-input');
-      const note = document.getElementById('cta-note');
-      if (input.value && input.value.includes('@')) {
-        input.value = '';
-        input.placeholder = 'Köszönjük! Hamarosan keresünk.';
-        note.textContent = '';
-      } else {
-        input.style.borderColor = 'rgba(255,100,100,.6)';
-        setTimeout(() => { input.style.borderColor = ''; }, 1500);
-      }
+      const name   = document.getElementById('cta-name').value.trim();
+      const kaspo  = document.getElementById('cta-kaspo').value.trim();
+      const msg    = document.getElementById('cta-msg').value.trim();
+
+      const subject = encodeURIComponent(`Szám'odra rendelés${kaspo ? ' – ' + kaspo : ''}`);
+      const body    = encodeURIComponent(
+        `Szia!\n\nNevem: ${name || '–'}\nKiválasztott kaspó: ${kaspo || '–'}\n\n${msg || ''}\n\nVárom a visszajelzést!`
+      );
+
+      window.location.href = `mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
