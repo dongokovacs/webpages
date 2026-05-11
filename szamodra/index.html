@@ -511,12 +511,30 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Individual order buttons — scroll to CTA
+    const CONTACT = 'info@steeldecor.hu';
+    const ctaBtn = document.querySelector('#kapcsolat .btn-cta');
+
+    function sendEmail(subject) {
+      const mailto = `mailto:${CONTACT}?subject=${encodeURIComponent(subject)}`;
+      const gmail  = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(CONTACT)}&su=${encodeURIComponent(subject)}`;
+      let clientOpened = false;
+      const onBlur = () => { clientOpened = true; };
+      window.addEventListener('blur', onBlur);
+      window.location.href = mailto;
+      setTimeout(() => {
+        window.removeEventListener('blur', onBlur);
+        if (!clientOpened) window.open(gmail, '_blank');
+      }, 600);
+    }
+
+    ctaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sendEmail(ctaBtn.dataset.subject || "Szám'odra kaspó érdeklődés");
+    });
+
     document.querySelectorAll('.face-order-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const kaspo = btn.dataset.name;
-        const link = document.querySelector('#kapcsolat .btn-cta');
-        link.href = `mailto:info@steeldecor.hu?subject=${encodeURIComponent("Szám'odra – " + kaspo)}`;
+        ctaBtn.dataset.subject = "Szám'odra – " + btn.dataset.name;
         document.getElementById('kapcsolat').scrollIntoView({ behavior: 'smooth' });
       });
     });
