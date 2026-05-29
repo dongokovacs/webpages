@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Artistic Asymmetry Hero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;background:#0d0d0d;color:#fff;min-height:100vh;overflow:hidden}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:28px 5%}
+    .logo{font-size:1rem;font-weight:700;letter-spacing:-.3px}
+    .nav-right{display:flex;gap:24px;align-items:center}
+    .nav-right a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:.2s}
+    .nav-right a:hover{color:#fff}
+    .hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative}
+    .text-block{max-width:55%;position:relative;z-index:2}
+    .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:24px}
+    h1{font-size:clamp(4rem,8vw,7rem);font-weight:900;line-height:.92;letter-spacing:-4px;margin-bottom:28px}
+    h1 span{color:rgba(255,255,255,.2);font-weight:300;font-style:italic}
+    .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:380px;margin-bottom:40px;font-weight:300}
+    .btn{display:inline-block;background:#fff;color:#000;padding:15px 36px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;transition:.2s;letter-spacing:-.3px}
+    .btn:hover{background:#f0f0f0;transform:translateY(-2px)}
+    .floating-img{position:absolute;right:5%;bottom:0;width:38%;aspect-ratio:3/4;object-fit:cover;border-radius:24px 24px 0 0;filter:saturate(0.8)}
+    .floating-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,.8),transparent 60%)}
+    .img-wrap{position:absolute;right:5%;bottom:0;width:38%;aspect-ratio:3/4;overflow:hidden;border-radius:24px 24px 0 0}
+    .img-wrap img{width:100%;height:100%;object-fit:cover;filter:saturate(.7)}
+    .img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,.9),transparent 60%)}
+    .counter{position:absolute;right:calc(5% + 38% + 24px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.3}
+    .counter-line{width:1px;height:60px;background:#fff}
+    .counter-num{font-size:.7rem;font-weight:700;letter-spacing:2px;writing-mode:vertical-lr}
+    .dot-grid{position:absolute;right:5%;top:30%;z-index:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;opacity:.08}
+    .dot-grid div{width:4px;height:4px;border-radius:50%;background:#fff}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <nav>
+    <div class="logo">Vanguard</div>
+    <div class="nav-right">
+      <a href="#">Munkák</a><a href="#">Studio</a>
+      <a href="#" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 20px">Kezdjük el</a>
+    </div>
+  </nav>
+  <div class="dot-grid">
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+  </div>
+  <section class="hero">
+    <div class="text-block">
+      <div class="eyebrow">gpt-taste · Artistic Asymmetry</div>
+      <h1>Formáljuk<br/>a <span>digitális</span><br/>teret.</h1>
+      <p class="hero-sub">A szöveg balra tolva, a kép jobbról alulról "benő" az oldalba – vizuális feszültség és dinamika negatív térrel.</p>
+      <a href="#" class="btn">Portfólió →</a>
+    </div>
+    <div class="counter">
+      <div class="counter-line"></div>
+      <div class="counter-num">01 / 06</div>
+      <div class="counter-line"></div>
+    </div>
+    <div class="img-wrap">
+      <img src="https://picsum.photos/seed/architect-dark/500/700" alt="Visual"/>
+    </div>
+  </section>
+</body>
+</html>

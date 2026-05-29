@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Brutalism</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Courier New',monospace;background:#fff;color:#000;min-height:100vh;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:100;background:#ff0;border:3px solid #000;padding:6px 14px;font-size:.8rem;font-weight:700;text-decoration:none;color:#000;box-shadow:3px 3px 0 #000;transition:.1s}
+    .back:hover{box-shadow:5px 5px 0 #000;transform:translate(-2px,-2px)}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:4px solid #000;background:#000;color:#fff}
+    .logo{font-size:1.4rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+    .nav-links{display:flex;gap:0}
+    .nav-links a{color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;text-transform:uppercase;padding:8px 20px;border-left:2px solid #333;transition:.1s}
+    .nav-links a:hover{background:#ff0;color:#000}
+    .hero{padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:70vh}
+    .hero-text{padding:60px 40px;border-right:4px solid #000;display:flex;flex-direction:column;justify-content:center}
+    .hero-tag{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;background:#ff0;display:inline-block;padding:4px 10px;border:2px solid #000;margin-bottom:24px}
+    .hero h1{font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:.95;letter-spacing:-2px;text-transform:uppercase;margin-bottom:24px}
+    .hero h1 em{font-style:normal;background:#000;color:#fff;padding:0 8px;display:inline-block;transform:skew(-3deg)}
+    .hero-sub{font-size:.95rem;line-height:1.6;max-width:400px;margin-bottom:32px;color:#333}
+    .btn-brutal{display:inline-block;background:#000;color:#fff;padding:14px 32px;font-size:1rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:2px;border:3px solid #000;box-shadow:6px 6px 0 #ff0;transition:.1s;cursor:pointer}
+    .btn-brutal:hover{box-shadow:8px 8px 0 #ff0;transform:translate(-2px,-2px)}
+    .btn-brutal.outline{background:#fff;color:#000;box-shadow:6px 6px 0 #000}
+    .btn-brutal.outline:hover{box-shadow:8px 8px 0 #000;transform:translate(-2px,-2px)}
+    .hero-visual{background:#f5f5f5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .big-text{font-size:12rem;font-weight:700;color:#ebebeb;letter-spacing:-10px;line-height:1;position:absolute;user-select:none}
+    .brutalist-card{background:#ff0;border:4px solid #000;padding:24px;box-shadow:8px 8px 0 #000;z-index:1;transform:rotate(-3deg)}
+    .brutalist-card strong{display:block;font-size:1.8rem;font-weight:700;letter-spacing:-1px;margin-bottom:8px}
+    .brutalist-card span{font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
+    .ticker{background:#000;color:#ff0;padding:12px 0;overflow:hidden;border-top:4px solid #ff0;border-bottom:4px solid #ff0;margin:0}
+    .ticker-inner{display:flex;animation:tick 10s linear infinite;white-space:nowrap;font-size:.85rem;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+    .ticker-inner span{padding:0 32px}
+    @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:4px solid #000}
+    .grid-item{padding:32px;border-right:4px solid #000}
+    .grid-item:last-child{border-right:none}
+    .grid-item-num{font-size:3rem;font-weight:700;line-height:1;margin-bottom:12px}
+    .grid-item-title{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:8px;border-bottom:3px solid #000}
+    .grid-item-text{font-size:.82rem;line-height:1.6;color:#555}
+    .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← VISSZA</a>
+  <nav>
+    <div class="logo">BRUTAL.HU</div>
+    <div class="nav-links">
+      <a href="#">Munkák</a><a href="#">Rólunk</a><a href="#">Blog</a><a href="#" style="background:#ff0;color:#000">Kontakt</a>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">Brutalism stílus</div>
+      <h1>Nyers.<br/><em>Igaz.</em><br/>Bátor.</h1>
+      <p class="hero-sub">A brutalista web visszautasítja a polírozott felszínt. Nyers anyagok, vastag vonalak, és a vizuális hierarchia kíméletlen őszintesége.</p>
+      <div class="cta-row">
+        <a href="#" class="btn-brutal">Megnézem →</a>
+        <a href="#" class="btn-brutal outline">Miért brutalista?</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="big-text">RAW</div>
+      <div class="brutalist-card">
+        <strong>2024</strong>
+        <span>Design Trend</span>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>NYERS DESIGN</span><span>✦</span><span>BRUTALIZMUS</span><span>✦</span><span>BÁTOR TIPOGRÁFIA</span><span>✦</span><span>VASTAG VONALAK</span><span>✦</span>
+      <span>NYERS DESIGN</span><span>✦</span><span>BRUTALIZMUS</span><span>✦</span><span>BÁTOR TIPOGRÁFIA</span><span>✦</span><span>VASTAG VONALAK</span><span>✦</span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid-item">
+      <div class="grid-item-num">01</div>
+      <div class="grid-item-title">Vastag szegélyek</div>
+      <div class="grid-item-text">3-5px-es fekete keretek, nincs border-radius. Az elemek "valódi" tárgynak látszanak.</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-num">02</div>
+      <div class="grid-item-title">Box-shadow offset</div>
+      <div class="grid-item-text">A klasszikus brutalist shadow: szilárd szín, 45°-os eltolás. Azonnali mélység.</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-num">03</div>
+      <div class="grid-item-title">Monospace font</div>
+      <div class="grid-item-text">Courier New, kódszerkesztő esztétika. Minden karakter egyforma szélességű.</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Testimonial Carousel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;background:#fafaf9;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:80px 40px}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:#fff;border-radius:50px;padding:8px 18px;color:#555;text-decoration:none;font-size:.8rem;font-weight:500;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:.2s}
+    .back:hover{box-shadow:0 4px 20px rgba(0,0,0,.12)}
+    .badge{background:#f0f0f0;border-radius:50px;padding:6px 16px;font-size:.75rem;font-weight:600;color:#888;display:inline-block;margin-bottom:20px;letter-spacing:.5px}
+    h1{font-size:2.4rem;font-weight:900;letter-spacing:-1.5px;color:#000;margin-bottom:8px;text-align:center}
+    .sub{color:#999;font-size:.95rem;margin-bottom:60px;text-align:center}
+    .carousel{width:100%;max-width:820px;position:relative}
+    .slides{overflow:hidden;border-radius:24px}
+    .slide{display:none;background:#fff;border-radius:24px;padding:48px;box-shadow:0 4px 40px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}
+    .slide.active{display:flex;gap:40px;align-items:center}
+    .portrait-wrap{position:relative;flex-shrink:0;width:180px}
+    .portrait{width:160px;height:200px;border-radius:20px;object-fit:cover;display:block}
+    .portrait-badge{position:absolute;bottom:-12px;right:-12px;background:#000;color:#fff;border-radius:10px;padding:10px 14px;font-size:.78rem;font-weight:700;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+    .portrait-badge span{display:block;font-size:.65rem;color:rgba(255,255,255,.5);font-weight:400;margin-top:2px}
+    .content{}
+    .quote-mark{font-size:3rem;font-weight:900;color:#f0f0f0;line-height:1;margin-bottom:-8px}
+    blockquote{font-size:1.15rem;line-height:1.65;color:#1a1a1a;font-weight:400;margin-bottom:24px;max-width:460px}
+    .attribution{display:flex;flex-direction:column;gap:2px}
+    .attr-name{font-size:.95rem;font-weight:700;color:#000}
+    .attr-role{font-size:.82rem;color:#999}
+    .stars{display:flex;gap:3px;margin-bottom:12px}
+    .star{color:#f59e0b;font-size:.9rem}
+    .controls{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+    .dots{display:flex;gap:8px}
+    .dot{width:8px;height:8px;border-radius:50%;background:#e0e0e0;cursor:pointer;transition:.2s}
+    .dot.active{background:#000;width:24px;border-radius:4px}
+    .arrows{display:flex;gap:8px}
+    .arrow{width:44px;height:44px;border-radius:50%;border:1px solid #e0e0e0;background:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s;color:#000}
+    .arrow:hover{background:#000;color:#fff;border-color:#000}
+    .logo-strip{display:flex;gap:32px;align-items:center;margin-top:48px;opacity:.3;flex-wrap:wrap;justify-content:center}
+    .logo-strip span{font-size:.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="badge">gpt-taste · Testimonial Carousel</div>
+  <h1>Mit mondanak rólunk</h1>
+  <p class="sub">Átfedő portré képek, minimális tipográfia, subtle navigáció</p>
+  <div class="carousel">
+    <div class="slides">
+      <div class="slide active">
+        <div class="portrait-wrap">
+          <img class="portrait" src="https://picsum.photos/seed/person-anna/160/200" alt="Anna"/>
+          <div class="portrait-badge">⭐ 5.0<span>Google Reviews</span></div>
+        </div>
+        <div class="content">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <div class="quote-mark">"</div>
+          <blockquote>Az együttműködés tökéletes volt. Pontosan értette, mit akarunk, és a végeredmény meghaladta az elvárásainkat. A weboldalunk konverziója 3x-ra nőtt.</blockquote>
+          <div class="attribution"><div class="attr-name">Kovács Anna</div><div class="attr-role">CEO · Bloom Agency</div></div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="portrait-wrap">
+          <img class="portrait" src="https://picsum.photos/seed/person-peter/160/200" alt="Péter"/>
+          <div class="portrait-badge">⭐ 5.0<span>Clutch</span></div>
+        </div>
+        <div class="content">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <div class="quote-mark">"</div>
+          <blockquote>Profi csapat, gyors kommunikáció és olyan végeredmény, amire büszkék vagyunk. Az új landing oldal az első hónapban megtérült.</blockquote>
+          <div class="attribution"><div class="attr-name">Horváth Péter</div><div class="attr-role">Founder · Fintech Startup</div></div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="portrait-wrap">
+          <img class="portrait" src="https://picsum.photos/seed/person-nora/160/200" alt="Nóra"/>
+          <div class="portrait-badge">⭐ 5.0<span>Behance</span></div>
+        </div>
+        <div class="content">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+          <div class="quote-mark">"</div>
+          <blockquote>Nem csak kiviteleznek – valóban megértik a brand mögötti gondolkodást. Az identitás tervezés öt évre előre megalapozta a pozicionálásunkat.</blockquote>
+          <div class="attribution"><div class="attr-name">Szabó Nóra</div><div class="attr-role">Brand Director · Lifestyle Co.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="dots">
+        <div class="dot active" onclick="goTo(0)"></div>
+        <div class="dot" onclick="goTo(1)"></div>
+        <div class="dot" onclick="goTo(2)"></div>
+      </div>
+      <div class="arrows">
+        <button class="arrow" onclick="prev()">←</button>
+        <button class="arrow" onclick="next()">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="logo-strip">
+    <span>Bloom</span><span>Fintech</span><span>Lifestyle</span><span>Studio K</span><span>Nomad</span>
+  </div>
+  <script>
+    let cur=0;const slides=document.querySelectorAll('.slide');const dots=document.querySelectorAll('.dot');
+    function goTo(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active')}
+    function next(){goTo((cur+1)%slides.length)}function prev(){goTo((cur-1+slides.length)%slides.length)}
+    setInterval(next,5000);
+  </script>
+</body>
+</html>

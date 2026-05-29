@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Flat Design</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#2563eb;min-height:100vh}
+    .back{position:fixed;top:20px;left:20px;z-index:100;background:#fff;border-radius:4px;padding:8px 18px;color:#2563eb;text-decoration:none;font-size:.8rem;font-weight:700;transition:.2s}
+    .back:hover{background:#dbeafe}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:#1d4ed8}
+    .logo{font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-.5px}
+    .nav-links{display:flex;gap:4px}
+    .nav-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;font-weight:600;padding:8px 16px;border-radius:4px;transition:.15s}
+    .nav-links a:hover{background:rgba(255,255,255,.1);color:#fff}
+    .nav-links a.active{background:#fff;color:#1d4ed8}
+    .hero{display:grid;grid-template-columns:1fr 1fr;min-height:60vh;align-items:center;padding:60px 40px}
+    .hero-text{}
+    .hero-tag{background:#1d4ed8;color:#93c5fd;font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;padding:6px 14px;border-radius:4px;margin-bottom:20px}
+    h1{font-size:3.2rem;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+    .hero-sub{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.6;margin-bottom:32px;max-width:400px}
+    .btn-row{display:flex;gap:12px}
+    .btn-white{background:#fff;color:#2563eb;padding:14px 28px;border-radius:4px;font-size:.9rem;font-weight:700;text-decoration:none;transition:.15s}
+    .btn-white:hover{background:#dbeafe}
+    .btn-outline{border:2px solid rgba(255,255,255,.5);color:#fff;padding:14px 28px;border-radius:4px;font-size:.9rem;font-weight:700;text-decoration:none;transition:.15s}
+    .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+    .hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .icon-card{background:#1d4ed8;border-radius:8px;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:.15s;cursor:pointer}
+    .icon-card:hover{background:#1e40af}
+    .icon-shape{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .icon-card span{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.8);text-align:center}
+    .stats{background:#1d4ed8;padding:40px}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:1000px;margin:0 auto}
+    .stat{padding:20px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+    .stat:last-child{border-right:none}
+    .stat-num{font-size:2.8rem;font-weight:800;color:#fff;letter-spacing:-2px}
+    .stat-label{font-size:.8rem;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#eff6ff}
+    .feat{padding:48px 40px;border-right:1px solid #bfdbfe}
+    .feat:last-child{border-right:none}
+    .feat-icon{width:52px;height:52px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+    .feat-title{font-size:1.1rem;font-weight:700;color:#1e40af;margin-bottom:8px}
+    .feat-text{font-size:.85rem;color:#3b82f6;line-height:1.6}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <nav>
+    <div class="logo">FlatUI</div>
+    <div class="nav-links">
+      <a href="#" class="active">Főoldal</a>
+      <a href="#">Termékek</a><a href="#">Rólunk</a><a href="#">Kontakt</a>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">Flat Design stílus</div>
+      <h1>Lapos és<br/>tiszta.</h1>
+      <p class="hero-sub">Nincs árnyék, nincs gradiens, nincs mélység illúziója. Csak szín, forma és tipográfia.</p>
+      <div class="btn-row">
+        <a href="#" class="btn-white">Kipróbálom</a>
+        <a href="#" class="btn-outline">Megismerem</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="icon-card"><div class="icon-shape" style="background:#3b82f6">📊</div><span>Analitika</span></div>
+      <div class="icon-card"><div class="icon-shape" style="background:#10b981">🛡</div><span>Biztonság</span></div>
+      <div class="icon-card"><div class="icon-shape" style="background:#f59e0b">⚡</div><span>Sebesség</span></div>
+      <div class="icon-card"><div class="icon-shape" style="background:#ef4444">🎨</div><span>Design</span></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-num">50K+</div><div class="stat-label">Felhasználó</div></div>
+      <div class="stat"><div class="stat-num">99%</div><div class="stat-label">Uptime</div></div>
+      <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Értékelés</div></div>
+      <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Support</div></div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon" style="background:#dbeafe">🎯</div>
+      <div class="feat-title">Egyszerű navigáció</div>
+      <div class="feat-text">A flat design az UX-et helyezi előtérbe – semmi sem vonja el a figyelmet a tartalomtól.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:#d1fae5">⚡</div>
+      <div class="feat-title">Gyors renderelés</div>
+      <div class="feat-text">Nincs komplex árnyék-számítás, CSS filter – az oldal villám gyorsan tölt be.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:#fef3c7">🌍</div>
+      <div class="feat-title">Minden képernyőn</div>
+      <div class="feat-text">A lapos elemek tökéletesen skálázódnak telefonon és 4K monitoron egyaránt.</div>
+    </div>
+  </div>
+</body>
+</html>

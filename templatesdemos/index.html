@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Templates & Demos</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
+    header { padding: 60px 7% 40px; border-bottom: 1px solid #222; }
+    header h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1.5px; }
+    header p { color: #666; margin-top: 10px; font-size: 1rem; }
+    .section { padding: 48px 7%; border-bottom: 1px solid #111; }
+    .section-title { font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 24px; }
+    .section-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -.5px; }
+    .section-desc { color: #555; font-size: .85rem; margin-bottom: 32px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .card { display: block; text-decoration: none; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid #1e1e1e; transition: all .2s; position: relative; }
+    .card:hover { border-color: #444; transform: translateY(-3px); }
+    .card-preview { height: 130px; overflow: hidden; }
+    .card-label { padding: 14px 16px; }
+    .card-label strong { display: block; font-size: .9rem; font-weight: 600; color: #eee; margin-bottom: 4px; }
+    .card-label span { font-size: .75rem; color: #555; }
+    /* mini previews */
+    .prev-glass { background: linear-gradient(135deg,#1a1a2e,#16213e); display:flex;align-items:center;justify-content:center; }
+    .prev-glass div { background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:10px;width:80%;height:70px; }
+    .prev-clay { background:#f0e6ff;display:flex;align-items:center;justify-content:center;gap:8px; }
+    .prev-clay div { background:#c084fc;border-radius:16px;width:50px;height:50px;box-shadow:6px 6px 12px rgba(168,85,247,.4),-4px -4px 10px rgba(255,255,255,.8); }
+    .prev-min { background:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px; }
+    .prev-min div { background:#000;height:3px;border-radius:2px; }
+    .prev-min div:nth-child(1){width:60%} .prev-min div:nth-child(2){width:40%;background:#ccc} .prev-min div:nth-child(3){width:50%;background:#ccc}
+    .prev-brutal { background:#fff;display:flex;align-items:center;justify-content:center; }
+    .prev-brutal div { background:#000;padding:8px 14px;border:3px solid #000;box-shadow:4px 4px 0 #ff0;font-size:.8rem;color:#fff;font-weight:900; }
+    .prev-neu { background:#e0e5ec;display:flex;align-items:center;justify-content:center; }
+    .prev-neu div { background:#e0e5ec;border-radius:16px;width:70px;height:70px;box-shadow:8px 8px 16px #b8bec7,-8px -8px 16px #fff; }
+    .prev-bento { background:#f5f5f5;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:4px;padding:8px; }
+    .prev-bento div { background:#e0e0e0;border-radius:6px; }
+    .prev-bento div:first-child { grid-row:1/3;background:#333; }
+    .prev-dark { background:#000;display:flex;align-items:center;justify-content:center; }
+    .prev-dark div { width:80px;height:40px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 0 30px rgba(124,58,237,.5); }
+    .prev-skeuo { background:linear-gradient(135deg,#8B7355,#6B5B3E);display:flex;align-items:center;justify-content:center; }
+    .prev-skeuo div { background:linear-gradient(145deg,#f5e6d3,#d4a574);border-radius:8px;width:70px;height:50px;border:2px solid rgba(0,0,0,.2);box-shadow:inset 0 1px 2px rgba(255,255,255,.5),2px 2px 4px rgba(0,0,0,.3); }
+    .prev-flat { background:#3b82f6;display:flex;align-items:center;justify-content:center;gap:6px; }
+    .prev-flat div { border-radius:4px; }
+    .prev-flat div:nth-child(1){background:#ef4444;width:30px;height:30px;}
+    .prev-flat div:nth-child(2){background:#22c55e;width:30px;height:45px;}
+    .prev-flat div:nth-child(3){background:#f59e0b;width:30px;height:25px;}
+    /* gpt-taste */
+    .prev-cine { background:linear-gradient(to bottom,#000 0%,#111 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px; }
+    .prev-cine .t { font-size:.7rem;font-weight:900;color:#fff;letter-spacing:-1px; }
+    .prev-cine .b { display:flex;gap:6px; }
+    .prev-cine .b div { background:#fff;height:20px;border-radius:20px;width:40px; }
+    .prev-cine .b div:last-child { background:transparent;border:1px solid #555;width:35px; }
+    .prev-asym { background:#f8f8f8;display:flex;align-items:flex-end;justify-content:flex-start;padding:8px; }
+    .prev-asym div:first-child { font-size:.55rem;font-weight:900;line-height:1;color:#000;flex:1; }
+    .prev-asym div:last-child { background:#333;width:55px;height:80px;border-radius:8px;margin-left:-10px; }
+    .prev-edit { background:#fff;display:flex;align-items:center; }
+    .prev-edit div:first-child { flex:1;padding:8px;font-size:.5rem;font-weight:900;line-height:1.2;color:#000; }
+    .prev-edit div:last-child { width:55%;height:100%;background:linear-gradient(135deg,#ddd,#bbb); }
+    .prev-accordion { background:#111;display:flex;height:100%; }
+    .prev-accordion div { flex:1;border-right:1px solid #222;background:linear-gradient(to bottom,#1a1a1a,#111);transition:.3s;position:relative; }
+    .prev-accordion div:hover { flex:3;background:#222; }
+    .prev-marquee { background:#000;display:flex;align-items:center;overflow:hidden; }
+    .prev-marquee div { white-space:nowrap;animation:mq 3s linear infinite;font-size:.6rem;font-weight:700;letter-spacing:2px;color:#333; }
+    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .prev-testi { background:#fafafa;display:flex;align-items:center;justify-content:center;gap:-10px; }
+    .prev-testi div { width:35px;height:35px;border-radius:50%;border:2px solid #fff;margin-left:-8px; }
+    .prev-testi div:nth-child(1){background:#f87171;} .prev-testi div:nth-child(2){background:#60a5fa;} .prev-testi div:nth-child(3){background:#34d399;}
+    /* high-end */
+    .prev-etheral { background:#050505;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden; }
+    .prev-etheral::before { content:'';position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.4),transparent 70%);top:-20px;left:20px; }
+    .prev-etheral::after { content:'';position:absolute;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.3),transparent 70%);bottom:-10px;right:10px; }
+    .prev-etheral div { background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:14px;width:70%;height:65px;z-index:1; }
+    .prev-lux { background:#FDFBF7;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:12px; }
+    .prev-lux div:first-child { font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:4px; }
+    .prev-lux div:last-child { font-size:.8rem;font-weight:700;color:#1a1a1a;font-style:italic; }
+    .prev-soft { background:#f8f9fa;display:flex;align-items:center;justify-content:center; }
+    .prev-soft div { background:#fff;border-radius:20px;width:75px;height:55px;box-shadow:0 20px 60px rgba(0,0,0,.08); }
+    /* design-taste */
+    .prev-split { background:#fff;display:grid;grid-template-columns:1fr 1fr; }
+    .prev-split div:first-child { padding:10px;display:flex;align-items:center;font-size:.5rem;font-weight:900;line-height:1.2;color:#000; }
+    .prev-split div:last-child { background:#e5e7eb; }
+    .prev-manifesto { background:#000;display:flex;align-items:center;justify-content:center; }
+    .prev-manifesto div { font-size:.65rem;font-weight:900;color:#fff;text-align:center;letter-spacing:-1px;line-height:1.1; }
+    .prev-kinetic { background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden; }
+    .prev-kinetic div { font-size:1.2rem;font-weight:900;color:#000;animation:kt 2s ease-in-out infinite alternate;letter-spacing:-2px; }
+    @keyframes kt { from{transform:translateX(-5px)} to{transform:translateX(5px)} }
+    .prev-bentodt { background:#f5f5f5;display:grid;grid-template-columns:3fr 2fr;grid-template-rows:1fr 1fr;gap:5px;padding:6px; }
+    .prev-bentodt div { border-radius:8px; }
+    .prev-bentodt div:nth-child(1){background:#18181b;grid-row:1/3;}
+    .prev-bentodt div:nth-child(2){background:#3f3f46;}
+    .prev-bentodt div:nth-child(3){background:#71717a;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Design Templates & Demos</h1>
+    <p>Webdesign skill demók – kattints bármelyikre a stílus megtekintéséhez</p>
+  </header>
+
+  <!-- UI-UX-PRO-MAX -->
+  <div class="section">
+    <div class="section-title">ui-ux-pro-max skill</div>
+    <div class="section-name">10 UI stílus</div>
+    <div class="section-desc">Glassmorphism, Brutalism, Neumorphism és más designrendszerek</div>
+    <div class="grid">
+      <a class="card" href="ui-ux-pro-max/glassmorphism.html">
+        <div class="card-preview prev-glass"><div></div></div>
+        <div class="card-label"><strong>Glassmorphism</strong><span>Frosted glass, backdrop-blur</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/claymorphism.html">
+        <div class="card-preview prev-clay"><div></div><div></div></div>
+        <div class="card-label"><strong>Claymorphism</strong><span>Puha 3D, inflált elemek</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/minimalism.html">
+        <div class="card-preview prev-min"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Minimalism</strong><span>Fehér tér, tiszta vonalak</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/brutalism.html">
+        <div class="card-preview prev-brutal"><div>BRUTAL</div></div>
+        <div class="card-label"><strong>Brutalism</strong><span>Nyers, félkész, bátor</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/neumorphism.html">
+        <div class="card-preview prev-neu"><div></div></div>
+        <div class="card-label"><strong>Neumorphism</strong><span>Soft UI, árnyék-duplex</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/bento-grid.html">
+        <div class="card-preview prev-bento"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Bento Grid</strong><span>Vegyes méretű rácskártyák</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/dark-mode.html">
+        <div class="card-preview prev-dark"><div></div></div>
+        <div class="card-label"><strong>Dark Mode</strong><span>OLED fekete, neon akcentek</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/skeuomorphism.html">
+        <div class="card-preview prev-skeuo"><div></div></div>
+        <div class="card-label"><strong>Skeuomorphism</strong><span>Valósághű textúrák</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/flat-design.html">
+        <div class="card-preview prev-flat"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Flat Design</strong><span>Lapos színek, nincs mélység</span></div>
+      </a>
+      <a class="card" href="ui-ux-pro-max/aurora.html">
+        <div class="card-preview" style="background:linear-gradient(135deg,#0ea5e9,#8b5cf6,#ec4899);"></div>
+        <div class="card-label"><strong>Aurora / Mesh Gradient</strong><span>Folyékony gradiens háttér</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- GPT-TASTE -->
+  <div class="section">
+    <div class="section-title">gpt-taste skill</div>
+    <div class="section-name">7 GSAP & Layout architektúra</div>
+    <div class="section-desc">Awwwards-szintű hero layouts, GSAP animációk, bento grids</div>
+    <div class="grid">
+      <a class="card" href="gpt-taste/cinematic-center.html">
+        <div class="card-preview prev-cine"><div class="t">CINEMA</div><div class="b"><div></div><div></div></div></div>
+        <div class="card-label"><strong>Cinematic Center</strong><span>Centrált hero, full-bleed háttér</span></div>
+      </a>
+      <a class="card" href="gpt-taste/artistic-asymmetry.html">
+        <div class="card-preview prev-asym"><div>BIG HEAD<br/>LINE</div><div></div></div>
+        <div class="card-label"><strong>Artistic Asymmetry</strong><span>Offset szöveg, lebegő kép</span></div>
+      </a>
+      <a class="card" href="gpt-taste/editorial-split.html">
+        <div class="card-preview prev-edit"><div>Editorial<br/>Split</div><div></div></div>
+        <div class="card-label"><strong>Editorial Split</strong><span>Szöveg bal, kép jobb, negatív tér</span></div>
+      </a>
+      <a class="card" href="gpt-taste/bento-dense.html">
+        <div class="card-preview prev-bento"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Bento Dense</strong><span>Gapless bento grid</span></div>
+      </a>
+      <a class="card" href="gpt-taste/horizontal-accordion.html">
+        <div class="card-preview prev-accordion"><div></div><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Horizontal Accordion</strong><span>Vízszintes szeletosztás</span></div>
+      </a>
+      <a class="card" href="gpt-taste/infinite-marquee.html">
+        <div class="card-preview prev-marquee"><div>DESIGN · MOTION · SPATIAL · DESIGN · MOTION · SPATIAL · DESIGN · MOTION · SPATIAL · </div></div>
+        <div class="card-label"><strong>Infinite Marquee</strong><span>Végtelen futószalag</span></div>
+      </a>
+      <a class="card" href="gpt-taste/testimonial-carousel.html">
+        <div class="card-preview prev-testi"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Testimonial Carousel</strong><span>Átfedő portrék, idézetek</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- HIGH-END VISUAL -->
+  <div class="section">
+    <div class="section-title">high-end-visual-design skill</div>
+    <div class="section-name">3 Agency-szintű archetype</div>
+    <div class="section-desc">$150k+ ügynökségi megjelenés – Ethereal Glass, Editorial Luxury, Soft Structuralism</div>
+    <div class="grid">
+      <a class="card" href="high-end-visual/ethereal-glass.html">
+        <div class="card-preview prev-etheral"><div></div></div>
+        <div class="card-label"><strong>Ethereal Glass</strong><span>OLED fekete, glowing orbs, blur</span></div>
+      </a>
+      <a class="card" href="high-end-visual/editorial-luxury.html">
+        <div class="card-preview prev-lux"><div>EDITORIAL</div><div>Luxury<br/>Design</div></div>
+        <div class="card-label"><strong>Editorial Luxury</strong><span>Meleg krém, szerif, film-grain</span></div>
+      </a>
+      <a class="card" href="high-end-visual/soft-structuralism.html">
+        <div class="card-preview prev-soft"><div></div></div>
+        <div class="card-label"><strong>Soft Structuralism</strong><span>Fehér, bold grotesk, airy float</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- DESIGN TASTE -->
+  <div class="section">
+    <div class="section-title">design-taste-frontend skill</div>
+    <div class="section-name">4 Anti-slop landing pattern</div>
+    <div class="section-desc">Valódi brief-alapú design – nem sablon, nem AI-slop</div>
+    <div class="grid">
+      <a class="card" href="design-taste/asymmetric-split.html">
+        <div class="card-preview prev-split"><div>Value<br/>Prop</div><div></div></div>
+        <div class="card-label"><strong>Asymmetric Split Hero</strong><span>50/50 szöveg + asset</span></div>
+      </a>
+      <a class="card" href="design-taste/editorial-manifesto.html">
+        <div class="card-preview prev-manifesto"><div>MANIFESTO<br/>HERO</div></div>
+        <div class="card-label"><strong>Editorial Manifesto</strong><span>Nagy szöveg, nincs asset</span></div>
+      </a>
+      <a class="card" href="design-taste/kinetic-type.html">
+        <div class="card-preview prev-kinetic"><div>MOVE</div></div>
+        <div class="card-label"><strong>Kinetic Typography</strong><span>Animált szöveg mint vizuál</span></div>
+      </a>
+      <a class="card" href="design-taste/bento-landing.html">
+        <div class="card-preview prev-bentodt"><div></div><div></div><div></div></div>
+        <div class="card-label"><strong>Bento Landing</strong><span>Aszimmetrikus tile rács</span></div>
+      </a>
+    </div>
+  </div>
+
+  <footer style="padding:32px 7%;color:#333;font-size:.8rem;">
+    Design Skill Demos · templatesdemos/
+  </footer>
+</body>
+</html>

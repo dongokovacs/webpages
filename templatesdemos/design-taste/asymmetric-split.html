@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Asymmetric Split Hero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Geist',sans-serif;background:#fff;color:#0a0a0a;min-height:100vh;display:flex;flex-direction:column}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:#fff;border:1px solid #f0f0f0;border-radius:50px;padding:8px 18px;color:#666;text-decoration:none;font-size:.8rem;font-weight:500;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:.2s}
+    .back:hover{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:24px 5%;border-bottom:1px solid #f5f5f5}
+    .logo{font-size:1rem;font-weight:700;letter-spacing:-.3px}
+    .nav-r{display:flex;gap:28px;align-items:center}
+    .nav-r a{color:#aaa;text-decoration:none;font-size:.85rem;font-weight:400;transition:.2s}
+    .nav-r a:hover{color:#000}
+    .nav-cta{background:#0a0a0a;color:#fff!important;border-radius:50px;padding:9px 22px;font-size:.85rem;font-weight:600!important;transition:.2s}
+    .nav-cta:hover{background:#333}
+    .hero{flex:1;display:grid;grid-template-columns:55% 45%;min-height:calc(100vh - 72px)}
+    .left{padding:80px 5%;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #f5f5f5}
+    .tag{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#ccc;margin-bottom:24px}
+    h1{font-size:clamp(3rem,6vw,5rem);font-weight:900;line-height:.95;letter-spacing:-3px;margin-bottom:28px;max-width:500px}
+    h1 em{font-style:normal;color:#d0d0d0;font-weight:300}
+    .sub{font-size:.98rem;color:#999;line-height:1.7;max-width:380px;margin-bottom:40px;font-weight:300}
+    .cta-group{display:flex;gap:14px;align-items:center}
+    .btn-main{background:#0a0a0a;color:#fff;padding:14px 32px;border-radius:50px;text-decoration:none;font-size:.9rem;font-weight:600;transition:.2s;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .btn-main:hover{background:#333;box-shadow:0 8px 30px rgba(0,0,0,.2);transform:translateY(-2px)}
+    .link-btn{color:#aaa;text-decoration:none;font-size:.88rem;border-bottom:1px solid transparent;padding-bottom:1px;transition:.2s}
+    .link-btn:hover{color:#000;border-bottom-color:#000}
+    .trust{display:flex;align-items:center;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid #f5f5f5}
+    .avatars{display:flex}
+    .av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-left:-8px;background:linear-gradient(135deg,#667eea,#764ba2)}
+    .av:first-child{margin-left:0;background:linear-gradient(135deg,#f093fb,#f5576c)}
+    .av:nth-child(2){background:linear-gradient(135deg,#4facfe,#00f2fe)}
+    .trust-text{font-size:.8rem;color:#aaa;line-height:1.4}<br/>
+    .trust-text strong{color:#0a0a0a;display:block;font-size:.85rem}
+    .right{position:relative;overflow:hidden;background:#f9f9f9}
+    .right img{width:100%;height:100%;object-fit:cover;display:block}
+    .floating-widget{position:absolute;bottom:40px;left:40px;background:#fff;border-radius:20px;padding:20px 24px;box-shadow:0 16px 60px rgba(0,0,0,.12);display:flex;align-items:center;gap:14px}
+    .widget-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .widget-title{font-size:.88rem;font-weight:700;color:#000;margin-bottom:2px}
+    .widget-sub{font-size:.75rem;color:#aaa}
+    .widget-metric{font-size:1.2rem;font-weight:800;color:#10b981;margin-left:auto;white-space:nowrap}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <nav>
+    <div class="logo">Meridian</div>
+    <div class="nav-r">
+      <a href="#">Megoldások</a><a href="#">Árak</a><a href="#">Rólunk</a>
+      <a href="#" class="nav-cta">Ingyenes próba</a>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="left">
+      <div class="tag">design-taste · Asymmetric Split Hero</div>
+      <h1>Növeld a<br/><em>bevételed</em><br/>adattal.</h1>
+      <p class="sub">55/45 aszimmetrikus felosztás, szöveg bal oldalon, vizuál jobbra – a legerősebb landing page kompozíció SaaS termékekhez.</p>
+      <div class="cta-group">
+        <a href="#" class="btn-main">14 napos próba →</a>
+        <a href="#" class="link-btn">Hogyan működik?</a>
+      </div>
+      <div class="trust">
+        <div class="avatars">
+          <div class="av"></div><div class="av"></div><div class="av"></div>
+        </div>
+        <div class="trust-text"><strong>2 400+ csapat</strong>már használja a Meridiant</div>
+      </div>
+    </div>
+    <div class="right">
+      <img src="https://picsum.photos/seed/dashboard-app/600/800" alt="App preview"/>
+      <div class="floating-widget">
+        <div class="widget-icon">📈</div>
+        <div>
+          <div class="widget-title">Havi bevétel</div>
+          <div class="widget-sub">Előző hónaphoz képest</div>
+        </div>
+        <div class="widget-metric">+34%</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

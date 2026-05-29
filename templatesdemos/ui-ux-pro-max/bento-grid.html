@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Bento Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#f5f5f5;min-height:100vh;padding:80px 40px 40px}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:#fff;border-radius:50px;padding:8px 18px;color:#555;text-decoration:none;font-size:.8rem;font-weight:500;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:.2s}
+    .back:hover{box-shadow:0 4px 20px rgba(0,0,0,.12);transform:translateY(-1px)}
+    .header{text-align:center;margin-bottom:40px}
+    .badge{background:#000;color:#fff;border-radius:50px;padding:6px 16px;font-size:.75rem;font-weight:600;letter-spacing:.5px;display:inline-block;margin-bottom:16px}
+    h1{font-size:2.4rem;font-weight:900;letter-spacing:-1.5px;color:#000;margin-bottom:8px}
+    .sub{color:#888;font-size:.95rem}
+    .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:16px;max-width:1000px;margin:0 auto}
+    .cell{border-radius:20px;padding:28px;overflow:hidden;position:relative;transition:transform .25s,box-shadow .25s;cursor:pointer}
+    .cell:hover{transform:scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,.15)}
+    .c1{grid-column:1/3;grid-row:1/3;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
+    .c1 h2{font-size:2rem;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
+    .c1 p{color:rgba(255,255,255,.5);font-size:.85rem;line-height:1.5}
+    .c1 .accent{position:absolute;top:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);opacity:.8}
+    .c2{grid-column:3;background:#7c3aed;color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+    .c2 .num{font-size:3.5rem;font-weight:900;letter-spacing:-3px;line-height:1}
+    .c2 .label{font-size:.8rem;color:rgba(255,255,255,.6);font-weight:500;text-transform:uppercase;letter-spacing:1px}
+    .c3{grid-column:4;background:#d1fae5;color:#064e3b;display:flex;flex-direction:column;justify-content:space-between}
+    .c3 .icon{font-size:2.2rem}
+    .c3 h3{font-size:.95rem;font-weight:700;margin-bottom:4px}
+    .c3 p{font-size:.8rem;opacity:.7;line-height:1.5}
+    .c4{grid-column:3/5;background:#fef3c7;color:#78350f;display:flex;align-items:center;gap:20px}
+    .c4 .big{font-size:4rem;font-weight:900;letter-spacing:-3px;flex-shrink:0}
+    .c4 p{font-size:.85rem;line-height:1.6;opacity:.8}
+    .c5{background:#fff;color:#000;display:flex;flex-direction:column;justify-content:space-between}
+    .c5 h3{font-size:1rem;font-weight:700}
+    .c5 .mini-bar{height:6px;border-radius:3px;background:#f0f0f0;margin-top:12px;overflow:hidden}
+    .c5 .mini-bar div{height:100%;border-radius:3px}
+    .c6{background:#f0f9ff;color:#0369a1;display:flex;flex-direction:column;justify-content:space-between}
+    .c6 .tag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.6}
+    .c6 h3{font-size:1.1rem;font-weight:700}
+    .c7{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;text-align:center}
+    .c7 .circle{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+    .c7 span{font-size:.85rem;font-weight:600}
+    .c8{grid-column:3/5;background:#1e1e1e;color:#fff;display:flex;align-items:center;padding:24px;gap:20px}
+    .c8 code{font-family:'Courier New',monospace;font-size:.75rem;color:#a78bfa;background:#2d2d2d;padding:12px;border-radius:10px;flex:1;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="header">
+    <div class="badge">Bento Grid stílus</div>
+    <h1>Bento Grid</h1>
+    <p class="sub">Vegyes méretű, sűrű információs rács – Apple Control Center esztétika</p>
+  </div>
+  <div class="bento">
+    <div class="cell c1">
+      <div class="accent"></div>
+      <h2>Design<br/>Intelligence</h2>
+      <p>50+ stílus, 161 paletta, 57 font párosítás egy helyen</p>
+    </div>
+    <div class="cell c2">
+      <div class="label">Konverzió</div>
+      <div class="num">3.8×</div>
+    </div>
+    <div class="cell c3">
+      <div class="icon">🌿</div>
+      <div>
+        <h3>Fenntartható</h3>
+        <p>Optimalizált, gyors, alacsony fogyasztású interfész</p>
+      </div>
+    </div>
+    <div class="cell c4">
+      <div class="big">99</div>
+      <p>Lighthouse score minden metrikán – teljesítmény, elérhetőség, SEO és best practices.</p>
+    </div>
+    <div class="cell c5">
+      <div>
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#999;margin-bottom:6px">Látogatók</div>
+        <h3>12 847</h3>
+      </div>
+      <div>
+        <div class="mini-bar"><div style="width:72%;background:#000"></div></div>
+        <div class="mini-bar" style="margin-top:6px"><div style="width:45%;background:#7c3aed"></div></div>
+        <div class="mini-bar" style="margin-top:6px"><div style="width:88%;background:#10b981"></div></div>
+      </div>
+    </div>
+    <div class="cell c6">
+      <div class="tag">Új funkció</div>
+      <h3>Dark mode automatikus felismerés</h3>
+    </div>
+    <div class="cell c7">
+      <div class="circle">⚡</div>
+      <span>Instant betöltés</span>
+    </div>
+    <div class="cell c8">
+      <code>grid-template-columns:<br/>  repeat(4, 1fr);<br/>grid-auto-flow: dense;<br/>gap: 16px;</code>
+      <div>
+        <div style="font-size:.8rem;font-weight:700;color:#fff;margin-bottom:8px">Gapless Grid</div>
+        <div style="font-size:.75rem;color:#888;line-height:1.6">dense kulcsszóval minden cella automatikusan kitölt</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

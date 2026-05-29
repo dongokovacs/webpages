@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Neumorphism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#e0e5ec;--shadow-dark:#b8bec7;--shadow-light:#ffffff;--text:#6b7280;--accent:#6366f1}
+    body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px;color:var(--text)}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:var(--bg);border-radius:50px;padding:8px 18px;color:var(--text);text-decoration:none;font-size:.8rem;font-weight:500;box-shadow:4px 4px 8px var(--shadow-dark),-4px -4px 8px var(--shadow-light);transition:.2s}
+    .back:hover{box-shadow:6px 6px 12px var(--shadow-dark),-6px -6px 12px var(--shadow-light)}
+    .badge{background:var(--bg);border-radius:50px;padding:10px 24px;font-size:.78rem;font-weight:600;color:var(--accent);box-shadow:6px 6px 12px var(--shadow-dark),-6px -6px 12px var(--shadow-light);margin-bottom:16px;letter-spacing:.5px}
+    h1{font-size:2.2rem;font-weight:700;color:#374151;letter-spacing:-1px;margin-bottom:8px;text-align:center}
+    .sub{color:#9ca3af;font-size:.95rem;margin-bottom:48px;text-align:center}
+    .card{background:var(--bg);border-radius:24px;padding:32px;box-shadow:12px 12px 24px var(--shadow-dark),-12px -12px 24px var(--shadow-light);max-width:360px;width:100%;margin-bottom:24px}
+    .card-title{font-size:1rem;font-weight:600;color:#374151;margin-bottom:6px}
+    .card-text{font-size:.85rem;color:var(--text);line-height:1.6;margin-bottom:20px}
+    .progress-wrap{height:8px;border-radius:50px;background:var(--bg);box-shadow:inset 4px 4px 8px var(--shadow-dark),inset -4px -4px 8px var(--shadow-light);margin-bottom:8px;overflow:hidden}
+    .progress{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--accent),#8b5cf6)}
+    .progress-label{display:flex;justify-content:space-between;font-size:.75rem;color:#9ca3af;margin-bottom:20px}
+    .toggle-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .toggle-label{font-size:.9rem;color:#374151;font-weight:500}
+    .toggle{width:52px;height:28px;border-radius:14px;background:var(--bg);box-shadow:inset 4px 4px 8px var(--shadow-dark),inset -4px -4px 8px var(--shadow-light);position:relative;cursor:pointer;transition:.3s}
+    .toggle.on{background:linear-gradient(135deg,var(--accent),#8b5cf6);box-shadow:none}
+    .toggle::after{content:'';position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:var(--bg);box-shadow:2px 2px 4px var(--shadow-dark),-2px -2px 4px var(--shadow-light);transition:.3s}
+    .toggle.on::after{left:28px;background:#fff;box-shadow:none}
+    .btn-neu{background:var(--bg);border:none;border-radius:14px;padding:14px 28px;font-size:.9rem;font-weight:600;color:var(--accent);box-shadow:8px 8px 16px var(--shadow-dark),-8px -8px 16px var(--shadow-light);cursor:pointer;transition:.15s;width:100%;letter-spacing:.3px}
+    .btn-neu:active{box-shadow:inset 4px 4px 8px var(--shadow-dark),inset -4px -4px 8px var(--shadow-light)}
+    .icon-row{display:flex;gap:16px;justify-content:center;margin-bottom:24px}
+    .icon-btn{width:56px;height:56px;border-radius:16px;background:var(--bg);box-shadow:8px 8px 16px var(--shadow-dark),-8px -8px 16px var(--shadow-light);display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;transition:.15s}
+    .icon-btn:active,.icon-btn.active{box-shadow:inset 4px 4px 8px var(--shadow-dark),inset -4px -4px 8px var(--shadow-light)}
+    .icon-btn.active{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="badge">Neumorphism stílus</div>
+  <h1>Soft UI</h1>
+  <p class="sub">Extrudált árnyékok, domború-homorú elemek, egyenletes háttér</p>
+  <div class="icon-row">
+    <div class="icon-btn active">♥</div>
+    <div class="icon-btn">🔔</div>
+    <div class="icon-btn">⚙</div>
+    <div class="icon-btn">✉</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Haladás</div>
+    <div class="card-text">A neumorfikus progress bar bemélyedve jelzi az állapotot – vizuálisan kiemelkedő, de mégis sima felületen.</div>
+    <div class="progress-wrap"><div class="progress" style="width:72%"></div></div>
+    <div class="progress-label"><span>Feladatok</span><span>72%</span></div>
+    <div class="progress-wrap"><div class="progress" style="width:45%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
+    <div class="progress-label"><span>Idő</span><span>45%</span></div>
+    <div class="toggle-row">
+      <span class="toggle-label">Értesítések</span>
+      <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label">Sötét mód</span>
+      <div class="toggle" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <button class="btn-neu">Mentés</button>
+  </div>
+</body>
+</html>

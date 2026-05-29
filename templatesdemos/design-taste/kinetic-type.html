@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Kinetic Typography Hero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;overflow:hidden}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;transition:.2s;backdrop-filter:blur(10px)}
+    .back:hover{color:#fff}
+    nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:24px 5%}
+    .logo{font-size:1rem;font-weight:700;letter-spacing:-.3px}
+    .nav-r a{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:10px 24px;color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;font-weight:500;backdrop-filter:blur(10px);transition:.2s}
+    .nav-r a:hover{background:rgba(255,255,255,.15);color:#fff}
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:100px 5%}
+    .words{position:relative;display:flex;flex-direction:column;gap:0;align-items:center}
+    .word{font-size:clamp(5rem,15vw,14rem);font-weight:900;line-height:.88;letter-spacing:-5px;display:block;overflow:hidden;white-space:nowrap}
+    .word span{display:block;animation:slideUp .8s cubic-bezier(.16,1,.3,1) both}
+    .w1 span{animation-delay:0s}
+    .w2 span{animation-delay:.15s;color:rgba(255,255,255,.18);font-weight:300}
+    .w3 span{animation-delay:.3s}
+    @keyframes slideUp{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
+    .cursor{display:inline-block;width:.06em;height:.85em;background:#fff;margin-left:.05em;vertical-align:-.05em;animation:blink 1s ease infinite}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    .sub-row{display:flex;align-items:center;gap:32px;margin-top:48px;opacity:0;animation:fadeIn .6s ease .8s forwards}
+    @keyframes fadeIn{to{opacity:1}}
+    .sub-text{font-size:1rem;color:rgba(255,255,255,.4);max-width:380px;text-align:left;line-height:1.6;font-weight:300}
+    .sub-divider{width:1px;height:60px;background:rgba(255,255,255,.1);flex-shrink:0}
+    .sub-cta{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+    .cta-link{color:rgba(255,255,255,.8);text-decoration:none;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:.2s}
+    .cta-link:hover{color:#fff}
+    .cta-link::after{content:'→';transition:transform .2s}
+    .cta-link:hover::after{transform:translateX(4px)}
+    .floating-tags{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .tag{position:absolute;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.15);animation:floatTag 20s linear infinite}
+    .t1{top:20%;left:5%;animation-duration:22s;animation-delay:0s}
+    .t2{top:30%;right:6%;animation-duration:18s;animation-delay:3s}
+    .t3{top:70%;left:8%;animation-duration:25s;animation-delay:6s}
+    .t4{top:75%;right:5%;animation-duration:20s;animation-delay:9s}
+    @keyframes floatTag{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .scroll-line{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.15}
+    .s-bar{width:1px;height:48px;background:linear-gradient(to bottom,transparent,#fff);animation:sbar 2s ease-in-out infinite}
+    @keyframes sbar{0%,100%{opacity:.5;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <nav>
+    <div class="logo">Kinetic</div>
+    <div class="nav-r"><a href="#">Portfólió</a></div>
+  </nav>
+  <div class="floating-tags">
+    <div class="tag t1">Motion Design</div>
+    <div class="tag t2">Typography</div>
+    <div class="tag t3">GSAP</div>
+    <div class="tag t4">CSS Animation</div>
+  </div>
+  <div class="hero">
+    <div class="words">
+      <div class="word w1"><span>Mozog<span class="cursor"></span></span></div>
+      <div class="word w2"><span>minden</span></div>
+      <div class="word w3"><span>szó.</span></div>
+    </div>
+    <div class="sub-row">
+      <p class="sub-text">Az animált tipográfia a fő vizuális elem – nincs fotó, nincs illusztráció. Csak a betűk mozgása mesél.</p>
+      <div class="sub-divider"></div>
+      <div class="sub-cta">
+        <a href="#" class="cta-link">Munkáinkat néz</a>
+        <a href="#" class="cta-link" style="opacity:.5;font-weight:400">Kapcsolat</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-line"><div class="s-bar"></div></div>
+</body>
+</html>

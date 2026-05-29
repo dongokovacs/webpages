@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Claymorphism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;min-height:100vh;background:linear-gradient(160deg,#fdf4ff 0%,#ede9fe 50%,#dbeafe 100%);padding:80px 40px 40px;display:flex;flex-direction:column;align-items:center}
+    .back{position:fixed;top:24px;left:24px;z-index:200;background:#fff;border-radius:50px;padding:8px 18px;color:#555;text-decoration:none;font-size:.8rem;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:.2s}
+    .back:hover{box-shadow:0 4px 20px rgba(0,0,0,.15);transform:translateY(-1px)}
+    .badge{background:#fff;border-radius:50px;padding:8px 20px;font-size:.78rem;font-weight:700;color:#7c3aed;box-shadow:0 4px 20px rgba(124,58,237,.15);margin-bottom:16px;letter-spacing:.5px}
+    h1{font-size:2.6rem;font-weight:900;color:#1e1b4b;letter-spacing:-1.5px;text-align:center;margin-bottom:8px}
+    .sub{color:#7c6ab0;font-size:1rem;margin-bottom:56px;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:880px;width:100%}
+    .clay{border-radius:28px;padding:28px;transition:all .3s;cursor:pointer;position:relative}
+    .clay:hover{transform:translateY(-6px) scale(1.02)}
+    .c1{background:#c084fc;box-shadow:0 20px 50px rgba(192,132,252,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .c2{background:#60a5fa;box-shadow:0 20px 50px rgba(96,165,250,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .c3{background:#34d399;box-shadow:0 20px 50px rgba(52,211,153,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .c4{background:#f472b6;box-shadow:0 20px 50px rgba(244,114,182,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .c5{background:#fb923c;box-shadow:0 20px 50px rgba(251,146,60,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .c6{background:#a78bfa;box-shadow:0 20px 50px rgba(167,139,250,.4),-4px -4px 12px rgba(255,255,255,.7),inset 0 1px 1px rgba(255,255,255,.5)}
+    .clay-icon{font-size:2.4rem;margin-bottom:16px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))}
+    .clay-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:8px;text-shadow:0 1px 3px rgba(0,0,0,.15)}
+    .clay-text{font-size:.84rem;color:rgba(255,255,255,.85);line-height:1.6}
+    .clay-btn{display:inline-block;margin-top:16px;background:rgba(255,255,255,.35);border-radius:50px;padding:8px 20px;font-size:.8rem;font-weight:700;color:#fff;cursor:pointer;transition:.2s;backdrop-filter:blur(4px)}
+    .clay-btn:hover{background:rgba(255,255,255,.5)}
+    .clay.featured{grid-column:1/3;display:flex;align-items:center;gap:24px}
+    .clay.featured .clay-icon{font-size:4rem;flex-shrink:0}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="badge">Claymorphism stílus</div>
+  <h1>Puha 3D világ</h1>
+  <p class="sub">Inflált, élénk, gumiszerű elemek mélységes árnyékokkal</p>
+  <div class="grid">
+    <div class="clay c1 featured">
+      <div class="clay-icon">🎯</div>
+      <div>
+        <div class="clay-title">Clay UI Design</div>
+        <div class="clay-text">A claymorphism a 3D szoftver esztétikáját viszi a webre – duzzadt, kézzel formált elemek vibráló színekkel és mély árnyékokkal.</div>
+        <div class="clay-btn">Fedezd fel →</div>
+      </div>
+    </div>
+    <div class="clay c2">
+      <div class="clay-icon">⚡</div>
+      <div class="clay-title">Energikus</div>
+      <div class="clay-text">Élénk, pozitív hangulat – tökéletes fogyasztói appokhoz és gaminghez.</div>
+    </div>
+    <div class="clay c3">
+      <div class="clay-icon">🌿</div>
+      <div class="clay-title">Természetes</div>
+      <div class="clay-text">A gumiszerű forma emberibbé teszi a digitális terméket.</div>
+    </div>
+    <div class="clay c4">
+      <div class="clay-icon">💝</div>
+      <div class="clay-title">Szerethető</div>
+      <div class="clay-text">Magas érzelmi bevonódás és brand recall.</div>
+    </div>
+    <div class="clay c5">
+      <div class="clay-icon">🎨</div>
+      <div class="clay-title">Kreatív</div>
+      <div class="clay-text">Határtalan színpalettával és formákkal dolgozik.</div>
+    </div>
+    <div class="clay c6">
+      <div class="clay-icon">✨</div>
+      <div class="clay-title">Modern</div>
+      <div class="clay-text">2024 egyik legmenőbb vizuális trendje.</div>
+    </div>
+  </div>
+</body>
+</html>

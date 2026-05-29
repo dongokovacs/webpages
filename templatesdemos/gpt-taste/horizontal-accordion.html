@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Horizontal Accordion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;background:#000;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;transition:.2s;backdrop-filter:blur(10px)}
+    .back:hover{color:#fff}
+    .header{padding:80px 5% 48px;text-align:center}
+    .badge{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:6px 16px;font-size:.75rem;color:rgba(255,255,255,.4);display:inline-block;margin-bottom:16px}
+    h1{font-size:2.2rem;font-weight:900;letter-spacing:-1px}
+    .sub{color:rgba(255,255,255,.4);font-size:.9rem;margin-top:8px}
+    .accordion{display:flex;flex:1;height:70vh;overflow:hidden}
+    .panel{flex:1;position:relative;overflow:hidden;cursor:pointer;transition:flex .6s cubic-bezier(.25,.46,.45,.94);border-right:1px solid rgba(255,255,255,.05)}
+    .panel:last-child{border-right:none}
+    .panel:hover,.panel.active{flex:4}
+    .panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .4s ease}
+    .panel:hover img,.panel.active img{transform:scale(1.05);filter:saturate(.9)}
+    .panel img{filter:saturate(.3) brightness(.6)}
+    .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
+    .panel-label{position:absolute;left:20px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;white-space:nowrap;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);transition:opacity .4s}
+    .panel:hover .panel-label,.panel.active .panel-label{opacity:0}
+    .panel-content{position:absolute;bottom:0;left:0;right:0;padding:32px;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s;pointer-events:none}
+    .panel:hover .panel-content,.panel.active .panel-content{opacity:1;transform:translateY(0);pointer-events:auto}
+    .panel-num{font-size:.7rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:8px}
+    .panel-title{font-size:1.8rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;line-height:1.1}
+    .panel-text{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.6;max-width:260px;margin-bottom:16px}
+    .panel-btn{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:8px 20px;font-size:.8rem;font-weight:600;color:#fff;text-decoration:none;backdrop-filter:blur(10px);transition:.2s}
+    .panel-btn:hover{background:rgba(255,255,255,.2)}
+    .p1 img{object-position:center 30%}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="header">
+    <div class="badge">gpt-taste · Horizontal Accordion</div>
+    <h1>Hover-expandáló szeletosztás</h1>
+    <p class="sub">Vidd az egeret a panelek fölé a tartalom felfedéséhez</p>
+  </div>
+  <div class="accordion">
+    <div class="panel p1">
+      <img src="https://picsum.photos/seed/accord1/400/600" alt="Brand"/>
+      <div class="overlay"></div>
+      <div class="panel-label">Brand</div>
+      <div class="panel-content">
+        <div class="panel-num">01</div>
+        <div class="panel-title">Brand Identity</div>
+        <div class="panel-text">Logó, szín, tipográfia – teljes brand rendszer tervezés és implementáció.</div>
+        <a href="#" class="panel-btn">Megnézem →</a>
+      </div>
+    </div>
+    <div class="panel">
+      <img src="https://picsum.photos/seed/accord2/400/600" alt="Web"/>
+      <div class="overlay"></div>
+      <div class="panel-label">Web</div>
+      <div class="panel-content">
+        <div class="panel-num">02</div>
+        <div class="panel-title">Web Design</div>
+        <div class="panel-text">Awwwards-szintű landing oldalak és SaaS felületek tervezése és fejlesztése.</div>
+        <a href="#" class="panel-btn">Megnézem →</a>
+      </div>
+    </div>
+    <div class="panel">
+      <img src="https://picsum.photos/seed/accord3/400/600" alt="Motion"/>
+      <div class="overlay"></div>
+      <div class="panel-label">Motion</div>
+      <div class="panel-content">
+        <div class="panel-num">03</div>
+        <div class="panel-title">Motion Design</div>
+        <div class="panel-text">GSAP ScrollTrigger animációk, after effects és Lottie integrációk.</div>
+        <a href="#" class="panel-btn">Megnézem →</a>
+      </div>
+    </div>
+    <div class="panel">
+      <img src="https://picsum.photos/seed/accord4/400/600" alt="3D"/>
+      <div class="overlay"></div>
+      <div class="panel-label">3D</div>
+      <div class="panel-content">
+        <div class="panel-num">04</div>
+        <div class="panel-title">3D & Spatial</div>
+        <div class="panel-text">Three.js és WebGL alapú interaktív 3D élmények direkt a böngészőben.</div>
+        <a href="#" class="panel-btn">Megnézem →</a>
+      </div>
+    </div>
+    <div class="panel">
+      <img src="https://picsum.photos/seed/accord5/400/600" alt="Photo"/>
+      <div class="overlay"></div>
+      <div class="panel-label">Photo</div>
+      <div class="panel-content">
+        <div class="panel-num">05</div>
+        <div class="panel-title">Fotózás</div>
+        <div class="panel-text">Brand fotózás, termékfotózás és editorial képanyag készítése.</div>
+        <a href="#" class="panel-btn">Megnézem →</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

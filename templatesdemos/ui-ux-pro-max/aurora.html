@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Aurora / Mesh Gradient</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#050010;min-height:100vh;overflow-x:hidden;color:#fff}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.7);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{background:rgba(255,255,255,.15);color:#fff}
+    .aurora-bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+    .blob{position:absolute;border-radius:50%;filter:blur(100px);animation:drift 12s ease-in-out infinite;opacity:.7}
+    .b1{width:600px;height:600px;background:radial-gradient(circle,#7c3aed,transparent 70%);top:-200px;left:-150px;animation-duration:14s}
+    .b2{width:500px;height:500px;background:radial-gradient(circle,#0ea5e9,transparent 70%);top:30%;right:-100px;animation-duration:10s;animation-delay:2s}
+    .b3{width:450px;height:450px;background:radial-gradient(circle,#ec4899,transparent 70%);bottom:-150px;left:30%;animation-duration:16s;animation-delay:4s}
+    .b4{width:350px;height:350px;background:radial-gradient(circle,#10b981,transparent 70%);top:20%;left:40%;animation-duration:18s;animation-delay:6s}
+    @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.95)}}
+    .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:200px}
+    .content{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px 60px;text-align:center}
+    .badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 20px;font-size:.78rem;font-weight:600;letter-spacing:.5px;margin-bottom:32px;backdrop-filter:blur(10px);display:inline-block}
+    h1{font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-4px;line-height:.95;margin-bottom:24px;background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.7) 50%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .sub{font-size:1.15rem;color:rgba(255,255,255,.5);line-height:1.7;max-width:520px;margin:0 auto 48px;font-weight:300}
+    .btn-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-glass{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:14px 32px;font-size:.95rem;font-weight:600;color:#fff;text-decoration:none;backdrop-filter:blur(10px);transition:.2s}
+    .btn-glass:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .btn-solid{background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50px;padding:14px 32px;font-size:.95rem;font-weight:600;color:#fff;text-decoration:none;box-shadow:0 0 60px rgba(124,58,237,.4);transition:.2s}
+    .btn-solid:hover{box-shadow:0 0 80px rgba(124,58,237,.6);transform:translateY(-2px)}
+    .palette{display:flex;gap:8px;justify-content:center;margin-top:64px;flex-wrap:wrap}
+    .swatch{width:56px;height:56px;border-radius:50%;transition:.2s;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+    .swatch:hover{transform:scale(1.2);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+    .s1{background:#7c3aed} .s2{background:#2563eb} .s3{background:#0ea5e9}
+    .s4{background:#10b981} .s5{background:#ec4899} .s6{background:#f59e0b}
+    .s7{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+    .s8{background:linear-gradient(135deg,#0ea5e9,#10b981)}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="aurora-bg">
+    <div class="blob b1"></div><div class="blob b2"></div>
+    <div class="blob b3"></div><div class="blob b4"></div>
+  </div>
+  <div class="grain"></div>
+  <div class="content">
+    <div class="badge">Aurora / Mesh Gradient stílus</div>
+    <h1>Élő<br/>gradiens.</h1>
+    <p class="sub">Animált blob-ok, UV szín paletta, grain overlay – a mesh gradient a modern web legdinamikusabb háttérstílusa.</p>
+    <div class="btn-row">
+      <a href="#" class="btn-solid">Generálj gradienst</a>
+      <a href="#" class="btn-glass">Hogyan készül?</a>
+    </div>
+    <div class="palette">
+      <div class="swatch s1"></div><div class="swatch s2"></div><div class="swatch s3"></div>
+      <div class="swatch s4"></div><div class="swatch s5"></div><div class="swatch s6"></div>
+      <div class="swatch s7"></div><div class="swatch s8"></div>
+    </div>
+  </div>
+</body>
+</html>

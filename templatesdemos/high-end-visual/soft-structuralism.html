@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Soft Structuralism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8f9fa;color:#111;min-height:100vh}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:#fff;border-radius:50px;padding:8px 18px;color:#666;text-decoration:none;font-size:.8rem;font-weight:500;box-shadow:0 2px 20px rgba(0,0,0,.06);transition:.2s}
+    .back:hover{box-shadow:0 4px 28px rgba(0,0,0,.1)}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:28px 6%;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+    .logo{font-size:1.1rem;font-weight:800;letter-spacing:-.5px;color:#111}
+    .nav-links{display:flex;gap:32px}
+    .nav-links a{color:#888;text-decoration:none;font-size:.85rem;font-weight:500;transition:.2s}
+    .nav-links a:hover{color:#111}
+    .nav-cta{background:#111;color:#fff!important;padding:10px 24px;border-radius:50px;font-size:.85rem;font-weight:600;text-decoration:none;transition:.2s}
+    .nav-cta:hover{background:#333}
+    .hero{padding:100px 6% 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1400px}
+    .eyebrow{display:inline-block;background:#f0f0f0;border-radius:50px;padding:6px 16px;font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:24px}
+    h1{font-size:clamp(2.8rem,5vw,4.5rem);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;color:#111}
+    h1 span{color:#bbb;font-weight:300}
+    .sub{font-size:1rem;color:#888;line-height:1.7;max-width:420px;margin-bottom:40px;font-weight:300}
+    .btn-row{display:flex;gap:12px}
+    .btn-b{background:#111;color:#fff;padding:14px 32px;border-radius:50px;text-decoration:none;font-size:.9rem;font-weight:600;transition:.2s;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+    .btn-b:hover{background:#333;box-shadow:0 8px 32px rgba(0,0,0,.2);transform:translateY(-2px)}
+    .btn-outline{color:#111;padding:14px 28px;border-radius:50px;text-decoration:none;font-size:.9rem;font-weight:500;border:2px solid #e0e0e0;transition:.2s}
+    .btn-outline:hover{border-color:#111}
+    .visual{position:relative}
+    .float-card{background:#fff;border-radius:24px;box-shadow:0 20px 80px rgba(0,0,0,.08);padding:28px;transition:transform .3s}
+    .float-card:hover{transform:translateY(-6px)}
+    .float-card + .float-card{margin-top:16px;margin-left:32px}
+    .float-icon{width:48px;height:48px;border-radius:14px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:14px}
+    .float-title{font-size:.95rem;font-weight:700;margin-bottom:6px}
+    .float-text{font-size:.82rem;color:#aaa;line-height:1.5}
+    .float-metric{font-size:2rem;font-weight:800;letter-spacing:-1px;margin-top:12px;color:#111}
+    .float-metric-label{font-size:.75rem;color:#bbb;font-weight:500}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 6% 80px}
+    .stat{padding:40px;border-right:1px solid #f0f0f0;background:#fff;border-top:1px solid #f0f0f0}
+    .stat:last-child{border-right:none}
+    .stat-n{font-size:2.8rem;font-weight:800;letter-spacing:-2px;color:#111;margin-bottom:6px}
+    .stat-l{font-size:.82rem;color:#bbb;font-weight:500;text-transform:uppercase;letter-spacing:1px}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <nav>
+    <div class="logo">Structure</div>
+    <div class="nav-links">
+      <a href="#">Termékek</a><a href="#">Megoldások</a><a href="#">Rólunk</a>
+    </div>
+    <a href="#" class="nav-cta">Ingyenes próba</a>
+  </nav>
+  <div class="hero">
+    <div>
+      <div class="eyebrow">high-end-visual · Soft Structuralism</div>
+      <h1>Struktúra <span>és</span><br/>puhaság.</h1>
+      <p class="sub">Fehér/ezüst háttér, masszív bold sans-serif, floating kártyák ultra-puha árnyékokkal. A consumer health és portfolio termékek vizuális nyelve.</p>
+      <div class="btn-row">
+        <a href="#" class="btn-b">Kipróbálom →</a>
+        <a href="#" class="btn-outline">Több infó</a>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="float-card">
+        <div class="float-icon">📊</div>
+        <div class="float-title">Teljesítmény dashboard</div>
+        <div class="float-text">Valós idejű metrikák, egy helyen</div>
+        <div class="float-metric">+247%<div class="float-metric-label">Növekedés QoQ</div></div>
+      </div>
+      <div class="float-card">
+        <div class="float-icon">✦</div>
+        <div class="float-title">AI-alapú elemzés</div>
+        <div class="float-text">Automatikus insight generálás</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">50K+</div><div class="stat-l">Aktív felhasználó</div></div>
+    <div class="stat"><div class="stat-n">99.9%</div><div class="stat-l">Uptime</div></div>
+    <div class="stat"><div class="stat-n">4.8/5</div><div class="stat-l">Értékelés</div></div>
+    <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Support</div></div>
+  </div>
+</body>
+</html>

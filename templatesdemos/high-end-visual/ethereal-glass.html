@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Ethereal Glass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Geist',sans-serif;background:#050505;min-height:100vh;overflow-x:hidden;color:#fff}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .mesh{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .orb{position:absolute;border-radius:50%;filter:blur(120px);animation:drift 15s ease-in-out infinite}
+    .o1{width:700px;height:700px;background:radial-gradient(circle,rgba(139,92,246,.25),transparent);top:-300px;left:-200px}
+    .o2{width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,.18),transparent);bottom:-150px;right:-100px;animation-delay:5s;animation-duration:18s}
+    .o3{width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,.2),transparent);top:40%;right:20%;animation-delay:10s}
+    @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+    .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
+    .content{position:relative;z-index:2;padding:100px 5%}
+    nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:100px}
+    .logo{font-size:1.1rem;font-weight:700;letter-spacing:-.3px}
+    .nav-right{display:flex;gap:24px;align-items:center}
+    .nav-right a{color:rgba(255,255,255,.4);text-decoration:none;font-size:.85rem;transition:.2s}
+    .nav-right a:hover{color:#fff}
+    .pill-cta{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:10px 24px;color:rgba(255,255,255,.8)!important;font-size:.85rem;font-weight:500;backdrop-filter:blur(10px);transition:.2s}
+    .pill-cta:hover{background:rgba(255,255,255,.14);color:#fff!important}
+    .hero{max-width:800px;margin-bottom:80px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:50px;padding:6px 16px;font-size:.75rem;font-weight:500;color:#a78bfa;margin-bottom:28px}
+    .dot{width:6px;height:6px;border-radius:50%;background:#7c3aed;animation:p 2s ease infinite}
+    @keyframes p{0%,100%{opacity:1}50%{opacity:.2}}
+    h1{font-size:clamp(3.5rem,8vw,6.5rem);font-weight:900;letter-spacing:-4px;line-height:.92;margin-bottom:24px}
+    h1 .dim{color:rgba(255,255,255,.2);font-weight:300}
+    .sub{font-size:1.05rem;color:rgba(255,255,255,.4);line-height:1.7;max-width:460px;font-weight:300;margin-bottom:40px}
+    .btn-row{display:flex;gap:14px}
+    .btn-p{background:linear-gradient(135deg,#7c3aed,#2563eb);padding:14px 32px;border-radius:50px;font-size:.9rem;font-weight:600;color:#fff;text-decoration:none;box-shadow:0 0 50px rgba(124,58,237,.35);transition:.2s}
+    .btn-p:hover{box-shadow:0 0 70px rgba(124,58,237,.5);transform:translateY(-2px)}
+    .btn-g{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:14px 28px;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;backdrop-filter:blur(10px);transition:.2s}
+    .btn-g:hover{background:rgba(255,255,255,.1);color:#fff}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px}
+    .card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:28px;position:relative;overflow:hidden;transition:.3s}
+    .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);pointer-events:none;border-radius:24px}
+    .card:hover{border-color:rgba(139,92,246,.3);transform:translateY(-4px)}
+    .card-icon{width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:16px}
+    .card-title{font-size:.95rem;font-weight:600;margin-bottom:8px;color:rgba(255,255,255,.9)}
+    .card-text{font-size:.82rem;color:rgba(255,255,255,.35);line-height:1.6}
+    .highlight{color:#a78bfa}
+  </style>
+</head>
+<body>
+  <div class="mesh"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+  <div class="grain"></div>
+  <div class="content">
+    <a href="../index.html" class="back">← Vissza</a>
+    <nav>
+      <div class="logo">Vanguard <span class="highlight">UI</span></div>
+      <div class="nav-right">
+        <a href="#">Termékek</a><a href="#">Docs</a><a href="#">Árak</a>
+        <a href="#" class="pill-cta">Próbáld ingyen</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="eyebrow"><div class="dot"></div>high-end-visual · Ethereal Glass archetype</div>
+      <h1>A <span class="dim">digitális</span><br/>tér<span class="dim">ben</span><br/>éled.</h1>
+      <p class="sub">OLED-fekete, vibráló mesh gradient, glass panel – az AI/SaaS termékek legelterjedtebb premium vizuális világa.</p>
+      <div class="btn-row">
+        <a href="#" class="btn-p">Kezdjük el</a>
+        <a href="#" class="btn-g">Dokumentáció →</a>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Double-Bezel architektúra</div>
+        <div class="card-text">Outer shell + inner core – minden kártya kétszeres keretben él, mint egy fizikailag megmunkált felület.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌀</div>
+        <div class="card-title">Mesh gradient háttér</div>
+        <div class="card-text">Animált, filter:blur(120px) orbok. OLED-barát #050505 alap. Grain overlay 3% opacity-n.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✦</div>
+        <div class="card-title">Glow akcentusok</div>
+        <div class="card-text">box-shadow: 0 0 50px rgba(124,58,237,.35) – a gombok és CTA elemek "fényleni" látszanak.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Bento Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#0c0c0c;color:#fff;min-height:100vh;padding:80px 32px 32px}
+    .back{position:fixed;top:24px;left:24px;z-index:100;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:8px 18px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;transition:.2s;backdrop-filter:blur(10px)}
+    .back:hover{color:#fff}
+    .header{max-width:1100px;margin:0 auto 32px;display:flex;justify-content:space-between;align-items:flex-end}
+    .header-left .tag{font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+    .header-left h1{font-size:2.4rem;font-weight:900;letter-spacing:-1.5px}
+    .header-right{color:rgba(255,255,255,.3);font-size:.85rem;max-width:260px;line-height:1.6;text-align:right}
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:100px;gap:12px;max-width:1100px;margin:0 auto;grid-auto-flow:dense}
+    .cell{border-radius:20px;overflow:hidden;position:relative;transition:transform .25s,opacity .2s;cursor:pointer}
+    .cell:hover{transform:scale(1.015)}
+    /* Featured hero cell */
+    .c-hero{grid-column:1/8;grid-row:1/4;background:#1a1a1a;border:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;justify-content:flex-end;padding:32px}
+    .c-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+    .c-hero .inner{position:relative;z-index:1}
+    .c-hero .inner h2{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+    .c-hero .inner p{color:rgba(255,255,255,.5);font-size:.85rem;line-height:1.5;margin-bottom:16px}
+    .c-hero .inner a{display:inline-block;background:#fff;color:#000;border-radius:50px;padding:10px 24px;font-size:.82rem;font-weight:700;text-decoration:none;transition:.15s}
+    .c-hero .inner a:hover{background:#f0f0f0}
+    /* Stat cells */
+    .c-stat{grid-column:span 2;display:flex;flex-direction:column;justify-content:space-between;padding:20px;border:1px solid rgba(255,255,255,.06)}
+    .c-stat .num{font-size:2.2rem;font-weight:900;letter-spacing:-2px;line-height:1}
+    .c-stat .lbl{font-size:.68rem;color:rgba(255,255,255,.35);font-weight:500;text-transform:uppercase;letter-spacing:1px}
+    .s1{background:#7c3aed}
+    .s2{background:#0ea5e9}
+    .s3{background:#10b981}
+    /* Feature cells */
+    .c-feat{grid-column:span 3;grid-row:span 2;background:#161616;border:1px solid rgba(255,255,255,.06);padding:24px;display:flex;flex-direction:column;justify-content:space-between}
+    .c-feat .icon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:1rem}
+    .c-feat h3{font-size:.95rem;font-weight:700;letter-spacing:-.3px}
+    .c-feat p{font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.6}
+    /* Image cell */
+    .c-img{grid-column:span 4;grid-row:span 2;overflow:hidden;background:#1a1a1a;border:1px solid rgba(255,255,255,.06)}
+    .c-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.7);transition:transform .5s ease}
+    .cell:hover .c-img img,.c-img:hover img{transform:scale(1.05)}
+    /* CTA cell */
+    .c-cta{grid-column:span 5;background:linear-gradient(135deg,#1e1e2e,#2d1b69);border:1px solid rgba(124,58,237,.2);padding:24px;display:flex;align-items:center;justify-content:space-between}
+    .c-cta h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+    .c-cta p{font-size:.78rem;color:rgba(255,255,255,.4)}
+    .c-cta a{background:#7c3aed;color:#fff;border-radius:50px;padding:10px 20px;font-size:.8rem;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:.2s}
+    .c-cta a:hover{background:#6d28d9}
+    /* Code cell */
+    .c-code{grid-column:span 3;background:#0d1117;border:1px solid rgba(255,255,255,.06);padding:20px;display:flex;align-items:center}
+    .c-code code{font-family:'Courier New',monospace;font-size:.72rem;color:#58a6ff;line-height:1.8}
+    /* Avatar cell */
+    .c-social{grid-column:span 2;background:#161616;border:1px solid rgba(255,255,255,.06);padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+    .star-row{display:flex;gap:2px;color:#f59e0b;font-size:.85rem}
+    .c-social p{font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.5}
+    .c-social strong{color:#fff}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza</a>
+  <div class="header">
+    <div class="header-left">
+      <div class="tag">design-taste · Bento Landing Page</div>
+      <h1>Bento elrendezés</h1>
+    </div>
+    <div class="header-right">Aszimmetrikus tile-ok, vizuális ritmika és sűrű információtartalom egy oldalon.</div>
+  </div>
+  <div class="bento">
+    <!-- Hero -->
+    <div class="cell c-hero">
+      <img src="https://picsum.photos/seed/bento-landing/700/300" alt=""/>
+      <div class="inner">
+        <h2>Kiemelt projekt</h2>
+        <p>Brand identitás tervezés és digital experience – teljes körű kreatív megvalósítás.</p>
+        <a href="#">Megnézem →</a>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="cell c-stat s1"><div class="lbl">Projektek</div><div class="num">140+</div></div>
+    <div class="cell c-stat s2"><div class="lbl">Ügyfél</div><div class="num">86</div></div>
+    <div class="cell c-stat s3"><div class="lbl">Év</div><div class="num">8</div></div>
+    <!-- Features -->
+    <div class="cell c-feat">
+      <div class="icon">🎨</div>
+      <div>
+        <h3>Brand Strategy</h3>
+        <p>Teljes körű brand fejlesztés piackutatástól implementációig.</p>
+      </div>
+    </div>
+    <div class="cell c-feat">
+      <div class="icon">⚡</div>
+      <div>
+        <h3>Web Fejlesztés</h3>
+        <p>React, Next.js, performant, akadálymentesített és SEO-optimalizált.</p>
+      </div>
+    </div>
+    <!-- Image -->
+    <div class="cell c-img">
+      <img src="https://picsum.photos/seed/bento-photo/400/200" alt="Visual"/>
+    </div>
+    <!-- CTA -->
+    <div class="cell c-cta">
+      <div>
+        <h3>Indítsuk el a projekted</h3>
+        <p>30 perces ingyenes konzultáció, kötelezettség nélkül.</p>
+      </div>
+      <a href="#">Időpontot foglalok</a>
+    </div>
+    <!-- Code -->
+    <div class="cell c-code">
+      <code>grid-auto-flow:<br/>  dense;<br/>// fills gaps auto</code>
+    </div>
+    <!-- Social proof -->
+    <div class="cell c-social">
+      <div class="star-row">★★★★★</div>
+      <p><strong>"Tökéletes eredmény"</strong> - Kovács A., CEO</p>
+    </div>
+    <div class="cell c-social">
+      <div class="star-row">★★★★★</div>
+      <p><strong>"Meghaladta a várt"</strong> - Horváth P., Founder</p>
+    </div>
+  </div>
+</body>
+</html>
