@@ -88,9 +88,23 @@
     .nav-cta{background:var(--teal);color:#fff;padding:9px 20px;border-radius:9px;font-size:.875rem;font-weight:700;transition:background .2s,transform .15s,box-shadow .2s;white-space:nowrap}
     .nav-cta:hover{background:var(--teal-d);transform:translateY(-1px);box-shadow:0 4px 14px rgba(13,148,136,.35)}
     /* Features popover */
-    .feat-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--mid);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;transition:all .2s;flex-shrink:0;position:relative}
-    .feat-btn:hover{color:var(--teal);border-color:var(--teal-border)}
-    #navbar:not(.scrolled) .feat-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
+    @keyframes feat-pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(13,148,136,.45)}
+      60%{box-shadow:0 0 0 6px rgba(13,148,136,0)}
+    }
+    @media(prefers-reduced-motion:no-preference){
+      .feat-btn{animation:feat-pulse 2.4s ease-out infinite}
+    }
+    .feat-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--teal-border);background:var(--teal-bg);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;transition:all .2s;flex-shrink:0;position:relative}
+    .feat-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal);animation:none}
+    #navbar:not(.scrolled) .feat-btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff;animation:none;box-shadow:0 0 0 0 rgba(255,255,255,.3)}
+    @keyframes feat-pulse-light{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.3)}
+      60%{box-shadow:0 0 0 6px rgba(255,255,255,0)}
+    }
+    @media(prefers-reduced-motion:no-preference){
+      #navbar:not(.scrolled) .feat-btn{animation:feat-pulse-light 2.4s ease-out infinite}
+    }
     .feat-popover{position:absolute;top:calc(100% + 12px);right:0;width:340px;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:20px;z-index:2000;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:opacity .2s cubic-bezier(.16,1,.3,1),transform .2s cubic-bezier(.16,1,.3,1);transform-origin:top right}
     .feat-popover.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
     .feat-popover-head{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
@@ -353,15 +367,15 @@
             <div class="feat-popover" id="feat-popover" role="dialog" aria-label="Oldal funkciók">
               <div class="feat-popover-head">Mit tud ez az oldal?</div>
               <div class="feat-list">
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Dark / Light mód</div><div class="feat-row-sub">CSS custom properties, localStorage mentés, rendszer-preferencia felismerés</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Scroll reveal animációk</div><div class="feat-row-sub">IntersectionObserver, stagger delay, cubic-bezier easing – 60fps</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">rAF számláló animáció</div><div class="feat-row-sub">requestAnimationFrame + easeOutQuart görbe a statisztikaknál</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">SVG ikonok – emoji nélkül</div><div class="feat-row-sub">Inline SVG minden helyen, egységes stílus, skálázható</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Akadálymentesség (WCAG AA)</div><div class="feat-row-sub">Skip link, ARIA labelek, focus-visible gyűrűk, szemantikus HTML5</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Mobile-first, hamburger menü</div><div class="feat-row-sub">Breakpointok, reszponzív grid, iOS Safari viewport fix (100dvh)</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">CSS-only partner marquee</div><div class="feat-row-sub">translateX loop, hover pause, fade overlay – nulla JavaScript</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">prefers-reduced-motion</div><div class="feat-row-sub">Minden animáció letiltható a rendszer hozzáférhetőségi beállításával</div></div></div>
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Smooth scroll + aktív nav</div><div class="feat-row-sub">Anchor scroll offsettel, aktuális szekció kiemelése görgetéskor</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Sötét és világos mód</div><div class="feat-row-sub">A hold ikonnal átválthatod – éjszaka sem kell csíp a szemed az oldalon</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Animált görgetés</div><div class="feat-row-sub">Az elemek elegánsan úsznak be ahogy legörgetsz – nem ugrik elő hirtelen semmi</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Élő statisztikák</div><div class="feat-row-sub">Az "1000+ elégedett ügyfél" szám lassan felszámol – sokkal hitelesebb, mint ha csak ott állna</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Mobilon is tökéletes</div><div class="feat-row-sub">Telefonon, tableten és számítógépen ugyanolyan szép – a menü is összecsukódik kis képernyőn</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Látássérülteknek is használható</div><div class="feat-row-sub">Billentyűzettel is végig lehet navigálni, a képernyőolvasók értik az egész oldalt</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Éles képek és ikonok mindenhol</div><div class="feat-row-sub">4K monitoron és kis telefon képernyőn egyaránt kristálytiszta – pixelezés nincs</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Simán ugrik a megfelelő helyre</div><div class="feat-row-sub">A menü linkjeire kattintva az oldal lassan odagörget – nem teleportál hirtelen</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Kíméli a szemed mozgásérzékenység esetén</div><div class="feat-row-sub">Ha a telefonod mozgáscsökkentett módban van, az oldal nem villog és nem animálódik</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Email küldés egy kattintással</div><div class="feat-row-sub">Az üzenetküldő gomb megnyitja az email programodat – Gmail, Outlook, bármi működik</div></div></div>
               </div>
             </div>
           </div>
