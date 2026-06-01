@@ -244,6 +244,32 @@
     .map-placeholder .map-address{font-size:.9rem;font-weight:600;color:var(--teal-1)}
     .map-placeholder .map-hint{font-size:.78rem;color:var(--mid)}
 
+    /* ── STEELDECOR BANNER ── */
+    .steeldecor-banner{background:#18181b;padding:48px 0;border-top:1px solid rgba(255,255,255,.04)}
+    .sd-inner{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+    .sd-left{flex:1;min-width:240px}
+    .sd-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+    .sd-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .sd-logo-icon{width:40px;height:40px;border-radius:10px;overflow:hidden;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+    .sd-logo-text strong{display:block;font-size:1.05rem;font-weight:800;color:#f4efe4;letter-spacing:-.3px}
+    .sd-logo-text span{font-size:.75rem;color:rgba(255,255,255,.3);font-weight:400}
+    .sd-tagline{font-size:.83rem;color:rgba(255,255,255,.4);line-height:1.6;max-width:320px}
+    .sd-divider{width:1px;height:80px;background:rgba(255,255,255,.08);flex-shrink:0}
+    .sd-right{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+    .sd-stats{display:flex;gap:28px}
+    .sd-stat{display:flex;flex-direction:column;gap:2px}
+    .sd-stat-num{font-size:1.3rem;font-weight:800;color:#f4efe4;letter-spacing:-.5px;line-height:1}
+    .sd-stat-label{font-size:.68rem;color:rgba(255,255,255,.3);font-weight:500;text-transform:uppercase;letter-spacing:1px}
+    .sd-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(244,239,228,.08);border:1px solid rgba(244,239,228,.15);border-radius:50px;padding:10px 20px;font-size:.84rem;font-weight:600;color:rgba(244,239,228,.75);text-decoration:none;transition:all .25s}
+    .sd-cta svg{width:14px;height:14px;transition:transform .25s}
+    .sd-cta:hover{background:rgba(244,239,228,.14);border-color:rgba(244,239,228,.3);color:#f4efe4;transform:translateY(-1px)}
+    .sd-cta:hover svg{transform:translateX(3px)}
+    @media(max-width:700px){
+      .sd-divider{display:none}
+      .sd-right{width:100%}
+      .sd-stats{gap:20px}
+    }
+
     /* ── FOOTER ── */
     footer{background:var(--dark);color:rgba(255,255,255,.7);padding:64px 0 32px}
     .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
@@ -708,6 +734,57 @@
             ✅ Köszönjük üzenetét! Hamarosan felvesszük Önnel a kapcsolatot.
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STEELDECOR BANNER ══ -->
+<section class="steeldecor-banner" aria-label="SteelDecor – Kézzel készített acél dekorációk">
+  <div class="container">
+    <div class="sd-inner reveal">
+      <div class="sd-left">
+        <div class="sd-eyebrow">Megbízott fejlesztő</div>
+        <div class="sd-logo">
+          <div class="sd-logo-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="url(#sdg)"/>
+              <path d="M8 16h4l2-5 4 10 2-5 2 3h2" stroke="#F4EFE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="sdg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#3f3f46"/>
+                  <stop offset="100%" stop-color="#18181b"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="sd-logo-text">
+            <strong>SteelDecor</strong>
+            <span>steeldecor.hu</span>
+          </div>
+        </div>
+        <p class="sd-tagline">Kézzel hegesztett acél dekorációk, éremtartók és fali díszek – egyedi, maradandó darabok.</p>
+      </div>
+      <div class="sd-divider" aria-hidden="true"></div>
+      <div class="sd-right">
+        <div class="sd-stats">
+          <div class="sd-stat">
+            <span class="sd-stat-num">2015</span>
+            <span class="sd-stat-label">óta</span>
+          </div>
+          <div class="sd-stat">
+            <span class="sd-stat-num">100%</span>
+            <span class="sd-stat-label">kézzel készített</span>
+          </div>
+          <div class="sd-stat">
+            <span class="sd-stat-num">🇭🇺</span>
+            <span class="sd-stat-label">Magyar termék</span>
+          </div>
+        </div>
+        <a href="https://steeldecor.hu" target="_blank" rel="noopener" class="sd-cta" aria-label="SteelDecor weboldal megnyitása">
+          Felfedezem a kollekciót
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </div>
   </div>
