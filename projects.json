@@ -16,5 +16,11 @@
     "description": "Modern virágbolt landing oldal, letisztult designnal.",
     "image": "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1600&q=80&auto=format&fit=crop",
     "link": "bube-viragbolt/"
+  },
+  {
+    "title": "Állatpatika Maglód",
+    "description": "Állatpatika landing page",
+    "image": "https://pajtapharma.com/logo.jpg?w=1600&q=80&auto=format&fit=crop",
+    "link": "allatpatika/"
   }
 ]
