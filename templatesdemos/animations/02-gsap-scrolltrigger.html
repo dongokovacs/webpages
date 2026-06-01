@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GSAP ScrollTrigger – Pinning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#86efac;letter-spacing:1px}
+    /* Intro */
+    .intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+    h1 span{color:rgba(255,255,255,.2);font-weight:300}
+    .sub{color:rgba(255,255,255,.4);font-size:1rem;max-width:440px;line-height:1.6;margin-bottom:32px}
+    .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.25);font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase}
+    .scroll-bar{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4))}
+    /* Pin section */
+    .pin-container{display:flex;min-height:400vh}
+    .pin-left{width:40%;padding:80px 48px;display:flex;flex-direction:column;justify-content:center;position:sticky;top:0;height:100vh;border-right:1px solid rgba(255,255,255,.06)}
+    .pin-tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#86efac;margin-bottom:16px}
+    .pin-title{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+    .pin-sub{font-size:.9rem;color:rgba(255,255,255,.4);line-height:1.6;max-width:280px}
+    .step-dots{display:flex;gap:8px;margin-top:40px}
+    .step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:.3s}
+    .step-dot.active{background:#86efac;width:24px;border-radius:4px}
+    .pin-right{flex:1;padding:80px 48px;display:flex;flex-direction:column;gap:32px;justify-content:flex-start;padding-top:20vh}
+    .feature{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:36px;opacity:0;transform:translateY(60px);transition:opacity .6s ease,transform .6s ease}
+    .feature.visible{opacity:1;transform:translateY(0)}
+    .f-num{font-size:.68rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.2);margin-bottom:16px}
+    .f-icon{font-size:2.4rem;margin-bottom:14px}
+    .f-title{font-size:1.2rem;font-weight:800;letter-spacing:-.3px;margin-bottom:10px}
+    .f-text{font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.7}
+    .f-tag{display:inline-block;background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.2);border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:600;color:#86efac;margin-top:16px}
+    /* Outro */
+    .outro{min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px;border-top:1px solid rgba(255,255,255,.05)}
+    .outro h2{font-size:2rem;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+    .outro p{color:rgba(255,255,255,.4);font-size:.9rem;max-width:400px;line-height:1.6}
+    .code-block{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-top:32px;text-align:left;max-width:500px;width:100%}
+    .code-block pre{font-family:'Courier New',monospace;font-size:.73rem;color:#86efac;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">GSAP ScrollTrigger</div>
+
+  <div class="intro">
+    <div class="tag">GSAP ScrollTrigger – Pinning demo</div>
+    <h1>Bal oldal <span>rögzül,</span><br/>jobb oldal scrolloz.</h1>
+    <p class="sub">A klasszikus pin pattern – a cím/leírás helyén marad miközben a tartalom felgörög. Görgess le a demo megtekintéséhez.</p>
+    <div class="scroll-hint"><div class="scroll-bar"></div>Görgess</div>
+  </div>
+
+  <div class="pin-container">
+    <div class="pin-left" id="pin-left">
+      <div class="pin-tag">ScrollTrigger Pinning</div>
+      <div class="pin-title">Sticky<br/>bal panel</div>
+      <p class="pin-sub">Ez az elem a viewport tetején rögzül, miközben a jobb oldali tartalom felgörög mellette.</p>
+      <div class="step-dots">
+        <div class="step-dot active" id="dot-0"></div>
+        <div class="step-dot" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+        <div class="step-dot" id="dot-3"></div>
+      </div>
+    </div>
+    <div class="pin-right" id="pin-right">
+      <div class="feature" id="f0">
+        <div class="f-num">01</div>
+        <div class="f-icon">🖥️</div>
+        <div class="f-title">Pinning</div>
+        <div class="f-text">Az elem position: sticky-vel vagy GSAP pin:true-val rögzül. A ScrollTrigger figyeli a görgetési pozíciót és automatikusan kezeli a helyettesítő elemet (spacer).</div>
+        <div class="f-tag">pin: true</div>
+      </div>
+      <div class="feature" id="f1">
+        <div class="f-num">02</div>
+        <div class="f-icon">📍</div>
+        <div class="f-title">Trigger pontok</div>
+        <div class="f-text">A start: "top top" határozza meg mikor kezd rögzülni. Az end: azt mondja meg, mikor engedik el. Közöttük teljesen a görgetési pozíció vezérli.</div>
+        <div class="f-tag">start: "top top"</div>
+      </div>
+      <div class="feature" id="f2">
+        <div class="f-num">03</div>
+        <div class="f-icon">🎬</div>
+        <div class="f-title">Scrub</div>
+        <div class="f-text">scrub: true esetén az animáció közvetlenül a scrollhoz van kötve – nincs "időzítés", az egér pozíciója vezérel mindent. scrub: 1 simítást ad hozzá.</div>
+        <div class="f-tag">scrub: 1</div>
+      </div>
+      <div class="feature" id="f3">
+        <div class="f-num">04</div>
+        <div class="f-icon">⚡</div>
+        <div class="f-title">Markers debug</div>
+        <div class="f-text">Fejlesztés közben markers: true mutatja a trigger és end pontokat a viewport-on – így pontosan látod mikor aktivál a ScrollTrigger.</div>
+        <div class="f-tag">markers: true</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="outro">
+    <h2>Kód vázlat</h2>
+    <p>CSS sticky-vel implementálva, GSAP-nélkül is működő verzió.</p>
+    <div class="code-block"><pre>// GSAP verzió:
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.create({
+  trigger: ".pin-container",
+  start: "top top",
+  end: "bottom bottom",
+  pin: ".pin-left",
+  pinSpacing: false,
+});
+
+// CSS verzió (egyszerűbb):
+.pin-left {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}</pre></div>
+  </div>
+
+  <script>
+    // CSS sticky alapú – nincs GSAP dependency szükséges
+    const features = document.querySelectorAll('.feature');
+    const dots = document.querySelectorAll('.step-dot');
+
+    const featureObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const idx = Array.from(features).indexOf(entry.target);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.5 });
+
+    features.forEach(f => featureObserver.observe(f));
+  </script>
+</body>
+</html>

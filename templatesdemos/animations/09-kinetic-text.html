@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Kinetic Typography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#fbbf24;letter-spacing:1px}
+    section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;border-bottom:1px solid rgba(255,255,255,.04)}
+    .s-tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:20px;text-align:center}
+    /* 01 – Char slide-up */
+    .char-reveal{overflow:hidden;display:inline-block}
+    .char{display:inline-block;transform:translateY(110%);opacity:0;animation:charUp .6s cubic-bezier(.16,1,.3,1) forwards}
+    @keyframes charUp{to{transform:translateY(0);opacity:1}}
+    .big-type{font-size:clamp(4rem,12vw,10rem);font-weight:900;letter-spacing:-5px;line-height:.92;text-align:center}
+    /* 02 – Scramble */
+    .scramble-wrap{text-align:center}
+    .scramble{font-size:clamp(2.5rem,7vw,6rem);font-weight:900;letter-spacing:-3px;cursor:pointer;user-select:none}
+    .scramble:hover{opacity:.8}
+    /* 03 – Typewriter */
+    .typewriter{font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-2px;text-align:center}
+    .cursor-blink{display:inline-block;width:.06em;height:.85em;background:#fff;margin-left:.08em;vertical-align:-.05em;animation:blink 1s ease infinite}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    /* 04 – Letter spacing expand */
+    .expand-text{font-size:clamp(2rem,6vw,5rem);font-weight:900;letter-spacing:-3px;text-align:center;animation:expandLetters 3s cubic-bezier(.16,1,.3,1) infinite alternate;opacity:0}
+    .expand-text.visible{opacity:1}
+    @keyframes expandLetters{from{letter-spacing:-3px;opacity:.4}to{letter-spacing:20px;opacity:1}}
+    /* 05 – Word slide */
+    .word-slide{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;letter-spacing:-2px;line-height:1.1;text-align:center}
+    .ws-line{overflow:hidden;display:block}
+    .ws-inner{display:block;transform:translateY(110%);opacity:0;transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .9s ease}
+    .ws-inner.up{transform:translateY(0);opacity:1}
+    /* Common btns */
+    .replay-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:50px;padding:10px 24px;font-size:.84rem;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;font-family:inherit;transition:.2s;margin-top:40px}
+    .replay-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+    .hint{color:rgba(255,255,255,.25);font-size:.78rem;letter-spacing:1px;text-align:center;margin-top:24px}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">JS + CSS</div>
+
+  <!-- 01 CHAR SLIDE UP -->
+  <section>
+    <div class="s-tag">01 – Betűnkénti slide-up</div>
+    <div class="big-type" id="char-title"></div>
+    <button class="replay-btn" onclick="initCharReveal()">↺ Újra</button>
+  </section>
+
+  <!-- 02 SCRAMBLE -->
+  <section>
+    <div class="s-tag">02 – Text Scramble (hover)</div>
+    <div class="scramble-wrap">
+      <div class="scramble" id="scramble">KREATIVITÁS</div>
+    </div>
+    <div class="hint">Vidd az egeret a szöveg fölé</div>
+  </section>
+
+  <!-- 03 TYPEWRITER -->
+  <section>
+    <div class="s-tag">03 – Typewriter</div>
+    <div class="typewriter" id="typewriter"><span id="tw-text"></span><span class="cursor-blink"></span></div>
+    <button class="replay-btn" onclick="startTypewriter()">↺ Újra</button>
+  </section>
+
+  <!-- 04 LETTER SPACING -->
+  <section>
+    <div class="s-tag">04 – Letter spacing expand</div>
+    <div class="expand-text" id="expand-text">DESIGN</div>
+    <button class="replay-btn" onclick="triggerExpand()">↺ Újra</button>
+  </section>
+
+  <!-- 05 WORD SLIDE -->
+  <section>
+    <div class="s-tag">05 – Sor mask reveal</div>
+    <div class="word-slide">
+      <span class="ws-line"><span class="ws-inner" id="ws1">Formáljuk</span></span>
+      <span class="ws-line"><span class="ws-inner" id="ws2" style="color:rgba(255,255,255,.2);font-weight:300">a digitális</span></span>
+      <span class="ws-line"><span class="ws-inner" id="ws3">teret.</span></span>
+    </div>
+    <button class="replay-btn" onclick="triggerWordSlide()">↺ Újra</button>
+  </section>
+
+  <script>
+    // 01 – Char slide-up
+    function initCharReveal() {
+      const el = document.getElementById('char-title');
+      const text = 'MOZOG';
+      el.innerHTML = '';
+      [...text].forEach((ch, i) => {
+        const wrap = document.createElement('span');
+        wrap.className = 'char-reveal';
+        const inner = document.createElement('span');
+        inner.className = 'char';
+        inner.textContent = ch === ' ' ? ' ' : ch;
+        inner.style.animationDelay = (i * 0.07) + 's';
+        wrap.appendChild(inner);
+        el.appendChild(wrap);
+      });
+    }
+    initCharReveal();
+
+    // IntersectionObserver for char reveal
+    const obs1 = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { initCharReveal(); obs1.disconnect(); }
+    }, {threshold:.5});
+    obs1.observe(document.getElementById('char-title'));
+
+    // 02 – Scramble
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
+    const scrambleEl = document.getElementById('scramble');
+    const origText = scrambleEl.textContent;
+    let scrambleRAF, scrambleFrame = 0;
+
+    scrambleEl.addEventListener('mouseenter', () => {
+      cancelAnimationFrame(scrambleRAF);
+      scrambleFrame = 0;
+      const totalFrames = 20;
+      const tick = () => {
+        scrambleEl.textContent = origText.split('').map((ch, i) => {
+          if (ch === ' ') return ' ';
+          if (scrambleFrame / totalFrames > i / origText.length) return ch;
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }).join('');
+        if (scrambleFrame < totalFrames) {
+          scrambleFrame++;
+          scrambleRAF = requestAnimationFrame(tick);
+        } else {
+          scrambleEl.textContent = origText;
+        }
+      };
+      scrambleRAF = requestAnimationFrame(tick);
+    });
+
+    // 03 – Typewriter
+    const twStrings = ['Kreativitás.', 'Design.', 'Animáció.', 'Motion.', 'Innováció.'];
+    let twIdx = 0, twPos = 0, twDir = 1, twTimeout;
+    function startTypewriter() {
+      clearTimeout(twTimeout);
+      twIdx = 0; twPos = 0; twDir = 1;
+      typeStep();
+    }
+    function typeStep() {
+      const el = document.getElementById('tw-text');
+      const current = twStrings[twIdx];
+      el.textContent = current.slice(0, twPos);
+      if (twDir === 1) {
+        if (twPos < current.length) { twPos++; twTimeout = setTimeout(typeStep, 80); }
+        else { twDir = -1; twTimeout = setTimeout(typeStep, 1200); }
+      } else {
+        if (twPos > 0) { twPos--; twTimeout = setTimeout(typeStep, 40); }
+        else { twDir = 1; twIdx = (twIdx + 1) % twStrings.length; twTimeout = setTimeout(typeStep, 300); }
+      }
+    }
+    const obs3 = new IntersectionObserver(e => { if (e[0].isIntersecting) { startTypewriter(); obs3.disconnect(); } }, {threshold:.5});
+    obs3.observe(document.getElementById('typewriter'));
+
+    // 04 – Letter spacing
+    function triggerExpand() {
+      const el = document.getElementById('expand-text');
+      el.classList.remove('visible');
+      el.style.animation = 'none';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          el.style.animation = '';
+          el.classList.add('visible');
+        });
+      });
+    }
+    const obs4 = new IntersectionObserver(e => { if (e[0].isIntersecting) { triggerExpand(); obs4.disconnect(); } }, {threshold:.5});
+    obs4.observe(document.getElementById('expand-text'));
+
+    // 05 – Word slide
+    function triggerWordSlide() {
+      ['ws1','ws2','ws3'].forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.remove('up');
+        void el.offsetWidth;
+      });
+      ['ws1','ws2','ws3'].forEach((id, i) => {
+        setTimeout(() => document.getElementById(id).classList.add('up'), i * 180);
+      });
+    }
+    const obs5 = new IntersectionObserver(e => { if (e[0].isIntersecting) { triggerWordSlide(); obs5.disconnect(); } }, {threshold:.4});
+    obs5.observe(document.getElementById('ws1'));
+  </script>
+</body>
+</html>

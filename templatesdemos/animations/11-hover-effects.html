@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Hover Effects – 8 variáns</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;min-height:100vh;padding:60px 40px 80px}
+    .back{position:fixed;top:20px;left:20px;z-index:100;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:100;background:rgba(147,197,253,.1);border:1px solid rgba(147,197,253,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#93c5fd;letter-spacing:1px}
+    .intro{text-align:center;padding:40px 0 60px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+    h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:10px}
+    .sub{color:rgba(255,255,255,.4);font-size:.9rem;max-width:440px;margin:0 auto;line-height:1.6}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+    .demo-cell{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px;display:flex;flex-direction:column;align-items:center;gap:20px}
+    .cell-label{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center}
+    /* ── BTN STYLES ── */
+    /* 1. Fill from left */
+    .btn-fill{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;position:relative;overflow:hidden;border:1.5px solid rgba(255,255,255,.2);color:#fff;background:transparent;transition:color .3s,border-color .3s}
+    .btn-fill::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    .btn-fill:hover::before{transform:translateX(0)}
+    /* 2. Slide up reveal */
+    .btn-slide{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;position:relative;overflow:hidden;background:#7c3aed;color:#fff;border:none}
+    .btn-slide-front,.btn-slide-back{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:14px 32px;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    .btn-slide-front{top:0}
+    .btn-slide-back{top:100%;background:#5b21b6}
+    .btn-slide:hover .btn-slide-front{transform:translateY(-100%)}
+    .btn-slide:hover .btn-slide-back{transform:translateY(-100%)}
+    /* 3. Border trace */
+    .btn-trace{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;background:transparent;color:#fff;border:none;position:relative}
+    .btn-trace::before,.btn-trace::after{content:'';position:absolute;background:#60a5fa;transition:all .3s cubic-bezier(.16,1,.3,1)}
+    .btn-trace::before{top:0;left:0;width:0;height:2px}
+    .btn-trace::after{bottom:0;right:0;width:0;height:2px}
+    .btn-trace:hover::before,.btn-trace:hover::after{width:100%}
+    .side-lines{position:absolute;inset:0;pointer-events:none}
+    .side-lines::before,.side-lines::after{content:'';position:absolute;background:#60a5fa;width:2px;height:0;transition:height .3s cubic-bezier(.16,1,.3,1)}
+    .side-lines::before{top:0;left:0;transition-delay:.2s}
+    .side-lines::after{bottom:0;right:0;transition-delay:.2s}
+    .btn-trace:hover .side-lines::before,.btn-trace:hover .side-lines::after{height:100%}
+    /* 4. Glow */
+    .btn-glow{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:50px;font-size:.9rem;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;box-shadow:0 0 0 rgba(124,58,237,0);transition:box-shadow .3s,transform .2s}
+    .btn-glow:hover{box-shadow:0 0 60px rgba(124,58,237,.6),0 0 120px rgba(124,58,237,.3);transform:translateY(-2px)}
+    /* 5. Shimmer */
+    .btn-shimmer{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;background:#1a1a1a;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+    .btn-shimmer::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);background-size:200% 100%;background-position:200% center;transition:background-position .6s ease}
+    .btn-shimmer:hover{color:#fff}
+    .btn-shimmer:hover::before{background-position:-200% center}
+    /* 6. Underline grow */
+    .btn-underline{display:inline-flex;align-items:center;justify-content:center;padding:14px 8px;font-size:1rem;font-weight:700;cursor:pointer;background:transparent;color:#fff;border:none;position:relative}
+    .btn-underline::after{content:'';position:absolute;bottom:6px;left:0;width:0;height:2px;background:#fff;border-radius:1px;transition:width .35s cubic-bezier(.16,1,.3,1)}
+    .btn-underline:hover::after{width:100%}
+    /* 7. Invert */
+    .btn-invert{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;background:#fff;color:#09090b;border:none;transition:background .25s,color .25s,transform .2s,box-shadow .2s}
+    .btn-invert:hover{background:#09090b;color:#fff;box-shadow:0 0 0 2px #fff;transform:scale(1.03)}
+    /* 8. Lift + shadow */
+    .btn-lift{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:#fff;box-shadow:0 2px 0 rgba(0,0,0,.5);transition:all .2s cubic-bezier(.16,1,.3,1)}
+    .btn-lift:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4),0 2px 0 rgba(0,0,0,.5);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
+    /* Invisible height hack for slide btn */
+    .btn-slide-height{height:48px;min-width:160px;display:inline-flex;align-items:stretch}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">CSS Only</div>
+
+  <div class="intro">
+    <div class="tag">Hover Effects – 8 variáns</div>
+    <h1>Minden kattintás<br/>előtt jön a hover.</h1>
+    <p class="sub">Vidd az egeret a gombokra. Mind CSS-only – nincs JavaScript, nincs library.</p>
+  </div>
+
+  <div class="grid">
+    <div class="demo-cell">
+      <div class="cell-label">01 – Fill from left</div>
+      <button class="btn-fill">Fill Left →</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">::before translateX(-100%) → translateX(0)</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">02 – Slide-up reveal</div>
+      <div class="btn-slide btn-slide-height">
+        <div class="btn-slide-front">Normál szöveg</div>
+        <div class="btn-slide-back">Hover szöveg ↑</div>
+      </div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">Két réteg – front/back translateY</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">03 – Border trace</div>
+      <button class="btn-trace">Border Trace<div class="side-lines"></div></button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">::before ::after + side pseudo-elements</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">04 – Glow pulse</div>
+      <button class="btn-glow">Glow Effect</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">box-shadow 0 → 60px blur on hover</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">05 – Shimmer sweep</div>
+      <button class="btn-shimmer">Shimmer Sweep</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">background-position 200% → -200%</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">06 – Underline grow</div>
+      <button class="btn-underline">Underline Grow</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">::after width 0 → 100%</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">07 – Invert colors</div>
+      <button class="btn-invert">Color Invert</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">background + color + outline swap</div>
+    </div>
+    <div class="demo-cell">
+      <div class="cell-label">08 – Lift + shadow</div>
+      <button class="btn-lift">↑ Lift Effect</button>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5">translateY(-4px) + box-shadow deepens</div>
+    </div>
+  </div>
+</body>
+</html>

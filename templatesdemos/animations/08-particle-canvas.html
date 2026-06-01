@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Particle Canvas Background</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#050508;color:#fff;overflow-x:hidden}
+    canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(196,181,253,.1);border:1px solid rgba(196,181,253,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#c4b5fd;letter-spacing:1px}
+    .content{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;text-align:center}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px}
+    h1{font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-4px;line-height:.92;margin-bottom:20px}
+    h1 .dim{color:rgba(255,255,255,.12);font-weight:300}
+    .sub{color:rgba(255,255,255,.4);font-size:1.05rem;line-height:1.7;max-width:480px;margin-bottom:48px}
+    .controls{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+    .ctrl-btn{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:50px;padding:10px 22px;font-size:.84rem;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer;font-family:inherit;transition:all .2s}
+    .ctrl-btn:hover,.ctrl-btn.active{background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.4);color:#c4b5fd}
+    .stats-row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
+    .stat{text-align:center}
+    .stat-num{font-size:2rem;font-weight:900;letter-spacing:-1px;color:#c4b5fd}
+    .stat-label{font-size:.72rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+    .code-section{position:relative;z-index:1;padding:80px 40px;border-top:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center}
+    .code-title{font-size:1.4rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;text-align:center}
+    .code-sub{color:rgba(255,255,255,.4);font-size:.88rem;margin-bottom:28px;text-align:center}
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;max-width:580px;width:100%}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#c4b5fd;line-height:1.8}
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">Canvas</div>
+
+  <div class="content">
+    <div class="tag">Canvas Particle Network</div>
+    <h1>Részecske<br/><span class="dim">háló</span></h1>
+    <p class="sub">requestAnimationFrame alapú canvas animáció – mozgó pontok összekötve, egér-interakcióval. Tökéletes hero háttérnek.</p>
+    <div class="controls">
+      <button class="ctrl-btn active" onclick="setMode('network')" id="btn-network">Hálózat</button>
+      <button class="ctrl-btn" onclick="setMode('float')" id="btn-float">Lebegő</button>
+      <button class="ctrl-btn" onclick="setMode('burst')" id="btn-burst">Burst</button>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num" id="stat-fps">60</div><div class="stat-label">FPS</div></div>
+      <div class="stat"><div class="stat-num" id="stat-count">80</div><div class="stat-label">Részecske</div></div>
+      <div class="stat"><div class="stat-num" id="stat-lines">0</div><div class="stat-label">Kapcsolat</div></div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <div class="code-title">Alapvető struktúra</div>
+    <div class="code-sub">requestAnimationFrame + canvas 2D API</div>
+    <div class="code-box"><pre>const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const particles = [];
+const COUNT = 80;
+const MAX_DIST = 130;
+
+// Init
+for (let i = 0; i < COUNT; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    r: Math.random() * 2 + 1,
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < MAX_DIST) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(167,139,250,${1 - dist/MAX_DIST})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}</pre></div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let mode = 'network';
+    let particles = [];
+    let mouse = { x: null, y: null };
+    let frameCount = 0, lastFps = Date.now(), fps = 60;
+
+    const COUNT = 80;
+    const MAX_DIST = 130;
+    const COLORS = ['#a78bfa','#60a5fa','#34d399','#f472b6'];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    canvas.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    canvas.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+    // Make canvas pointer-events work for mouse tracking but not block clicks
+    canvas.style.pointerEvents = 'none';
+    document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < COUNT; i++) {
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          r: Math.random() * 2 + 1,
+          color,
+          alpha: Math.random() * 0.5 + 0.3,
+          pulse: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+    initParticles();
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let lineCount = 0;
+
+      particles.forEach((p, i) => {
+        // Move
+        p.pulse += 0.02;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Mouse repel
+        if (mouse.x !== null) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            const force = (100 - dist) / 100;
+            p.vx += dx / dist * force * 0.3;
+            p.vy += dy / dist * force * 0.3;
+          }
+        }
+
+        // Damping
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+        // Min speed
+        if (Math.abs(p.vx) < 0.1) p.vx += (Math.random() - 0.5) * 0.1;
+        if (Math.abs(p.vy) < 0.1) p.vy += (Math.random() - 0.5) * 0.1;
+
+        // Bounce
+        if (p.x < 0) { p.x = 0; p.vx *= -1; }
+        if (p.x > canvas.width) { p.x = canvas.width; p.vx *= -1; }
+        if (p.y < 0) { p.y = 0; p.vy *= -1; }
+        if (p.y > canvas.height) { p.y = canvas.height; p.vy *= -1; }
+
+        // Draw particle
+        const pr = mode === 'float' ? p.r * (1 + Math.sin(p.pulse) * 0.4) : p.r;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, pr, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + Math.round(p.alpha * 255).toString(16).padStart(2,'0');
+        ctx.fill();
+
+        if (mode === 'network') {
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x;
+            const dy = p.y - q.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MAX_DIST) {
+              lineCount++;
+              const opacity = (1 - dist / MAX_DIST) * 0.5;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(167,139,250,${opacity})`;
+              ctx.lineWidth = 0.6;
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (mode === 'burst' && mouse.x !== null) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.strokeStyle = p.color + '30';
+            ctx.lineWidth = 0.4;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      });
+
+      // FPS
+      frameCount++;
+      const now = Date.now();
+      if (now - lastFps >= 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastFps = now;
+        document.getElementById('stat-fps').textContent = fps;
+        document.getElementById('stat-lines').textContent = lineCount;
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    function setMode(m) {
+      mode = m;
+      document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + m).classList.add('active');
+    }
+  </script>
+</body>
+</html>

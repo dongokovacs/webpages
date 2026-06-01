@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GSAP Horizontal Scroll</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#86efac;letter-spacing:1px}
+    .progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#86efac,#60a5fa);z-index:300;width:0%;transition:width .1s linear}
+    /* Intro */
+    .intro{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+    .sub{color:rgba(255,255,255,.4);font-size:1rem;max-width:400px;line-height:1.6;margin-bottom:40px}
+    .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.3);font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase}
+    .bar{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4))}
+    /* Horizontal section */
+    .h-section{overflow:hidden}
+    .h-wrap{display:flex;height:100vh;align-items:center}
+    .h-track{display:flex;gap:24px;padding:0 80px;will-change:transform}
+    .panel{min-width:80vw;height:75vh;border-radius:24px;display:flex;flex-direction:column;justify-content:flex-end;padding:48px;position:relative;overflow:hidden;flex-shrink:0}
+    .panel-bg{position:absolute;inset:0;opacity:.6}
+    .panel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 60%)}
+    .panel-content{position:relative;z-index:1}
+    .p-num{font-size:.7rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.5);margin-bottom:12px}
+    .p-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:14px}
+    .p-text{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.6;max-width:380px}
+    .p-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:6px 16px;font-size:.78rem;font-weight:600;margin-top:16px;backdrop-filter:blur(10px)}
+    .p1 .panel-bg{background:linear-gradient(135deg,#7c3aed,#2563eb)}
+    .p2 .panel-bg{background:linear-gradient(135deg,#0d9488,#0891b2)}
+    .p3 .panel-bg{background:linear-gradient(135deg,#dc2626,#ea580c)}
+    .p4 .panel-bg{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+    .p5 .panel-bg{background:linear-gradient(135deg,#065f46,#0e7490)}
+    /* Outro */
+    .outro{height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;border-top:1px solid rgba(255,255,255,.05)}
+    .outro h2{font-size:1.8rem;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+    .outro p{color:rgba(255,255,255,.4);font-size:.88rem;max-width:480px;line-height:1.6}
+    .code-wrap{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-top:28px;text-align:left;max-width:520px;width:100%}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#86efac;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">GSAP Horizontal</div>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="intro">
+    <div class="tag">GSAP ScrollTrigger – Horizontal Pan</div>
+    <h1>Függőleges görgetés<br/>→ vízszintes csúszás</h1>
+    <p class="sub">A szekció rögzítve van, az inner track vízszintesen tolódik miközben te függőlegesen görgetsz. Görgess le a demohoz.</p>
+    <div class="scroll-hint"><div class="bar"></div>Görgess le</div>
+  </div>
+
+  <div class="h-section" id="h-section">
+    <div class="h-wrap">
+      <div class="h-track" id="h-track">
+        <div class="panel p1">
+          <div class="panel-bg"></div><div class="panel-overlay"></div>
+          <div class="panel-content">
+            <div class="p-num">01 / 05</div>
+            <div class="p-title">Brand Identity</div>
+            <p class="p-text">Logó, szín, tipográfia – a teljes vizuális rendszer megtervezése és implementálása.</p>
+            <div class="p-tag">Stratégia & Design</div>
+          </div>
+        </div>
+        <div class="panel p2">
+          <div class="panel-bg"></div><div class="panel-overlay"></div>
+          <div class="panel-content">
+            <div class="p-num">02 / 05</div>
+            <div class="p-title">Web Design & Dev</div>
+            <p class="p-text">Awwwards-szintű landing oldalak, SaaS termékek és e-commerce felületek.</p>
+            <div class="p-tag">React & Next.js</div>
+          </div>
+        </div>
+        <div class="panel p3">
+          <div class="panel-bg"></div><div class="panel-overlay"></div>
+          <div class="panel-content">
+            <div class="p-num">03 / 05</div>
+            <div class="p-title">Motion Design</div>
+            <p class="p-text">GSAP ScrollTrigger animációk, After Effects munkák és Lottie integrációk.</p>
+            <div class="p-tag">GSAP & Framer</div>
+          </div>
+        </div>
+        <div class="panel p4">
+          <div class="panel-bg"></div><div class="panel-overlay"></div>
+          <div class="panel-content">
+            <div class="p-num">04 / 05</div>
+            <div class="p-title">3D & Spatial</div>
+            <p class="p-text">Three.js WebGL jelenetek, produktfotók és 3D interaktív élmények a böngészőben.</p>
+            <div class="p-tag">Three.js & Spline</div>
+          </div>
+        </div>
+        <div class="panel p5">
+          <div class="panel-bg"></div><div class="panel-overlay"></div>
+          <div class="panel-content">
+            <div class="p-num">05 / 05</div>
+            <div class="p-title">Fotózás</div>
+            <p class="p-text">Brand, product és editorial képanyagok – a vizuális kommunikáció alapkövei.</p>
+            <div class="p-tag">Commercial Photo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="outro">
+    <h2>Hogyan működik?</h2>
+    <p>A wrapper rögzítve van (pin: true). A track vízszintesen tolódik el – a görgetési távolság egyenlő a track szélességével mínusz a viewport szélességével.</p>
+    <div class="code-wrap"><pre>gsap.registerPlugin(ScrollTrigger);
+
+const track = document.getElementById("h-track");
+const distance = track.scrollWidth - window.innerWidth;
+
+gsap.to(track, {
+  x: -distance,
+  ease: "none",
+  scrollTrigger: {
+    trigger: "#h-section",
+    start: "top top",
+    end: () => `+=${distance}`,
+    pin: true,
+    scrub: 1,
+    invalidateOnRefresh: true,
+  },
+});</pre></div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const track = document.getElementById('h-track');
+    const section = document.getElementById('h-section');
+    const progressBar = document.getElementById('progress');
+
+    const distance = track.scrollWidth - window.innerWidth;
+
+    gsap.to(track, {
+      x: -distance,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => `+=${distance}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: self => {
+          progressBar.style.width = (self.progress * 100) + '%';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

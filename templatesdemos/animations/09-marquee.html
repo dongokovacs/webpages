@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Infinite Marquee – CSS Only</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff}
+    .back{position:fixed;top:20px;left:20px;z-index:100;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:100;background:rgba(147,197,253,.1);border:1px solid rgba(147,197,253,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#93c5fd;letter-spacing:1px}
+    /* Intro */
+    .intro{padding:100px 40px 80px;text-align:center}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:12px}
+    .sub{color:rgba(255,255,255,.4);font-size:.95rem;max-width:440px;margin:0 auto 16px;line-height:1.6}
+    .badge-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+    .badge{background:rgba(147,197,253,.06);border:1px solid rgba(147,197,253,.15);border-radius:50px;padding:5px 14px;font-size:.75rem;font-weight:600;color:#93c5fd}
+    /* Base marquee */
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes mq-rev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+    .mq-wrap{overflow:hidden;position:relative;padding:4px 0}
+    .mq-wrap::before,.mq-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+    .mq-wrap::before{left:0}
+    .mq-wrap::after{right:0}
+    .mq-track{display:flex;width:max-content;animation:mq var(--dur,20s) linear infinite}
+    .mq-track.rev{animation-name:mq-rev}
+    /* Pause on hover */
+    .mq-wrap.pauseable:hover .mq-track{animation-play-state:paused}
+    /* Items */
+    .mq-item{display:flex;align-items:center;gap:12px;padding:0 var(--pad,24px);white-space:nowrap;user-select:none}
+    /* 01 – Dark text strip */
+    .s1{background:#09090b;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .s1 .mq-wrap::before{background:linear-gradient(to right,#09090b,transparent)}
+    .s1 .mq-wrap::after{background:linear-gradient(to left,#09090b,transparent)}
+    .s1 .mq-item{font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase}
+    .s1 .sep{color:rgba(255,255,255,.15);font-size:.8rem}
+    /* 02 – White bg */
+    .s2{background:#fff}
+    .s2 .mq-wrap::before{background:linear-gradient(to right,#fff,transparent)}
+    .s2 .mq-wrap::after{background:linear-gradient(to left,#fff,transparent)}
+    .s2 .mq-item{font-size:.9rem;font-weight:700;color:#1a1a1a;letter-spacing:1px;text-transform:uppercase}
+    .s2 .sep{color:#ccc}
+    /* 03 – Pill items */
+    .s3{background:#09090b;padding:20px 0}
+    .s3 .mq-wrap::before{background:linear-gradient(to right,#09090b,transparent)}
+    .s3 .mq-wrap::after{background:linear-gradient(to left,#09090b,transparent)}
+    .s3 .pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:10px 20px;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.7);margin:0 8px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+    /* 04 – Large editorial */
+    .s4{background:#09090b;padding:32px 0}
+    .s4 .mq-wrap::before{background:linear-gradient(to right,#09090b,transparent)}
+    .s4 .mq-wrap::after{background:linear-gradient(to left,#09090b,transparent)}
+    .s4 .mq-item{font-size:clamp(3rem,8vw,6rem);font-weight:900;letter-spacing:-3px;color:rgba(255,255,255,.06)}
+    .s4 .mq-item.hi{color:rgba(255,255,255,.85)}
+    .s4 .sep-big{color:rgba(167,139,250,.4);font-size:1rem}
+    /* 05 – Logo strip */
+    .s5{background:#111;padding:24px 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .s5 .mq-wrap::before{background:linear-gradient(to right,#111,transparent)}
+    .s5 .mq-wrap::after{background:linear-gradient(to left,#111,transparent)}
+    .logo-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 24px;display:flex;align-items:center;gap:10px;margin:0 10px}
+    .logo-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:#fff}
+    .logo-name{font-size:.85rem;font-weight:700;color:rgba(255,255,255,.6)}
+    /* Section header */
+    .sec-header{padding:56px 40px 20px;max-width:900px;margin:0 auto}
+    .sec-num{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:8px}
+    .sec-title{font-size:1.4rem;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
+    .sec-sub{font-size:.82rem;color:rgba(255,255,255,.35)}
+    /* Code */
+    .code-section{padding:60px 40px;max-width:600px;margin:0 auto}
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#93c5fd;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">CSS Only</div>
+
+  <div class="intro">
+    <div class="tag">Infinite Marquee – 5 variáns</div>
+    <h1>Végtelen<br/>futószalag.</h1>
+    <p class="sub">CSS @keyframes translateX trick – nulla JavaScript, zökkenőmentes loop, hover pause opció.</p>
+    <div class="badge-row">
+      <div class="badge">CSS only</div><div class="badge">width: max-content</div>
+      <div class="badge">Duplikált tartalom</div><div class="badge">Hover: pause</div>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <div class="sec-header"><div class="sec-num">01</div><div class="sec-title">Sötét szöveg sáv</div><div class="sec-sub">Uppercase, wide tracking, separator karakterrel – pauseable</div></div>
+  <div class="s1"><div class="mq-wrap pauseable" style="--dur:18s">
+    <div class="mq-track">
+      <div class="mq-item">Design<span class="sep">✦</span></div><div class="mq-item">Motion<span class="sep">✦</span></div><div class="mq-item">Spatial<span class="sep">✦</span></div><div class="mq-item">Code<span class="sep">✦</span></div><div class="mq-item">Brand<span class="sep">✦</span></div><div class="mq-item">Identity<span class="sep">✦</span></div>
+      <div class="mq-item">Design<span class="sep">✦</span></div><div class="mq-item">Motion<span class="sep">✦</span></div><div class="mq-item">Spatial<span class="sep">✦</span></div><div class="mq-item">Code<span class="sep">✦</span></div><div class="mq-item">Brand<span class="sep">✦</span></div><div class="mq-item">Identity<span class="sep">✦</span></div>
+    </div>
+  </div></div>
+
+  <!-- 02 -->
+  <div class="sec-header"><div class="sec-num">02</div><div class="sec-title">Fehér háttér, fordított irány</div><div class="sec-sub">animation-direction: reverse – pauseable hover-rel</div></div>
+  <div class="s2"><div class="mq-wrap pauseable" style="--dur:24s">
+    <div class="mq-track rev">
+      <div class="mq-item">Hill's Partner<span class="sep">·</span></div><div class="mq-item">Royal Canin<span class="sep">·</span></div><div class="mq-item">5/5 Google<span class="sep">·</span></div><div class="mq-item">10+ Év tapasztalat<span class="sep">·</span></div><div class="mq-item">1000+ Ügyfél<span class="sep">·</span></div>
+      <div class="mq-item">Hill's Partner<span class="sep">·</span></div><div class="mq-item">Royal Canin<span class="sep">·</span></div><div class="mq-item">5/5 Google<span class="sep">·</span></div><div class="mq-item">10+ Év tapasztalat<span class="sep">·</span></div><div class="mq-item">1000+ Ügyfél<span class="sep">·</span></div>
+    </div>
+  </div></div>
+
+  <!-- 03 -->
+  <div class="sec-header"><div class="sec-num">03</div><div class="sec-title">Pill kártyák</div><div class="sec-sub">Rounded badge-ek ikonokkal – tech stack vagy képesség bemutatáshoz</div></div>
+  <div class="s3"><div class="mq-wrap" style="--dur:28s">
+    <div class="mq-track">
+      <div class="pill">⚡ GSAP</div><div class="pill">🎨 Figma</div><div class="pill">⚛️ React</div><div class="pill">🌐 Next.js</div><div class="pill">🎭 Framer</div><div class="pill">🖥️ Three.js</div><div class="pill">✨ CSS</div><div class="pill">📱 Mobile</div>
+      <div class="pill">⚡ GSAP</div><div class="pill">🎨 Figma</div><div class="pill">⚛️ React</div><div class="pill">🌐 Next.js</div><div class="pill">🎭 Framer</div><div class="pill">🖥️ Three.js</div><div class="pill">✨ CSS</div><div class="pill">📱 Mobile</div>
+    </div>
+  </div></div>
+
+  <!-- 04 -->
+  <div class="sec-header"><div class="sec-num">04</div><div class="sec-title">Editorial – nagy szöveg</div><div class="sec-sub">Gigantikus font, alacsony opacity – dekoratív háttérszöveg hero mögé</div></div>
+  <div class="s4"><div class="mq-wrap" style="--dur:30s">
+    <div class="mq-track" style="--pad:0px">
+      <div class="mq-item hi">DESIGN</div><span class="sep-big">✦</span><div class="mq-item">MOTION</div><span class="sep-big">✦</span><div class="mq-item hi">SPATIAL</div><span class="sep-big">✦</span><div class="mq-item">CODE</div><span class="sep-big">✦</span>
+      <div class="mq-item hi">DESIGN</div><span class="sep-big">✦</span><div class="mq-item">MOTION</div><span class="sep-big">✦</span><div class="mq-item hi">SPATIAL</div><span class="sep-big">✦</span><div class="mq-item">CODE</div><span class="sep-big">✦</span>
+    </div>
+  </div></div>
+
+  <!-- 05 -->
+  <div class="sec-header"><div class="sec-num">05</div><div class="sec-title">Logo/partner strip</div><div class="sec-sub">Chip kártyák ikonokkal és névvel – "Trusted by" szekciókhoz</div></div>
+  <div class="s5"><div class="mq-wrap" style="--dur:22s">
+    <div class="mq-track">
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#c8a96e,#8b6914)">H</div><div class="logo-name">Hill's</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#c41230,#8b0d1a)">RC</div><div class="logo-name">Royal Canin</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#2d7d46,#1a5c32)">EX</div><div class="logo-name">Exclusion</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#7c3aed,#2563eb)">⭐</div><div class="logo-name">5/5 Google</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#0d9488,#0891b2)">🐾</div><div class="logo-name">Pajta Pharma</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#c8a96e,#8b6914)">H</div><div class="logo-name">Hill's</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#c41230,#8b0d1a)">RC</div><div class="logo-name">Royal Canin</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#2d7d46,#1a5c32)">EX</div><div class="logo-name">Exclusion</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#7c3aed,#2563eb)">⭐</div><div class="logo-name">5/5 Google</div></div>
+      <div class="logo-chip"><div class="logo-icon" style="background:linear-gradient(135deg,#0d9488,#0891b2)">🐾</div><div class="logo-name">Pajta Pharma</div></div>
+    </div>
+  </div></div>
+
+  <div class="code-section">
+    <div class="code-box"><pre>/* A trükk: duplikált tartalom + max-content */
+.mq-track {
+  display: flex;
+  width: max-content;       /* wrap nélkül egy sorban */
+  animation: mq 20s linear infinite;
+}
+/* Pont -50% az animáció vége = seamless loop */
+@keyframes mq {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Hover pause */
+.mq-wrap:hover .mq-track {
+  animation-play-state: paused;
+}
+/* Fordított irány */
+.mq-track.reverse { animation-name: mq-rev; }
+@keyframes mq-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}</pre></div>
+  </div>
+  <div style="height:60px"></div>
+</body>
+</html>

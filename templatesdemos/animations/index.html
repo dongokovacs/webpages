@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Animation Demos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;min-height:100vh;padding:60px 32px 80px}
+    .back{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.4);text-decoration:none;font-size:.82rem;margin-bottom:48px;transition:.2s}
+    .back:hover{color:#fff}
+    header{margin-bottom:56px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+    h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:1}
+    h1 span{background:linear-gradient(135deg,#a78bfa,#60a5fa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .sub{color:rgba(255,255,255,.4);font-size:.95rem;margin-top:12px;max-width:480px;line-height:1.6}
+    .group{margin-bottom:56px}
+    .group-title{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+    .card{display:block;text-decoration:none;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;transition:all .25s;position:relative}
+    .card:hover{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06);transform:translateY(-3px)}
+    .preview{height:120px;overflow:hidden;position:relative}
+    .info{padding:16px 18px}
+    .info strong{display:block;font-size:.9rem;font-weight:700;color:#fff;margin-bottom:4px}
+    .info span{font-size:.77rem;color:rgba(255,255,255,.35);line-height:1.4}
+    .badge{position:absolute;top:10px;right:10px;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:50px}
+    .badge.gsap{background:rgba(136,234,172,.15);color:#86efac;border:1px solid rgba(134,239,172,.2)}
+    .badge.css{background:rgba(96,165,250,.12);color:#93c5fd;border:1px solid rgba(147,197,253,.2)}
+    .badge.js{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+    .badge.canvas{background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(196,181,253,.2)}
+    /* Mini previews */
+    .p-reveal{background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+    .p-reveal div{height:8px;border-radius:4px;background:rgba(255,255,255,.12);animation:prevFade 2s ease infinite alternate}
+    .p-reveal div:nth-child(1){width:70%;animation-delay:0s}
+    .p-reveal div:nth-child(2){width:50%;animation-delay:.2s}
+    .p-reveal div:nth-child(3){width:60%;animation-delay:.4s}
+    @keyframes prevFade{from{opacity:.2}to{opacity:.8}}
+    .p-pin{background:#111;display:flex;align-items:center;gap:0;overflow:hidden}
+    .p-pin .left{width:40%;height:100%;background:rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#a78bfa;flex-shrink:0}
+    .p-pin .right{flex:1;display:flex;flex-direction:column;gap:4px;padding:8px;overflow:hidden}
+    .p-pin .item{height:28px;border-radius:6px;background:rgba(255,255,255,.06);animation:prevSlide 2s ease infinite}
+    .p-pin .item:nth-child(2){animation-delay:.3s}.p-pin .item:nth-child(3){animation-delay:.6s}
+    @keyframes prevSlide{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .p-horiz{background:#111;display:flex;align-items:center;gap:8px;padding:8px;overflow:hidden}
+    .p-horiz div{min-width:80px;height:100px;border-radius:8px;flex-shrink:0;animation:prevH 2.5s ease-in-out infinite}
+    .p-horiz div:nth-child(1){background:rgba(96,165,250,.3);animation-delay:0s}
+    .p-horiz div:nth-child(2){background:rgba(167,139,250,.3);animation-delay:.3s}
+    .p-horiz div:nth-child(3){background:rgba(52,211,153,.3);animation-delay:.6s}
+    @keyframes prevH{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+    .p-text{background:#111;display:flex;align-items:center;justify-content:center;padding:12px}
+    .p-text span{font-size:1.1rem;font-weight:900;background:linear-gradient(90deg,rgba(255,255,255,.8),rgba(255,255,255,.15));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimText 2s ease infinite}
+    @keyframes shimText{0%{background-position:200%}100%{background-position:-200%}}
+    .p-stack{background:#111;display:flex;align-items:center;justify-content:center;position:relative}
+    .p-stack div{position:absolute;border-radius:10px;animation:prevStack 3s ease-in-out infinite}
+    .p-stack div:nth-child(1){width:100px;height:60px;background:rgba(96,165,250,.4);animation-delay:0s}
+    .p-stack div:nth-child(2){width:90px;height:54px;background:rgba(139,92,246,.4);top:35%;animation-delay:.3s}
+    .p-stack div:nth-child(3){width:80px;height:48px;background:rgba(52,211,153,.4);top:45%;animation-delay:.6s}
+    @keyframes prevStack{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .p-css{background:linear-gradient(to right,#111 0%,rgba(96,165,250,.15) 50%,#111 100%);background-size:200%;animation:cssDriven 2s ease-in-out infinite}
+    @keyframes cssDriven{0%{background-position:100%}100%{background-position:-100%}}
+    .p-magnet{background:#111;display:flex;align-items:center;justify-content:center}
+    .p-magnet div{width:80px;height:36px;border-radius:50px;border:1.5px solid rgba(167,139,250,.4);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#a78bfa;animation:prevMag 2s ease-in-out infinite}
+    @keyframes prevMag{0%,100%{transform:translate(0,0)}33%{transform:translate(4px,-2px)}66%{transform:translate(-3px,2px)}}
+    .p-particle{background:#050510;position:relative;overflow:hidden}
+    .p-particle::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(124,58,237,.3),transparent 60%);animation:prevPulse 3s ease-in-out infinite}
+    @keyframes prevPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+    .p-kinetic{background:#0a0a0a;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .p-kinetic span{font-size:2rem;font-weight:900;color:rgba(255,255,255,.8);animation:prevKin 3s ease-in-out infinite alternate;letter-spacing:-2px}
+    @keyframes prevKin{from{letter-spacing:-2px;opacity:.6}to{letter-spacing:4px;opacity:1}}
+    .p-marquee{background:#000;display:flex;align-items:center;overflow:hidden}
+    .p-marquee div{white-space:nowrap;animation:prevMq 4s linear infinite;font-size:.6rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25)}
+    @keyframes prevMq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .p-counter{background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+    .p-counter span{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:prevCount 2s ease-in-out infinite alternate}
+    @keyframes prevCount{from{opacity:.4}to{opacity:1}}
+    .p-counter div{height:4px;width:80%;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+    .p-counter div::after{content:'';display:block;height:100%;width:60%;background:linear-gradient(90deg,#34d399,#60a5fa);border-radius:2px;animation:prevBar 2s ease-in-out infinite alternate}
+    @keyframes prevBar{from{width:20%}to{width:85%}}
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="back">← Vissza a főoldalra</a>
+  <header>
+    <div class="tag">Animáció demók</div>
+    <h1>Web <span>animációk</span></h1>
+    <p class="sub">Kattints bármelyikre az élő demo megtekintéséhez. GSAP, CSS, Vanilla JS és Canvas alapú megoldások.</p>
+  </header>
+
+  <div class="group">
+    <div class="group-title">GSAP – ScrollTrigger</div>
+    <div class="grid">
+      <a class="card" href="02-gsap-scrolltrigger.html">
+        <div class="preview p-pin"><div class="left">PIN</div><div class="right"><div class="item"></div><div class="item"></div><div class="item"></div></div></div>
+        <div class="badge gsap">GSAP</div>
+        <div class="info"><strong>ScrollTrigger – Pinning</strong><span>Bal oldali elem rögzítve, jobb oldalon tartalom scrollozódik fel</span></div>
+      </a>
+      <a class="card" href="03-gsap-horizontal.html">
+        <div class="preview p-horiz"><div></div><div></div><div></div></div>
+        <div class="badge gsap">GSAP</div>
+        <div class="info"><strong>Horizontal Scroll Hijack</strong><span>Vertikális görgetés → vízszintes panel-csúszás</span></div>
+      </a>
+      <a class="card" href="04-gsap-text-scrub.html">
+        <div class="preview p-text"><span>Scrollra életre kel a szöveg.</span></div>
+        <div class="badge gsap">GSAP</div>
+        <div class="info"><strong>Text Scrub Reveal</strong><span>Szavak opacity 0→1, scrub-olva a görgetéshez</span></div>
+      </a>
+      <a class="card" href="05-gsap-card-stack.html">
+        <div class="preview p-stack"><div></div><div></div><div></div></div>
+        <div class="badge gsap">GSAP</div>
+        <div class="info"><strong>Card Stacking</strong><span>Kártyák egymásra torlódnak görgetés közben</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Vanilla JS</div>
+    <div class="grid">
+      <a class="card" href="01-scroll-reveal.html">
+        <div class="preview p-reveal"><div></div><div></div><div></div></div>
+        <div class="badge js">Vanilla JS</div>
+        <div class="info"><strong>Scroll Reveal</strong><span>IntersectionObserver – elemek beúsznak scrollra, stagger késleltetéssel</span></div>
+      </a>
+      <a class="card" href="07-magnetic-hover.html">
+        <div class="preview p-magnet"><div>Hover</div></div>
+        <div class="badge js">Vanilla JS</div>
+        <div class="info"><strong>Magnetic Hover</strong><span>Gomb vonzza az egeret – useMotionValue nélkül, pure JS</span></div>
+      </a>
+      <a class="card" href="10-counter.html">
+        <div class="preview p-counter"><span>0+</span><div></div></div>
+        <div class="badge js">Vanilla JS</div>
+        <div class="info"><strong>Counter & Progress</strong><span>Számláló animáció + animált progress bar easing-gel</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">CSS – Nincs JavaScript</div>
+    <div class="grid">
+      <a class="card" href="06-css-scroll-driven.html">
+        <div class="preview p-css"></div>
+        <div class="badge css">CSS only</div>
+        <div class="info"><strong>CSS Scroll-Driven</strong><span>animation-timeline: scroll() – JS nélkül, natív böngésző API</span></div>
+      </a>
+      <a class="card" href="09-marquee.html">
+        <div class="preview p-marquee"><div>DESIGN · MOTION · CODE · SPATIAL · DESIGN · MOTION · CODE · SPATIAL · </div></div>
+        <div class="badge css">CSS only</div>
+        <div class="info"><strong>Infinite Marquee</strong><span>CSS @keyframes + translateX – gap nélküli végtelen futószalag</span></div>
+      </a>
+      <a class="card" href="11-hover-effects.html">
+        <div class="preview p-magnet" style="background:#0a0a0a"><div style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)">Hover me</div></div>
+        <div class="badge css">CSS only</div>
+        <div class="info"><strong>Hover Effects Gyűjtemény</strong><span>Fill, slide, glow, border-trace, shimmer – 8 különféle hover</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Canvas & Typográfia</div>
+    <div class="grid">
+      <a class="card" href="08-particle-canvas.html">
+        <div class="preview p-particle"></div>
+        <div class="badge canvas">Canvas</div>
+        <div class="info"><strong>Particle Canvas</strong><span>requestAnimationFrame alapú részecske-hálózat – hero háttérnek</span></div>
+      </a>
+      <a class="card" href="09-kinetic-text.html">
+        <div class="preview p-kinetic"><span>TYPE</span></div>
+        <div class="badge js">JS + CSS</div>
+        <div class="info"><strong>Kinetic Typography</strong><span>Betűnkénti animáció, scramble, slide-up reveal</span></div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

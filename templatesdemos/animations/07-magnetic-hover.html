@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Magnetic Hover Physics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;min-height:100vh}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#fbbf24;letter-spacing:1px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px;text-align:center}
+    h2{font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:900;letter-spacing:-1.5px;text-align:center;margin-bottom:10px}
+    .sub{color:rgba(255,255,255,.4);font-size:.88rem;text-align:center;line-height:1.6;max-width:400px;margin:0 auto 48px}
+    section{padding:80px 40px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center}
+    /* Magnetic btn */
+    .mag-btn{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:50px;padding:16px 36px;font-size:1rem;font-weight:700;color:#fff;cursor:none;user-select:none;transition:background .3s,border-color .3s,box-shadow .3s}
+    .mag-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);box-shadow:0 0 60px rgba(255,255,255,.05)}
+    .mag-text{pointer-events:none;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+    /* Custom cursor */
+    .cursor{position:fixed;width:10px;height:10px;border-radius:50%;background:#fff;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s,opacity .2s}
+    .cursor.large{width:40px;height:40px}
+    /* Spotlight card */
+    .spotlight-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px;max-width:360px;width:100%;position:relative;overflow:hidden;cursor:none}
+    .spotlight{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);transition:opacity .3s;opacity:0}
+    .spotlight-card:hover .spotlight{opacity:1}
+    .s-icon{font-size:2.4rem;margin-bottom:14px}
+    .s-title{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    .s-text{font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.6}
+    /* Border glow card */
+    .glow-card{background:#111;border-radius:20px;padding:36px;max-width:360px;width:100%;position:relative;cursor:none}
+    .glow-card::before{content:'';position:absolute;inset:0;border-radius:20px;border:1px solid transparent;background:linear-gradient(#111,#111) padding-box,conic-gradient(from var(--angle,0deg),transparent 30%,rgba(167,139,250,.6),rgba(96,165,250,.6),rgba(52,211,153,.5),transparent 70%) border-box;opacity:0;transition:opacity .3s}
+    .glow-card:hover::before{opacity:1}
+    .glow-card .s-icon{font-size:2.4rem;margin-bottom:14px}
+    .glow-card .s-title{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    .glow-card .s-text{font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.6}
+    /* Tilt card */
+    .tilt-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:36px;max-width:360px;width:100%;transform-style:preserve-3d;cursor:none;transition:transform .1s,box-shadow .3s}
+    .tilt-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .tilt-inner{pointer-events:none}
+    /* Demo row */
+    .demo-row{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;width:100%}
+    /* Code */
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-top:40px;max-width:520px;width:100%}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#fbbf24;line-height:1.8}
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">Vanilla JS</div>
+
+  <!-- MAGNETIC BUTTON -->
+  <section>
+    <div class="tag">01 – Magnetic Button</div>
+    <h2>Vonzza az egeret</h2>
+    <p class="sub">A gomb a kurzor felé húzódik – mozgasd lassan a közelbe és érezd a mágneses erőt.</p>
+    <button class="mag-btn" id="mag-btn" type="button">
+      <span class="mag-text">✦ Magnetic Button</span>
+    </button>
+  </section>
+
+  <!-- SPOTLIGHT + BORDER GLOW + TILT -->
+  <section>
+    <div class="tag">02 – Kártya hover effektek</div>
+    <h2>Mouse-tracking effektek</h2>
+    <p class="sub">Spotlight, border glow conic-gradient és 3D tilt – vidd az egeret a kártyák fölé.</p>
+    <div class="demo-row">
+      <div class="spotlight-card" id="spotlight-card">
+        <div class="spotlight" id="spotlight"></div>
+        <div class="s-icon">✦</div>
+        <div class="s-title">Spotlight Card</div>
+        <div class="s-text">A radial gradient követi az egér pozícióját a kártyán belül – puha belső fényt kelt.</div>
+      </div>
+      <div class="glow-card" id="glow-card">
+        <div class="s-icon">🌀</div>
+        <div class="s-title">Border Glow</div>
+        <div class="s-text">Conic-gradient rotál a kártya körül hover esetén – iridescent szegély effekt.</div>
+      </div>
+      <div class="tilt-card" id="tilt-card">
+        <div class="tilt-inner">
+          <div class="s-icon">🎯</div>
+          <div class="s-title">3D Tilt</div>
+          <div class="s-text">Perspektíva-alapú 3D billentés – az egér pozíciója dönti el a X/Y rotációt.</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-box"><pre>// Magnetic button
+btn.addEventListener('mousemove', e => {
+  const r = btn.getBoundingClientRect();
+  const x = e.clientX - r.left - r.width / 2;
+  const y = e.clientY - r.top - r.height / 2;
+  const strength = 0.35;
+  btn.style.transform =
+    `translate(${x*strength}px,${y*strength}px)`;
+});
+btn.addEventListener('mouseleave', () => {
+  btn.style.transform = 'translate(0,0)';
+  btn.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';
+});
+
+// 3D Tilt
+card.addEventListener('mousemove', e => {
+  const r = card.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  card.style.transform =
+    `perspective(800px) rotateX(${y*-15}deg) rotateY(${x*15}deg)`;
+});</pre></div>
+  </section>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('[class*="card"],[class*="btn"]').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('large'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('large'));
+    });
+
+    // Magnetic button
+    const magBtn = document.getElementById('mag-btn');
+    const magText = magBtn.querySelector('.mag-text');
+    let isHovered = false;
+    magBtn.addEventListener('mouseenter', () => { isHovered = true; });
+    magBtn.addEventListener('mouseleave', () => {
+      isHovered = false;
+      magBtn.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';
+      magBtn.style.transform = 'translate(0,0)';
+      magText.style.transform = 'translate(0,0)';
+      setTimeout(() => magBtn.style.transition = '', 600);
+    });
+    magBtn.addEventListener('mousemove', e => {
+      if (!isHovered) return;
+      const r = magBtn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      magBtn.style.transform = `translate(${x * 0.4}px,${y * 0.4}px)`;
+      magText.style.transform = `translate(${x * 0.15}px,${y * 0.15}px)`;
+    });
+
+    // Spotlight card
+    const spotCard = document.getElementById('spotlight-card');
+    const spot = document.getElementById('spotlight');
+    spotCard.addEventListener('mousemove', e => {
+      const r = spotCard.getBoundingClientRect();
+      spot.style.left = (e.clientX - r.left) + 'px';
+      spot.style.top = (e.clientY - r.top) + 'px';
+    });
+
+    // Border glow rotation
+    const glowCard = document.getElementById('glow-card');
+    let angle = 0, glowRAF;
+    glowCard.addEventListener('mouseenter', () => {
+      const tick = () => {
+        angle = (angle + 2) % 360;
+        glowCard.style.setProperty('--angle', angle + 'deg');
+        glowRAF = requestAnimationFrame(tick);
+      };
+      glowRAF = requestAnimationFrame(tick);
+    });
+    glowCard.addEventListener('mouseleave', () => cancelAnimationFrame(glowRAF));
+
+    // 3D Tilt
+    const tiltCard = document.getElementById('tilt-card');
+    tiltCard.addEventListener('mousemove', e => {
+      const r = tiltCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tiltCard.style.transform = `perspective(800px) rotateX(${y * -15}deg) rotateY(${x * 15}deg) scale(1.02)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';
+      tiltCard.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+      setTimeout(() => tiltCard.style.transition = 'transform .1s,box-shadow .3s', 600);
+    });
+  </script>
+</body>
+</html>

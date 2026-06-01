@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>CSS Scroll-Driven Animations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(147,197,253,.1);border:1px solid rgba(147,197,253,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#93c5fd;letter-spacing:1px}
+    /* Scroll progress bar – CSS only */
+    @keyframes grow-x{from{width:0%}to{width:100%}}
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#60a5fa,#a78bfa,#34d399);z-index:300;animation:grow-x linear both;animation-timeline:scroll();animation-range:0% 100%}
+    /* Intro */
+    .intro{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+    .sub{color:rgba(255,255,255,.4);font-size:1rem;max-width:440px;line-height:1.6;margin-bottom:32px}
+    .badge-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .badge{background:rgba(147,197,253,.08);border:1px solid rgba(147,197,253,.15);border-radius:50px;padding:6px 14px;font-size:.78rem;font-weight:600;color:#93c5fd}
+    .hint{color:rgba(255,255,255,.25);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:32px}
+    /* Demo sections */
+    section{padding:15vh 8%;border-bottom:1px solid rgba(255,255,255,.05);max-width:1000px;margin:0 auto}
+    .s-tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:16px}
+    .s-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-1.5px;margin-bottom:12px}
+    .s-sub{color:rgba(255,255,255,.4);font-size:.9rem;line-height:1.6;max-width:480px;margin-bottom:36px}
+
+    /* 01 – Fade-in view() */
+    @keyframes fade-in-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+    .view-item{animation:fade-in-up linear both;animation-timeline:view();animation-range:entry 0% entry 30%}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px;font-size:.9rem}
+    .card-icon{font-size:1.8rem;margin-bottom:10px}
+    .card h3{font-weight:700;margin-bottom:6px}
+    .card p{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.5}
+
+    /* 02 – Scale on view */
+    @keyframes scale-in{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+    .scale-item{animation:scale-in cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% entry 35%}
+    .scale-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .sq{aspect-ratio:1;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+
+    /* 03 – Scroll progress circle */
+    @keyframes stroke-grow{from{stroke-dashoffset:283}to{stroke-dashoffset:0}}
+    .circle-wrap{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+    .progress-circle{width:140px;height:140px;flex-shrink:0}
+    .progress-circle circle{fill:none;stroke-width:8;stroke-linecap:round}
+    .progress-circle .track{stroke:rgba(255,255,255,.06)}
+    .progress-circle .fill{stroke:url(#cg);stroke-dasharray:283;animation:stroke-grow linear both;animation-timeline:scroll();animation-range:0% 100%}
+    .circle-text{position:relative}
+    .circle-text h3{font-size:1.2rem;font-weight:800;margin-bottom:10px;letter-spacing:-.3px}
+    .circle-text p{font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.6;max-width:360px}
+
+    /* 04 – Parallax */
+    @keyframes parallax-slow{from{transform:translateY(-60px)}to{transform:translateY(60px)}}
+    @keyframes parallax-fast{from{transform:translateY(-120px)}to{transform:translateY(120px)}}
+    .parallax-scene{height:300px;position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.07);background:#0d0d18}
+    .para-layer{position:absolute;width:100%;display:flex;justify-content:center}
+    .para-layer.bg{animation:parallax-slow linear both;animation-timeline:view();animation-range:entry exit;bottom:0;left:0;right:0;top:0}
+    .para-circle{width:200px;height:200px;border-radius:50%;position:absolute;filter:blur(60px)}
+    .para-circle.a{background:rgba(124,58,237,.4);top:10%;left:20%;animation:parallax-fast linear both;animation-timeline:view();animation-range:entry exit}
+    .para-circle.b{background:rgba(6,182,212,.3);bottom:10%;right:20%;animation:parallax-slow linear both;animation-timeline:view();animation-range:entry exit;animation-direction:reverse}
+    .para-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.4rem;font-weight:900;letter-spacing:-.5px;white-space:nowrap;z-index:1}
+
+    /* Code */
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-top:32px}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#93c5fd;line-height:1.8}
+  </style>
+</head>
+<body>
+  <div class="scroll-progress"></div>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">CSS Only</div>
+
+  <div class="intro">
+    <div class="tag">CSS Scroll-Driven Animations</div>
+    <h1>Zero JavaScript.<br/>Natív böngésző.</h1>
+    <p class="sub">animation-timeline: scroll() és view() – a Chrome 115+ és Edge 115+ natívan támogatja. Nincs GSAP, nincs IntersectionObserver.</p>
+    <div class="badge-row">
+      <div class="badge">animation-timeline: scroll()</div>
+      <div class="badge">animation-timeline: view()</div>
+      <div class="badge">animation-range</div>
+    </div>
+    <div class="hint">↓ Görgess</div>
+  </div>
+
+  <section>
+    <div class="s-tag">01 – view() fade-in</div>
+    <div class="s-title">Viewport-alapú belépés</div>
+    <p class="s-sub">Minden elem akkor animál, mikor belép a viewportba. Csak CSS – animation-timeline: view().</p>
+    <div class="cards">
+      <div class="card view-item">
+        <div class="card-icon">⚡</div>
+        <h3>Gyors</h3>
+        <p>Nulla JS overhead – a böngésző natívan számolja a pozíciót.</p>
+      </div>
+      <div class="card view-item">
+        <div class="card-icon">🔋</div>
+        <h3>Energia-hatékony</h3>
+        <p>Nincs listener, nincs requestAnimationFrame – minimális GPU használat.</p>
+      </div>
+      <div class="card view-item">
+        <div class="card-icon">🌍</div>
+        <h3>Széles támogatás</h3>
+        <p>Chrome 115+, Edge 115+, Safari 18+. Firefox fallback megoldható.</p>
+      </div>
+    </div>
+    <div class="code-box"><pre>/* Csak CSS – zero JavaScript */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fade-in-up linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}</pre></div>
+  </section>
+
+  <section>
+    <div class="s-tag">02 – Scale-in grid</div>
+    <div class="s-title">Scale animáció view()-vel</div>
+    <p class="s-sub">Minden cella scale(0.7)-ről nő fel – animation-range: entry 0% entry 35%.</p>
+    <div class="scale-grid">
+      <div class="sq scale-item" style="background:rgba(124,58,237,.25)">🌿</div>
+      <div class="sq scale-item" style="background:rgba(96,165,250,.2)">🔥</div>
+      <div class="sq scale-item" style="background:rgba(52,211,153,.2)">💎</div>
+      <div class="sq scale-item" style="background:rgba(245,158,11,.2)">🚀</div>
+      <div class="sq scale-item" style="background:rgba(236,72,153,.2)">⚡</div>
+      <div class="sq scale-item" style="background:rgba(14,165,233,.2)">🎯</div>
+      <div class="sq scale-item" style="background:rgba(139,92,246,.2)">✨</div>
+      <div class="sq scale-item" style="background:rgba(34,197,94,.2)">🌊</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="s-tag">03 – scroll() progress</div>
+    <div class="s-title">Scroll progress kör</div>
+    <p class="s-sub">SVG stroke-dashoffset animálva animation-timeline: scroll() alapján – oldal teteje-aljáig követi a görgetést.</p>
+    <div class="circle-wrap">
+      <svg class="progress-circle" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#60a5fa"/>
+            <stop offset="100%" stop-color="#a78bfa"/>
+          </linearGradient>
+        </defs>
+        <circle class="track" cx="50" cy="50" r="45"/>
+        <circle class="fill" cx="50" cy="50" r="45" transform="rotate(-90 50 50)"/>
+      </svg>
+      <div class="circle-text">
+        <h3>Oldal scroll progress</h3>
+        <p>A kör az oldal 0%-ától 100%-ig tölt ki – animation-timeline: scroll() segítségével, JS nélkül. Görgess a tetejétől az aljáig a teljes effekt megtekintéséhez.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="s-tag">04 – Parallax rétegek</div>
+    <div class="s-title">CSS Parallax</div>
+    <p class="s-sub">Különböző rétegek eltérő sebességgel mozognak görgetés közben – csak animation-timeline: view().</p>
+    <div class="parallax-scene">
+      <div class="para-circle a"></div>
+      <div class="para-circle b"></div>
+      <div class="para-text">CSS Parallax ✦</div>
+    </div>
+  </section>
+
+  <div style="height:30vh"></div>
+</body>
+</html>

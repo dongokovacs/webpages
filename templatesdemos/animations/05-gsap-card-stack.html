@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GSAP Card Stacking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#86efac;letter-spacing:1px}
+    .intro{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+    .sub{color:rgba(255,255,255,.4);font-size:1rem;max-width:420px;line-height:1.6;margin-bottom:40px}
+    .hint{color:rgba(255,255,255,.25);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase}
+    /* Stack section */
+    .stack-section{position:relative}
+    .stack-card{min-height:100dvh;display:flex;align-items:center;justify-content:center;position:sticky;top:0;padding:40px}
+    .card-inner{max-width:680px;width:100%;border-radius:28px;padding:56px 48px;position:relative;overflow:hidden;will-change:transform,opacity}
+    .c1 .card-inner{background:linear-gradient(135deg,#1e1b4b,#312e81);border:1px solid rgba(167,139,250,.2)}
+    .c2 .card-inner{background:linear-gradient(135deg,#064e3b,#065f46);border:1px solid rgba(52,211,153,.2)}
+    .c3 .card-inner{background:linear-gradient(135deg,#4c1d24,#7f1d1d);border:1px solid rgba(252,165,165,.15)}
+    .c4 .card-inner{background:linear-gradient(135deg,#1c1917,#292524);border:1px solid rgba(255,255,255,.1)}
+    .card-num{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+    .card-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:16px}
+    .card-text{font-size:1rem;color:rgba(255,255,255,.55);line-height:1.7;max-width:480px;margin-bottom:28px}
+    .card-tags{display:flex;gap:10px;flex-wrap:wrap}
+    .ct{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:6px 14px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.7)}
+    .card-deco{position:absolute;border-radius:50%;filter:blur(80px);opacity:.3;pointer-events:none}
+    .c1 .card-deco{width:300px;height:300px;background:#7c3aed;top:-80px;right:-80px}
+    .c2 .card-deco{width:280px;height:280px;background:#10b981;bottom:-60px;left:-60px}
+    .c3 .card-deco{width:260px;height:260px;background:#ef4444;top:-40px;right:-40px}
+    .c4 .card-deco{width:320px;height:320px;background:#f59e0b;bottom:-80px;right:-80px}
+    /* Outro */
+    .outro{padding:20vh 8%;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .outro h2{font-size:1.8rem;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+    .outro p{color:rgba(255,255,255,.4);font-size:.88rem;max-width:480px;margin:0 auto 28px;line-height:1.6}
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;max-width:520px;margin:0 auto;text-align:left}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#86efac;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">GSAP Card Stack</div>
+
+  <div class="intro">
+    <div class="tag">GSAP Card Stacking</div>
+    <h1>Kártyák<br/>egymásra<br/>torlódnak.</h1>
+    <p class="sub">Minden kártya sticky top:0 pozícióban van. Görgetésre az előző kártya scale-zik és halványul, az új alá csúszik.</p>
+    <div class="hint">↓ Görgess a stack-en át</div>
+  </div>
+
+  <div class="stack-section" id="stack">
+    <div class="stack-card c1">
+      <div class="card-inner">
+        <div class="card-deco"></div>
+        <div class="card-num">01 / 04</div>
+        <div class="card-title">Brand<br/>Identity</div>
+        <div class="card-text">A márka vizuális rendszerének megalapozása – logó, szín, tipográfia, és a teljes design language definiálása.</div>
+        <div class="card-tags"><span class="ct">Logó</span><span class="ct">Szín</span><span class="ct">Tipográfia</span></div>
+      </div>
+    </div>
+    <div class="stack-card c2">
+      <div class="card-inner">
+        <div class="card-deco"></div>
+        <div class="card-num">02 / 04</div>
+        <div class="card-title">Web<br/>Design</div>
+        <div class="card-text">Prémium landing oldalak és SaaS felületek tervezése – konverzió-optimalizált, mobile-first megközelítéssel.</div>
+        <div class="card-tags"><span class="ct">UI/UX</span><span class="ct">React</span><span class="ct">Animáció</span></div>
+      </div>
+    </div>
+    <div class="stack-card c3">
+      <div class="card-inner">
+        <div class="card-deco"></div>
+        <div class="card-num">03 / 04</div>
+        <div class="card-title">Motion<br/>Design</div>
+        <div class="card-text">GSAP-alapú scroll animációk, micro-interakciók és videós tartalmak – mozgás, ami jelentéssel bír.</div>
+        <div class="card-tags"><span class="ct">GSAP</span><span class="ct">ScrollTrigger</span><span class="ct">After Effects</span></div>
+      </div>
+    </div>
+    <div class="stack-card c4">
+      <div class="card-inner">
+        <div class="card-deco"></div>
+        <div class="card-num">04 / 04</div>
+        <div class="card-title">3D &<br/>Spatial</div>
+        <div class="card-text">Three.js alapú interaktív WebGL jelenetek, produktfotók és immerzív digitális élmények a böngészőben.</div>
+        <div class="card-tags"><span class="ct">Three.js</span><span class="ct">WebGL</span><span class="ct">Spline</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="outro">
+    <h2>Sticky stack kód</h2>
+    <p>Minden kártya sticky top:0. Az előző scale + fade scroll-scrubbal. Canonical GSAP skeleton.</p>
+    <div class="code-box"><pre>const cards = gsap.utils.toArray('.stack-card');
+
+cards.forEach((card, i) => {
+  if (i === cards.length - 1) return;
+  // Pin each card at viewport top
+  ScrollTrigger.create({
+    trigger: card,
+    start: "top top",
+    endTrigger: cards[cards.length - 1],
+    end: "top top",
+    pin: true,
+    pinSpacing: false,
+  });
+  // Scale + fade as next card arrives
+  gsap.to(card, {
+    scale: 0.9,
+    opacity: 0.4,
+    ease: "none",
+    scrollTrigger: {
+      trigger: cards[i + 1],
+      start: "top bottom",
+      end: "top top",
+      scrub: true,
+    },
+  });
+});</pre></div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const cards = gsap.utils.toArray('.stack-card');
+
+    cards.forEach((card, i) => {
+      if (i === cards.length - 1) return;
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top top',
+        endTrigger: cards[cards.length - 1],
+        end: 'top top',
+        pin: true,
+        pinSpacing: false,
+      });
+      gsap.to(card.querySelector('.card-inner'), {
+        scale: 0.9,
+        opacity: 0.35,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: cards[i + 1],
+          start: 'top bottom',
+          end: 'top top',
+          scrub: true,
+        },
+      });
+    });
+  </script>
+</body>
+</html>

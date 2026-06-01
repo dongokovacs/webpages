@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GSAP Text Scrub Reveal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#050508;color:#fff;overflow-x:hidden}
+    .back{position:fixed;top:20px;left:20px;z-index:200;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;backdrop-filter:blur(10px);transition:.2s}
+    .back:hover{color:#fff}
+    .label{position:fixed;top:20px;right:20px;z-index:200;background:rgba(134,239,172,.1);border:1px solid rgba(134,239,172,.2);border-radius:50px;padding:6px 14px;font-size:.7rem;font-weight:700;color:#86efac;letter-spacing:1px}
+    /* Intro */
+    .intro{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+    .tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+    .sub{color:rgba(255,255,255,.4);font-size:1rem;max-width:420px;line-height:1.6;margin-bottom:40px}
+    .hint{color:rgba(255,255,255,.25);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase}
+    /* Scrub section */
+    .scrub-section{padding:20vh 8% 20vh;max-width:1000px;margin:0 auto}
+    .scrub-text{font-size:clamp(1.8rem,4.5vw,4rem);font-weight:700;line-height:1.3;letter-spacing:-.5px}
+    .word{display:inline-block;opacity:.08;transition:none;margin-right:.3em}
+    /* Line reveal variant */
+    .line-section{padding:20vh 8%;max-width:900px;margin:0 auto;border-top:1px solid rgba(255,255,255,.05)}
+    .line-reveal{overflow:hidden;margin-bottom:16px}
+    .line-inner{transform:translateY(110%);opacity:0;font-size:clamp(2rem,5vw,4.5rem);font-weight:900;letter-spacing:-2px;line-height:1.05;display:block}
+    .line-inner.visible{animation:lineUp .9s cubic-bezier(.16,1,.3,1) forwards}
+    @keyframes lineUp{to{transform:translateY(0);opacity:1}}
+    /* Word by word variant */
+    .word-section{padding:20vh 8%;max-width:900px;margin:0 auto;border-top:1px solid rgba(255,255,255,.05)}
+    .word-section h2{font-size:clamp(1.5rem,3.5vw,3rem);font-weight:700;line-height:1.4;letter-spacing:-.5px}
+    .word-section h2 .w{display:inline-block;margin-right:.28em;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+    .word-section h2 .w.on{opacity:1;transform:translateY(0)}
+    /* Outro */
+    .outro{padding:20vh 8%;border-top:1px solid rgba(255,255,255,.05)}
+    .outro-title{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;margin-bottom:16px}
+    .code-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;max-width:520px}
+    pre{font-family:'Courier New',monospace;font-size:.72rem;color:#86efac;line-height:1.8}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back">← Vissza</a>
+  <div class="label">GSAP Text Scrub</div>
+
+  <div class="intro">
+    <div class="tag">GSAP Text Scrub – 3 variáns</div>
+    <h1>Scrollra<br/>életre kel.</h1>
+    <p class="sub">Szavanként scrub, sor-alapú mask reveal, és word-by-word delay – három megközelítés szöveges animációhoz.</p>
+    <div class="hint">↓ Görgess</div>
+  </div>
+
+  <!-- SCRUB SZAVANKÉNT -->
+  <div class="scrub-section">
+    <div class="scrub-text" id="scrub-text">
+      A design nem csupán arról szól, hogyan néz ki valami. A design arról szól, hogyan működik. Minden pixel szándékos. Minden szóköz tervezett. A részletek teszik a különbséget.
+    </div>
+  </div>
+
+  <!-- LINE REVEAL -->
+  <div class="line-section">
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:40px">02 — Sor mask reveal</div>
+    <div class="line-reveal"><span class="line-inner" id="l1">Határ nélküli</span></div>
+    <div class="line-reveal"><span class="line-inner" id="l2" style="color:rgba(255,255,255,.25);font-weight:300">kreativitás,</span></div>
+    <div class="line-reveal"><span class="line-inner" id="l3">végtelen</span></div>
+    <div class="line-reveal"><span class="line-inner" id="l4" style="color:rgba(255,255,255,.25);font-weight:300">lehetőség.</span></div>
+  </div>
+
+  <!-- WORD BY WORD -->
+  <div class="word-section">
+    <div style="font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:40px">03 — Word-by-word delay</div>
+    <h2 id="word-text">A legjobb animáció az, amelyiket nem veszed észre — csak azt érzed, hogy valami nagyon természetesen működik.</h2>
+  </div>
+
+  <div class="outro">
+    <div class="outro-title">Scrub szavanként – kód</div>
+    <div class="code-box"><pre>// Szavak szétbontása
+const words = el.textContent.split(' ');
+el.innerHTML = words
+  .map(w => `&lt;span class="word"&gt;${w}&lt;/span&gt;`)
+  .join(' ');
+
+// Scrub animáció
+gsap.to('.word', {
+  opacity: 1,
+  stagger: 0.05,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: el,
+    start: 'top 80%',
+    end: 'bottom 30%',
+    scrub: 1,
+  }
+});</pre></div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 01 – Scrub szavanként
+    const scrubEl = document.getElementById('scrub-text');
+    const words = scrubEl.textContent.trim().split(/\s+/);
+    scrubEl.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+
+    gsap.to('#scrub-text .word', {
+      opacity: 1,
+      stagger: 0.04,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: scrubEl,
+        start: 'top 75%',
+        end: 'bottom 25%',
+        scrub: 1,
+      }
+    });
+
+    // 02 – Line reveal
+    const lines = ['l1','l2','l3','l4'];
+    const lineObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = lines.indexOf(e.target.id);
+          setTimeout(() => e.target.classList.add('visible'), idx * 150);
+          lineObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    lines.forEach(id => lineObserver.observe(document.getElementById(id)));
+
+    // 03 – Word-by-word
+    const wordEl = document.getElementById('word-text');
+    const ws = wordEl.textContent.trim().split(/\s+/);
+    wordEl.innerHTML = ws.map(w => `<span class="w">${w}</span>`).join(' ');
+    const wordSpans = wordEl.querySelectorAll('.w');
+    const wordObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          wordSpans.forEach((s, i) => setTimeout(() => s.classList.add('on'), i * 60));
+          wordObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    wordObserver.observe(wordEl);
+  </script>
+</body>
+</html>
