@@ -81,9 +81,17 @@
   </div>
 
   <script>
-    fetch('./projects.json')
-      .then(res => res.json())
-      .then(projects => {
+    // Inline data – fetch() nem működik file:// protokollon
+    const PROJECTS = [
+      { "title": "Galiba Társulat – Portfolio", "description": "Galiba Társulat bemutatkozó portfólió oldal.", "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop", "link": "Galiba2/Galiba-Portfolio.html" },
+      { "title": "Galiba Társulat – Landing", "description": "Gyerekszínház Miskolcról – vidám előadások, bohóckodás, galiba.", "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop", "link": "galiba/" },
+      { "title": "Bübe virágbolt", "description": "Modern virágbolt landing oldal, letisztult designnal.", "image": "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=800&q=80&auto=format&fit=crop", "link": "bube-viragbolt/" },
+      { "title": "Pajta Pharma Állatpatika", "description": "Professzionális állatpatika landing oldal – dark/light mód, animációk.", "image": "https://images.unsplash.com/photo-1548767797-d8c844163c4a?w=800&q=80&auto=format&fit=crop", "link": "allatpatika/" },
+      { "title": "Szám'odra – Kaspók", "description": "3D nyomtatott arc-kaspók webshop landing oldal.", "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80&auto=format&fit=crop", "link": "szamodra/" },
+      { "title": "Design Demók", "description": "UI stílusok, animációk és design pattern demók gyűjteménye.", "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop", "link": "templatesdemos/" }
+    ];
+
+    Promise.resolve(PROJECTS).then(projects => {
         const container = document.getElementById('projects');
         container.innerHTML = '';
 
@@ -118,11 +126,7 @@
           observer.observe(card);
         });
       })
-      .catch(err => {
-        document.getElementById('projects').innerHTML =
-          "<p class='text-red-500'>Hiba a projektek betöltésekor 😢</p>";
-        console.error(err);
-      });
+      .catch(err => console.error(err));
   </script>
 
 </body>
