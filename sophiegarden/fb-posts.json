@@ -1,41 +1,22 @@
 {
-  "_note": "Ez a fájl automatikusan frissül a GitHub Actions workflow által. Kézzel is szerkeszthető.",
+  "_source": "facebook",
   "data": [
     {
-      "id": "placeholder_1",
-      "message": "Ma reggel gyönyörű mezei csokrok készültek! Liziantusz, gypsophila és friss zöldek – pont ilyen kellene egy hétfő reggel ☀️ A piacon is lesz belőle szombaton!",
-      "full_picture": "https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=500&q=75&auto=format&fit=crop",
-      "created_time": "2025-06-07T08:00:00+0000",
-      "likes": { "summary": { "total_count": 34 } },
-      "comments": { "summary": { "total_count": 8 } },
-      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
-    },
-    {
-      "id": "placeholder_2",
-      "message": "🌿 Szombaton piac! Holnap reggel 8-tól ott leszek a maglódi piacon. Hozz egy szatyrát – én gondoskodom a virágokról 🌸 Ezúttal lesz rózsa, szegfű és néhány meglepetés.",
-      "full_picture": "https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=500&q=75&auto=format&fit=crop",
-      "created_time": "2025-05-31T10:00:00+0000",
-      "likes": { "summary": { "total_count": 52 } },
-      "comments": { "summary": { "total_count": 14 } },
-      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
-    },
-    {
-      "id": "placeholder_3",
-      "message": "Elkészült az idei első esküvői csokrom 💍🌹 Fehér rózsa, eukaliptusz és egy kis gyöngyvirág – a menyasszony könnyek között fogadta el. Ez az, amiért ezt csinálom ❤️",
-      "full_picture": "https://images.unsplash.com/photo-1548198471-4a39b2caa5a9?w=500&q=75&auto=format&fit=crop",
-      "created_time": "2025-05-20T14:00:00+0000",
-      "likes": { "summary": { "total_count": 89 } },
-      "comments": { "summary": { "total_count": 23 } },
-      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
-    },
-    {
-      "id": "placeholder_4",
-      "message": "Tavaszi ébredés a műhelyben 🌼 A szegfűboglárka és a kerti rózsa egyszerre nyílt ki – ilyen nincs minden évben! Holnaptól rendelhetők, írj üzenetet ha érdekel.",
-      "full_picture": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=75&auto=format&fit=crop",
-      "created_time": "2025-05-10T09:00:00+0000",
-      "likes": { "summary": { "total_count": 61 } },
-      "comments": { "summary": { "total_count": 11 } },
-      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
+      "id": "posts",
+      "message": "Mindig is vágytál egy olyan különleges növényre, ami ősszel lángoló színekbe öltözteti a kertedet, tavasszal és nyáron pedig a legkifinomultabb eleganciát nyújtja? A ja… Továbbiak",
+      "full_picture": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/712357997_122138533941049220_8367769103740574742_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ujA_TwqQY88Q7kNvwHfLm0w&_nc_oc=AdqJ-ieZO-m8xuIUUsXKMpPCvko8sOVBbO89o1oLouC80wrUXfxONWPTDxvlK7Xk73k&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=Ah0w8ah1AYNq6qKWNc0Ldg&_nc_ss=79289&oh=00_Af__O8-gsADs8AaAa0J3g03AFt7BH4SpjjYLKNnLcUNclQ&oe=6A2486D5",
+      "created_time": "2026-06-02T10:27:28+0000",
+      "likes": {
+        "summary": {
+          "total_count": 0
+        }
+      },
+      "comments": {
+        "summary": {
+          "total_count": 0
+        }
+      },
+      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod/posts/pfbid02mxqjAodFih7DwqgZqxsYHFHzHxAp8etCCAGbX4XvWLKyJ4xM36FM64kA1di44CXWl?__cft__[0]=AZaVNogolbY3S2EeaweKzIul6aOcVwn25dhlbg9eHx_q-rlP3zlToCbE2MM8cvajr0TcDYVTHisJkASqyf0_gV_8Lo9fKCpfXTIq3ydlo3Z-1DDuuUXCBFsQzKyABSFqLsUx17y7JmqL2f7cKL0UdHo3514_YZ-pOxmJ1Wgy8nIMl348AslC0TcfL2Zmd0Ofq-SnLjGnRWqgvd3t7Y6YhK2m&__tn__=%2CO%2CP-R"
     }
   ]
 }
