@@ -240,6 +240,37 @@
     .picks-note p::before{content:'"';font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--clay);line-height:0;vertical-align:-.3em;margin-right:4px}
 
     /* ═══════════════════════════════
+       AKTUALITÁSOK
+    ═══════════════════════════════ */
+    #aktualitasok{background:var(--bg)}
+    .news-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px}
+    .news-fb-link{display:inline-flex;align-items:center;gap:7px;font-size:.84rem;font-weight:600;color:#1877f2;border:1.5px solid rgba(24,119,242,.2);background:rgba(24,119,242,.05);border-radius:8px;padding:8px 16px;transition:all .2s}
+    .news-fb-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+    .news-fb-link:hover{background:rgba(24,119,242,.1);transform:translateY(-1px)}
+    .news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    /* Facebook-post kártya */
+    .fb-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;display:flex;flex-direction:column}
+    .fb-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .fb-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--cream)}
+    .fb-card-body{padding:14px 16px;display:flex;flex-direction:column;flex:1}
+    .fb-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .fb-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);flex-shrink:0;background:var(--cream)}
+    .fb-avatar-fallback{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-l));display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0}
+    .fb-meta-text{}
+    .fb-page-name{font-size:.78rem;font-weight:700;color:var(--text);display:block;line-height:1.2}
+    .fb-date{font-size:.7rem;color:var(--faint);display:flex;align-items:center;gap:3px;margin-top:1px}
+    .fb-date svg{width:10px;height:10px;fill:currentColor}
+    .fb-card-text{font-size:.82rem;color:var(--mid);line-height:1.6;flex:1;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+    .fb-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border)}
+    .fb-reactions{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--faint)}
+    .fb-reactions span{display:flex;align-items:center;gap:3px}
+    .fb-see-more{font-size:.75rem;font-weight:600;color:#1877f2;transition:opacity .15s}
+    .fb-see-more:hover{opacity:.75;text-decoration:underline}
+    .news-note{margin-top:20px;font-size:.78rem;color:var(--faint);text-align:center;font-style:italic}
+    @media(max-width:900px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.news-grid{grid-template-columns:1fr}.news-head{flex-direction:column;align-items:flex-start}}
+
+    /* ═══════════════════════════════
        ABOUT
     ═══════════════════════════════ */
     #rolunk{background:var(--bg)}
@@ -399,6 +430,7 @@
 
         <div class="nav-links" role="list">
           <a href="#kinalet" role="listitem">Mai kínálat</a>
+          <a href="#aktualitasok" role="listitem">Aktualitások</a>
           <a href="#rolunk" role="listitem">Rólunk</a>
           <a href="#kapcsolat" role="listitem">Kapcsolat</a>
         </div>
@@ -437,6 +469,7 @@
 
   <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenü">
     <a href="#kinalet" onclick="closeMenu()">Mai kínálat</a>
+    <a href="#aktualitasok" onclick="closeMenu()">Aktualitások</a>
     <a href="#rolunk" onclick="closeMenu()">Rólunk</a>
     <a href="#kapcsolat" onclick="closeMenu()">Kapcsolat</a>
     <a href="#kapcsolat" class="m-cta" onclick="closeMenu()">Rendelés leadása</a>
@@ -645,6 +678,120 @@
         </div>
       </div>
     </div>
+
+    <!-- ══ AKTUALITÁSOK ══ -->
+    <section id="aktualitasok" aria-labelledby="news-title">
+      <div class="container">
+        <div class="news-head">
+          <div>
+            <span class="section-label reveal">Aktualitások</span>
+            <h2 class="section-title reveal" id="news-title" data-delay="1">Mi történt<br/>mostanában.</h2>
+          </div>
+          <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="news-fb-link reveal" data-delay="2" aria-label="Sophie's Garden Facebook oldal (új lapon nyílik)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Összes poszt Facebookon
+          </a>
+        </div>
+
+        <div class="news-grid">
+
+          <!-- Poszt 1 -->
+          <article class="fb-card pick-card reveal" data-delay="1">
+            <img class="fb-card-img" src="https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=500&q=75&auto=format&fit=crop" alt="Friss csokrok a piacon" loading="lazy"/>
+            <div class="fb-card-body">
+              <div class="fb-card-meta">
+                <img src="./logo.png" alt="" class="fb-avatar" aria-hidden="true"/>
+                <div class="fb-meta-text">
+                  <span class="fb-page-name">Sophie's Garden</span>
+                  <span class="fb-date">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0-2V4m0 8H4m8 0h8"/></svg>
+                    2025. június 7. ·
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+                    Nyilvános
+                  </span>
+                </div>
+              </div>
+              <p class="fb-card-text">Ma reggel gyönyörű mezei csokrok készültek! Liziantusz, gypsophila és friss zöldek – pont ilyen kellene egy hétfő reggel ☀️ A piacon is lesz belőle szombaton!</p>
+              <div class="fb-card-footer">
+                <div class="fb-reactions">
+                  <span>👍 34</span>
+                  <span>· 💬 8</span>
+                </div>
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="fb-see-more" aria-label="Teljes poszt megnyitása Facebookon">Teljes poszt →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Poszt 2 -->
+          <article class="fb-card pick-card reveal" data-delay="2">
+            <img class="fb-card-img" src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=500&q=75&auto=format&fit=crop" alt="Piaci nap Sophie's Garden" loading="lazy"/>
+            <div class="fb-card-body">
+              <div class="fb-card-meta">
+                <img src="./logo.png" alt="" class="fb-avatar" aria-hidden="true"/>
+                <div class="fb-meta-text">
+                  <span class="fb-page-name">Sophie's Garden</span>
+                  <span class="fb-date">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                    2025. május 31. · Nyilvános
+                  </span>
+                </div>
+              </div>
+              <p class="fb-card-text">🌿 Szombaton piac! Holnap reggel 8-tól ott leszek a maglódi piacon. Hozz egy szatyrát – én gondoskodom a virágokról 🌸 Ezúttal lesz rózsa, szegfű és néhány meglepetés.</p>
+              <div class="fb-card-footer">
+                <div class="fb-reactions"><span>👍 52</span><span>· 💬 14</span></div>
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="fb-see-more" aria-label="Teljes poszt megnyitása Facebookon">Teljes poszt →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Poszt 3 -->
+          <article class="fb-card pick-card reveal" data-delay="3">
+            <img class="fb-card-img" src="https://images.unsplash.com/photo-1548198471-4a39b2caa5a9?w=500&q=75&auto=format&fit=crop" alt="Esküvői csokor megrendelés" loading="lazy"/>
+            <div class="fb-card-body">
+              <div class="fb-card-meta">
+                <img src="./logo.png" alt="" class="fb-avatar" aria-hidden="true"/>
+                <div class="fb-meta-text">
+                  <span class="fb-page-name">Sophie's Garden</span>
+                  <span class="fb-date">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                    2025. május 20. · Nyilvános
+                  </span>
+                </div>
+              </div>
+              <p class="fb-card-text">Elkészült az idei első esküvői csokrom 💍🌹 Fehér rózsa, eukaliptusz és egy kis gyöngyvirág – a menyasszony könnyek között fogadta el. Ez az, amiért ezt csinálom ❤️</p>
+              <div class="fb-card-footer">
+                <div class="fb-reactions"><span>👍 89</span><span>· 💬 23</span></div>
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="fb-see-more" aria-label="Teljes poszt megnyitása Facebookon">Teljes poszt →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Poszt 4 -->
+          <article class="fb-card pick-card reveal" data-delay="4">
+            <img class="fb-card-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=75&auto=format&fit=crop" alt="Tavaszi virágok" loading="lazy"/>
+            <div class="fb-card-body">
+              <div class="fb-card-meta">
+                <img src="./logo.png" alt="" class="fb-avatar" aria-hidden="true"/>
+                <div class="fb-meta-text">
+                  <span class="fb-page-name">Sophie's Garden</span>
+                  <span class="fb-date">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+                    2025. május 10. · Nyilvános
+                  </span>
+                </div>
+              </div>
+              <p class="fb-card-text">Tavaszi ébredés a műhelyben 🌼 A szegfűboglárka és a kerti rózsa egyszerre nyílt ki – ilyen nincs minden évben! Holnaptól rendelhetők, írj üzenetet ha érdekel egy kis tavaszi csokor.</p>
+              <div class="fb-card-footer">
+                <div class="fb-reactions"><span>👍 61</span><span>· 💬 11</span></div>
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="fb-see-more" aria-label="Teljes poszt megnyitása Facebookon">Teljes poszt →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+        <p class="news-note reveal">A kártyákat kézzel frissítjük a legfrissebb posztok alapján · <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" style="color:var(--green)">Összes poszt Facebookon →</a></p>
+      </div>
+    </section>
 
     <!-- ══ CONTACT ══ -->
     <section id="kapcsolat" aria-labelledby="contact-title">
