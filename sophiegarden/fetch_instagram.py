@@ -1,17 +1,16 @@
 """
 Publikus Facebook oldal legfrissebb posztjai
-mbasic.facebook.com – szerver-oldali HTML, JS nélkül
+mbasic.facebook.com – szerver-oldali HTML, API nélkül
 """
 import requests
 from bs4 import BeautifulSoup
 import json, sys, re
 from datetime import datetime, timezone
-from urllib.parse import urlparse, parse_qs
 
-PAGE    = 'SophiesGardenMaglod'
-BASE    = 'https://mbasic.facebook.com'
-OUTPUT  = 'sophiegarden/fb-posts.json'
-LIMIT   = 4
+PAGE   = 'SophiesGardenMaglod'
+BASE   = 'https://mbasic.facebook.com'
+OUTPUT = 'sophiegarden/fb-posts.json'
+LIMIT  = 4
 
 HEADERS = {
     'User-Agent': (
@@ -24,129 +23,123 @@ HEADERS = {
 }
 
 
-def get_soup(url):
-    r = requests.get(url, headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    return BeautifulSoup(r.text, 'html.parser')
-
-
-def extract_permalink(href):
+def to_permalink(href):
+    """mbasic relatív href → teljes Facebook URL"""
     if not href:
         return f'https://www.facebook.com/{PAGE}'
-    if href.startswith('/'):
-        href = BASE + href
-    # Tisztítjuk a mbasic redirect paramétereket – csak a story URL kell
-    m = re.search(r'(https://www\.facebook\.com/[^\?&"]+)', href)
+    if href.startswith('http'):
+        return href
+    full = BASE + href
+    # story.php?story_fbid=123&id=456 → /permalink.php
+    m = re.search(r'story_fbid=(\d+)&id=(\d+)', href)
     if m:
-        return m.group(1)
-    return f'https://www.facebook.com/{PAGE}'
+        return f'https://www.facebook.com/permalink.php?story_fbid={m.group(1)}&id={m.group(2)}'
+    # /PageName/posts/pfbid... vagy /posts/12345
+    if '/posts/' in href:
+        path = re.sub(r'\?.*', '', href)   # query params levágása
+        return 'https://www.facebook.com' + path
+    return full
 
 
-def extract_story_id(href):
-    if not href:
-        return ''
-    m = re.search(r'story_fbid=(\d+)', href)
-    if m:
-        return m.group(1)
-    m = re.search(r'/posts/(\d+)', href)
-    if m:
-        return m.group(1)
-    m = re.search(r'/(\d+)$', href.rstrip('/'))
-    if m:
-        return m.group(1)
-    return ''
+def unique_key(href):
+    """Egyedi kulcs a poszt azonosítására"""
+    # pfbid, story_fbid, vagy a posts/ utáni rész
+    for pat in [r'pfbid([A-Za-z0-9]+)', r'story_fbid=(\d+)', r'/posts/([A-Za-z0-9]+)']:
+        m = re.search(pat, href)
+        if m:
+            return m.group(1)
+    return re.sub(r'[^A-Za-z0-9]', '', href)[-24:]
 
 
-def scrape_posts():
-    soup = get_soup(f'{BASE}/{PAGE}')
-    posts = []
-    seen = set()
+def scrape():
+    r = requests.get(f'{BASE}/{PAGE}', headers=HEADERS, timeout=20)
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, 'html.parser')
 
-    # mbasic struktúra: posztok <div id="..."> blokkokban vannak
-    # Keressük az összes div-et ami tartalmaz story linket
-    story_links = soup.find_all('a', href=re.compile(r'(story_fbid|/posts/|/permalink)'))
-
+    # Összes link ami poszt-ra mutat
+    story_links = soup.find_all('a', href=re.compile(
+        r'(story_fbid|/posts/|/permalink\.php)'
+    ))
     print(f'Talált story linkek: {len(story_links)}')
+
+    posts = []
+    seen  = set()
 
     for link in story_links:
         if len(posts) >= LIMIT:
             break
 
         href = link.get('href', '')
-        story_id = extract_story_id(href)
+        key  = unique_key(href)
 
-        if not story_id or story_id in seen:
+        if not key or key in seen:
             continue
-        seen.add(story_id)
+        seen.add(key)
 
-        # A link közelében lévő szülő div = poszt blokk
+        # Poszt szülő blokkja – menjünk fel amíg elég szöveget találunk
         block = link.find_parent('div')
-        # Felmegyünk amíg elég szöveget találunk
-        for _ in range(5):
-            if block and len(block.get_text(strip=True)) > 30:
+        for _ in range(8):
+            if not block:
                 break
-            if block:
-                block = block.find_parent('div')
+            txt = block.get_text(' ', strip=True)
+            if len(txt) > 80:
+                break
+            block = block.find_parent('div')
 
         if not block:
             continue
 
-        # Szöveg – az összes <p> és <span dir="auto">
-        text_parts = []
-        for el in block.find_all(['p', 'span'], attrs={'dir': 'auto'}):
-            t = el.get_text(' ', strip=True)
-            if t and len(t) > 5:
-                text_parts.append(t)
-        text = ' '.join(dict.fromkeys(text_parts))  # duplikátum nélkül
-
-        if not text or len(text) < 15:
-            # fallback: teljes blokk szövege
-            text = block.get_text(' ', strip=True)[:300]
-
-        if len(text) < 15:
+        # --- Szöveg ---
+        # 1. Próbálj dir="auto" span-okat
+        parts = [el.get_text(' ', strip=True)
+                 for el in block.find_all(['span', 'p'], attrs={'dir': 'auto'})
+                 if len(el.get_text(strip=True)) > 8]
+        text = ' '.join(dict.fromkeys(parts))  # dedupe, sorrend megtart
+        if len(text) < 20:
+            text = block.get_text(' ', strip=True)[:400]
+        if len(text) < 20:
             continue
 
-        # Kép – csak a poszt tartalmi képét, ne profilképet/ikont
+        # --- Kép ---
         img_url = ''
-        for img in block.find_all('img', src=re.compile(r'https://scontent')):
+        for img in block.find_all('img'):
             src = img.get('src', '')
-            width = int(img.get('width', 0) or 0)
-            height = int(img.get('height', 0) or 0)
-            # Profilkép általában kicsi (< 100px) – kihagyjuk
-            if width and width < 100:
+            if 'scontent' not in src:
                 continue
-            if 'profile' in src.lower() or 's50x50' in src or 's32x32' in src:
+            w = int(img.get('width') or 0)
+            if w and w < 80:   # profilkép méret → kihagyás
+                continue
+            if any(x in src for x in ['s32x32', 's50x50', 's60x60', 'profile']):
                 continue
             img_url = src
             break
 
-        # Dátum
+        # --- Dátum ---
         abbr = block.find('abbr')
         if abbr and abbr.get('title'):
             created = abbr['title']
-            # Egyszerűsített: adjuk vissza amit van
         else:
             created = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
 
-        permalink = f'https://www.facebook.com/{PAGE}/posts/{story_id}'
+        permalink = to_permalink(href)
 
         posts.append({
-            'id':           story_id,
-            'message':      text[:500],
+            'id':           key,
+            'message':      text[:500].strip(),
             'full_picture': img_url,
             'created_time': created,
             'likes':        {'summary': {'total_count': 0}},
             'comments':     {'summary': {'total_count': 0}},
             'permalink_url': permalink,
         })
-        print(f'  + {story_id}: {text[:60]}')
+        print(f'  [{len(posts)}] {key[:16]}  {text[:60]}')
 
     return posts
 
 
 def main():
     try:
-        posts = scrape_posts()
+        posts = scrape()
     except Exception as e:
         print(f'Hiba: {e}', file=sys.stderr)
         sys.exit(0)
@@ -156,9 +149,9 @@ def main():
         sys.exit(0)
 
     with open(OUTPUT, 'w', encoding='utf-8') as f:
-        json.dump({'_source': 'facebook_mbasic', 'data': posts[:LIMIT]}, f, ensure_ascii=False, indent=2)
+        json.dump({'_source': 'facebook_mbasic', 'data': posts}, f, ensure_ascii=False, indent=2)
 
-    print(f'\nMentve: {min(len(posts), LIMIT)} poszt → {OUTPUT}')
+    print(f'\n✓ {len(posts)} poszt → {OUTPUT}')
 
 
 if __name__ == '__main__':
