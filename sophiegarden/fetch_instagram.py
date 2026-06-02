@@ -1,46 +1,63 @@
-import instaloader
+"""
+Publikus Facebook oldal legfrissebb 4 posztjának lekérése
+- Nincs szükség API kulcsra vagy tokenre
+- Az oldal publikus: facebook.com/SophiesGardenMaglod
+"""
+
+from facebook_scraper import get_posts
 import json
 import sys
+from datetime import timezone
 
-USERNAME = 'sophiesgarden_maglod'
+PAGE     = 'SophiesGardenMaglod'
 OUTPUT   = 'sophiegarden/fb-posts.json'
+LIMIT    = 4
 
 try:
-    L = instaloader.Instaloader(
-        download_pictures=False,
-        download_videos=False,
-        download_video_thumbnails=False,
-        download_geotags=False,
-        download_comments=False,
-        save_metadata=False,
-        quiet=True,
-    )
-    profile = instaloader.Profile.from_username(L.context, USERNAME)
     posts = []
 
-    for post in profile.get_posts():
-        if len(posts) >= 4:
+    for post in get_posts(
+        PAGE,
+        pages=2,
+        options={
+            'posts_per_page': 10,
+            'allow_extra_requests': False,
+        }
+    ):
+        if len(posts) >= LIMIT:
             break
-        if post.typename not in ('GraphImage', 'GraphSidecar', 'GraphVideo'):
-            continue
+
+        # Kép URL – első elérhető
+        img = (
+            post.get('image')
+            or (post.get('images') or [None])[0]
+            or ''
+        )
+
+        # Dátum ISO formátumba
+        t = post.get('time')
+        created = t.strftime('%Y-%m-%dT%H:%M:%S+0000') if t else ''
+
         posts.append({
-            'id':           str(post.mediaid),
-            'message':      post.caption or '',
-            'full_picture': post.url,
-            'created_time': post.date_utc.strftime('%Y-%m-%dT%H:%M:%S+0000'),
-            'likes':        {'summary': {'total_count': post.likes}},
-            'comments':     {'summary': {'total_count': post.comments}},
-            'permalink_url': f'https://www.instagram.com/p/{post.shortcode}/',
+            'id':           post.get('post_id', ''),
+            'message':      post.get('text') or post.get('post_text') or '',
+            'full_picture': img,
+            'created_time': created,
+            'likes':        {'summary': {'total_count': post.get('likes', 0) or 0}},
+            'comments':     {'summary': {'total_count': post.get('comments', 0) or 0}},
+            'permalink_url': post.get('post_url') or f'https://www.facebook.com/{PAGE}',
         })
 
     if not posts:
-        print('Nincsenek posztok – regi adatok maradnak')
+        print('Nincsenek posztok – régi adatok maradnak')
         sys.exit(0)
 
     with open(OUTPUT, 'w', encoding='utf-8') as f:
-        json.dump({'_source': 'instagram', 'data': posts}, f, ensure_ascii=False, indent=2)
+        json.dump({'_source': 'facebook', 'data': posts}, f, ensure_ascii=False, indent=2)
 
     print(f'OK: {len(posts)} poszt mentve')
+    for p in posts:
+        print(f"  - {p['created_time'][:10]}  {p['message'][:60]}...")
 
 except Exception as e:
     print(f'Hiba: {e}', file=sys.stderr)

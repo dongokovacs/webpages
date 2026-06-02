@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install instaloader
-        run: pip install instaloader
+      - name: Install facebook-scraper
+        run: pip install facebook-scraper
 
-      - name: Fetch public Instagram posts
+      - name: Fetch public Facebook posts
         run: python3 sophiegarden/fetch_instagram.py
 
       - name: Commit if changed
