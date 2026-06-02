@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Aktualitások & Maglódi Piac Hírek | Sophie's Garden Virágkötő</title>
+  <meta name="description" content="Sophie's Garden legfrissebb hírei Maglódról – piaci időpontok, szezonális virágok, friss csokrok. Kövess Facebookon és Instagramon, hogy ne maradj le!"/>
+  <meta name="keywords" content="maglódi piac virág, Sophie's Garden hírek, virágkötő Maglód aktuális, piaci nap 2234"/>
+  <link rel="canonical" href="https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"/>
+  <meta name="geo.region" content="HU-PE"/><meta name="geo.placename" content="Maglód"/>
+  <link rel="alternate" hreflang="hu" href="https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"/>
+  <meta property="og:type" content="website"/><meta property="og:locale" content="hu_HU"/>
+  <meta property="og:title" content="Aktualitások – Sophie's Garden Virágkötő Maglód"/>
+  <meta property="og:description" content="Piaci időpontok, szezonális virágok, friss hírek Maglódról. Kövess minket!"/>
+  <meta property="og:image" content="https://dongokovacs.github.io/webpages/sophiegarden/logo.png"/>
+  <meta property="og:url" content="https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"/>
+  <meta name="robots" content="index, follow"/>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Főoldal","item":"https://dongokovacs.github.io/webpages/sophiegarden/"},
+    {"@type":"ListItem","position":2,"name":"Aktualitások","item":"https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"}
+  ]}
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .news-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; margin-top: 48px; }
+    .fb-embed-wrap { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border); background: var(--surface); }
+    .fb-embed-frame { display: block; width: 100%; height: 720px; border: none; }
+    /* Sidebar */
+    .news-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; }
+    .sidebar-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 10px; }
+    .sidebar-card p { font-size: .85rem; color: var(--mid); line-height: 1.65; margin-bottom: 14px; }
+    .social-btn-row { display: flex; flex-direction: column; gap: 10px; }
+    .social-btn-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--border); font-size: .88rem; font-weight: 600; transition: all .22s; color: var(--text); }
+    .social-btn-item svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+    .social-btn-item.fb { color: #1877f2; border-color: rgba(24,119,242,.2); background: rgba(24,119,242,.04); }
+    .social-btn-item.fb:hover { background: #1877f2; color: #fff; border-color: #1877f2; transform: translateY(-2px); }
+    .social-btn-item.ig { color: #e1306c; border-color: rgba(225,48,108,.2); background: rgba(225,48,108,.04); }
+    .social-btn-item.ig:hover { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; border-color: transparent; transform: translateY(-2px); }
+    .market-card { background: linear-gradient(135deg, #3d5c3d, #5a7a5a); border-radius: var(--r); padding: 24px; }
+    .market-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; color: #fff; margin-bottom: 8px; }
+    .market-card p { font-size: .84rem; color: rgba(255,255,255,.75); line-height: 1.6; margin-bottom: 14px; }
+    .market-card a { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 8px; padding: 9px 16px; font-size: .82rem; font-weight: 600; color: #fff; transition: background .2s; }
+    .market-card a:hover { background: rgba(255,255,255,.25); }
+    @media(max-width:900px) { .news-layout { grid-template-columns: 1fr; } .fb-embed-frame { height: 560px; } }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ugrás a tartalomra</a>
+  <nav id="navbar" aria-label="Főnavigáció">
+    <div class="container"><div class="nav-inner">
+      <a href="index.html" class="nav-logo"><img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/><div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">Virágos világod · Maglód</span></div></a>
+      <div class="nav-links" role="list">
+        <a href="index.html" role="listitem">Főoldal</a><a href="kinalet.html" role="listitem">Kínálat</a>
+        <a href="hirek.html" class="active" aria-current="page" role="listitem">Aktualitások</a>
+        <a href="rolunk.html" role="listitem">Rólunk</a><a href="kapcsolat.html" role="listitem">Kapcsolat</a>
+        <a href="egyuttmukodesek.html" role="listitem">Együttm.</a>
+      </div>
+      <div class="nav-right">
+        <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
+        <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div></div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu" role="navigation"><a href="index.html">Főoldal</a><a href="kinalet.html">Kínálat</a><a href="hirek.html" class="active">Aktualitások</a><a href="rolunk.html">Rólunk</a><a href="kapcsolat.html">Kapcsolat</a><a href="kapcsolat.html" class="m-cta">Rendelés leadása</a></div>
+
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-label reveal">Aktualitások</span>
+          <h1 class="page-hero-title reveal" data-delay="1">Mi történt<br/><em>mostanában.</em></h1>
+          <p class="page-hero-sub reveal" data-delay="2">Friss virágok, piaci dátumok, szezonális hírek – közvetlenül a Sophie's Garden Facebook oldaláról.</p>
+        </div>
+      </div>
+    </div>
+
+    <section style="padding:72px 0;background:var(--surface)">
+      <div class="container">
+        <div class="news-layout">
+          <div class="reveal">
+            <div class="fb-embed-wrap" aria-label="Sophie's Garden Facebook feed">
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FSophiesGardenMaglod&tabs=timeline&width=800&height=720&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+                class="fb-embed-frame"
+                scrolling="no" frameborder="0" allowfullscreen="true"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title="Sophie's Garden Facebook oldal – legfrissebb posztok" loading="lazy">
+              </iframe>
+            </div>
+          </div>
+          <div class="news-sidebar">
+            <div class="sidebar-card reveal" data-delay="1">
+              <h3>Kövess minket</h3>
+              <p>Ne maradj le a legfrissebb virágokról, piaci dátumokról és szezonális ajánlatokról!</p>
+              <div class="social-btn-row">
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="social-btn-item fb" aria-label="Facebook (új lapon)">
+                  <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  Facebook – Sophie's Garden
+                </a>
+                <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="social-btn-item ig" aria-label="Instagram (új lapon)">
+                  <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                  @sophiesgarden_maglod
+                </a>
+              </div>
+            </div>
+            <div class="market-card reveal" data-delay="2">
+              <h3>Következő piaci nap</h3>
+              <p>Minden 2. szombaton ott vagyok a maglódi piacon. A pontos dátumot mindig előre jelzem a közösségi oldalakon.</p>
+              <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Dátum Facebookon →</a>
+            </div>
+            <div class="sidebar-card reveal" data-delay="3">
+              <h3>Egyedi rendelés</h3>
+              <p>Nem vársz a piaci napig? Írj, és megbeszéljük az egyedi megrendelést – esküvőre, születésnapra, bármilyen alkalomra.</p>
+              <a href="kapcsolat.html" class="btn-primary" style="font-size:.85rem;padding:10px 18px">Rendelés leadása →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="sd-banner"><div class="container"><div class="sd-inner"><div class="sd-left"><div class="sd-eyebrow">Weboldal készítette</div><div class="sd-logo"><div class="sd-logo-icon"><svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="9" fill="url(#sdg3)"/><path d="M9 18h4l2-5 4 10 2-5 2 3h2" stroke="#F4EFE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sdg3" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3f3f46"/><stop offset="100%" stop-color="#18181b"/></linearGradient></defs></svg></div><div><div class="sd-name">SteelDecor</div><span class="sd-url">steeldecor.hu</span></div></div></div><div class="sd-div" aria-hidden="true"></div><div class="sd-right"><a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-cta">Megnézem<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></aside>
+  <footer role="contentinfo"><div class="container"><div class="footer-grid"><div><div class="footer-logo"><img src="./logo.png" alt="" class="footer-logo-img"/><div class="footer-name">Sophie's Garden</div></div><p class="footer-tagline">Virágos világod – Maglódon és online.</p></div><div class="footer-col"><h4>Oldalak</h4><ul><li><a href="index.html">Főoldal</a></li><li><a href="kinalet.html">Kínálat</a></li><li><a href="hirek.html">Aktualitások</a></li><li><a href="rolunk.html">Rólunk</a></li><li><a href="kapcsolat.html">Kapcsolat</a></li></ul></div><div class="footer-col"><h4>Elérhetőség</h4><ul><li><a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer">Instagram</a></li></ul></div><div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kapcsolat.html">Rendelés →</a></li><li><a href="kinalet.html">Kínálat →</a></li></ul></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 Sophie's Garden · Maglód</div></div></div></footer>
+  <script src="main.js"></script>
+</body>
+</html>

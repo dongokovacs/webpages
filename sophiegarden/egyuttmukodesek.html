@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Helyi Együttműködések Maglódon – SteelDecor Acél Dekorációk | Sophie's Garden</title>
+  <meta name="description" content="Sophie's Garden és SteelDecor – két kézműves vállalkozás Maglódon. Egyedi acél dekorációk: éremtartó, házszám tábla, cégér, trófea, fali dekoráció. Maglód, 2234."/>
+  <meta name="keywords" content="SteelDecor Maglód, éremtartó Maglód, acél dekoráció Maglód, házszám tábla 2234, cégér Pest megye, helyi kézműves Maglód"/>
+  <link rel="canonical" href="https://dongokovacs.github.io/webpages/sophiegarden/egyuttmukodesek.html"/>
+  <meta name="geo.region" content="HU-PE"/><meta name="geo.placename" content="Maglód"/>
+  <link rel="alternate" hreflang="hu" href="https://dongokovacs.github.io/webpages/sophiegarden/egyuttmukodesek.html"/>
+  <meta property="og:type" content="website"/><meta property="og:locale" content="hu_HU"/>
+  <meta property="og:title" content="Együttműködések – SteelDecor & Sophie's Garden Maglód"/>
+  <meta property="og:description" content="Helyi maglódi kézműves vállalkozások. SteelDecor: egyedi acél dekorációk – éremtartó, házszám tábla, cégér, trófea, fali dekoráció."/>
+  <meta property="og:image" content="https://dongokovacs.github.io/webpages/sophiegarden/logo.png"/>
+  <meta name="robots" content="index, follow"/>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {"@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Főoldal","item":"https://dongokovacs.github.io/webpages/sophiegarden/"},
+        {"@type":"ListItem","position":2,"name":"Együttműködések","item":"https://dongokovacs.github.io/webpages/sophiegarden/egyuttmukodesek.html"}
+      ]},
+      {
+        "@type":"LocalBusiness",
+        "name":"SteelDecor",
+        "description":"Kézzel hegesztett egyedi acél dekorációk Maglódon – éremtartó, házszám tábla, cégér, trófea, fali dekoráció",
+        "url":"https://steeldecor.hu",
+        "address":{"@type":"PostalAddress","addressLocality":"Maglód","postalCode":"2234","addressCountry":"HU"},
+        "geo":{"@type":"GeoCoordinates","latitude":47.4442,"longitude":19.3534},
+        "hasOfferCatalog":{"@type":"OfferCatalog","name":"SteelDecor termékek","itemListElement":[
+          {"@type":"Offer","itemOffered":{"@type":"Product","name":"Éremtartó","description":"Kézzel hegesztett acél éremtartó sportolóknak"}},
+          {"@type":"Offer","itemOffered":{"@type":"Product","name":"Házszám tábla","description":"Egyedi acél házszám tábla"}},
+          {"@type":"Offer","itemOffered":{"@type":"Product","name":"Cégér","description":"Egyedi acél cégér vállalkozásoknak"}},
+          {"@type":"Offer","itemOffered":{"@type":"Product","name":"Trófea","description":"Egyedi kézzel készített acél trófea"}},
+          {"@type":"Offer","itemOffered":{"@type":"Product","name":"Fali dekoráció","description":"Acél fali dekorációk belső- és külső térbe"}}
+        ]}
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── SteelDecor hero block ── */
+    .sd-hero {
+      background: #111217;
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .sd-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0, rgba(255,255,255,.02) 1px, transparent 1px, transparent 48px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0, rgba(255,255,255,.02) 1px, transparent 1px, transparent 48px);
+    }
+    .sd-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .sd-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 20px;
+    }
+    .sd-hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #6a9c6a;
+      animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .sd-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400;
+      color: #f4efe4;
+      line-height: 1.1;
+      letter-spacing: -.3px;
+      margin-bottom: 18px;
+    }
+    .sd-hero-title em {
+      font-style: italic;
+      color: #a0c8a0;
+    }
+    .sd-hero-sub {
+      font-size: 1rem;
+      color: rgba(244,239,228,.6);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .sd-hero-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .sd-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sd-meta-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: #f4efe4;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .sd-meta-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+    .sd-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f4efe4;
+      color: #18181b;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      transition: all .2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+    .sd-hero-cta:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.4); }
+    .sd-hero-cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1.5px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.7);
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 500;
+      transition: all .2s;
+      margin-left: 12px;
+    }
+    .sd-hero-cta-ghost:hover { background: rgba(255,255,255,.12); color: #fff; transform: translateY(-2px); }
+    /* Visual side */
+    .sd-visual {
+      position: relative;
+    }
+    .sd-logo-big {
+      width: 260px;
+      padding: 24px 28px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      margin-bottom: 32px;
+    }
+    .sd-logo-big img { width: 100%; height: auto; display: block; }
+    .sd-tagline-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: rgba(244,239,228,.6);
+      line-height: 1.5;
+      max-width: 320px;
+    }
+    .sd-local-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(106,156,106,.12);
+      border: 1px solid rgba(106,156,106,.25);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: #8ab88a;
+      margin-top: 20px;
+    }
+
+    /* ── Products grid ── */
+    .products-section {
+      background: #18181b;
+      padding: 80px 0;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .sd-section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .sd-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      color: #f4efe4;
+      line-height: 1.2;
+      margin-bottom: 48px;
+    }
+    .sd-products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .sd-product {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px;
+      padding: 28px 22px;
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .sd-product::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.04), transparent);
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .sd-product:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,.15);
+      box-shadow: 0 16px 48px rgba(0,0,0,.4);
+    }
+    .sd-product:hover::before { opacity: 1; }
+    .sd-product-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      transition: transform .3s;
+    }
+    .sd-product:hover .sd-product-icon { transform: scale(1.1) rotate(-5deg); }
+    .sd-product-name {
+      font-size: .98rem;
+      font-weight: 700;
+      color: #f4efe4;
+      margin-bottom: 8px;
+    }
+    .sd-product-desc {
+      font-size: .82rem;
+      color: rgba(244,239,228,.45);
+      line-height: 1.6;
+    }
+
+    /* ── Custom order highlight ── */
+    .custom-section {
+      background: linear-gradient(135deg, #1a2a1a 0%, #0f1f0f 100%);
+      padding: 72px 0;
+      border-top: 1px solid rgba(106,156,106,.1);
+    }
+    .custom-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .custom-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400;
+      color: #f4efe4;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .custom-title em { font-style: italic; color: #8ab88a; }
+    .custom-sub {
+      font-size: .98rem;
+      color: rgba(244,239,228,.55);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .custom-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .custom-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: .88rem;
+      color: rgba(244,239,228,.7);
+      line-height: 1.5;
+    }
+    .custom-feat-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #6a9c6a;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .custom-right {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px;
+      padding: 36px;
+    }
+    .custom-right h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #f4efe4;
+      margin-bottom: 12px;
+    }
+    .custom-right p {
+      font-size: .88rem;
+      color: rgba(244,239,228,.5);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .custom-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .custom-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(106,156,106,.15);
+      border: 1px solid rgba(106,156,106,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+      color: #8ab88a;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: .85rem;
+      color: rgba(244,239,228,.6);
+      line-height: 1.5;
+      padding-top: 3px;
+    }
+    .step-text strong { color: rgba(244,239,228,.9); display: block; }
+
+    /* ── Maglód connection ── */
+    .maglod-section {
+      background: #111217;
+      padding: 64px 0;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .maglod-inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .maglod-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+    .maglod-text {
+      flex: 1;
+      min-width: 280px;
+    }
+    .maglod-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #f4efe4;
+      margin-bottom: 10px;
+    }
+    .maglod-text p {
+      font-size: .9rem;
+      color: rgba(244,239,228,.5);
+      line-height: 1.7;
+    }
+    .maglod-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(244,239,228,.07);
+      border: 1.5px solid rgba(244,239,228,.15);
+      border-radius: 10px;
+      padding: 13px 24px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: rgba(244,239,228,.8);
+      text-decoration: none;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .maglod-link svg { width: 14px; height: 14px; transition: transform .2s; }
+    .maglod-link:hover { background: rgba(244,239,228,.14); color: #f4efe4; border-color: rgba(244,239,228,.3); }
+    .maglod-link:hover svg { transform: translateX(3px); }
+
+    /* Light theme intro section */
+    .intro-section {
+      background: var(--surface);
+      padding: 72px 0 48px;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .intro-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem,3vw,2.4rem);
+      font-weight: 500;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .intro-text p { font-size: .95rem; color: var(--mid); line-height: 1.75; margin-bottom: 12px; }
+    .partnership-cards { display: flex; flex-direction: column; gap: 14px; }
+    .p-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 18px 20px;
+      transition: border-color .2s, transform .2s;
+    }
+    .p-card:hover { border-color: var(--green-border); transform: translateY(-2px); }
+    .p-card-logo {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .p-card-text strong { display: block; font-size: .92rem; font-weight: 700; margin-bottom: 2px; }
+    .p-card-text span { font-size: .8rem; color: var(--mid); }
+
+    @media(max-width:900px) {
+      .sd-hero-grid { grid-template-columns:1fr; gap:40px; }
+      .custom-inner { grid-template-columns:1fr; }
+      .intro-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:600px) {
+      .sd-products-grid { grid-template-columns:1fr 1fr; }
+      .maglod-inner { flex-direction:column; text-align:center; }
+      .sd-hero-cta-ghost { margin-left:0; margin-top:10px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ugrás a tartalomra</a>
+
+  <nav id="navbar" aria-label="Főnavigáció">
+    <div class="container"><div class="nav-inner">
+      <a href="index.html" class="nav-logo"><img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/><div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">Virágos világod · Maglód</span></div></a>
+      <div class="nav-links" role="list">
+        <a href="index.html" role="listitem">Főoldal</a>
+        <a href="kinalet.html" role="listitem">Kínálat</a>
+        <a href="hirek.html" role="listitem">Aktualitások</a>
+        <a href="rolunk.html" role="listitem">Rólunk</a>
+        <a href="kapcsolat.html" role="listitem">Kapcsolat</a>
+        <a href="egyuttmukodesek.html" class="active" aria-current="page" role="listitem">Együttműködések</a>
+      </div>
+      <div class="nav-right">
+        <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra"><svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
+        <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div></div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">Főoldal</a><a href="kinalet.html">Kínálat</a><a href="hirek.html">Aktualitások</a>
+    <a href="rolunk.html">Rólunk</a><a href="kapcsolat.html">Kapcsolat</a>
+    <a href="egyuttmukodesek.html" class="active">Együttműködések</a>
+    <a href="kapcsolat.html" class="m-cta">Rendelés leadása</a>
+  </div>
+
+  <main id="main">
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-label reveal">Együttműködések</span>
+          <h1 class="page-hero-title reveal" data-delay="1">Helyi vállalkozások,<br/><em>közös értékek.</em></h1>
+          <p class="page-hero-sub reveal" data-delay="2">Maglódon működünk, Maglódon alkotunk. Azokkal dolgozunk együtt, akik hozzánk hasonlóan hisznek a kézzel készített, egyedi, helyi termékek értékében.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <div class="intro-section">
+      <div class="container">
+        <div class="intro-grid">
+          <div class="intro-text reveal">
+            <span class="section-label">Miért dolgozunk együtt?</span>
+            <h2>Helyi szövetség,<br/>közös célok.</h2>
+            <p>Minden ajánlott vállalkozás mögött személyes tapasztalat áll. Nem véletlenszerű partnereink vannak – olyanokkal működünk együtt, akiket magunk is szívesen ajánlunk és akikben megbízunk.</p>
+            <p>Ha valami speciálisra van szükséged amit mi nem tudunk nyújtani – virágon kívül –, biztosan van a közelünkben valaki, aki igen.</p>
+          </div>
+          <div class="partnership-cards reveal" data-delay="2">
+            <div class="p-card">
+              <div class="p-card-logo">
+                <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <rect width="48" height="48" rx="12" fill="url(#pg1)"/>
+                  <path d="M12 24h6l3-7 5 14 3-7 3 4h4" stroke="#F4EFE4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <defs><linearGradient id="pg1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3f3f46"/><stop offset="100%" stop-color="#18181b"/></linearGradient></defs>
+                </svg>
+              </div>
+              <div class="p-card-text">
+                <strong>SteelDecor</strong>
+                <span>Kézzel hegesztett acél dekorációk · Maglód</span>
+              </div>
+            </div>
+            <div class="p-card" style="opacity:.45;pointer-events:none">
+              <div class="p-card-logo" style="background:var(--surface2);border-radius:12px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">+</div>
+              <div class="p-card-text">
+                <strong>Hamarosan…</strong>
+                <span>Újabb helyi együttműködések érkeznek</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEELDECOR HERO BLOCK -->
+    <section class="sd-hero" aria-labelledby="sd-title">
+      <div class="container">
+        <div class="sd-hero-grid">
+          <div>
+            <div class="sd-hero-badge reveal">
+              <span class="sd-hero-badge-dot" aria-hidden="true"></span>
+              Kiemelt partner · Maglód
+            </div>
+            <h2 class="sd-hero-title reveal" id="sd-title" data-delay="1">
+              SteelDecor –<br/><em>Acél, ami mesél.</em>
+            </h2>
+            <p class="sd-hero-sub reveal" data-delay="2">
+              <strong style="color:rgba(244,239,228,.85);font-weight:600">Steel Decor – ahol az elképzeléseid fémre kelnek.</strong><br/>
+              Ha minőségi, egyedi lézervágott fém dekorációkkal szeretnéd különlegessé tenni otthonod vagy a céged környezetét, jó helyen jársz.
+            </p>
+            <p class="sd-hero-sub reveal" data-delay="3">
+              Magyar családi vállalkozásként nem tömegtermékeket készítenek, hanem az elképzeléseid alapján egyedileg tervezett fém fali dekorációkat és sport éremtartókat. Számukra minden megrendelés személyes – odafigyeléssel, rugalmas hozzáállással, pontosan úgy ahogy vásárlóként ők is elvárják.
+            </p>
+            <p class="sd-hero-sub reveal" data-delay="4" style="font-size:.92rem;color:rgba(244,239,228,.5)">
+              Legyen akár konkrét ötleted, vagy csak egy irány a fejedben – szívesen segítenek a megvalósításban.
+            </p>
+            <div class="sd-hero-meta reveal" data-delay="3" role="list">
+              <div class="sd-meta-item" role="listitem">
+                <div class="sd-meta-num">2015</div>
+                <div class="sd-meta-label">Alapítva</div>
+              </div>
+              <div class="sd-meta-item" role="listitem">
+                <div class="sd-meta-num">100%</div>
+                <div class="sd-meta-label">Kézzel készített</div>
+              </div>
+              <div class="sd-meta-item" role="listitem">
+                <div class="sd-meta-num">🇭🇺</div>
+                <div class="sd-meta-label">Magyar termék</div>
+              </div>
+            </div>
+            <div class="reveal" data-delay="4">
+              <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-hero-cta" aria-label="SteelDecor weboldal megnyitása (új lapon)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Megnyitom: steeldecor.hu
+              </a>
+              <a href="https://www.facebook.com/steeldecor.neked" target="_blank" rel="noopener noreferrer" class="sd-hero-cta-ghost" aria-label="SteelDecor Facebook (új lapon)">
+                Facebook oldal
+              </a>
+            </div>
+          </div>
+          <div class="sd-visual reveal" data-delay="2">
+            <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-logo-big" aria-label="SteelDecor weboldal megnyitása">
+              <img src="./steellogo.png" alt="SteelDecor – egyedi lézervágott fém dekorációk" width="300" height="80" loading="lazy"/>
+            </a>
+            <p class="sd-tagline-big">
+              „Számunkra minden megrendelés személyes – odafigyeléssel, rugalmas hozzáállással, pontosan úgy ahogy mi is elvárjuk vásárlóként."
+            </p>
+            <div class="sd-local-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Maglódon vagyunk – mint ti
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS GRID -->
+    <section class="products-section" aria-labelledby="products-title">
+      <div class="container">
+        <span class="sd-section-label reveal">Mit készítenek?</span>
+        <h2 class="sd-section-title reveal" id="products-title" data-delay="1">Egyedi kéréseket is teljesítenek.</h2>
+        <div class="sd-products-grid">
+
+          <div class="sd-product reveal" data-delay="1">
+            <div class="sd-product-icon" aria-hidden="true">🏅</div>
+            <div class="sd-product-name">Éremtartó</div>
+            <div class="sd-product-desc">Futók, kerékpárosok, sportolók kedvence. Acélból hegesztett, falra szerelhető éremtartók – az évek munkájának méltó otthona.</div>
+          </div>
+
+          <div class="sd-product reveal" data-delay="2">
+            <div class="sd-product-icon" aria-hidden="true">🏠</div>
+            <div class="sd-product-name">Házszám tábla</div>
+            <div class="sd-product-desc">Egyedi, acélból vágott házszám – rozsdás, polírozott vagy festett kivitelben. Tartós, elegáns, megkülönbözteti az otthonod.</div>
+          </div>
+
+          <div class="sd-product reveal" data-delay="3">
+            <div class="sd-product-icon" aria-hidden="true">🪧</div>
+            <div class="sd-product-name">Cégér & cégtábla</div>
+            <div class="sd-product-desc">Vállalkozásodnak méltó arcot ad. Egyedi logóval, névvel, kézzel készítve – nem sablon, hanem személyiség.</div>
+          </div>
+
+          <div class="sd-product reveal" data-delay="4">
+            <div class="sd-product-icon" aria-hidden="true">🏆</div>
+            <div class="sd-product-name">Trófea & díj</div>
+            <div class="sd-product-desc">Versenyekre, csapatépítőkre, jubileumokra. Egyedi, kézzel készített trófea – olyan amit nem dobnak el, hanem büszkén kiállítanak.</div>
+          </div>
+
+          <div class="sd-product reveal" data-delay="1">
+            <div class="sd-product-icon" aria-hidden="true">🖼️</div>
+            <div class="sd-product-name">Fali dekoráció</div>
+            <div class="sd-product-desc">Acél virágok, geometriai formák, monogrammok, idézetek. Belső térbe és kertbe egyaránt – tartós és egyedi.</div>
+          </div>
+
+          <div class="sd-product reveal" data-delay="2">
+            <div class="sd-product-icon" aria-hidden="true">✏️</div>
+            <div class="sd-product-name">Egyedi megrendelés</div>
+            <div class="sd-product-desc">Ha valami egészen speciálisat szeretnél – ők megcsinálják. Álom elé csak az anyag és a fizika szab határt.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOM ORDER SECTION -->
+    <section class="custom-section" aria-labelledby="custom-title">
+      <div class="container">
+        <div class="custom-inner">
+          <div>
+            <span class="sd-section-label reveal">Egyedi megrendelés</span>
+            <h2 class="custom-title reveal" id="custom-title" data-delay="1">
+              Van egy ötleted?<br/><em>Megvalósítják.</em>
+            </h2>
+            <p class="custom-sub reveal" data-delay="2">
+              Nem kell sablonból választani. A SteelDecor specialitása az egyedi kérés – ha van elképzelésed, ők megcsinálják. Rajztól a kész termékig, személyesen egyeztetve.
+            </p>
+            <div class="custom-features reveal" data-delay="3">
+              <div class="custom-feat"><div class="custom-feat-dot" aria-hidden="true"></div><span>Személyes egyeztetés – elmondod az elképzelést, ők javasolnak megoldást</span></div>
+              <div class="custom-feat"><div class="custom-feat-dot" aria-hidden="true"></div><span>Bármilyen méret, forma, felirat – az acél szinte mindent lehetővé tesz</span></div>
+              <div class="custom-feat"><div class="custom-feat-dot" aria-hidden="true"></div><span>Rozsdás, polírozott, festett – a felületkezelés is választható</span></div>
+              <div class="custom-feat"><div class="custom-feat-dot" aria-hidden="true"></div><span>Maglódi helyszín – nem kell messzire menni</span></div>
+            </div>
+          </div>
+          <div class="custom-right reveal" data-delay="2">
+            <h3>Hogyan rendelj?</h3>
+            <p>Egyszerű folyamat, nincsenek komplikált formanyomtatványok.</p>
+            <div class="custom-steps">
+              <div class="custom-step">
+                <div class="step-num">1</div>
+                <div class="step-text"><strong>Írd le az ötleted</strong>Elég egy pár sor – mit szeretnél, mire, milyen méretben.</div>
+              </div>
+              <div class="custom-step">
+                <div class="step-num">2</div>
+                <div class="step-text"><strong>Egyeztetés</strong>Visszaírnak, megbeszélitek a részleteket és az árat.</div>
+              </div>
+              <div class="custom-step">
+                <div class="step-num">3</div>
+                <div class="step-text"><strong>Elkészítik</strong>Kézzel, Maglódon, a te elképzelésed alapján.</div>
+              </div>
+              <div class="custom-step">
+                <div class="step-num">4</div>
+                <div class="step-text"><strong>Átveszed</strong>Személyesen, Maglódon – mint mi nálunk a csokrot.</div>
+              </div>
+            </div>
+            <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-hero-cta" style="width:100%;justify-content:center" aria-label="SteelDecor weboldal (új lapon)">
+              steeldecor.hu – Kapcsolat →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAGLÓD CONNECTION -->
+    <div class="maglod-section" aria-label="Maglódi kötődés">
+      <div class="container">
+        <div class="maglod-inner">
+          <div class="maglod-icon" aria-hidden="true">📍</div>
+          <div class="maglod-text">
+            <h3>Ketten Maglódon – kézzel.</h3>
+            <p>Sophie's Garden és SteelDecor – két különböző vállalkozás, egy közös nevező: Maglódon élünk, Maglódon alkotunk, és hiszünk abban, hogy a kézzel készített dolgoknak értékük van. Ha virágot keresel, jöjj hozzánk. Ha egyedi acél dekorációt, menj el hozzájuk.</p>
+          </div>
+          <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="maglod-link" aria-label="SteelDecor weboldal (új lapon)">
+            steeldecor.hu
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><img src="./logo.png" alt="Sophie's Garden logó" class="footer-logo-img"/><div class="footer-name">Sophie's Garden</div></div>
+          <p class="footer-tagline">Virágos világod – Maglódon és online.</p>
+          <div class="footer-socials" aria-label="Közösségi média">
+            <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Oldalak</h4><ul><li><a href="index.html">Főoldal</a></li><li><a href="kinalet.html">Kínálat</a></li><li><a href="hirek.html">Aktualitások</a></li><li><a href="rolunk.html">Rólunk</a></li><li><a href="kapcsolat.html">Kapcsolat</a></li><li><a href="egyuttmukodesek.html">Együttműködések</a></li></ul></div>
+        <div class="footer-col"><h4>Együttműködők</h4><ul><li><a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer">SteelDecor – steeldecor.hu</a></li></ul></div>
+        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kapcsolat.html">Rendelés →</a></li><li><a href="kinalet.html">Kínálat →</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2026 Sophie's Garden · Maglód</div></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
