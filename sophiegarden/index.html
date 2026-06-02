@@ -191,14 +191,9 @@
     }
     @keyframes leaf-appear{from{opacity:0;transform:scale(0) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
     /* Petals */
-    .petal{fill:var(--clay);opacity:0;transform-origin:50% 65%}
-    @media(prefers-reduced-motion:no-preference){
-      .petal:nth-child(1){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards}
-      .petal:nth-child(2){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.0s forwards}
-      .petal:nth-child(3){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.1s forwards}
-      .petal:nth-child(4){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.2s forwards}
-      .petal:nth-child(5){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.3s forwards}
-    }
+    /* transform-box: fill-box → transform-origin az ellipszis saját bounding boxán belül
+       transform-origin: 50% 100% → az ellipszis aljától nő (= virág közepe felőli oldal) */
+    .petal{fill:var(--clay);opacity:0;transform-box:fill-box;transform-origin:50% 100%}
     @keyframes petal-bloom{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
     .flower-center{fill:#f5c77a;opacity:0}
     @media(prefers-reduced-motion:no-preference){.flower-center{animation:petal-bloom .4s ease 2.5s forwards}}
@@ -493,14 +488,14 @@
                   <ellipse class="leaf-l" cx="62" cy="174" rx="18" ry="10" transform="rotate(-35 62 174)"/>
                   <!-- Right leaf -->
                   <ellipse class="leaf-r" cx="133" cy="142" rx="16" ry="9" transform="rotate(30 133 142)"/>
-                  <!-- Petals -->
+                  <!-- Petals – minden szirmot saját <g rotate> wrapperben,
+                       így a CSS transform nem interferál az SVG rotációval -->
                   <g transform="translate(98,92)">
-                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(0)"/>
-                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(72)"/>
-                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(144)"/>
-                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(216)"/>
-                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(288)"/>
-                    <!-- Center -->
+                    <g transform="rotate(0)">  <ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards"/></g>
+                    <g transform="rotate(72)"> <ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.05s forwards"/></g>
+                    <g transform="rotate(144)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.2s forwards"/></g>
+                    <g transform="rotate(216)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.35s forwards"/></g>
+                    <g transform="rotate(288)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.5s forwards"/></g>
                     <circle class="flower-center" cx="0" cy="0" r="10"/>
                   </g>
                   <!-- Small accent flowers -->
