@@ -11,26 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch Instagram posts
-        env:
-          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_USER_ID: ${{ secrets.IG_USER_ID }}
-        run: |
-          curl -sf "https://graph.instagram.com/v20.0/${IG_USER_ID}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=4&access_token=${IG_ACCESS_TOKEN}" -o sophiegarden/fb-posts-new.json
+      - name: Install instaloader
+        run: pip install instaloader
 
-          if python3 -c "import json,sys; d=json.load(open('sophiegarden/fb-posts-new.json')); assert 'data' in d; print('OK:', len(d['data']), 'post')"; then
-            mv sophiegarden/fb-posts-new.json sophiegarden/fb-posts.json
-            echo "Frissites sikeres"
-          else
-            rm -f sophiegarden/fb-posts-new.json
-            echo "Ervenytelen valasz - regi adatok maradnak"
-          fi
-
-      - name: Refresh long-lived token
-        env:
-          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-        run: |
-          curl -sf "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${IG_ACCESS_TOKEN}" | python3 -c "import json,sys; d=json.load(sys.stdin); print('Token frissitve, lejarat:', d.get('expires_in','?'), 'masodperc')" || echo "Token frissites sikertelen"
+      - name: Fetch public Instagram posts
+        run: python3 sophiegarden/fetch_instagram.py
 
       - name: Commit if changed
         run: |
