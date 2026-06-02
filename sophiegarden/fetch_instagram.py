@@ -1,12 +1,12 @@
 """
 Publikus Facebook oldal legfrissebb posztjai
-mbasic.facebook.com – szerver-oldali HTML, JS nélkül, login nélkül
+mbasic.facebook.com – szerver-oldali HTML, JS nélkül
 """
 import requests
 from bs4 import BeautifulSoup
 import json, sys, re
 from datetime import datetime, timezone
-from urllib.parse import urlparse, parse_qs, urljoin
+from urllib.parse import urlparse, parse_qs
 
 PAGE    = 'SophiesGardenMaglod'
 BASE    = 'https://mbasic.facebook.com'
@@ -19,128 +19,136 @@ HEADERS = {
         'AppleWebKit/537.36 (KHTML, like Gecko) '
         'Chrome/124.0.0.0 Safari/537.36'
     ),
-    'Accept-Language': 'hu-HU,hu;q=0.9,en;q=0.8',
+    'Accept-Language': 'hu-HU,hu;q=0.9',
     'Accept': 'text/html,application/xhtml+xml',
 }
 
 
-def clean_fb_url(href):
-    """mbasic redirect URL-ből valódi URL kinyerése."""
+def get_soup(url):
+    r = requests.get(url, headers=HEADERS, timeout=20)
+    r.raise_for_status()
+    return BeautifulSoup(r.text, 'html.parser')
+
+
+def extract_permalink(href):
     if not href:
         return f'https://www.facebook.com/{PAGE}'
-    if href.startswith('http') and 'facebook.com' in href:
-        return href
     if href.startswith('/'):
-        # /story.php?story_fbid=... → permalink
-        full = BASE + href
-        parsed = urlparse(full)
-        qs = parse_qs(parsed.query)
-        if 'story_fbid' in qs:
-            fbid = qs['story_fbid'][0]
-            pageid = qs.get('id', [''])[0]
-            return f'https://www.facebook.com/permalink.php?story_fbid={fbid}&id={pageid}'
-        return full
+        href = BASE + href
+    # Tisztítjuk a mbasic redirect paramétereket – csak a story URL kell
+    m = re.search(r'(https://www\.facebook\.com/[^\?&"]+)', href)
+    if m:
+        return m.group(1)
     return f'https://www.facebook.com/{PAGE}'
 
 
-def parse_timestamp(abbr_el):
-    """<abbr title="..."> → ISO dátum."""
-    if not abbr_el:
-        return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
-    title = abbr_el.get('title', '')
-    # próbálj különböző formátumokat
-    for fmt in ('%Y. %B %d. %H:%M', '%B %d, %Y at %I:%M %p', '%d %B %Y %H:%M'):
-        try:
-            dt = datetime.strptime(title, fmt)
-            return dt.strftime('%Y-%m-%dT%H:%M:%S+0000')
-        except ValueError:
-            pass
-    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
+def extract_story_id(href):
+    if not href:
+        return ''
+    m = re.search(r'story_fbid=(\d+)', href)
+    if m:
+        return m.group(1)
+    m = re.search(r'/posts/(\d+)', href)
+    if m:
+        return m.group(1)
+    m = re.search(r'/(\d+)$', href.rstrip('/'))
+    if m:
+        return m.group(1)
+    return ''
 
 
 def scrape_posts():
-    url = f'{BASE}/{PAGE}'
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=20)
-        r.raise_for_status()
-    except Exception as e:
-        print(f'Hálózati hiba: {e}', file=sys.stderr)
-        return []
-
-    soup = BeautifulSoup(r.text, 'html.parser')
-
-    # mbasic struktúra: #structured_composer_async_container > div > div > ...
-    # Posztok általában article vagy egyedi div id-vel
+    soup = get_soup(f'{BASE}/{PAGE}')
     posts = []
-    seen_texts = set()
+    seen = set()
 
-    # Próbálkozzunk több selectorral
-    candidates = (
-        soup.select('div[id^="u_"] > div')       # mbasic poszt konténerek
-        or soup.select('article')
-        or soup.select('div._55wp')               # régebbi mbasic class
-    )
+    # mbasic struktúra: posztok <div id="..."> blokkokban vannak
+    # Keressük az összes div-et ami tartalmaz story linket
+    story_links = soup.find_all('a', href=re.compile(r'(story_fbid|/posts/|/permalink)'))
 
-    # Fallback: keressük az összes <p> elemet ami szöveg
-    if not candidates:
-        # Próbáljuk a teljes oldal szöveg blokkjait
-        candidates = soup.find_all('div', {'data-ft': True})
+    print(f'Talált story linkek: {len(story_links)}')
 
-    print(f'Talált jelöltek: {len(candidates)}')
-
-    for block in candidates:
+    for link in story_links:
         if len(posts) >= LIMIT:
             break
 
-        # Szöveg kinyerése
-        text_el = block.find('p') or block.find('span') or block
-        text = text_el.get_text(' ', strip=True) if text_el else ''
+        href = link.get('href', '')
+        story_id = extract_story_id(href)
 
-        # Szűrés: legalább 20 karakter, ne legyen duplikált
-        if len(text) < 20 or text in seen_texts:
+        if not story_id or story_id in seen:
             continue
-        seen_texts.add(text)
+        seen.add(story_id)
 
-        # Link a poszthoz
-        link_el = block.find('a', href=re.compile(r'(story|permalink|photo)'))
-        permalink = clean_fb_url(link_el['href'] if link_el else None)
+        # A link közelében lévő szülő div = poszt blokk
+        block = link.find_parent('div')
+        # Felmegyünk amíg elég szöveget találunk
+        for _ in range(5):
+            if block and len(block.get_text(strip=True)) > 30:
+                break
+            if block:
+                block = block.find_parent('div')
+
+        if not block:
+            continue
+
+        # Szöveg – az összes <p> és <span dir="auto">
+        text_parts = []
+        for el in block.find_all(['p', 'span'], attrs={'dir': 'auto'}):
+            t = el.get_text(' ', strip=True)
+            if t and len(t) > 5:
+                text_parts.append(t)
+        text = ' '.join(dict.fromkeys(text_parts))  # duplikátum nélkül
+
+        if not text or len(text) < 15:
+            # fallback: teljes blokk szövege
+            text = block.get_text(' ', strip=True)[:300]
+
+        if len(text) < 15:
+            continue
 
         # Kép
-        img_el = block.find('img')
-        img_url = img_el['src'] if img_el and img_el.get('src', '').startswith('http') else ''
+        img = block.find('img', src=re.compile(r'https://scontent'))
+        img_url = img['src'] if img else ''
 
         # Dátum
-        abbr_el = block.find('abbr')
-        created = parse_timestamp(abbr_el)
+        abbr = block.find('abbr')
+        if abbr and abbr.get('title'):
+            created = abbr['title']
+            # Egyszerűsített: adjuk vissza amit van
+        else:
+            created = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
+
+        permalink = f'https://www.facebook.com/{PAGE}/posts/{story_id}'
 
         posts.append({
-            'id':           str(len(posts) + 1),
-            'message':      text,
+            'id':           story_id,
+            'message':      text[:500],
             'full_picture': img_url,
             'created_time': created,
             'likes':        {'summary': {'total_count': 0}},
             'comments':     {'summary': {'total_count': 0}},
             'permalink_url': permalink,
         })
+        print(f'  + {story_id}: {text[:60]}')
 
     return posts
 
 
 def main():
-    posts = scrape_posts()
+    try:
+        posts = scrape_posts()
+    except Exception as e:
+        print(f'Hiba: {e}', file=sys.stderr)
+        sys.exit(0)
 
-    # Debug: ha kevés adat jött, mentse el az oldal HTML-jét a loghoz
     if not posts:
-        print('Nem sikerült posztot kinyerni.', file=sys.stderr)
-        print('Próbáld manuálisan: https://mbasic.facebook.com/SophiesGardenMaglod', file=sys.stderr)
-        sys.exit(0)   # exit 0 = workflow ne bukjon, régi adatok maradjanak
+        print('Nem sikerült posztot kinyerni – régi adatok maradnak', file=sys.stderr)
+        sys.exit(0)
 
     with open(OUTPUT, 'w', encoding='utf-8') as f:
-        json.dump({'_source': 'facebook_mbasic', 'data': posts}, f, ensure_ascii=False, indent=2)
+        json.dump({'_source': 'facebook_mbasic', 'data': posts[:LIMIT]}, f, ensure_ascii=False, indent=2)
 
-    print(f'OK: {len(posts)} poszt mentve')
-    for p in posts:
-        print(f"  {p['created_time'][:10]}  {p['message'][:80]}")
+    print(f'\nMentve: {min(len(posts), LIMIT)} poszt → {OUTPUT}')
 
 
 if __name__ == '__main__':
