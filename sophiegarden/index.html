@@ -217,19 +217,20 @@
     #kinalet{background:var(--surface)}
     .picks-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:48px}
     .picks-date{font-size:.78rem;color:var(--clay);font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:8px;margin-top:12px;font-family:'Outfit',sans-serif}
-    /* Masonry-like grid – intentionally not equal */
-    .picks-masonry{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+    /* Masonry-like grid */
+    .picks-masonry{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .pick-card{border-radius:var(--r);overflow:hidden;background:var(--bg);border:1px solid var(--border);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;cursor:pointer}
-    .pick-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-    .pick-card:nth-child(2){margin-top:28px}
-    .pick-card:nth-child(3){margin-top:14px}
+    .pick-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .pick-card:nth-child(2){margin-top:20px}
+    .pick-card:nth-child(3){margin-top:10px}
+    .pick-card:nth-child(4){margin-top:30px}
     .pick-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--cream)}
-    .pick-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:3rem}
-    .pick-body{padding:18px 20px}
-    .pick-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;margin-bottom:5px}
-    .pick-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:14px}
+    .pick-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:2rem}
+    .pick-body{padding:13px 15px}
+    .pick-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:500;margin-bottom:4px}
+    .pick-desc{font-size:.78rem;color:var(--mid);line-height:1.55;margin-bottom:10px}
     .pick-footer{display:flex;justify-content:space-between;align-items:center}
-    .pick-price{font-size:1rem;font-weight:700;color:var(--green)}
+    .pick-price{font-size:.9rem;font-weight:700;color:var(--green)}
     .pick-badge{font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:50px}
     .badge-fresh{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
     .badge-seasonal{background:var(--clay-bg);color:var(--clay);border:1px solid rgba(181,119,92,.2)}
@@ -353,7 +354,7 @@
       .hero-grid{grid-template-columns:1fr;gap:40px}
       .hero-visual{order:-1}
       .picks-masonry{grid-template-columns:1fr 1fr}
-      .picks-masonry .pick-card:nth-child(3){display:none}
+      .picks-masonry .pick-card:nth-child(3),.picks-masonry .pick-card:nth-child(4){display:none}
       .about-grid{grid-template-columns:1fr;gap:40px}
       .about-img-col{display:none}
       .market-inner{grid-template-columns:1fr}
@@ -373,7 +374,8 @@
     }
     @media(max-width:480px){
       .hero-btns{flex-direction:column;align-items:flex-start}
-      .picks-masonry{grid-template-columns:1fr}
+      .picks-masonry{grid-template-columns:1fr 1fr}
+      .picks-masonry .pick-card:nth-child(3),.picks-masonry .pick-card:nth-child(4){display:none}
       .picks-masonry .pick-card:nth-child(n){margin-top:0}
       .footer-grid{grid-template-columns:1fr}
       .market-inner{gap:32px}
@@ -531,10 +533,10 @@
 
         <div class="picks-masonry" role="list">
           <article class="pick-card reveal" role="listitem" data-delay="1">
-            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌸</div>
+            <img class="pick-img" src="https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=400&q=75&auto=format&fit=crop" alt="Vegyes mezei csokor – liziantusz és gypsophila" loading="lazy"/>
             <div class="pick-body">
               <div class="pick-name">Vegyes mezei csokor</div>
-              <div class="pick-desc">Liziantusz, gypsophila és szezonális zöldek – olyan, mintha a réten szedted volna.</div>
+              <div class="pick-desc">Liziantusz, gypsophila és szezonális zöldek.</div>
               <div class="pick-footer">
                 <span class="pick-price">2 900 Ft-tól</span>
                 <span class="pick-badge badge-fresh">Friss</span>
@@ -542,10 +544,10 @@
             </div>
           </article>
           <article class="pick-card reveal" role="listitem" data-delay="2">
-            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌺</div>
+            <img class="pick-img" src="https://images.unsplash.com/photo-1548198471-4a39b2caa5a9?w=400&q=75&auto=format&fit=crop" alt="Romantikus rózsa válogatás pasztell árnyalatokban" loading="lazy"/>
             <div class="pick-body">
               <div class="pick-name">Romantikus rózsa válogatás</div>
-              <div class="pick-desc">Pasztell árnyalatú rózsák, levélzöld kísérettel. Klasszikus, de nem unalmas.</div>
+              <div class="pick-desc">Pasztell árnyalatú rózsák, levélzöld kísérettel.</div>
               <div class="pick-footer">
                 <span class="pick-price">3 900 Ft-tól</span>
                 <span class="pick-badge badge-seasonal">Szezonális</span>
@@ -553,10 +555,21 @@
             </div>
           </article>
           <article class="pick-card reveal" role="listitem" data-delay="3">
-            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌼</div>
+            <img class="pick-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=75&auto=format&fit=crop" alt="Sárga és fehér tavaszi virágok" loading="lazy"/>
             <div class="pick-body">
-              <div class="pick-name">Egyedi kézzel kötött megrendelés</div>
-              <div class="pick-desc">Mondd el az alkalmat, a színeket, a hangulatot – a többi az én dolgom.</div>
+              <div class="pick-name">Tavaszi sárga válogatás</div>
+              <div class="pick-desc">Nárcisz, rezgőfű, friss zöldek – vidám és meleg.</div>
+              <div class="pick-footer">
+                <span class="pick-price">2 500 Ft-tól</span>
+                <span class="pick-badge badge-seasonal">Szezonális</span>
+              </div>
+            </div>
+          </article>
+          <article class="pick-card reveal" role="listitem" data-delay="4">
+            <img class="pick-img" src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&q=75&auto=format&fit=crop" alt="Egyedi kézzel kötött megrendelés" loading="lazy"/>
+            <div class="pick-body">
+              <div class="pick-name">Egyedi megrendelés</div>
+              <div class="pick-desc">Mondd el az alkalmat és a hangulatot – a többi az én dolgom.</div>
               <div class="pick-footer">
                 <span class="pick-price">Egyedi áron</span>
                 <span class="pick-badge badge-fresh">Megrendelésre</span>
