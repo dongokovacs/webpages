@@ -1,0 +1,41 @@
+{
+  "_note": "Ez a fájl automatikusan frissül a GitHub Actions workflow által. Kézzel is szerkeszthető.",
+  "data": [
+    {
+      "id": "placeholder_1",
+      "message": "Ma reggel gyönyörű mezei csokrok készültek! Liziantusz, gypsophila és friss zöldek – pont ilyen kellene egy hétfő reggel ☀️ A piacon is lesz belőle szombaton!",
+      "full_picture": "https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=500&q=75&auto=format&fit=crop",
+      "created_time": "2025-06-07T08:00:00+0000",
+      "likes": { "summary": { "total_count": 34 } },
+      "comments": { "summary": { "total_count": 8 } },
+      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
+    },
+    {
+      "id": "placeholder_2",
+      "message": "🌿 Szombaton piac! Holnap reggel 8-tól ott leszek a maglódi piacon. Hozz egy szatyrát – én gondoskodom a virágokról 🌸 Ezúttal lesz rózsa, szegfű és néhány meglepetés.",
+      "full_picture": "https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=500&q=75&auto=format&fit=crop",
+      "created_time": "2025-05-31T10:00:00+0000",
+      "likes": { "summary": { "total_count": 52 } },
+      "comments": { "summary": { "total_count": 14 } },
+      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
+    },
+    {
+      "id": "placeholder_3",
+      "message": "Elkészült az idei első esküvői csokrom 💍🌹 Fehér rózsa, eukaliptusz és egy kis gyöngyvirág – a menyasszony könnyek között fogadta el. Ez az, amiért ezt csinálom ❤️",
+      "full_picture": "https://images.unsplash.com/photo-1548198471-4a39b2caa5a9?w=500&q=75&auto=format&fit=crop",
+      "created_time": "2025-05-20T14:00:00+0000",
+      "likes": { "summary": { "total_count": 89 } },
+      "comments": { "summary": { "total_count": 23 } },
+      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
+    },
+    {
+      "id": "placeholder_4",
+      "message": "Tavaszi ébredés a műhelyben 🌼 A szegfűboglárka és a kerti rózsa egyszerre nyílt ki – ilyen nincs minden évben! Holnaptól rendelhetők, írj üzenetet ha érdekel.",
+      "full_picture": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=75&auto=format&fit=crop",
+      "created_time": "2025-05-10T09:00:00+0000",
+      "likes": { "summary": { "total_count": 61 } },
+      "comments": { "summary": { "total_count": 11 } },
+      "permalink_url": "https://www.facebook.com/SophiesGardenMaglod"
+    }
+  ]
+}

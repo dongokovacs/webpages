@@ -1,0 +1,39 @@
+name: Sync Facebook Posts
+
+on:
+  schedule:
+    - cron: '0 5,11,17,23 * * *'   # 4× naponta: 5:00, 11:00, 17:00, 23:00 UTC
+  workflow_dispatch:                # Manuális futtatás is lehetséges
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Facebook posts
+        env:
+          FB_PAGE_ID:      ${{ secrets.FB_PAGE_ID }}
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+        run: |
+          curl -s \
+            "https://graph.facebook.com/v20.0/${FB_PAGE_ID}/posts?fields=message,full_picture,created_time,likes.summary(true),comments.summary(true),permalink_url&limit=4&access_token=${FB_ACCESS_TOKEN}" \
+            -o sophiegarden/fb-posts-new.json
+
+          # Validate: ha nem valid JSON, ne írjuk felül a régit
+          if python3 -c "import json,sys; d=json.load(open('sophiegarden/fb-posts-new.json')); assert 'data' in d" 2>/dev/null; then
+            mv sophiegarden/fb-posts-new.json sophiegarden/fb-posts.json
+            echo "✅ Frissítés sikeres"
+          else
+            rm -f sophiegarden/fb-posts-new.json
+            echo "⚠️ Érvénytelen válasz – a régi adatok maradnak"
+            cat sophiegarden/fb-posts-new.json 2>/dev/null || true
+          fi
+
+      - name: Commit if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add sophiegarden/fb-posts.json
+          git diff --staged --quiet || \
+            (git commit -m "chore: sync Facebook posts [skip ci]" && git push)
