@@ -863,13 +863,15 @@
         const likes = p.likes?.summary?.total_count ?? 0;
         const comments = p.comments?.summary?.total_count ?? 0;
         const url = p.permalink_url || 'https://www.facebook.com/SophiesGardenMaglod';
-        const imgSrc = p.full_picture || 'https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=500&q=75&auto=format&fit=crop';
+        // Ha nincs FB kép vagy az oldalsó CDN URL lejárt → virágos fallback
+        const fallback = FB_FALLBACKS[i % FB_FALLBACKS.length];
+        const imgSrc = p.full_picture || fallback;
         const msg = (p.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
         return `
           <article class="fb-card pick-card reveal visible" data-delay="${i + 1}" style="transition-delay:${i * 0.08}s">
             <img class="fb-card-img" src="${imgSrc}" alt="Facebook poszt képe" loading="lazy"
-                 onerror="this.src='https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=500&q=75&auto=format&fit=crop'"/>
+                 onerror="this.src='${fallback}'"/>
             <div class="fb-card-body">
               <div class="fb-card-meta">
                 <img src="./logo.png" alt="" class="fb-avatar" aria-hidden="true"
@@ -902,6 +904,14 @@
           </a>`;
       }
     }
+
+    // Virágos fallback képek – ha a scraped kép rossz/hiányzik
+    const FB_FALLBACKS = [
+      'https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=600&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1548198471-4a39b2caa5a9?w=600&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=600&q=80&auto=format&fit=crop',
+    ];
 
     // Fetch fb-posts.json (GitHub Actions frissíti naponta 4×)
     fetch('./fb-posts.json')

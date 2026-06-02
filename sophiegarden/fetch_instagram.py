@@ -106,9 +106,19 @@ def scrape_posts():
         if len(text) < 15:
             continue
 
-        # Kép
-        img = block.find('img', src=re.compile(r'https://scontent'))
-        img_url = img['src'] if img else ''
+        # Kép – csak a poszt tartalmi képét, ne profilképet/ikont
+        img_url = ''
+        for img in block.find_all('img', src=re.compile(r'https://scontent')):
+            src = img.get('src', '')
+            width = int(img.get('width', 0) or 0)
+            height = int(img.get('height', 0) or 0)
+            # Profilkép általában kicsi (< 100px) – kihagyjuk
+            if width and width < 100:
+                continue
+            if 'profile' in src.lower() or 's50x50' in src or 's32x32' in src:
+                continue
+            img_url = src
+            break
 
         # Dátum
         abbr = block.find('abbr')
