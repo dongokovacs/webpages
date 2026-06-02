@@ -1,129 +1,146 @@
 """
-Publikus Facebook oldal legfrissebb posztjainak lekérése
-Playwright headless Chromiummal – API kulcs nélkül
+Publikus Facebook oldal legfrissebb posztjai
+mbasic.facebook.com – szerver-oldali HTML, JS nélkül, login nélkül
 """
-import json
-import sys
-import re
-from datetime import datetime
-from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+import requests
+from bs4 import BeautifulSoup
+import json, sys, re
+from datetime import datetime, timezone
+from urllib.parse import urlparse, parse_qs, urljoin
 
-PAGE_URL = 'https://www.facebook.com/SophiesGardenMaglod'
-OUTPUT   = 'sophiegarden/fb-posts.json'
-LIMIT    = 4
+PAGE    = 'SophiesGardenMaglod'
+BASE    = 'https://mbasic.facebook.com'
+OUTPUT  = 'sophiegarden/fb-posts.json'
+LIMIT   = 4
+
+HEADERS = {
+    'User-Agent': (
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/124.0.0.0 Safari/537.36'
+    ),
+    'Accept-Language': 'hu-HU,hu;q=0.9,en;q=0.8',
+    'Accept': 'text/html,application/xhtml+xml',
+}
 
 
-def scrape(page):
-    posts = []
+def clean_fb_url(href):
+    """mbasic redirect URL-ből valódi URL kinyerése."""
+    if not href:
+        return f'https://www.facebook.com/{PAGE}'
+    if href.startswith('http') and 'facebook.com' in href:
+        return href
+    if href.startswith('/'):
+        # /story.php?story_fbid=... → permalink
+        full = BASE + href
+        parsed = urlparse(full)
+        qs = parse_qs(parsed.query)
+        if 'story_fbid' in qs:
+            fbid = qs['story_fbid'][0]
+            pageid = qs.get('id', [''])[0]
+            return f'https://www.facebook.com/permalink.php?story_fbid={fbid}&id={pageid}'
+        return full
+    return f'https://www.facebook.com/{PAGE}'
 
-    # Facebook login popup elutasítása
-    try:
-        page.click('[aria-label="Bezárás"]', timeout=4000)
-    except Exception:
-        pass
-    try:
-        page.click('[data-testid="cookie-policy-dialog-accept-button"]', timeout=3000)
-    except Exception:
-        pass
 
-    # Cookie accept (EU) – különböző szövegek lehetnek
-    for btn_text in ['Összes elfogadása', 'Allow all cookies', 'Accept all']:
+def parse_timestamp(abbr_el):
+    """<abbr title="..."> → ISO dátum."""
+    if not abbr_el:
+        return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
+    title = abbr_el.get('title', '')
+    # próbálj különböző formátumokat
+    for fmt in ('%Y. %B %d. %H:%M', '%B %d, %Y at %I:%M %p', '%d %B %Y %H:%M'):
         try:
-            page.click(f'text="{btn_text}"', timeout=2000)
-            break
-        except Exception:
+            dt = datetime.strptime(title, fmt)
+            return dt.strftime('%Y-%m-%dT%H:%M:%S+0000')
+        except ValueError:
             pass
+    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
 
-    # Görgessünk le egy kicsit hogy betöltődjön a feed
-    page.wait_for_timeout(2000)
-    page.evaluate('window.scrollBy(0, 800)')
-    page.wait_for_timeout(2000)
 
-    # Posztok keresése – Facebook article elemek
-    articles = page.query_selector_all('div[role="article"]')
+def scrape_posts():
+    url = f'{BASE}/{PAGE}'
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=20)
+        r.raise_for_status()
+    except Exception as e:
+        print(f'Hálózati hiba: {e}', file=sys.stderr)
+        return []
 
-    for article in articles:
+    soup = BeautifulSoup(r.text, 'html.parser')
+
+    # mbasic struktúra: #structured_composer_async_container > div > div > ...
+    # Posztok általában article vagy egyedi div id-vel
+    posts = []
+    seen_texts = set()
+
+    # Próbálkozzunk több selectorral
+    candidates = (
+        soup.select('div[id^="u_"] > div')       # mbasic poszt konténerek
+        or soup.select('article')
+        or soup.select('div._55wp')               # régebbi mbasic class
+    )
+
+    # Fallback: keressük az összes <p> elemet ami szöveg
+    if not candidates:
+        # Próbáljuk a teljes oldal szöveg blokkjait
+        candidates = soup.find_all('div', {'data-ft': True})
+
+    print(f'Talált jelöltek: {len(candidates)}')
+
+    for block in candidates:
         if len(posts) >= LIMIT:
             break
-        try:
-            # Szöveg
-            msg_el = article.query_selector('div[data-ad-preview="message"]')
-            if not msg_el:
-                # Próbálkozás más selectorral
-                spans = article.query_selector_all('span[dir="auto"]')
-                text = ' '.join(s.inner_text() for s in spans[:3] if s.inner_text().strip())
-            else:
-                text = msg_el.inner_text()
 
-            if not text or len(text) < 10:
-                continue
+        # Szöveg kinyerése
+        text_el = block.find('p') or block.find('span') or block
+        text = text_el.get_text(' ', strip=True) if text_el else ''
 
-            # Kép URL
-            img_el = article.query_selector('img[referrerpolicy]')
-            img_url = img_el.get_attribute('src') if img_el else ''
-
-            # Link a poszthoz
-            link_el = article.query_selector('a[href*="/posts/"], a[href*="/permalink/"]')
-            permalink = link_el.get_attribute('href') if link_el else PAGE_URL
-            if permalink and not permalink.startswith('http'):
-                permalink = 'https://www.facebook.com' + permalink
-
-            # Dátum – ha van timestamp
-            time_el = article.query_selector('abbr[data-utime]')
-            if time_el:
-                ts = int(time_el.get_attribute('data-utime'))
-                created = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S+0000')
-            else:
-                created = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S+0000')
-
-            posts.append({
-                'id':           permalink.split('/')[-2] if permalink != PAGE_URL else str(len(posts)),
-                'message':      text.strip(),
-                'full_picture': img_url,
-                'created_time': created,
-                'likes':        {'summary': {'total_count': 0}},
-                'comments':     {'summary': {'total_count': 0}},
-                'permalink_url': permalink,
-            })
-        except Exception as e:
-            print(f'  Poszt parse hiba: {e}', file=sys.stderr)
+        # Szűrés: legalább 20 karakter, ne legyen duplikált
+        if len(text) < 20 or text in seen_texts:
             continue
+        seen_texts.add(text)
+
+        # Link a poszthoz
+        link_el = block.find('a', href=re.compile(r'(story|permalink|photo)'))
+        permalink = clean_fb_url(link_el['href'] if link_el else None)
+
+        # Kép
+        img_el = block.find('img')
+        img_url = img_el['src'] if img_el and img_el.get('src', '').startswith('http') else ''
+
+        # Dátum
+        abbr_el = block.find('abbr')
+        created = parse_timestamp(abbr_el)
+
+        posts.append({
+            'id':           str(len(posts) + 1),
+            'message':      text,
+            'full_picture': img_url,
+            'created_time': created,
+            'likes':        {'summary': {'total_count': 0}},
+            'comments':     {'summary': {'total_count': 0}},
+            'permalink_url': permalink,
+        })
 
     return posts
 
 
 def main():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=['--no-sandbox', '--disable-dev-shm-usage', '--disable-blink-features=AutomationControlled'],
-        )
-        ctx = browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            locale='hu-HU',
-            viewport={'width': 1280, 'height': 800},
-        )
-        page = ctx.new_page()
+    posts = scrape_posts()
 
-        try:
-            page.goto(PAGE_URL, wait_until='domcontentloaded', timeout=30000)
-        except PWTimeout:
-            print('Timeout az oldal betöltésekor', file=sys.stderr)
-            sys.exit(1)
-
-        posts = scrape(page)
-        browser.close()
-
+    # Debug: ha kevés adat jött, mentse el az oldal HTML-jét a loghoz
     if not posts:
-        print('Nem sikerült posztokat beolvasni – régi adatok maradnak', file=sys.stderr)
-        sys.exit(0)   # 0 = ne bukjon el a workflow, csak tartsa a régit
+        print('Nem sikerült posztot kinyerni.', file=sys.stderr)
+        print('Próbáld manuálisan: https://mbasic.facebook.com/SophiesGardenMaglod', file=sys.stderr)
+        sys.exit(0)   # exit 0 = workflow ne bukjon, régi adatok maradjanak
 
     with open(OUTPUT, 'w', encoding='utf-8') as f:
-        json.dump({'_source': 'facebook', 'data': posts}, f, ensure_ascii=False, indent=2)
+        json.dump({'_source': 'facebook_mbasic', 'data': posts}, f, ensure_ascii=False, indent=2)
 
     print(f'OK: {len(posts)} poszt mentve')
     for p in posts:
-        print(f"  {p['created_time'][:10]}  {p['message'][:70]}")
+        print(f"  {p['created_time'][:10]}  {p['message'][:80]}")
 
 
 if __name__ == '__main__':
