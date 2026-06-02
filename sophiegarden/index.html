@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="Sophie's Garden – Virágkötő műhely Maglódon. Kézzel kötött bokrok, szezonális virágok, személyes tanácsadás. Minden 2. héten a maglódi piacon."/>
+  <title>Sophie's Garden – Virágos világod · Maglód</title>
+
+  <!-- Favicon: SVG flower -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ═══════════════════════════════
+       TOKENS
+    ═══════════════════════════════ */
+    :root {
+      --bg:      #fffef9;
+      --surface: #ffffff;
+      --surface2:#f7f2e8;
+      --border:  rgba(0,0,0,.07);
+      --text:    #2a1f1a;
+      --mid:     #7a6a5a;
+      --faint:   #b5a090;
+      --green:   #5a7a5a;
+      --green-d: #3d5c3d;
+      --green-l: #7a9e7a;
+      --green-bg:rgba(90,122,90,.07);
+      --green-border:rgba(90,122,90,.2);
+      --clay:    #b5775c;
+      --clay-bg: rgba(181,119,92,.08);
+      --cream:   #f5ede0;
+      --shadow-sm:0 1px 4px rgba(42,31,26,.06);
+      --shadow-md:0 4px 20px rgba(42,31,26,.09);
+      --shadow-lg:0 16px 48px rgba(42,31,26,.12);
+      --r: 14px;
+    }
+    [data-theme="dark"] {
+      --bg:      #1a1410;
+      --surface: #221c16;
+      --surface2:#2a221a;
+      --border:  rgba(255,255,255,.07);
+      --text:    #f0e8dc;
+      --mid:     #9a8a78;
+      --faint:   #5a4a3a;
+      --green:   #8ab88a;
+      --green-d: #6a9c6a;
+      --green-l: #a0c8a0;
+      --green-bg:rgba(138,184,138,.08);
+      --green-border:rgba(138,184,138,.2);
+      --clay:    #c88a70;
+      --clay-bg: rgba(200,138,112,.08);
+      --cream:   #2a2018;
+      --shadow-sm:0 1px 4px rgba(0,0,0,.3);
+      --shadow-md:0 4px 20px rgba(0,0,0,.4);
+      --shadow-lg:0 16px 48px rgba(0,0,0,.5);
+    }
+
+    /* ═══════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════ */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s;line-height:1.65}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    svg{display:block}
+
+    /* Accessibility */
+    .skip-link{position:absolute;top:-100px;left:16px;background:var(--green);color:#fff;padding:10px 20px;border-radius:0 0 var(--r) var(--r);font-size:.9rem;font-weight:700;z-index:9999;transition:top .2s}
+    .skip-link:focus{top:0}
+    :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+    /* Scroll reveal */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    [data-delay="1"]{transition-delay:.08s}[data-delay="2"]{transition-delay:.16s}
+    [data-delay="3"]{transition-delay:.24s}[data-delay="4"]{transition-delay:.32s}
+    [data-delay="5"]{transition-delay:.40s}
+
+    /* ═══════════════════════════════
+       LAYOUT
+    ═══════════════════════════════ */
+    .container{max-width:1100px;margin:0 auto;padding:0 24px}
+    section{padding:84px 0}
+    .section-label{font-size:.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:block}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:500;line-height:1.2;letter-spacing:-.3px;margin-bottom:16px}
+    .section-sub{font-size:1rem;color:var(--mid);line-height:1.75;max-width:520px}
+
+    /* ═══════════════════════════════
+       NAVBAR
+    ═══════════════════════════════ */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0;transition:all .3s}
+    #navbar.scrolled{background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-md)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);transition:transform .3s}
+    .nav-logo:hover .nav-logo-img{transform:rotate(-6deg) scale(1.06)}
+    .nav-logo-text{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;letter-spacing:-.2px;transition:color .25s}
+    .nav-logo-sub{font-size:.62rem;font-weight:500;color:var(--mid);display:block;margin-top:-3px;letter-spacing:.5px;font-family:'Outfit',sans-serif}
+    #navbar:not(.scrolled) .nav-logo-text{color:#fff}
+    #navbar:not(.scrolled) .nav-logo-sub{color:rgba(255,255,255,.65)}
+    @media(max-width:960px){.nav-logo-text,.nav-logo-sub{display:none}}
+    .nav-links{display:flex;align-items:center;gap:2px}
+    .nav-links a{padding:7px 14px;border-radius:8px;font-size:.875rem;font-weight:400;color:var(--mid);transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    #navbar:not(.scrolled) .nav-links a{color:rgba(255,255,255,.78)}
+    #navbar:not(.scrolled) .nav-links a:hover{color:#fff;background:rgba(255,255,255,.12)}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    /* Theme toggle */
+    .theme-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--mid);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+    .theme-btn:hover{color:var(--green);border-color:var(--green-border)}
+    #navbar:not(.scrolled) .theme-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:rgba(255,255,255,.8)}
+    [data-theme="light"] .icon-moon{display:none}
+    [data-theme="dark"] .icon-sun{display:none}
+    /* Features btn */
+    @keyframes feat-pulse{0%,100%{box-shadow:0 0 0 0 rgba(90,122,90,.45)}60%{box-shadow:0 0 0 6px rgba(90,122,90,0)}}
+    @media(prefers-reduced-motion:no-preference){.feat-btn{animation:feat-pulse 2.6s ease-out infinite}}
+    .feat-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--green-border);background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;transition:all .2s;flex-shrink:0;position:relative}
+    .feat-btn:hover{background:var(--green);color:#fff;border-color:var(--green);animation:none}
+    #navbar:not(.scrolled) .feat-btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);color:#fff}
+    @keyframes feat-pulse-light{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.3)}60%{box-shadow:0 0 0 6px rgba(255,255,255,0)}}
+    @media(prefers-reduced-motion:no-preference){#navbar:not(.scrolled) .feat-btn{animation:feat-pulse-light 2.6s ease-out infinite}}
+    /* Feat popover */
+    .feat-popover{position:fixed;top:80px;right:16px;width:320px;max-height:calc(100dvh - 96px);background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:20px;z-index:2000;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:opacity .2s cubic-bezier(.16,1,.3,1),transform .2s cubic-bezier(.16,1,.3,1);transform-origin:top right;display:flex;flex-direction:column}
+    .feat-popover.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+    .feat-popover-head{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);font-family:'Outfit',sans-serif}
+    .feat-list{overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:var(--border) transparent;display:flex;flex-direction:column;gap:9px}
+    .feat-row{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;line-height:1.45}
+    .feat-check{width:18px;height:18px;border-radius:50%;background:var(--green-bg);border:1.5px solid var(--green-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green);margin-top:1px}
+    .feat-check svg{width:9px;height:9px}
+    .feat-row-title{font-weight:700;color:var(--text)}
+    .feat-row-sub{color:var(--mid);font-size:.78rem;margin-top:1px}
+    /* Nav CTA */
+    .nav-cta{background:var(--green);color:#fff;padding:9px 20px;border-radius:9px;font-size:.875rem;font-weight:600;transition:background .2s,transform .15s;white-space:nowrap}
+    .nav-cta:hover{background:var(--green-d);transform:translateY(-1px)}
+    /* Hamburger */
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;border-radius:8px}
+    .hamburger span{display:block;height:2px;width:20px;border-radius:2px;background:var(--text);transition:all .3s}
+    #navbar:not(.scrolled) .hamburger span{background:#fff}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mobile-menu{display:none;position:fixed;inset:68px 0 auto;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px 20px;flex-direction:column;gap:2px;box-shadow:var(--shadow-md);z-index:999}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{padding:11px 14px;border-radius:9px;font-size:.95rem;color:var(--text);transition:background .15s}
+    .mobile-menu a:hover{background:var(--surface2)}
+    .mobile-menu .m-cta{background:var(--green);color:#fff;text-align:center;font-weight:600;margin-top:6px;border-radius:9px;padding:13px}
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    .hero{min-height:100dvh;display:flex;align-items:center;padding:100px 0 72px;position:relative;overflow:hidden;
+      background:linear-gradient(160deg,#e8ede0 0%,#f5ede0 45%,#e0d8c8 100%)}
+    [data-theme="dark"] .hero{background:linear-gradient(160deg,#1a2018 0%,#221c14 45%,#1a1810 100%)}
+    /* Subtle texture */
+    .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(90,122,90,.12) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;opacity:.6}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+    .hero-content{}
+    .hero-label{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:20px;font-family:'Outfit',sans-serif}
+    .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:400;line-height:1.08;letter-spacing:-.5px;margin-bottom:20px;color:var(--text)}
+    .hero-title em{font-style:italic;color:var(--green-d)}
+    [data-theme="dark"] .hero-title em{color:var(--green)}
+    .hero-sub{font-size:1.05rem;color:var(--mid);line-height:1.75;margin-bottom:36px;max-width:460px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:14px 26px;border-radius:10px;font-size:.95rem;font-weight:600;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 18px rgba(90,122,90,.3)}
+    .btn-primary:hover{background:var(--green-d);transform:translateY(-2px);box-shadow:0 8px 28px rgba(90,122,90,.4)}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);padding:14px 22px;border-radius:10px;font-size:.95rem;font-weight:500;border:1.5px solid var(--border);transition:border-color .2s,transform .15s}
+    .btn-outline:hover{border-color:var(--green);transform:translateY(-2px)}
+    .hero-trust{display:flex;gap:10px;flex-wrap:wrap}
+    .trust-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.6);border-radius:50px;padding:7px 14px;font-size:.8rem;font-weight:500;color:var(--text)}
+    [data-theme="dark"] .trust-pill{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.1);color:var(--text)}
+    /* Growing flower animation */
+    .hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+    .flower-scene{width:340px;height:400px;position:relative}
+    .flower-scene svg{width:100%;height:100%}
+    /* Stem */
+    .stem-path{stroke:var(--green-d);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-dasharray:300;stroke-dashoffset:300}
+    @media(prefers-reduced-motion:no-preference){.stem-path{animation:draw-stem 1.4s cubic-bezier(.16,1,.3,1) .3s forwards}}
+    @keyframes draw-stem{to{stroke-dashoffset:0}}
+    /* Leaves */
+    .leaf-l,.leaf-r{fill:var(--green-l);opacity:0;transform-origin:center bottom}
+    @media(prefers-reduced-motion:no-preference){
+      .leaf-l{animation:leaf-appear .6s cubic-bezier(.34,1.56,.64,1) 1.2s forwards}
+      .leaf-r{animation:leaf-appear .6s cubic-bezier(.34,1.56,.64,1) 1.5s forwards}
+    }
+    @keyframes leaf-appear{from{opacity:0;transform:scale(0) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
+    /* Petals */
+    .petal{fill:var(--clay);opacity:0;transform-origin:50% 65%}
+    @media(prefers-reduced-motion:no-preference){
+      .petal:nth-child(1){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards}
+      .petal:nth-child(2){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.0s forwards}
+      .petal:nth-child(3){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.1s forwards}
+      .petal:nth-child(4){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.2s forwards}
+      .petal:nth-child(5){animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.3s forwards}
+    }
+    @keyframes petal-bloom{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+    .flower-center{fill:#f5c77a;opacity:0}
+    @media(prefers-reduced-motion:no-preference){.flower-center{animation:petal-bloom .4s ease 2.5s forwards}}
+    /* Small accent flowers */
+    .accent-flower{opacity:0}
+    @media(prefers-reduced-motion:no-preference){
+      .accent-flower:nth-child(1){animation:petal-bloom .5s ease 2.7s forwards}
+      .accent-flower:nth-child(2){animation:petal-bloom .5s ease 2.9s forwards}
+    }
+    /* Logo in hero */
+    .hero-logo{width:180px;height:180px;object-fit:contain;border-radius:50%;box-shadow:var(--shadow-lg);border:3px solid rgba(255,255,255,.8);background:#fff;opacity:0;transform:scale(.9)}
+    @media(prefers-reduced-motion:no-preference){.hero-logo{animation:logo-appear .8s cubic-bezier(.16,1,.3,1) .1s forwards}}
+    @keyframes logo-appear{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    .hero-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .logo-tagline{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:var(--mid);text-align:center}
+
+    /* ═══════════════════════════════
+       TODAY'S PICKS
+    ═══════════════════════════════ */
+    #kinalet{background:var(--surface)}
+    .picks-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:48px}
+    .picks-date{font-size:.78rem;color:var(--clay);font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:8px;margin-top:12px;font-family:'Outfit',sans-serif}
+    /* Masonry-like grid – intentionally not equal */
+    .picks-masonry{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+    .pick-card{border-radius:var(--r);overflow:hidden;background:var(--bg);border:1px solid var(--border);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;cursor:pointer}
+    .pick-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+    .pick-card:nth-child(2){margin-top:28px}
+    .pick-card:nth-child(3){margin-top:14px}
+    .pick-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--cream)}
+    .pick-img-placeholder{width:100%;aspect-ratio:3/4;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:3rem}
+    .pick-body{padding:18px 20px}
+    .pick-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;margin-bottom:5px}
+    .pick-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:14px}
+    .pick-footer{display:flex;justify-content:space-between;align-items:center}
+    .pick-price{font-size:1rem;font-weight:700;color:var(--green)}
+    .pick-badge{font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:50px}
+    .badge-fresh{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+    .badge-seasonal{background:var(--clay-bg);color:var(--clay);border:1px solid rgba(181,119,92,.2)}
+    .picks-note{margin-top:32px;padding:20px 24px;background:var(--cream);border-radius:var(--r);border:1px solid rgba(181,119,92,.12)}
+    [data-theme="dark"] .picks-note{background:var(--surface2)}
+    .picks-note p{font-size:.88rem;color:var(--mid);line-height:1.7;font-style:italic}
+    .picks-note p::before{content:'"';font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--clay);line-height:0;vertical-align:-.3em;margin-right:4px}
+
+    /* ═══════════════════════════════
+       ABOUT
+    ═══════════════════════════════ */
+    #rolunk{background:var(--bg)}
+    .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:center}
+    .about-img-col{position:relative}
+    .about-img-main{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:3/4;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:5rem}
+    .about-img-accent{position:absolute;bottom:-20px;right:-20px;width:55%;border-radius:14px;overflow:hidden;border:4px solid var(--surface);box-shadow:var(--shadow-md);aspect-ratio:1;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+    .about-text{}
+    .about-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;line-height:1.2;margin-bottom:20px}
+    .about-body{font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:16px}
+    .about-body + .about-body{margin-bottom:28px}
+    .about-values{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+    .value-item{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;line-height:1.5}
+    .value-dot{width:6px;height:6px;border-radius:50%;background:var(--clay);flex-shrink:0;margin-top:7px}
+    .value-text strong{font-weight:700}
+
+    /* ═══════════════════════════════
+       MARKET
+    ═══════════════════════════════ */
+    .market-banner{background:linear-gradient(135deg,#3d5c3d 0%,#5a7a5a 60%,#7a9e7a 100%);padding:72px 0;position:relative;overflow:hidden}
+    .market-banner::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:20px 20px}
+    [data-theme="dark"] .market-banner{background:linear-gradient(135deg,#1a2a1a 0%,#2a402a 60%,#3a5a3a 100%)}
+    .market-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+    .market-text .section-label{color:#a0d4a0}
+    .market-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:500;color:#fff;line-height:1.2;margin-bottom:14px}
+    .market-sub{font-size:1rem;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:28px}
+    .market-facts{display:flex;flex-direction:column;gap:12px}
+    .market-fact{display:flex;align-items:flex-start;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.5}
+    .mf-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+    .market-cta-col{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--green-d);padding:14px 28px;border-radius:10px;font-size:.95rem;font-weight:700;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+    .btn-ghost-white{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:14px 24px;border-radius:10px;font-size:.95rem;font-weight:500;transition:all .2s}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .market-note{font-size:.8rem;color:rgba(255,255,255,.5);font-style:italic;margin-top:4px}
+
+    /* ═══════════════════════════════
+       CONTACT
+    ═══════════════════════════════ */
+    #kapcsolat{background:var(--surface)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start}
+    .contact-left{}
+    .contact-block{padding:18px 0;border-top:1px solid var(--border)}
+    .contact-block:last-child{border-bottom:1px solid var(--border)}
+    .c-label{font-size:.67rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:7px;font-family:'Outfit',sans-serif}
+    .c-value{font-size:.98rem;font-weight:500;color:var(--text);line-height:1.5}
+    .c-value a{color:var(--text);transition:color .15s}
+    .c-value a:hover{color:var(--green)}
+    .c-sub{font-size:.8rem;color:var(--mid);margin-top:3px}
+    .social-row{display:flex;gap:16px;margin-top:5px}
+    .social-link{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:500;color:var(--mid);transition:color .15s}
+    .social-link svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+    .social-link:hover{color:var(--text)}
+    .contact-form{}
+    .form-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;margin-bottom:6px}
+    .form-sub{font-size:.85rem;color:var(--mid);margin-bottom:24px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+    .field label{font-size:.8rem;font-weight:600;color:var(--text)}
+    .field input,.field textarea,.field select{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:11px 14px;font-size:.9rem;font-family:'Outfit',sans-serif;color:var(--text);transition:border-color .2s,box-shadow .2s;outline:none;resize:none}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-bg)}
+    .field textarea{height:100px}
+    .form-submit{width:100%;background:var(--green);color:#fff;padding:13px;border-radius:10px;font-size:.95rem;font-weight:600;font-family:'Outfit',sans-serif;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;box-shadow:0 4px 14px rgba(90,122,90,.28)}
+    .form-submit:hover{background:var(--green-d);transform:translateY(-1px)}
+    .form-success{display:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:10px;padding:18px;text-align:center;color:var(--green);font-weight:600;font-size:.9rem}
+    .mailto-link{display:inline-flex;align-items:center;gap:7px;color:var(--green);font-size:.85rem;font-weight:600;margin-top:12px;transition:opacity .15s}
+    .mailto-link:hover{opacity:.75;text-decoration:underline}
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    body > footer{background:var(--text);color:rgba(255,255,255,.5);padding:52px 0 28px}
+    [data-theme="dark"] body > footer{background:#100c08}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;margin-bottom:40px}
+    .footer-brand{}
+    .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .footer-logo-img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.15)}
+    .footer-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:#fff}
+    .footer-tagline{font-size:.82rem;color:rgba(255,255,255,.38);line-height:1.65;max-width:230px;margin-bottom:16px;font-style:italic}
+    .footer-socials{display:flex;gap:8px}
+    .f-social{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:all .2s}
+    .f-social svg{width:16px;height:16px;fill:currentColor}
+    .f-social:hover{background:rgba(90,122,90,.3);border-color:rgba(138,184,138,.3);color:#fff}
+    .footer-col h4{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px;font-family:'Outfit',sans-serif}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .footer-col ul li a,.footer-col ul li span{font-size:.82rem;color:rgba(255,255,255,.42);transition:color .2s}
+    .footer-col ul li a:hover{color:rgba(255,255,255,.85)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    .footer-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
+
+    /* SteelDecor banner */
+    .sd-banner{background:#18181b;padding:40px 0;border-top:1px solid rgba(255,255,255,.04)}
+    .sd-inner{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+    .sd-left{flex:1;min-width:200px}
+    .sd-eyebrow{font-size:.64rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:10px;font-family:'Outfit',sans-serif}
+    .sd-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .sd-logo-icon{width:34px;height:34px;border-radius:8px;overflow:hidden;flex-shrink:0}
+    .sd-name{font-size:.98rem;font-weight:800;color:#f4efe4;letter-spacing:-.3px;font-family:'Outfit',sans-serif}
+    .sd-url{font-size:.7rem;color:rgba(255,255,255,.25);display:block}
+    .sd-tagline{font-size:.78rem;color:rgba(255,255,255,.33);line-height:1.6;max-width:280px}
+    .sd-div{width:1px;height:64px;background:rgba(255,255,255,.06);flex-shrink:0}
+    .sd-right{display:flex;flex-direction:column;gap:14px}
+    .sd-cta{display:inline-flex;align-items:center;gap:7px;background:rgba(244,239,228,.06);border:1px solid rgba(244,239,228,.1);border-radius:8px;padding:9px 16px;font-size:.8rem;font-weight:600;color:rgba(244,239,228,.6);transition:all .2s;font-family:'Outfit',sans-serif}
+    .sd-cta svg{width:13px;height:13px;transition:transform .2s}
+    .sd-cta:hover{background:rgba(244,239,228,.12);color:#f4efe4;border-color:rgba(244,239,228,.22)}
+    .sd-cta:hover svg{transform:translateX(3px)}
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr;gap:40px}
+      .hero-visual{order:-1}
+      .picks-masonry{grid-template-columns:1fr 1fr}
+      .picks-masonry .pick-card:nth-child(3){display:none}
+      .about-grid{grid-template-columns:1fr;gap:40px}
+      .about-img-col{display:none}
+      .market-inner{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .picks-intro{grid-template-columns:1fr}
+      .sd-div{display:none}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      section{padding:64px 0}
+      .hero{padding:80px 0 56px}
+      .hero-title{font-size:2.4rem}
+      .form-row{grid-template-columns:1fr}
+      .flower-scene{width:240px;height:280px}
+    }
+    @media(max-width:480px){
+      .hero-btns{flex-direction:column;align-items:flex-start}
+      .picks-masonry{grid-template-columns:1fr}
+      .picks-masonry .pick-card:nth-child(n){margin-top:0}
+      .footer-grid{grid-template-columns:1fr}
+      .market-inner{gap:32px}
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ugrás a tartalomra</a>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar" aria-label="Főnavigáció">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Sophie's Garden – főoldal">
+          <img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/>
+          <div>
+            <div class="nav-logo-text">Sophie's Garden</div>
+            <span class="nav-logo-sub">Virágos világod · Maglód</span>
+          </div>
+        </a>
+
+        <div class="nav-links" role="list">
+          <a href="#kinalet" role="listitem">Mai kínálat</a>
+          <a href="#rolunk" role="listitem">Rólunk</a>
+          <a href="#kapcsolat" role="listitem">Kapcsolat</a>
+        </div>
+
+        <div class="nav-right">
+          <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+
+          <div style="position:relative">
+            <button class="feat-btn" id="feat-btn" aria-label="Oldal funkciók" aria-expanded="false" aria-controls="feat-popover">✦</button>
+            <div class="feat-popover" id="feat-popover" role="dialog" aria-label="Oldal funkciók">
+              <div class="feat-popover-head">Mit tud ez az oldal?</div>
+              <div class="feat-list">
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Virág-növekvő animáció</div><div class="feat-row-sub">A hero szekcióban egy szár, levelek és szirom animáció jelenik meg betöltéskor – CSS + SVG, JS nélkül</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Sötét és világos mód</div><div class="feat-row-sub">A hold/nap ikonnal átválthatod – a beállítás megmarad a következő látogatásnál is</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Animált görgetés</div><div class="feat-row-sub">Az elemek finoman úsznak be, ahogy legörgetsz – nem ugrik elő hirtelen semmi</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Mobilon is tökéletes</div><div class="feat-row-sub">Telefonon, tableten, számítógépen egyaránt szép – a menü is összecsukódik kis képernyőn</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Látássérülteknek is használható</div><div class="feat-row-sub">Billentyűzettel is végig lehet navigálni, képernyőolvasó programok értik az egész oldalt</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Kíméli a szemet mozgásnál</div><div class="feat-row-sub">Ha a telefonod mozgáscsökkentett módban van, az animációk automatikusan kikapcsolnak</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Simán görget a helyes szekcióba</div><div class="feat-row-sub">A menü linkjeire kattintva az oldal lassan odagörget, nem teleportál hirtelen</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Üzenetküldés egy kattintással</div><div class="feat-row-sub">A kapcsolati form megnyitja az email programodat – Gmail, Outlook, bármi működik</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#kapcsolat" class="nav-cta">Rendelés</a>
+          <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenü">
+    <a href="#kinalet" onclick="closeMenu()">Mai kínálat</a>
+    <a href="#rolunk" onclick="closeMenu()">Rólunk</a>
+    <a href="#kapcsolat" onclick="closeMenu()">Kapcsolat</a>
+    <a href="#kapcsolat" class="m-cta" onclick="closeMenu()">Rendelés leadása</a>
+  </div>
+
+  <main id="main">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="hero-label reveal">Kézzel kötött, szívből adott</span>
+            <h1 class="hero-title reveal" id="hero-title" data-delay="1">
+              Friss virágok,<br/><em>igazi érzések.</em>
+            </h1>
+            <p class="hero-sub reveal" data-delay="2">
+              Nem tökéletes, hanem valódi. Minden csokrot kézzel kötök, szezonális virágokból, ahogy a piacon éppen a legszebb darabok megmutatják magukat.
+            </p>
+            <div class="hero-btns reveal" data-delay="3">
+              <a href="#kinalet" class="btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                Mai kínálat
+              </a>
+              <a href="#kapcsolat" class="btn-outline">Rendelés leadása</a>
+            </div>
+            <div class="hero-trust reveal" data-delay="4" role="list" aria-label="Alapinformációk">
+              <div class="trust-pill" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Maglódi piac · minden 2. héten
+              </div>
+              <div class="trust-pill" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Kézzel kötött, szezonális
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal" data-delay="2">
+            <div class="hero-logo-wrap">
+              <img src="./logo.png" alt="Sophie's Garden logó – körkörös design virágokkal" class="hero-logo"/>
+              <p class="logo-tagline">„Virágos világod"</p>
+              <!-- Growing flower SVG animation -->
+              <div class="flower-scene" aria-hidden="true">
+                <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Stem -->
+                  <path class="stem-path" d="M100 260 Q95 220 100 180 Q105 140 98 100"/>
+                  <!-- Small side stems -->
+                  <path class="stem-path" d="M99 200 Q80 190 70 175" style="stroke-dasharray:60;stroke-dashoffset:60;animation-delay:.8s;stroke-width:1.8"/>
+                  <path class="stem-path" d="M100 170 Q118 158 128 142" style="stroke-dasharray:50;stroke-dashoffset:50;animation-delay:1.0s;stroke-width:1.8"/>
+                  <!-- Left leaf -->
+                  <ellipse class="leaf-l" cx="62" cy="174" rx="18" ry="10" transform="rotate(-35 62 174)"/>
+                  <!-- Right leaf -->
+                  <ellipse class="leaf-r" cx="133" cy="142" rx="16" ry="9" transform="rotate(30 133 142)"/>
+                  <!-- Petals -->
+                  <g transform="translate(98,92)">
+                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(0)"/>
+                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(72)"/>
+                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(144)"/>
+                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(216)"/>
+                    <ellipse class="petal" cx="0" cy="-20" rx="9" ry="16" transform="rotate(288)"/>
+                    <!-- Center -->
+                    <circle class="flower-center" cx="0" cy="0" r="10"/>
+                  </g>
+                  <!-- Small accent flowers -->
+                  <g class="accent-flower" transform="translate(68,170)">
+                    <circle r="4" fill="#e8a87c" opacity=".7"/>
+                  </g>
+                  <g class="accent-flower" transform="translate(132,138)">
+                    <circle r="3.5" fill="#c8a060" opacity=".6"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TODAY'S PICKS ══ -->
+    <section id="kinalet" aria-labelledby="picks-title">
+      <div class="container">
+        <div class="picks-intro">
+          <div>
+            <span class="section-label reveal">Mai kínálat</span>
+            <h2 class="section-title reveal" id="picks-title" data-delay="1">Ami ma a legjobb<br/>a piacon.</h2>
+            <div class="picks-date reveal" data-delay="2" aria-label="Frissítés dátuma">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Frissítve: minden héten
+            </div>
+          </div>
+          <p class="section-sub reveal" data-delay="2" style="margin-top:auto">A kínálat a szezonhoz és a piaci frissességhez igazodik. Amit itt látod, azt ma reggel válogattam.</p>
+        </div>
+
+        <div class="picks-masonry" role="list">
+          <article class="pick-card reveal" role="listitem" data-delay="1">
+            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌸</div>
+            <div class="pick-body">
+              <div class="pick-name">Vegyes mezei csokor</div>
+              <div class="pick-desc">Liziantusz, gypsophila és szezonális zöldek – olyan, mintha a réten szedted volna.</div>
+              <div class="pick-footer">
+                <span class="pick-price">2 900 Ft-tól</span>
+                <span class="pick-badge badge-fresh">Friss</span>
+              </div>
+            </div>
+          </article>
+          <article class="pick-card reveal" role="listitem" data-delay="2">
+            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌺</div>
+            <div class="pick-body">
+              <div class="pick-name">Romantikus rózsa válogatás</div>
+              <div class="pick-desc">Pasztell árnyalatú rózsák, levélzöld kísérettel. Klasszikus, de nem unalmas.</div>
+              <div class="pick-footer">
+                <span class="pick-price">3 900 Ft-tól</span>
+                <span class="pick-badge badge-seasonal">Szezonális</span>
+              </div>
+            </div>
+          </article>
+          <article class="pick-card reveal" role="listitem" data-delay="3">
+            <div class="pick-img-placeholder" aria-label="Fotó hamarosan">🌼</div>
+            <div class="pick-body">
+              <div class="pick-name">Egyedi kézzel kötött megrendelés</div>
+              <div class="pick-desc">Mondd el az alkalmat, a színeket, a hangulatot – a többi az én dolgom.</div>
+              <div class="pick-footer">
+                <span class="pick-price">Egyedi áron</span>
+                <span class="pick-badge badge-fresh">Megrendelésre</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="picks-note reveal" data-delay="4">
+          <p>Ma reggel gyönyörű liziantuszok és fehér gypsophila érkeztek – belőlük kötöttem a mai mezei csokrokat. Ha valami különlegeset szeretnél, írj, és megbeszéljük.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ABOUT ══ -->
+    <section id="rolunk" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-img-col reveal">
+            <div class="about-img-main" aria-label="Sophie portré fotó helye">🌿</div>
+            <div class="about-img-accent" aria-label="Műhely fotó helye">✂️</div>
+          </div>
+          <div>
+            <span class="section-label reveal">Rólunk</span>
+            <h2 class="about-title reveal" id="about-title" data-delay="1">Nem egy virágbolt.<br/>Egy kis virágos világ.</h2>
+            <p class="about-body reveal" data-delay="2">Sophie's Garden nem egy nagy lánc, nem egy szupermarket sarok – ez egy ember és a szeretete a virágok iránt. Minden csokor kézzel készül, minden alkalom személyes figyelmet kap.</p>
+            <p class="about-body reveal" data-delay="3">Mert egy virág nem csak díszítés. Egy jól megkötött csokor azt mondja: odafigyeltem rád.</p>
+            <div class="about-values reveal" data-delay="4">
+              <div class="value-item"><div class="value-dot" aria-hidden="true"></div><div class="value-text"><strong>Szezonális alapanyagok</strong> – amit éppen a természet ad, azt dolgozzuk fel</div></div>
+              <div class="value-item"><div class="value-dot" aria-hidden="true"></div><div class="value-text"><strong>Személyre szabott</strong> – minden megrendelés egyedi, nem sablon</div></div>
+              <div class="value-item"><div class="value-dot" aria-hidden="true"></div><div class="value-text"><strong>Helyi jelenlét</strong> – a maglódi piacon is megtalálsz, személyesen</div></div>
+              <div class="value-item"><div class="value-dot" aria-hidden="true"></div><div class="value-text"><strong>Őszinte kommunikáció</strong> – ha valami nem megy, megmondom, és keresünk megoldást</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MARKET ══ -->
+    <div class="market-banner" aria-label="Piaci jelenlét">
+      <div class="container">
+        <div class="market-inner">
+          <div class="market-text">
+            <span class="section-label reveal">Piac</span>
+            <h2 class="market-title reveal" id="market-title" data-delay="1">Maglódi piacon is<br/>megtalálsz.</h2>
+            <p class="market-sub reveal" data-delay="2">Minden második héten ott vagyok a piacon – hozzál egy szatyrát, és hazaviheted a legfrissebb csokrot. Nincs előrendelés, nincs várólista, csak válassz.</p>
+            <div class="market-facts reveal" data-delay="3">
+              <div class="market-fact">
+                <div class="mf-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <span>Minden <strong>2. héten szombaton</strong> – a pontos dátumot Instán és Facebookon jelzem</span>
+              </div>
+              <div class="market-fact">
+                <div class="mf-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <span><strong>Maglódi piac</strong> – Maglód, Fő tér közelében</span>
+              </div>
+            </div>
+          </div>
+          <div class="market-cta-col reveal" data-delay="2">
+            <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="btn-white" aria-label="Facebook oldal (új lapon)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Kövess Facebookon
+            </a>
+            <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="btn-ghost-white" aria-label="Instagram oldal (új lapon)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              @sophiesgarden_maglod
+            </a>
+            <p class="market-note">A következő piaci napot a közösségi oldalakon hirdetem meg előre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CONTACT ══ -->
+    <section id="kapcsolat" aria-labelledby="contact-title">
+      <div class="container">
+        <span class="section-label reveal">Kapcsolat</span>
+        <h2 class="section-title reveal" id="contact-title" data-delay="1">Írj, és megcsináljuk<br/>együtt.</h2>
+        <p class="section-sub reveal" data-delay="2">Legyen szó egyedi megrendelésről, esküvői csokrokról vagy csak egy kérdésről – szívesen válaszolok.</p>
+
+        <div class="contact-grid">
+          <div class="contact-left reveal">
+            <div class="contact-block">
+              <div class="c-label">Facebook</div>
+              <div class="c-value"><a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Sophie's Garden Maglód</a></div>
+              <div class="c-sub">Üzenetben is elérhetsz</div>
+            </div>
+            <div class="contact-block">
+              <div class="c-label">Instagram</div>
+              <div class="c-value"><a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer">@sophiesgarden_maglod</a></div>
+              <div class="c-sub">Friss virágok, napi csokrok</div>
+            </div>
+            <div class="contact-block">
+              <div class="c-label">Helyszín</div>
+              <div class="c-value">Maglód, Fő tér körzetében</div>
+              <div class="c-sub">Piac: minden 2. szombaton</div>
+            </div>
+            <div class="contact-block">
+              <div class="c-label">Közösségi</div>
+              <div class="social-row" aria-label="Közösségi média">
+                <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook (új lapon)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  Facebook
+                </a>
+                <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram (új lapon)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                  Instagram
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form reveal" data-delay="2">
+            <h3 class="form-title">Küldj üzenetet</h3>
+            <p class="form-sub">Általában 24 órán belül válaszolok.</p>
+            <form id="contact-form" novalidate aria-label="Kapcsolati űrlap">
+              <div class="form-row">
+                <div class="field"><label for="name">Neved <span aria-hidden="true">*</span></label><input type="text" id="name" name="name" placeholder="Kis Eszter" required autocomplete="name" aria-required="true"/></div>
+                <div class="field"><label for="email">Email <span aria-hidden="true">*</span></label><input type="email" id="email" name="email" placeholder="pelda@email.hu" required autocomplete="email" aria-required="true"/></div>
+              </div>
+              <div class="field">
+                <label for="alkalom">Alkalom</label>
+                <select id="alkalom" name="alkalom">
+                  <option value="">Válassz alkalmat…</option>
+                  <option>Születésnap</option>
+                  <option>Esküvő</option>
+                  <option>Évforduló</option>
+                  <option>Temetés / gyász</option>
+                  <option>Ajándék</option>
+                  <option>Csak úgy, magamnak</option>
+                  <option>Egyéb</option>
+                </select>
+              </div>
+              <div class="field"><label for="message">Üzenet <span aria-hidden="true">*</span></label><textarea id="message" name="message" placeholder="Pl. milyen virágokat, milyen alkalomra, mikor kellene…" required aria-required="true"></textarea></div>
+              <button type="submit" class="form-submit" aria-label="Üzenet küldése emailben">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Küldés
+              </button>
+              <a href="mailto:sophiesgarden.maglod@gmail.com" class="mailto-link" aria-label="Közvetlen email küldése">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Vagy írj közvetlenül emailben
+              </a>
+              <div class="form-success" id="form-success" role="alert" aria-live="polite">🌸 Köszönöm! Hamarosan kereslek.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SteelDecor banner -->
+  <aside class="sd-banner" aria-label="SteelDecor – webfejlesztő">
+    <div class="container">
+      <div class="sd-inner reveal">
+        <div class="sd-left">
+          <div class="sd-eyebrow">Weboldal készítette</div>
+          <div class="sd-logo">
+            <div class="sd-logo-icon">
+              <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect width="36" height="36" rx="9" fill="url(#sdg2)"/><path d="M9 18h4l2-5 4 10 2-5 2 3h2" stroke="#F4EFE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sdg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3f3f46"/><stop offset="100%" stop-color="#18181b"/></linearGradient></defs></svg>
+            </div>
+            <div><div class="sd-name">SteelDecor</div><span class="sd-url">steeldecor.hu</span></div>
+          </div>
+          <p class="sd-tagline">Kézzel hegesztett acél dekorációk, éremtartók és fali díszek – egyedi, maradandó darabok.</p>
+        </div>
+        <div class="sd-div" aria-hidden="true"></div>
+        <div class="sd-right">
+          <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-cta" aria-label="SteelDecor weboldal (új lapon)">
+            Megnézem
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="./logo.png" alt="Sophie's Garden logó" class="footer-logo-img"/>
+            <div class="footer-name">Sophie's Garden</div>
+          </div>
+          <p class="footer-tagline">Virágos világod – Maglódon és online.</p>
+          <div class="footer-socials" aria-label="Közösségi média">
+            <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigáció</h4>
+          <ul>
+            <li><a href="#kinalet">Mai kínálat</a></li>
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="#kapcsolat">Kapcsolat & Rendelés</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Elérhetőség</h4>
+          <ul>
+            <li><a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><span>Maglódi piac · minden 2. szombaton</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Sophie's Garden · Maglód</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    'use strict';
+
+    /* Dark / Light */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('theme-btn');
+    const stored = localStorage.getItem('sg-theme');
+    root.dataset.theme = stored || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+    const updateLabel = () => themeBtn.setAttribute('aria-label', root.dataset.theme === 'dark' ? 'Váltás világos módra' : 'Váltás sötét módra');
+    updateLabel();
+    themeBtn.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('sg-theme', root.dataset.theme);
+      updateLabel();
+    });
+
+    /* Navbar scroll */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+    /* Hamburger */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Menü bezárása' : 'Menü megnyitása');
+    });
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Menü megnyitása');
+    }
+    document.addEventListener('click', e => {
+      if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+    });
+
+    /* Features popover */
+    const featBtn = document.getElementById('feat-btn');
+    const featPopover = document.getElementById('feat-popover');
+    featBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = featPopover.classList.toggle('open');
+      featBtn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', e => {
+      if (!featPopover.contains(e.target) && e.target !== featBtn) {
+        featPopover.classList.remove('open');
+        featBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { featPopover.classList.remove('open'); featBtn.setAttribute('aria-expanded','false'); featBtn.focus(); }
+    });
+
+    /* Scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    /* Active nav */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 110) cur = s.id; });
+      navLinks.forEach(a => {
+        const active = a.getAttribute('href') === '#' + cur;
+        a.style.color = active ? 'var(--green)' : '';
+        a.style.fontWeight = active ? '600' : '';
+      });
+    }, { passive: true });
+
+    /* Smooth anchor scroll */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        closeMenu();
+        window.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+        target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+      });
+    });
+
+    /* Contact form */
+    document.getElementById('contact-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = e.target;
+      const name = f.name.value.trim();
+      const email = f.email.value.trim();
+      const alkalom = f.alkalom.value;
+      const msg = f.message.value.trim();
+      if (!name || !email || !msg) return;
+      const btn = f.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = 'Küldés…';
+      const subject = encodeURIComponent(`Érdeklődés – ${alkalom || 'általános'} – ${name}`);
+      const body = encodeURIComponent(`Szia!\n\nNevem: ${name}\nEmail: ${email}\nAlkalom: ${alkalom || '–'}\n\n${msg}`);
+
+      const mailto = `mailto:sophiesgarden.maglod@gmail.com?subject=${subject}&body=${body}`;
+      const gmail = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent('sophiesgarden.maglod@gmail.com')}&su=${encodeURIComponent(`Érdeklődés – ${alkalom || 'általános'} – ${name}`)}&body=${body}`;
+
+      let opened = false;
+      window.addEventListener('blur', () => { opened = true; }, { once: true });
+      window.location.href = mailto;
+      setTimeout(() => { if (!opened) window.open(gmail, '_blank'); }, 700);
+
+      setTimeout(() => {
+        f.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      }, 900);
+    });
+  </script>
+</body>
+</html>
