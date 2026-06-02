@@ -1,9 +1,9 @@
 """
 Publikus Facebook oldal legfrissebb posztjai
-mbasic.facebook.com – szerver-oldali HTML, API nélkül
+mbasic.facebook.com – timestamp-alapú poszt-kinyerés
 """
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 import json, sys, re
 from datetime import datetime, timezone
 
@@ -23,116 +23,112 @@ HEADERS = {
 }
 
 
-def to_permalink(href):
-    """mbasic relatív href → teljes Facebook URL"""
-    if not href:
-        return f'https://www.facebook.com/{PAGE}'
-    if href.startswith('http'):
-        return href
-    full = BASE + href
-    # story.php?story_fbid=123&id=456 → /permalink.php
-    m = re.search(r'story_fbid=(\d+)&id=(\d+)', href)
-    if m:
-        return f'https://www.facebook.com/permalink.php?story_fbid={m.group(1)}&id={m.group(2)}'
-    # /PageName/posts/pfbid... vagy /posts/12345
-    if '/posts/' in href:
-        path = re.sub(r'\?.*', '', href)   # query params levágása
-        return 'https://www.facebook.com' + path
-    return full
+def get_soup(url):
+    r = requests.get(url, headers=HEADERS, timeout=25)
+    r.raise_for_status()
+    return BeautifulSoup(r.text, 'html.parser')
 
 
-def unique_key(href):
-    """Egyedi kulcs a poszt azonosítására"""
-    # pfbid, story_fbid, vagy a posts/ utáni rész
-    for pat in [r'pfbid([A-Za-z0-9]+)', r'story_fbid=(\d+)', r'/posts/([A-Za-z0-9]+)']:
-        m = re.search(pat, href)
-        if m:
-            return m.group(1)
-    return re.sub(r'[^A-Za-z0-9]', '', href)[-24:]
+def find_post_block(element, min_len=60, max_up=12):
+    """Menjünk felfelé a DOM-ban amíg elég szöveges blokkot találunk."""
+    block = element.find_parent('div')
+    for _ in range(max_up):
+        if not block:
+            break
+        text = block.get_text(' ', strip=True)
+        if len(text) >= min_len:
+            return block
+        block = block.find_parent('div')
+    return None
+
+
+def extract_text(block):
+    """Szöveg kinyerése – dir=auto span/p elemekből, deduplikálva."""
+    parts = []
+    seen_t = set()
+    for el in block.find_all(['p', 'span'], attrs={'dir': 'auto'}):
+        t = el.get_text(' ', strip=True)
+        if len(t) > 10 and t not in seen_t:
+            parts.append(t)
+            seen_t.add(t)
+    text = ' '.join(parts)
+    if len(text) < 20:
+        # fallback: teljes blokk, de levágunk UI-szöveget
+        text = block.get_text(' ', strip=True)[:400]
+    return text.strip()
+
+
+def extract_image(block):
+    for img in block.find_all('img'):
+        src = img.get('src', '')
+        if 'scontent' not in src and 'fbcdn' not in src:
+            continue
+        w = int(img.get('width') or 0)
+        if w and w < 100:
+            continue
+        if any(x in src for x in ['s32x32', 's50x50', 's60x60', '/safe_image']):
+            continue
+        return src
+    return ''
+
+
+def extract_permalink(block):
+    # Keressük a "Továbbiak" / "See More" / "Megosztás" / timestamp linket
+    for a in block.find_all('a', href=True):
+        href = a['href']
+        if any(p in href for p in ['/posts/', 'story_fbid', '/permalink', '/photos/']):
+            path = re.sub(r'\?.*', '', href)   # query params le
+            if path.startswith('/'):
+                return 'https://www.facebook.com' + path
+            if path.startswith('http'):
+                return path
+    return f'https://www.facebook.com/{PAGE}'
 
 
 def scrape():
-    r = requests.get(f'{BASE}/{PAGE}', headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    soup = BeautifulSoup(r.text, 'html.parser')
+    soup = get_soup(f'{BASE}/{PAGE}')
 
-    # Összes link ami poszt-ra mutat
-    story_links = soup.find_all('a', href=re.compile(
-        r'(story_fbid|/posts/|/permalink\.php)'
-    ))
-    print(f'Talált story linkek: {len(story_links)}')
+    # Keresés: abbr időbélyeg elemek (minden poszt tartalmaz egyet)
+    abbrs = soup.find_all('abbr')
+    print(f'Talált <abbr> elemek: {len(abbrs)}')
 
     posts = []
-    seen  = set()
+    seen_texts = set()
 
-    for link in story_links:
+    for abbr in abbrs:
         if len(posts) >= LIMIT:
             break
 
-        href = link.get('href', '')
-        key  = unique_key(href)
-
-        if not key or key in seen:
-            continue
-        seen.add(key)
-
-        # Poszt szülő blokkja – menjünk fel amíg elég szöveget találunk
-        block = link.find_parent('div')
-        for _ in range(8):
-            if not block:
-                break
-            txt = block.get_text(' ', strip=True)
-            if len(txt) > 80:
-                break
-            block = block.find_parent('div')
-
+        # Poszt blokkja
+        block = find_post_block(abbr, min_len=80)
         if not block:
             continue
 
-        # --- Szöveg ---
-        # 1. Próbálj dir="auto" span-okat
-        parts = [el.get_text(' ', strip=True)
-                 for el in block.find_all(['span', 'p'], attrs={'dir': 'auto'})
-                 if len(el.get_text(strip=True)) > 8]
-        text = ' '.join(dict.fromkeys(parts))  # dedupe, sorrend megtart
-        if len(text) < 20:
-            text = block.get_text(' ', strip=True)[:400]
-        if len(text) < 20:
+        text = extract_text(block)
+
+        # Duplikátum- és minőségszűrő
+        key = text[:60]
+        if len(text) < 20 or key in seen_texts:
             continue
+        # Kihagyjuk a nem-poszt UI szöveget
+        if any(skip in text for skip in ['Bejelentkezés', 'Regisztráció', 'Hírfolyam', 'Adatvédelem']):
+            continue
+        seen_texts.add(key)
 
-        # --- Kép ---
-        img_url = ''
-        for img in block.find_all('img'):
-            src = img.get('src', '')
-            if 'scontent' not in src:
-                continue
-            w = int(img.get('width') or 0)
-            if w and w < 80:   # profilkép méret → kihagyás
-                continue
-            if any(x in src for x in ['s32x32', 's50x50', 's60x60', 'profile']):
-                continue
-            img_url = src
-            break
-
-        # --- Dátum ---
-        abbr = block.find('abbr')
-        if abbr and abbr.get('title'):
-            created = abbr['title']
-        else:
-            created = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
-
-        permalink = to_permalink(href)
+        img_url   = extract_image(block)
+        permalink = extract_permalink(block)
+        created   = abbr.get('title') or datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S+0000')
 
         posts.append({
-            'id':           key,
-            'message':      text[:500].strip(),
+            'id':           re.sub(r'[^A-Za-z0-9]', '', key)[:24],
+            'message':      text[:500],
             'full_picture': img_url,
             'created_time': created,
             'likes':        {'summary': {'total_count': 0}},
             'comments':     {'summary': {'total_count': 0}},
             'permalink_url': permalink,
         })
-        print(f'  [{len(posts)}] {key[:16]}  {text[:60]}')
+        print(f'  [{len(posts)}] {created[:10]}  {text[:70]}')
 
     return posts
 
@@ -142,6 +138,7 @@ def main():
         posts = scrape()
     except Exception as e:
         print(f'Hiba: {e}', file=sys.stderr)
+        import traceback; traceback.print_exc(file=sys.stderr)
         sys.exit(0)
 
     if not posts:
@@ -151,7 +148,7 @@ def main():
     with open(OUTPUT, 'w', encoding='utf-8') as f:
         json.dump({'_source': 'facebook_mbasic', 'data': posts}, f, ensure_ascii=False, indent=2)
 
-    print(f'\n✓ {len(posts)} poszt → {OUTPUT}')
+    print(f'\n✓ {len(posts)} poszt mentve → {OUTPUT}')
 
 
 if __name__ == '__main__':
