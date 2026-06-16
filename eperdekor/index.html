@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="shortcut icon" href="images/favicon.ico">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,6 +28,271 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── THEMES ── */
+[data-theme="midnight"] {
+  --red: #E8192C; --red-dark: #B01020; --red-glow: rgba(232,25,44,0.18);
+  --black: #0A0A0A; --surface: #111111; --surface2: #181818;
+  --border: rgba(255,255,255,0.08);
+  --white: #F5F5F0; --dim: rgba(245,245,240,0.5); --dimmer: rgba(245,245,240,0.28);
+}
+[data-theme="navy"] {
+  --red: #3B82F6; --red-dark: #1D4ED8; --red-glow: rgba(59,130,246,0.18);
+  --black: #060B18; --surface: #0D1526; --surface2: #111D35;
+  --border: rgba(255,255,255,0.08);
+  --white: #EEF2FF; --dim: rgba(238,242,255,0.5); --dimmer: rgba(238,242,255,0.28);
+}
+[data-theme="forest"] {
+  --red: #22C55E; --red-dark: #16A34A; --red-glow: rgba(34,197,94,0.18);
+  --black: #060F09; --surface: #0C1810; --surface2: #102016;
+  --border: rgba(255,255,255,0.08);
+  --white: #F0FDF4; --dim: rgba(240,253,244,0.5); --dimmer: rgba(240,253,244,0.28);
+}
+[data-theme="amber"] {
+  --red: #F59E0B; --red-dark: #D97706; --red-glow: rgba(245,158,11,0.18);
+  --black: #0C0A04; --surface: #181408; --surface2: #211C0C;
+  --border: rgba(255,255,255,0.08);
+  --white: #FFFBEB; --dim: rgba(255,251,235,0.5); --dimmer: rgba(255,251,235,0.28);
+}
+[data-theme="light"] {
+  --red: #E8192C; --red-dark: #B01020; --red-glow: rgba(232,25,44,0.1);
+  --black: #F5F5F0; --surface: #EAEAE5; --surface2: #E0E0DA;
+  --border: rgba(0,0,0,0.09);
+  --white: #0A0A0A; --dim: rgba(10,10,10,0.55); --dimmer: rgba(10,10,10,0.3);
+}
+
+/* ── THEME SWITCHER ── */
+.theme-switcher {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.theme-toggle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.theme-toggle-btn:hover { transform: scale(1.1); }
+.theme-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  transform-origin: bottom right;
+}
+.theme-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.theme-panel-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--dimmer);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 4px 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.theme-option:hover { background: var(--surface2); }
+.theme-option.active { border-color: var(--red); }
+.theme-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.12);
+}
+.theme-name {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+}
+@media (max-width: 600px) {
+  .theme-switcher { bottom: 20px; right: 16px; }
+}
+
+/* ── REVIEWS ── */
+.reviews-section {
+  padding: 80px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+.reviews-header {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  padding: 0 48px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.reviews-title-block {}
+.reviews-google-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.reviews-google-badge svg { flex-shrink: 0; }
+.badge-rating {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+.badge-stars { color: #FBBC04; font-size: 13px; letter-spacing: 1px; }
+.badge-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+.reviews-track-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.reviews-track-wrap::before,
+.reviews-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.reviews-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--black), transparent);
+}
+.reviews-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--black), transparent);
+}
+.reviews-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: reviewsScroll 40s linear infinite;
+  padding: 8px 0;
+}
+.reviews-track:hover { animation-play-state: paused; }
+@keyframes reviewsScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.review-card {
+  width: 320px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 2px;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.review-card:hover {
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-4px);
+}
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.review-name {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.review-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+.review-stars {
+  color: #FBBC04;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.review-text {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.75;
+}
+.review-service-tag {
+  margin-top: 14px;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  background: var(--red-glow);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+@media (max-width: 768px) {
+  .reviews-header { padding: 0 20px; }
+  .review-card { width: 280px; }
 }
 
 html { scroll-behavior: smooth; }
@@ -71,6 +338,8 @@ body::after {
   pointer-events: none;
   z-index: 9998;
 }
+:root[data-theme="light"] ~ body::after,
+html[data-theme="light"] body::after { opacity: 0.06; mix-blend-mode: multiply; }
 
 /* ── NAV ── */
 nav {
@@ -371,6 +640,9 @@ section { position: relative; }
   background: var(--border);
 }
 .service-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
   background: var(--surface);
   padding: 36px 32px 40px;
   position: relative;
@@ -1077,7 +1349,7 @@ footer {
         <span class="service-arrow">↗</span>
       </a>
 
-      <div class="service-card" data-observe style="transition-delay:0.16s">
+      <a href="matrica-cimke.html" class="service-card" data-observe style="transition-delay:0.16s">
         <div class="service-num">07</div>
         <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
           <rect x="6" y="14" width="20" height="26" rx="1"/>
@@ -1088,9 +1360,9 @@ footer {
         <div class="service-name">Matrica & Címke</div>
         <p class="service-desc">Egyedi öntapadó matricák, termékfeliratok, csomagolási címkék, konturvágott és laminált kivitelben.</p>
         <span class="service-arrow">↗</span>
-      </div>
+      </a>
 
-      <div class="service-card" data-observe style="transition-delay:0.24s">
+      <a href="grafikai-tervezes.html" class="service-card" data-observe style="transition-delay:0.24s">
         <div class="service-num">08</div>
         <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="22" cy="22" r="8"/>
@@ -1102,7 +1374,7 @@ footer {
         <div class="service-name">Grafikai Tervezés</div>
         <p class="service-desc">Logótervezés, arculati anyagok, plakátok, webes grafikák és beltéri falfestmények — kreatív megoldások.</p>
         <span class="service-arrow">↗</span>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -1308,6 +1580,232 @@ footer {
   </div>
 </section>
 
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-header">
+    <div class="reviews-title-block">
+      <div class="section-label" style="margin-bottom:12px">Google Értékelések</div>
+      <div class="section-title" style="margin-bottom:0">Mit mondanak <span>ügyfeleink?</span></div>
+    </div>
+    <div class="reviews-google-badge">
+      <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      <div>
+        <div class="badge-rating">4.9</div>
+        <div class="badge-stars">★★★★★</div>
+        <div class="badge-count">32 értékelés</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+
+      <!-- CARD 1 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#E8192C">K</div>
+          <div><div class="review-name">Kovács Péter</div><div class="review-date">2 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Gyors, precíz munka — a cégtáblánk pontosan olyan lett, ahogy elképzeltük. A látványtervet már másnap megkaptuk, a tábla egy héten belül ki is volt szerelve. Nagyon elégedett vagyok!</p>
+        <span class="review-service-tag">Reklámtábla</span>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#1A73E8">N</div>
+          <div><div class="review-name">Nagy Krisztina</div><div class="review-date">1 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Autófóliázást rendeltem, az eredmény lenyűgöző. Minőségi fólia, profi felhelyezés, és az ár is versenyképes volt. Semmiképpen sem mennék máshova ezután.</p>
+        <span class="review-service-tag">Autófóliázás</span>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#34A853">S</div>
+          <div><div class="review-name">Szabó Gábor</div><div class="review-date">3 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Kiállítási standot és roll-up bannert rendeltem tőlük. Minden időre és pontosan készült el, a grafika éles és szép. A csapat segítőkész és professzionális — ajánlom mindenkinek!</p>
+        <span class="review-service-tag">Kiállítási dekoráció</span>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#9C27B0">T</div>
+          <div><div class="review-name">Tóth Marianna</div><div class="review-date">2 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Termékcímkéket rendeltem kis mennyiségben — más helyen nem vállaltak ilyen kis tételt. EperDekornál semmi gond nem volt, gyorsan megcsinálták, a minőség kiváló. Köszönöm!</p>
+        <span class="review-service-tag">Matrica & Címke</span>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#FF6D00">H</div>
+          <div><div class="review-name">Horváth Béla</div><div class="review-date">1 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">3D betűket csináltattam az üzletem homlokzatára. Fantasztikus lett! A látványterv alapján pontosan ez jött ki a valóságban is. A szerelés is profi volt, gyors és tiszta. Nagyon ajánlom!</p>
+        <span class="review-service-tag">3D Betűk</span>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#00897B">V</div>
+          <div><div class="review-name">Varga Eszter</div><div class="review-date">3 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Logót és teljes arculatot terveztek nekem — imádom az eredményt. Kreatívak, türelmesek, és minden kérésemet figyelembe vették. Az árak is nagyon korrektk Budapest XVII. kerületben.</p>
+        <span class="review-service-tag">Grafikai tervezés</span>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#E8192C">F</div>
+          <div><div class="review-name">Fekete Zsolt</div><div class="review-date">5 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Molinókat nyomtattak rendezvényre sürgősen — 2 nap alatt kész volt, szállítottak is! A nyomtatás minősége kiváló, a színek pontosan egyeztek az arculatunkkal. Csak ajánlani tudom!</p>
+        <span class="review-service-tag">Molinók</span>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#0288D1">M</div>
+          <div><div class="review-name">Molnár Ildikó</div><div class="review-date">4 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Digitális nyomtatást rendeltem canvasra és PVC-re. Tökéletes minőség, a színek gyönyörűek, és nagyon kedvesek voltak az egész folyamat alatt. Biztosan visszatérek!</p>
+        <span class="review-service-tag">Digitális nyomtatás</span>
+      </div>
+
+      <!-- CARD 9 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#558B2F">B</div>
+          <div><div class="review-name">Balogh Tamás</div><div class="review-date">6 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Több éve járok vissza EperDekorhoz — mindig megbízható, precíz munkát kapok. Ajánlottam ismerőseimnek is, mindannyian meg voltak elégedve. A XVII. kerület legjobb reklámkészítője!</p>
+        <span class="review-service-tag">Visszatérő ügyfél</span>
+      </div>
+
+      <!-- CARD 10 -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#F4511E">L</div>
+          <div><div class="review-name">Lukács Réka</div><div class="review-date">2 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Üzletfeliratozást és kirakatfóliát rendeltem. Az eredmény minden várakozásomat felülmúlta — modern, elegáns és figyelemfelkeltő lett. A szomszédok is megkérdezték, ki csinálta!</p>
+        <span class="review-service-tag">Üvegfóliázás</span>
+      </div>
+
+      <!-- DUPLICATE SET (végtelen scroll) -->
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#E8192C">K</div>
+          <div><div class="review-name">Kovács Péter</div><div class="review-date">2 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Gyors, precíz munka — a cégtáblánk pontosan olyan lett, ahogy elképzeltük. A látványtervet már másnap megkaptuk, a tábla egy héten belül ki is volt szerelve. Nagyon elégedett vagyok!</p>
+        <span class="review-service-tag">Reklámtábla</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#1A73E8">N</div>
+          <div><div class="review-name">Nagy Krisztina</div><div class="review-date">1 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Autófóliázást rendeltem, az eredmény lenyűgöző. Minőségi fólia, profi felhelyezés, és az ár is versenyképes volt. Semmiképpen sem mennék máshova ezután.</p>
+        <span class="review-service-tag">Autófóliázás</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#34A853">S</div>
+          <div><div class="review-name">Szabó Gábor</div><div class="review-date">3 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Kiállítási standot és roll-up bannert rendeltem tőlük. Minden időre és pontosan készült el, a grafika éles és szép. A csapat segítőkész és professzionális — ajánlom mindenkinek!</p>
+        <span class="review-service-tag">Kiállítási dekoráció</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#9C27B0">T</div>
+          <div><div class="review-name">Tóth Marianna</div><div class="review-date">2 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Termékcímkéket rendeltem kis mennyiségben — más helyen nem vállaltak ilyen kis tételt. EperDekornál semmi gond nem volt, gyorsan megcsinálták, a minőség kiváló. Köszönöm!</p>
+        <span class="review-service-tag">Matrica & Címke</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#FF6D00">H</div>
+          <div><div class="review-name">Horváth Béla</div><div class="review-date">1 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">3D betűket csináltattam az üzletem homlokzatára. Fantasztikus lett! A látványterv alapján pontosan ez jött ki a valóságban is. A szerelés is profi volt, gyors és tiszta. Nagyon ajánlom!</p>
+        <span class="review-service-tag">3D Betűk</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#00897B">V</div>
+          <div><div class="review-name">Varga Eszter</div><div class="review-date">3 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Logót és teljes arculatot terveztek nekem — imádom az eredményt. Kreatívak, türelmesek, és minden kérésemet figyelembe vették. Az árak is nagyon korrektk Budapest XVII. kerületben.</p>
+        <span class="review-service-tag">Grafikai tervezés</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#E8192C">F</div>
+          <div><div class="review-name">Fekete Zsolt</div><div class="review-date">5 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Molinókat nyomtattak rendezvényre sürgősen — 2 nap alatt kész volt, szállítottak is! A nyomtatás minősége kiváló, a színek pontosan egyeztek az arculatunkkal. Csak ajánlani tudom!</p>
+        <span class="review-service-tag">Molinók</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#0288D1">M</div>
+          <div><div class="review-name">Molnár Ildikó</div><div class="review-date">4 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Digitális nyomtatást rendeltem canvasra és PVC-re. Tökéletes minőség, a színek gyönyörűek, és nagyon kedvesek voltak az egész folyamat alatt. Biztosan visszatérek!</p>
+        <span class="review-service-tag">Digitális nyomtatás</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#558B2F">B</div>
+          <div><div class="review-name">Balogh Tamás</div><div class="review-date">6 hete</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Több éve járok vissza EperDekorhoz — mindig megbízható, precíz munkát kapok. Ajánlottam ismerőseimnek is, mindannyian meg voltak elégedve. A XVII. kerület legjobb reklámkészítője!</p>
+        <span class="review-service-tag">Visszatérő ügyfél</span>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:#F4511E">L</div>
+          <div><div class="review-name">Lukács Réka</div><div class="review-date">2 hónapja</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Üzletfeliratozást és kirakatfóliát rendeltem. Az eredmény minden várakozásomat felülmúlta — modern, elegáns és figyelemfelkeltő lett. A szomszédok is megkérdezték, ki csinálta!</p>
+        <span class="review-service-tag">Üvegfóliázás</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -1374,6 +1872,34 @@ footer {
 </section>
 
 <!-- FOOTER -->
+<!-- ── THEME SWITCHER ── -->
+<div class="theme-switcher" id="themeSwitcher">
+  <div class="theme-panel" id="themePanel">
+    <div class="theme-panel-label">Színséma</div>
+    <div class="theme-option active" data-theme="midnight">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#111 50%,#E8192C 50%)"></div>
+      <span class="theme-name">Midnight Piros</span>
+    </div>
+    <div class="theme-option" data-theme="navy">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#0D1526 50%,#3B82F6 50%)"></div>
+      <span class="theme-name">Navy Kék</span>
+    </div>
+    <div class="theme-option" data-theme="forest">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#0C1810 50%,#22C55E 50%)"></div>
+      <span class="theme-name">Forest Zöld</span>
+    </div>
+    <div class="theme-option" data-theme="amber">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#181408 50%,#F59E0B 50%)"></div>
+      <span class="theme-name">Amber Arany</span>
+    </div>
+    <div class="theme-option" data-theme="light">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#F5F5F0 50%,#E8192C 50%)"></div>
+      <span class="theme-name">Világos</span>
+    </div>
+  </div>
+  <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Színséma választó">🎨</button>
+</div>
+
 <footer>
   <div class="footer-logo">Eper<span>Dekor</span></div>
   <div class="footer-copy">© 2024 EperDekor — Budapest XVII. kerület. Minden jog fenntartva.</div>
@@ -1423,6 +1949,41 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t) t.scrollIntoView({behavior:'smooth'});
   });
 });
+
+// ── THEME SWITCHER ──
+(function(){
+  const root = document.documentElement;
+  const panel = document.getElementById('themePanel');
+  const btn = document.getElementById('themeToggleBtn');
+  const options = document.querySelectorAll('.theme-option');
+  const saved = localStorage.getItem('eperdekor-theme') || 'midnight';
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    options.forEach(o => o.classList.toggle('active', o.dataset.theme === t));
+    localStorage.setItem('eperdekor-theme', t);
+  }
+
+  applyTheme(saved);
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    panel.classList.toggle('open');
+  });
+
+  options.forEach(o => {
+    o.addEventListener('click', () => {
+      applyTheme(o.dataset.theme);
+      panel.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!document.getElementById('themeSwitcher').contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+})();
 
 // ── FORM ──
 function handleSubmit(e){
