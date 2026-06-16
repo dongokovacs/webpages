@@ -1207,6 +1207,196 @@ footer {
 }
 .footer-links a:hover { color: var(--white); }
 
+/* ── PULSE BUTTON ── */
+.btn-pulse {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 16px 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.btn-pulse:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+.pulse-dot {
+  position: relative;
+  width: 8px; height: 8px;
+  flex-shrink: 0;
+}
+.pulse-dot::before,
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.pulse-dot::before {
+  background: var(--red);
+}
+.pulse-dot::after {
+  background: var(--red);
+  animation: pulsePing 1.8s cubic-bezier(0,0,0.2,1) infinite;
+}
+@keyframes pulsePing {
+  0%   { transform: scale(1); opacity: 0.8; }
+  75%, 100% { transform: scale(3.2); opacity: 0; }
+}
+
+/* ── FEATURE MODAL ── */
+.feat-overlay {
+  position: fixed; inset: 0;
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+}
+.feat-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.feat-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  max-width: 780px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 40px 44px;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.3s var(--ease);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.feat-overlay.open .feat-modal {
+  transform: translateY(0) scale(1);
+}
+.feat-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.feat-modal-title {
+  font-family: var(--font-head);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.feat-modal-title span { color: var(--red); }
+.feat-modal-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+}
+.feat-close-btn {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--dim);
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  border-radius: 2px;
+  line-height: 1;
+}
+.feat-close-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+.feat-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.feat-col-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.feat-col-label.done { color: #4ade80; }
+.feat-col-label.idea { color: var(--red); }
+.feat-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.feat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+.feat-item-icon {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+.feat-item-icon.check {
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+}
+.feat-item-icon.plus {
+  background: var(--red-glow);
+  color: var(--red);
+}
+.feat-item-text strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1px;
+}
+.feat-footer {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.feat-footer-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+@media (max-width: 600px) {
+  .feat-modal { padding: 28px 20px; }
+  .feat-cols { grid-template-columns: 1fr; gap: 24px; }
+}
+
 /* ── ANIMATIONS ── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -1224,6 +1414,7 @@ footer {
   .reviews-track { animation-play-state: paused !important; }
   .marquee-track { animation-play-state: paused !important; }
   .process-visual-inner::before, .ring { animation: none !important; }
+  .pulse-dot::after { animation: none !important; }
 }
 
 /* ── THEME OPTION BUTTON ACCESSIBILITY ── */
@@ -1312,6 +1503,10 @@ footer {
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Ingyenes ajánlat →</a>
       <a href="#works" class="btn-ghost">Munkáink</a>
+      <button class="btn-pulse" id="featBtn" aria-haspopup="dialog" aria-controls="featModal" aria-label="Weboldal funkciók és fejlesztési ötletek megtekintése">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Fejlesztési terv
+      </button>
     </div>
   </div>
 
@@ -1959,6 +2154,136 @@ footer {
 
 </main>
 
+<!-- FEATURE MODAL -->
+<div class="feat-overlay" id="featOverlay" role="dialog" aria-modal="true" aria-labelledby="featModalTitle">
+  <div class="feat-modal" id="featModal">
+    <div class="feat-modal-header">
+      <div>
+        <h2 class="feat-modal-title" id="featModalTitle">Weboldal <span>funkciók</span></h2>
+        <div class="feat-modal-subtitle">Mi van már kész · Mi kerülhet még rá</div>
+      </div>
+      <button class="feat-close-btn" id="featClose" aria-label="Bezárás">✕</button>
+    </div>
+
+    <div class="feat-cols">
+      <!-- MEGVAN -->
+      <div>
+        <div class="feat-col-label done">✓ &nbsp;Már elérhető</div>
+        <ul class="feat-list">
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>8 szolgáltatás aloldal</strong>Táblák, autófóliázás, nyomtatás, molinók, 3D betűk, matrica, kiállítás, grafika</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>5 szín séma váltó</strong>Midnight, Navy, Forest, Amber, Világos — localStorage-ba mentve</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Google vélemények karusel</strong>Automatikus scroll, hover-re megáll, 10 valódi értékelés</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Animált képgaléria (ShuffleHero)</strong>4×4 grid, 3 másodpercenként kever, valódi munkafotókkal</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Kontakt & ajánlatkérő űrlap</strong>Validált, aria-live visszajelzéssel, minden mező bekötve</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Portfólió szekció</strong>7 valódi munkafotó, hover overlay, kategóriával</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Statisztikák szekció</strong>500+ projekt, 10+ év, 100% elégedett ügyfél, 0 Ft látványterv</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>WCAG 2.2 AA akadálymentesség</strong>Skip link, focus-visible, ARIA, screen reader support</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>SEO optimalizálás</strong>OG tagek, JSON-LD LocalBusiness schema, canonical, meta</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Scroll animációk</strong>IntersectionObserver fade-in, prefers-reduced-motion figyelembevételével</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Reszponzív design</strong>Mobile-first, minden képernyőméretre optimalizálva</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon check" aria-hidden="true">✓</span>
+            <span class="feat-item-text"><strong>Szolgáltatás ticker / marquee</strong>Végtelen futószalag az összes szolgáltatással</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- LEHETNE -->
+      <div>
+        <div class="feat-col-label idea">+ &nbsp;Még felkerülhetne</div>
+        <ul class="feat-list">
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Árajánlat kalkulátor</strong>Interaktív konfigurátor — méret, anyag, mennyiség alapján azonnali irányár</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Online időpontfoglaló</strong>Naptár widget ahol az ügyfél tud konzultációt foglalni</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>WhatsApp gyorsgomb</strong>Lebegő ikon azonnali chat megnyitásához mobilon is</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Interaktív Google Maps</strong>XVII. kerület térkép, nyitvatartás, útvonaltervező</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Teljes portfólió galéria</strong>Szűrhető, zoomolható galléria kategóriánként 30–50+ munkával</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Blog / szakmai cikkek</strong>„Mire figyelj cégtáblánál?" típusú tartalmak — SEO-t is növel</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Animált számláló statisztikák</strong>Scroll közben számlálnak fel a számok (500+, 10+...)</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Árlista PDF letöltés</strong>Egy gombnyomásra letölthető tájékoztató árlista</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Instagram feed integráció</strong>Automatikusan frissülő legújabb munkák az Instagramról</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Visszatérő ügyfél kedvezmény form</strong>Törzsvásárlói azonosítás és egyedi árajánlat oldal</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Case study / referencia oldalak</strong>1–1 projekt részletes bemutatása: brief → terv → elkészült</span>
+          </li>
+          <li class="feat-item">
+            <span class="feat-item-icon plus" aria-hidden="true">+</span>
+            <span class="feat-item-text"><strong>Cookie consent & Analytics</strong>GDPR-barát sütibanner, Google Analytics vagy Plausible</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feat-footer">
+      <span class="feat-footer-note">Bármelyik funkciót megvalósíthatjuk — kérjen ajánlatot!</span>
+      <a href="#contact" class="btn-primary" id="featContactLink" style="font-size:13px;padding:12px 24px">Ajánlatot kérek →</a>
+    </div>
+  </div>
+</div>
+
 <!-- ── THEME SWITCHER ── -->
 <div class="theme-switcher" id="themeSwitcher">
   <div class="theme-panel" id="themePanel" role="menu" aria-label="Válasszon színsémát">
@@ -2132,6 +2457,49 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape' && panel.classList.contains('open')) { closePanel(); btn.focus(); }
   });
+})();
+
+// ── FEATURE MODAL ──
+(function(){
+  const overlay = document.getElementById('featOverlay');
+  const btn = document.getElementById('featBtn');
+  const closeBtn = document.getElementById('featClose');
+  const contactLink = document.getElementById('featContactLink');
+  let lastFocus;
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+
+  btn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', e => {
+    if(e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  if(contactLink) {
+    contactLink.addEventListener('click', () => {
+      closeModal();
+      setTimeout(() => {
+        const t = document.getElementById('contact');
+        if(t) t.scrollIntoView({behavior:'smooth'});
+      }, 120);
+    });
+  }
 })();
 
 // ── FORM ──
