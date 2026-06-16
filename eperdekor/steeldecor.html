@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SteelDecor — Egyedi Fém Lézervágás | Éremtartók, Házszámok, Falidíszek | Budapest</title>
+<meta name="description" content="SteelDecor: egyedi fém lézervágás, éremtartók 30+ sporthoz, személyre szabott házszámok, cégérek és falidíszek. Családi vállalkozás, 4.9 csillag. steeldecor.hu">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://steeldecor.hu/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://steeldecor.hu/">
+<meta property="og:title" content="SteelDecor — Egyedi Fém Lézervágás Budapest">
+<meta property="og:description" content="Lézervágott fém éremtartók, házszámok, cégérek és falidíszek. Személyre szabott, kézműves minőség. 4.9★ értékelés.">
+<meta property="og:image" content="https://steeldecor.hu/images/og.jpg">
+<meta property="og:locale" content="hu_HU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0A0A">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "SteelDecor",
+  "description": "Egyedi fém lézervágás: éremtartók, házszámok, cégérek, falidíszek és trófeák. Személyre szabott termékek kézműves minőségben.",
+  "url": "https://steeldecor.hu",
+  "sameAs": [
+    "https://www.facebook.com/steeldecor.neked",
+    "https://www.instagram.com/steeldecor.neked/",
+    "https://www.tiktok.com/@steeldecor.neked"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5"
+  },
+  "makesOffer": [
+    {"@type": "Offer", "name": "Éremtartók"},
+    {"@type": "Offer", "name": "Házszámok"},
+    {"@type": "Offer", "name": "Cégérek"},
+    {"@type": "Offer", "name": "Falidíszek"},
+    {"@type": "Offer", "name": "Trófeák"},
+    {"@type": "Offer", "name": "Egyedi lézervágott termékek"}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="service.css">
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<script>(function(){var t=localStorage.getItem("eperdekor-theme");if(t)document.documentElement.setAttribute("data-theme",t);}());</script>
+
+<style>
+/* ── STEELDECOR SPECIFIKUS ── */
+.sd-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+.sd-stars { color: #FBBC04; font-size: 13px; letter-spacing: 1px; }
+.sd-rating-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+.sd-hero-strawberry {
+  position: absolute;
+  right: 48px; top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.04;
+  pointer-events: none;
+}
+@media (max-width: 768px) { .sd-hero-strawberry { display: none; } }
+
+/* SOCIAL LINKS */
+.social-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.social-card {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--white);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.social-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--social-color, var(--red));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.social-card:hover { border-color: rgba(255,255,255,0.18); background: var(--surface2); transform: translateY(-2px); }
+.social-card:hover::before { transform: scaleX(1); }
+.social-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.06);
+  flex-shrink: 0;
+  color: var(--white);
+}
+.social-name {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.social-handle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+.social-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  color: var(--dimmer);
+  transition: transform 0.2s, color 0.2s;
+}
+.social-card:hover .social-arrow { transform: translate(3px,-3px); color: var(--white); }
+
+/* WEBSITE CTA CARD */
+.website-card {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 28px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  flex-wrap: wrap;
+}
+.website-card-text {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+}
+.website-card-url {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dimmer);
+  margin-top: 3px;
+}
+
+/* FAMILY STORY */
+.story-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  padding: 32px 36px;
+  margin-top: 40px;
+}
+.story-box blockquote {
+  font-family: var(--font-head);
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  color: var(--white);
+  margin: 0;
+}
+.story-box blockquote span { color: var(--red); }
+.story-box cite {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  letter-spacing: 0.08em;
+  margin-top: 16px;
+  font-style: normal;
+}
+
+/* BACK TO EPERDEKOR */
+.back-strip {
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.back-strip-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  letter-spacing: 0.04em;
+}
+@media (max-width: 768px) { .back-strip { padding: 16px 20px; } }
+</style>
+</head>
+<body>
+
+<a href="#main-content" style="position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:var(--font-head);font-size:14px;font-weight:700;padding:12px 24px;z-index:10000;text-decoration:none;transition:top 0.15s" onfocus="this.style.top='8px'" onblur="this.style.top='-100%'">Ugrás a tartalomhoz</a>
+
+<nav><a href="index.html" class="nav-logo">Eper<span>Dekor</span></a><a href="https://steeldecor.hu" target="_blank" rel="noopener" class="back-btn" style="font-size:12px">steeldecor.hu ↗</a></nav>
+
+<main id="main-content">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" style="background:radial-gradient(ellipse at 30% 40%, rgba(160,160,160,0.08) 0%, transparent 55%), var(--black)"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Dekoratív SVG eper -->
+  <svg class="sd-hero-strawberry" width="380" height="430" viewBox="0 0 52 62" fill="none" stroke="currentColor" stroke-width="0.6" aria-hidden="true">
+    <path d="M16 16 C15 8 8 5 6 9 C6 15 11 18 16 16Z"/>
+    <path d="M26 14 C26 5 23 1 26 1 C29 1 26 5 26 14Z"/>
+    <path d="M36 16 C37 8 44 5 46 9 C46 15 41 18 36 16Z"/>
+    <line x1="26" y1="1" x2="26" y2="14"/>
+    <path d="M26 16 C13 16 3 25 3 36 C3 49 13 60 26 62 C39 60 49 49 49 36 C49 25 39 16 26 16Z"/>
+    <ellipse cx="18" cy="33" rx="1.8" ry="2.6" transform="rotate(-12 18 33)"/>
+    <ellipse cx="34" cy="33" rx="1.8" ry="2.6" transform="rotate(12 34 33)"/>
+    <ellipse cx="26" cy="44" rx="1.8" ry="2.6"/>
+    <ellipse cx="17" cy="44" rx="1.5" ry="2.2" transform="rotate(-8 17 44)"/>
+    <ellipse cx="35" cy="44" rx="1.5" ry="2.2" transform="rotate(8 35 44)"/>
+    <ellipse cx="22" cy="25" rx="1.4" ry="2" transform="rotate(-5 22 25)"/>
+    <ellipse cx="30" cy="25" rx="1.4" ry="2" transform="rotate(5 30 25)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="sd-rating-badge" aria-label="4.9 csillagos értékelés">
+      <span class="sd-stars" aria-hidden="true">★★★★★</span>
+      <span class="sd-rating-text">4.9 / 5 — Vásárlói értékelés</span>
+    </div>
+    <div class="hero-badge" aria-hidden="true">Fém lézervágás — Egyedi kézműves termékek</div>
+    <h1 class="hero-title">Steel<span>Decor</span></h1>
+    <p class="hero-desc">Lézervágott fém dekorációk és éremtartók — ahol minden darab <strong>személyre szabott</strong> és kézzel készül. Mert „olyan nincs, hogy nincs."</p>
+    <div class="hero-cta-row">
+      <a href="https://steeldecor.hu" target="_blank" rel="noopener" class="btn-red">Webáruház megnyitása ↗</a>
+      <a href="#termekek" class="btn-ghost">Termékeink →</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO / ABOUT -->
+<div class="intro" id="rolunk">
+  <div class="intro-text">
+    <h2>Nem gyártunk tömegárut — <span>alkotunk.</span></h2>
+    <p>A SteelDecor egy <strong>budapesti családi vállalkozás</strong>, ahol a fém lézervágás nemcsak technológia, hanem szenvedély. Minden egyes terméket egyedi igény alapján tervezünk és gyártunk, legyen szó éremtartóról, házszámról vagy cégérről.</p>
+    <p>Modern CNC lézervágó gépeinkkel precíziós pontossággal dolgozunk — milliméterpontos vágásokkal, tartós felületkezeléssel. Az eredmény olyan termék, ami évtizedekig tart és mindig mosolyt csal az arcra.</p>
+    <div class="story-box">
+      <blockquote>„Olyan nincs, hogy nincs — <span>maximum meg kell tervezni!</span>"</blockquote>
+      <cite>— SteelDecor, Budapest | 4.9★ értékelés</cite>
+    </div>
+  </div>
+  <div class="intro-highlights">
+    <div class="highlight-item"><div class="hi-icon">✦</div><div class="hi-text"><div class="hi-title">Személyre szabott</div><div class="hi-desc">Nincs két egyforma termék — minden darab az ügyfél igénye szerint készül.</div></div></div>
+    <div class="highlight-item"><div class="hi-icon">✦</div><div class="hi-text"><div class="hi-title">Precíziós lézervágás</div><div class="hi-desc">Modern CNC technológia: éles élek, pontos kivágások, tökéletes illeszkedés.</div></div></div>
+    <div class="highlight-item"><div class="hi-icon">✦</div><div class="hi-text"><div class="hi-title">Tartós fémanyagok</div><div class="hi-desc">Acél, rozsdamentes acél, réz és alumínium — az igényhez és a célhoz igazítva.</div></div></div>
+    <div class="highlight-item"><div class="hi-icon">✦</div><div class="hi-text"><div class="hi-title">Fényképből is dolgozunk</div><div class="hi-desc">Kedvenc fotóját lézervágott fém dekorációvá varázsolhatjuk.</div></div></div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="types" id="termekek">
+  <div class="section-label" aria-hidden="true">Termékeink</div>
+  <h2 class="section-title">Mit <span>készítünk?</span></h2>
+  <div class="types-grid">
+
+    <div class="type-card">
+      <div class="type-num">01</div>
+      <div class="type-name">Éremtartók</div>
+      <p class="type-desc">Fém éremtartók <strong>30+ sport</strong> számára: futás, kerékpár, úszás, triatlon, lovaglás és még sok más. Falra szerelhető, egyedi kivitelben — hogy az érdemelt érmek büszkén kiállhassanak.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-num">02</div>
+      <div class="type-name">Házszámok</div>
+      <p class="type-desc">Egyedi lézervágott <strong>fém házszámok</strong> — elegáns megjelenés, időjárásálló kivitel. Betű- és számstílusok széles választéka, rozsdamentes acélból vagy festett kivitelben.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-num">03</div>
+      <div class="type-name">Cégérek & Cégtáblák</div>
+      <p class="type-desc">Fémből lézervágott <strong>üzleti cégérek</strong>, névtáblák, logós táblák. Modern, prémium hatású megjelenés — kiemelkedik a tömegből, tartós és elegáns.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-num">04</div>
+      <div class="type-name">Falidíszek</div>
+      <p class="type-desc">Személyre szabott <strong>lézervágott fém falidíszek</strong>: monogramok, geometriai minták, természeti motívumok, egyedi grafikák. Minden otthonba, irodába, vendéglátóhelyre.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-num">05</div>
+      <div class="type-name">Trófeák & Díjak</div>
+      <p class="type-desc">Egyedi <strong>fém trófeák és díjak</strong> rendezvényekre, versenyekre, céges elismerésekre. Gravírozással, logóval, felirattal — maradandó emlék minden megkülönböztetett pillanathoz.</p>
+    </div>
+
+    <div class="type-card">
+      <div class="type-num">06</div>
+      <div class="type-name">Egyedi Megrendelések</div>
+      <p class="type-desc"><strong>Fényképből, vázlatból, ötletből</strong> is készítünk terméket. Ha nem találja amit keres, írjon — megvalósítjuk. „Olyan nincs, hogy nincs!"</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="process">
+  <div class="section-label" aria-hidden="true">Hogyan dolgozunk</div>
+  <h2 class="section-title">Egyszerű folyamat, <span>egyedi eredmény.</span></h2>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Tervezés & Egyeztetés</div><p class="step-desc">Elküldi az elképzelését, méretét, anyagát — mi elkészítjük a digitális előnézeti tervet, amelyet Ön jóváhagy.</p></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Lézervágás</div><p class="step-desc">Modern CNC lézervágóval milliméteres pontossággal vágjuk ki a terméket — éles, tiszta szélek, tökéletes forma.</p></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Felületkezelés</div><p class="step-desc">Csiszolás, festés, rozsdagátló bevonat — az igényelt anyag és felület szerint, tartósan és esztétikusan.</p></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">Átadás & Szállítás</div><p class="step-desc">Biztonságos csomagolásban, kézbesítve — vagy személyesen átvehető. Minden termék pontosan olyan, ahogy megálmodta.</p></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <div class="section-label" aria-hidden="true">Kérdések</div>
+  <h2 class="section-title">Amit a legtöbben <span>kérdeznek</span></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+        Milyen anyagokból dolgoznak?
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-a" hidden>Elsősorban acéllal, rozsdamentes acéllal, rézzel és alumíniummal dolgozunk. Az anyagot az adott termék céljahoz igazítjuk — kültéri termékhez rozsdamentes, beltérihez festett acél az alaplap.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+        Mennyire pontos a lézervágás?
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-a" hidden>Gépeink ±0.1mm pontossággal dolgoznak. Ez azt jelenti, hogy a legapróbb részletek, betűk és geometriai formák is tisztán, éles szélekkel jelennek meg a kész terméken.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+        Lehet fényképből is rendelni?
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-a" hidden>Igen — küldjön fényképet vagy vázlatot, és a grafikusaink átkonvertálják lézervágáshoz alkalmas vektoros formátumba. Ez az egyik legnépszerűbb egyedi megrendelési lehetőségünk.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+        Mennyi az átfutási idő?
+        <span class="faq-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-a" hidden>Szimpla termékek esetén általában 3–5 munkanapon belül elkészülnek. Komplex, egyedi megrendeléseknél egyeztetés alapján — a tervezéstől az átadásig kb. 1–2 hét.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL / CONTACT -->
+<div class="cta-strip" id="kapcsolat" style="text-align:left; padding-left:48px; padding-right:48px">
+  <div class="section-label" aria-hidden="true" style="margin-bottom:12px">Kövess minket</div>
+  <h2 style="font-family:var(--font-head);font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-0.025em;margin-bottom:8px">Legyünk kapcsolatban!</h2>
+  <p style="font-size:15px;color:var(--dim);max-width:520px;margin-bottom:0">Kövess minket a közösségi médiában — napi munkák, tippek, inspiráció. Vagy írj közvetlenül a weboldalon!</p>
+
+  <div class="social-grid">
+    <a href="https://www.facebook.com/steeldecor.neked" target="_blank" rel="noopener noreferrer" class="social-card" style="--social-color:#1877F2" aria-label="SteelDecor Facebook oldal megnyitása">
+      <div class="social-icon" style="background:rgba(24,119,242,0.15)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </div>
+      <div>
+        <div class="social-name">Facebook</div>
+        <div class="social-handle">@steeldecor.neked</div>
+      </div>
+      <span class="social-arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <a href="https://www.instagram.com/steeldecor.neked/" target="_blank" rel="noopener noreferrer" class="social-card" style="--social-color:#E1306C" aria-label="SteelDecor Instagram oldal megnyitása">
+      <div class="social-icon" style="background:rgba(225,48,108,0.15)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <div>
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@steeldecor.neked</div>
+      </div>
+      <span class="social-arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <a href="https://www.tiktok.com/@steeldecor.neked" target="_blank" rel="noopener noreferrer" class="social-card" style="--social-color:#69C9D0" aria-label="SteelDecor TikTok oldal megnyitása">
+      <div class="social-icon" style="background:rgba(105,201,208,0.12)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34l-.01-8.83a8.18 8.18 0 0 0 4.78 1.52V4.56a4.85 4.85 0 0 1-1-.13z"/></svg>
+      </div>
+      <div>
+        <div class="social-name">TikTok</div>
+        <div class="social-handle">@steeldecor.neked</div>
+      </div>
+      <span class="social-arrow" aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <div class="website-card">
+    <div>
+      <div class="website-card-text">Fedezd fel az összes terméket a webáruházban</div>
+      <div class="website-card-url">steeldecor.hu</div>
+    </div>
+    <a href="https://steeldecor.hu" target="_blank" rel="noopener" class="btn-red" style="white-space:nowrap">Webáruház ↗</a>
+  </div>
+</div>
+
+</main>
+
+<div class="back-strip">
+  <div class="back-strip-text">SteelDecor — EperDekor partnere | Budapest</div>
+  <a href="index.html" class="f-back">← Vissza az EperDekorhoz</a>
+</div>
+
+<footer>
+  <div class="f-logo">Steel<span>Decor</span></div>
+  <div class="f-copy">Egyedi fém lézervágás — Budapesti családi vállalkozás</div>
+  <a href="https://steeldecor.hu" target="_blank" rel="noopener" class="f-back">steeldecor.hu ↗</a>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+  const answer = item.querySelector('.faq-a');
+  if(!isOpen) { answer.removeAttribute('hidden'); } else { answer.setAttribute('hidden',''); }
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(!t) return;
+    e.preventDefault();
+    t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
