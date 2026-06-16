@@ -390,7 +390,7 @@ body::after {
 html[data-theme="light"] body::after { opacity: 0.06; mix-blend-mode: multiply; }
 
 /* ── NAV ── */
-nav {
+#navbar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000;
   padding: 24px 48px;
@@ -399,7 +399,7 @@ nav {
   justify-content: space-between;
   transition: background 0.4s, backdrop-filter 0.4s;
 }
-nav.scrolled {
+#navbar.scrolled {
   background: rgba(10,10,10,0.88);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
