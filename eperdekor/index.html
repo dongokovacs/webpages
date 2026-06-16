@@ -402,10 +402,11 @@ nav.scrolled {
 /* ── HERO ── */
 #hero {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 120px 64px 80px;
   position: relative;
   overflow: hidden;
 }
@@ -443,11 +444,10 @@ nav.scrolled {
 }
 .hero-title {
   font-family: var(--font-head);
-  font-size: clamp(52px, 9vw, 120px);
+  font-size: clamp(44px, 5.5vw, 88px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 0.95;
-  max-width: 900px;
   opacity: 0;
   animation: fadeUp 0.9s var(--ease) 0.4s forwards;
 }
@@ -506,42 +506,33 @@ nav.scrolled {
   cursor: none;
 }
 .btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); transform: translateY(-2px); }
-.hero-scroll {
-  position: absolute;
-  bottom: 80px; right: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+/* ── SHUFFLE GRID ── */
+.shuffle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+  height: 500px;
+  position: relative;
+  z-index: 2;
   opacity: 0;
-  animation: fadeUp 0.8s var(--ease) 1.2s forwards;
+  animation: fadeIn 1s var(--ease) 0.6s forwards;
 }
-.hero-scroll-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 6px;
-  color: var(--dimmer);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+.sq {
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  overflow: hidden;
 }
-.hero-scroll-line {
-  width: 1px; height: 48px;
-  background: linear-gradient(to bottom, var(--red), transparent);
-  animation: scrollAnim 1.8s ease-in-out infinite;
+.sq.fading {
+  opacity: 0;
+  transform: scale(0.88);
 }
-@keyframes scrollAnim { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
 
-/* Hero floating tags */
-.hero-tags {
-  position: absolute;
-  top: 50%; right: 48px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  opacity: 0;
-  animation: fadeIn 1s var(--ease) 1.4s forwards;
-}
+/* Hero floating tags — kept for fallback, now hidden */
+.hero-tags { display: none; }
+.hero-scroll { display: none; }
 .hero-tag {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -1176,10 +1167,20 @@ footer {
   .process-visual { display: none; }
   .hero-tags { display: none; }
 }
+@media (max-width: 900px) {
+  #hero {
+    grid-template-columns: 1fr;
+    padding: 120px 32px 60px;
+    gap: 40px;
+  }
+  .shuffle-grid { height: 320px; }
+}
 @media (max-width: 768px) {
   nav { padding: 20px 24px; }
   .nav-links { display: none; }
-  #hero { padding: 0 24px 60px; }
+  #hero { padding: 100px 24px 48px; }
+  .shuffle-grid { height: 260px; gap: 4px; }
+  .sq { border-radius: 3px; }
   .container { padding: 0 24px; }
   footer { padding: 32px 24px; }
   .services-grid { grid-template-columns: 1fr; }
@@ -1211,14 +1212,7 @@ footer {
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
 
-  <div class="hero-tags" aria-hidden="true">
-    <div class="hero-tag">// TÁBLÁK & FELIRATOK</div>
-    <div class="hero-tag">// AUTÓFÓLIÁZÁS</div>
-    <div class="hero-tag">// 3D BETŰK</div>
-    <div class="hero-tag">// MOLINÓK</div>
-    <div class="hero-tag">// MATRICA & CÍMKE</div>
-  </div>
-
+  <!-- LEFT: text -->
   <div class="hero-content" style="position:relative;z-index:10">
     <div class="hero-badge">Budapest XVII. kerület — Reklám & Grafika</div>
     <h1 class="hero-title">
@@ -1233,9 +1227,12 @@ footer {
     </div>
   </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="hero-scroll-line"></div>
-    <span class="hero-scroll-label">SCROLL</span>
+  <!-- RIGHT: 4×4 shuffle grid -->
+  <div class="shuffle-grid" id="shuffleGrid">
+    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
+    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
+    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
+    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
   </div>
 </section>
 
@@ -1590,9 +1587,9 @@ footer {
     <div class="reviews-google-badge">
       <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       <div>
-        <div class="badge-rating">4.9</div>
+        <div class="badge-rating">5.0</div>
         <div class="badge-stars">★★★★★</div>
-        <div class="badge-count">32 értékelés</div>
+        <div class="badge-count">58 értékelés</div>
       </div>
     </div>
   </div>
@@ -1949,6 +1946,56 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t) t.scrollIntoView({behavior:'smooth'});
   });
 });
+
+// ── SHUFFLE GRID ──
+(function(){
+  const imgs = [
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+    'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=80',
+    'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&q=80',
+    'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&q=80',
+    'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=400&q=80',
+    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80',
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80',
+    'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&q=80',
+    'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&q=80',
+    'https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=400&q=80',
+    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
+    'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=400&q=80',
+    'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80',
+    'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&q=80',
+    'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&q=80',
+  ];
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const cells = document.querySelectorAll('#shuffleGrid .sq');
+
+  function applyImages(list) {
+    cells.forEach((c, i) => {
+      c.style.backgroundImage = `url(${list[i]})`;
+    });
+  }
+
+  function doShuffle() {
+    cells.forEach(c => c.classList.add('fading'));
+    setTimeout(() => {
+      applyImages(shuffle(imgs));
+      cells.forEach(c => c.classList.remove('fading'));
+    }, 450);
+  }
+
+  applyImages(shuffle(imgs));
+  setInterval(doShuffle, 3000);
+})();
 
 // ── THEME SWITCHER ──
 (function(){
