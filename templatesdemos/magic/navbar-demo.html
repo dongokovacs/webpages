@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar — magic (21st.dev) demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- NAVBAR ---- */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 12px 0;
+      transition: all .3s ease;
+      animation: slideDown .5s ease .1s both;
+    }
+    .navbar.scrolled {
+      background: rgba(8,9,26,.85);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 8px 0;
+    }
+    .navbar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 18px; color: white;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 7px 14px; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      transition: all .2s;
+      position: relative;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,.07); }
+    .nav-links a.active { color: white; }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+      width: 4px; height: 4px; border-radius: 50%;
+      background: #3b82f6;
+    }
+
+    /* Dropdown */
+    .has-dropdown { position: relative; }
+    .dropdown {
+      position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      min-width: 200px;
+      background: rgba(15,22,40,.95);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      padding: 8px;
+      backdrop-filter: blur(20px);
+      opacity: 0; pointer-events: none;
+      transform: translateX(-50%) translateY(-6px);
+      transition: all .2s ease;
+    }
+    .has-dropdown:hover .dropdown {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown a {
+      display: flex; align-items: center; gap-3;
+      padding: 9px 12px; border-radius: 8px;
+      color: rgba(255,255,255,.7) !important;
+      font-size: 13px; font-weight: 500;
+      text-decoration: none;
+      transition: all .2s;
+      gap: 10px;
+    }
+    .dropdown a:hover { background: rgba(255,255,255,.07) !important; color: white !important; }
+    .dropdown-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+
+    /* CTA */
+    .btn-nav {
+      background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+      color: white; font-size: 13px; font-weight: 600;
+      padding: 8px 18px; border-radius: 9px;
+      text-decoration: none;
+      transition: all .2s;
+      box-shadow: 0 2px 12px rgba(59,130,246,.3);
+    }
+    .btn-nav:hover { box-shadow: 0 4px 20px rgba(59,130,246,.5); transform: translateY(-1px); }
+
+    /* Mobile hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,.8); border-radius: 2px; transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .nav-links, .btn-nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu {
+        display: none;
+        position: fixed; top: 64px; left: 12px; right: 12px;
+        background: rgba(15,22,40,.97);
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 16px;
+        padding: 16px;
+        backdrop-filter: blur(20px);
+      }
+      .mobile-menu.open { display: block; }
+      .mobile-menu a {
+        display: block; padding: 11px 14px; color: rgba(255,255,255,.7);
+        font-size: 15px; font-weight: 500; text-decoration: none;
+        border-radius: 10px; transition: all .2s;
+      }
+      .mobile-menu a:hover { background: rgba(255,255,255,.07); color: white; }
+    }
+
+    /* Page content */
+    .page-content {
+      padding-top: 100px;
+      max-width: 900px; margin: 0 auto;
+      padding-left: 24px; padding-right: 24px;
+    }
+    .section-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px; padding: 48px;
+      margin-bottom: 24px;
+      animation: fadeUp .6s ease both;
+    }
+    .variant-label {
+      display: inline-block;
+      background: rgba(59,130,246,.12);
+      border: 1px solid rgba(59,130,246,.25);
+      color: #93c5fd;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 999px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body style="background:linear-gradient(160deg,#06080f,#0d1528 60%,#06080f)" class="text-white min-h-screen">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <div class="logo-mark">✦</div>
+        Lumina
+      </a>
+
+      <!-- Nav links -->
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li class="has-dropdown">
+          <a href="#">Products ▾</a>
+          <div class="dropdown">
+            <a href="#">
+              <span class="dropdown-icon" style="background:rgba(59,130,246,.15);">⚡</span>
+              Analytics
+            </a>
+            <a href="#">
+              <span class="dropdown-icon" style="background:rgba(139,92,246,.15);">🔒</span>
+              Security
+            </a>
+            <a href="#">
+              <span class="dropdown-icon" style="background:rgba(34,211,238,.15);">🤖</span>
+              AI Assistant
+            </a>
+            <a href="#">
+              <span class="dropdown-icon" style="background:rgba(16,185,129,.15);">🔗</span>
+              Integrations
+            </a>
+          </div>
+        </li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Docs</a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a href="#" style="font-size:13px;font-weight:500;color:rgba(255,255,255,.6);text-decoration:none;padding:0 4px;transition:color .2s;"
+           onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Sign in</a>
+        <a href="#" class="btn-nav">Get Started</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Pricing</a>
+    <a href="#">Blog</a>
+    <a href="#">Docs</a>
+    <div style="height:1px;background:rgba(255,255,255,.08);margin:10px 0;"></div>
+    <a href="#">Sign in</a>
+    <a href="#" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:white;margin-top:4px;text-align:center;">Get Started</a>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+
+    <div class="section-card" style="animation-delay:.1s">
+      <span class="variant-label">Default — transparent on top</span>
+      <h2 class="text-3xl font-bold mb-3">Glass Navbar</h2>
+      <p class="text-white/50 text-base leading-relaxed mb-6">
+        The navigation bar starts fully transparent and transitions to a frosted-glass dark style when the user scrolls down.
+        Hover "Products" to see the dropdown menu with icons.
+      </p>
+      <div class="flex flex-wrap gap-3 text-sm">
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.7);">✓ Scroll transition</span>
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.7);">✓ Dropdown menu</span>
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.7);">✓ Mobile hamburger</span>
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.7);">✓ Active indicator</span>
+        <span style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.7);">✓ Backdrop blur</span>
+      </div>
+    </div>
+
+    <div class="section-card" style="animation-delay:.2s">
+      <span class="variant-label">Scroll down to see the transition</span>
+      <h3 class="text-xl font-bold mb-3 text-white/90">How it works</h3>
+      <p class="text-white/45 text-sm leading-relaxed">
+        Scroll this page — the navbar transitions from transparent to <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:5px;font-size:12px;">rgba(8,9,26,.85)</code> with a <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:5px;font-size:12px;">backdrop-filter: blur(20px)</code> glass effect, a subtle bottom border, and reduced vertical padding.
+      </p>
+    </div>
+
+    <!-- spacer to enable scrolling -->
+    <div style="height:200vh;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.15);font-size:14px;">
+      ↑ Scroll back up to see the navbar transition
+    </div>
+  </div>
+
+  <!-- Back link -->
+  <div style="text-align:center;padding:40px;margin-top:-160vh;">
+    <a href="../index.html" style="font-size:13px;color:rgba(255,255,255,.25);" onmouseover="this.style.color='rgba(255,255,255,.6)'" onmouseout="this.style.color='rgba(255,255,255,.25)'">← Back to all demos</a>
+  </div>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    function toggleMenu() {
+      const h = document.getElementById('hamburger');
+      const m = document.getElementById('mobileMenu');
+      h.classList.toggle('open');
+      m.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

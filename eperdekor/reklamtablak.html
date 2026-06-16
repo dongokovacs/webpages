@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reklámtábla Készítés — EperDekor | Budapest XVII. kerület</title>
+<meta name="description" content="Egyedi reklámtáblák, cégtáblák, kivilágított feliratok Budapest XVII. kerületben. Beltéri és kültéri táblák, ingyenes látványterv. EperDekor — +36 20 312 5175">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red: #E8192C; --red-dark: #B01020;
+  --black: #0A0A0A; --surface: #111111; --surface2: #181818;
+  --border: rgba(255,255,255,0.08);
+  --white: #F5F5F0; --dim: rgba(245,245,240,0.5); --dimmer: rgba(245,245,240,0.28);
+  --font-head: 'Syne', sans-serif; --font-body: 'Inter', sans-serif; --font-mono: 'DM Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: var(--font-body); overflow-x: hidden; line-height: 1; }
+body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:0.028; pointer-events:none; z-index:9998; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:20px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,10,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+.nav-logo { font-family:var(--font-head); font-size:16px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+.nav-logo span { color:var(--red); }
+.back-btn { font-family:var(--font-mono); font-size:12px; color:var(--dim); text-decoration:none; display:inline-flex; align-items:center; gap:8px; letter-spacing:0.04em; transition:color 0.2s; }
+.back-btn:hover { color:var(--white); }
+.back-btn::before { content:'←'; }
+
+/* HERO */
+.hero { min-height:60vh; display:flex; flex-direction:column; justify-content:flex-end; padding:140px 48px 60px; position:relative; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 60% 40%, rgba(232,25,44,0.1) 0%, transparent 55%), var(--black); }
+.hero-grid { position:absolute; inset:0; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:80px 80px; mask-image:radial-gradient(ellipse at center,rgba(0,0,0,0.4) 0%,transparent 70%); }
+.hero-content { position:relative; z-index:2; max-width:1100px; margin:0 auto; width:100%; }
+.hero-badge { font-family:var(--font-mono); font-size:11px; color:var(--red); letter-spacing:0.12em; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.hero-badge::before { content:''; display:block; width:20px; height:1px; background:var(--red); }
+.hero-title { font-family:var(--font-head); font-size:clamp(40px,7vw,80px); font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:24px; }
+.hero-title span { color:var(--red); }
+.hero-desc { font-size:clamp(15px,1.8vw,18px); color:var(--dim); max-width:540px; line-height:1.75; margin-bottom:36px; }
+.hero-cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-red { background:var(--red); color:var(--white); font-family:var(--font-head); font-size:14px; font-weight:700; padding:14px 32px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; letter-spacing:0.04em; transition:background 0.2s,transform 0.2s var(--ease); }
+.btn-red:hover { background:var(--red-dark); transform:translateY(-2px); }
+.btn-ghost { border:1px solid var(--border); color:var(--white); font-family:var(--font-head); font-size:14px; font-weight:600; padding:14px 32px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; letter-spacing:0.04em; transition:border-color 0.2s,background 0.2s; }
+.btn-ghost:hover { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.04); }
+
+/* INTRO */
+.intro { padding:80px 48px; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; border-bottom:1px solid var(--border); }
+.intro-text h2 { font-family:var(--font-head); font-size:clamp(24px,3vw,36px); font-weight:800; letter-spacing:-0.02em; margin-bottom:20px; }
+.intro-text h2 span { color:var(--red); }
+.intro-text p { font-size:15px; color:var(--dim); line-height:1.8; margin-bottom:16px; }
+.intro-highlights { display:flex; flex-direction:column; gap:14px; }
+.highlight-item { display:flex; align-items:flex-start; gap:14px; padding:16px 20px; background:var(--surface); border:1px solid var(--border); border-left:2px solid var(--red); }
+.hi-icon { color:var(--red); font-size:18px; flex-shrink:0; margin-top:1px; }
+.hi-text { }
+.hi-title { font-family:var(--font-head); font-size:14px; font-weight:700; margin-bottom:4px; }
+.hi-desc { font-size:13px; color:var(--dim); line-height:1.6; }
+
+/* TYPES */
+.types { padding:80px 48px; max-width:1100px; margin:0 auto; }
+.section-label { font-family:var(--font-mono); font-size:11px; color:var(--red); letter-spacing:0.12em; display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.section-label::before { content:''; display:block; width:16px; height:1px; background:var(--red); }
+.section-title { font-family:var(--font-head); font-size:clamp(26px,4vw,42px); font-weight:800; letter-spacing:-0.02em; margin-bottom:48px; }
+.section-title span { color:var(--red); }
+.types-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); }
+.type-card { background:var(--surface); padding:32px 28px; position:relative; overflow:hidden; transition:background 0.3s; }
+.type-card:hover { background:var(--surface2); }
+.type-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--red); transform:scaleX(0); transform-origin:left; transition:transform 0.35s var(--ease); }
+.type-card:hover::after { transform:scaleX(1); }
+.type-num { font-family:var(--font-mono); font-size:10px; color:var(--dimmer); letter-spacing:0.1em; margin-bottom:16px; }
+.type-name { font-family:var(--font-head); font-size:17px; font-weight:700; margin-bottom:10px; }
+.type-desc { font-size:13px; color:var(--dim); line-height:1.7; }
+
+/* PROCESS */
+.process { padding:80px 48px; max-width:1100px; margin:0 auto; border-top:1px solid var(--border); }
+.process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; margin-top:48px; }
+.step { }
+.step-num { font-family:var(--font-head); font-size:48px; font-weight:800; color:var(--red); opacity:0.2; line-height:1; margin-bottom:12px; }
+.step-title { font-family:var(--font-head); font-size:16px; font-weight:700; margin-bottom:8px; }
+.step-desc { font-size:13px; color:var(--dim); line-height:1.7; }
+
+/* FAQ */
+.faq { padding:80px 48px; max-width:1100px; margin:0 auto; border-top:1px solid var(--border); }
+.faq-list { margin-top:40px; display:flex; flex-direction:column; gap:0; }
+.faq-item { border-bottom:1px solid var(--border); }
+.faq-q { padding:20px 0; font-family:var(--font-head); font-size:15px; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:color 0.2s; }
+.faq-q:hover { color:var(--red); }
+.faq-q .faq-icon { color:var(--red); font-size:18px; transition:transform 0.3s; }
+.faq-a { font-size:14px; color:var(--dim); line-height:1.8; padding:0 0 20px; display:none; }
+.faq-item.open .faq-a { display:block; }
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+
+/* CTA STRIP */
+.cta-strip { background:var(--surface); border-top:1px solid var(--border); padding:60px 48px; text-align:center; }
+.cta-strip h2 { font-family:var(--font-head); font-size:clamp(24px,4vw,44px); font-weight:800; letter-spacing:-0.02em; margin-bottom:16px; }
+.cta-strip p { font-size:15px; color:var(--dim); margin-bottom:32px; }
+.cta-contacts { display:flex; justify-content:center; gap:32px; flex-wrap:wrap; margin-bottom:32px; }
+.cta-contact { font-family:var(--font-mono); font-size:13px; color:var(--dim); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s; }
+.cta-contact:hover { color:var(--white); }
+
+/* FOOTER */
+footer { padding:28px 48px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.f-logo { font-family:var(--font-head); font-size:14px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; }
+.f-logo span { color:var(--red); }
+.f-copy { font-family:var(--font-mono); font-size:11px; color:var(--dimmer); }
+.f-back { font-family:var(--font-mono); font-size:11px; color:var(--dim); text-decoration:none; transition:color 0.2s; }
+.f-back:hover { color:var(--white); }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  nav { padding:16px 20px; }
+  .hero { padding:120px 20px 48px; }
+  .hero-content { max-width:100%; }
+  .intro { padding:48px 20px; grid-template-columns:1fr; gap:36px; }
+  .types { padding:48px 20px; }
+  .types-grid { grid-template-columns:1fr; }
+  .process { padding:48px 20px; }
+  .process-steps { grid-template-columns:1fr 1fr; gap:24px; }
+  .faq { padding:48px 20px; }
+  .cta-strip { padding:48px 20px; }
+  footer { padding:20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Eper<span>Dekor</span></a>
+  <a href="index.html" class="back-btn">Vissza a főoldalra</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Budapest XVII. kerület — Reklámkészítés</div>
+    <h1 class="hero-title">Reklámtábla<br><span>Készítés</span></h1>
+    <p class="hero-desc">Egyedi tervezésű és kivitelezésű cégtáblák, kivilágított feliratok, beltéri és kültéri reklámtáblák minden méretben — ingyenes látványtervvel.</p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-red">Ingyenes ajánlat →</a>
+      <a href="tel:+36203125175" class="btn-ghost">+36 20 312 5175</a>
+    </div>
+  </div>
+</section>
+
+<div class="intro">
+  <div class="intro-text">
+    <h2>Miért fontos egy jó <span>cégtábla?</span></h2>
+    <p>Az első benyomás másodpercek alatt kialakul. Egy profi, egyedi reklámtábla nemcsak megkülönböztet a versenytársaktól, hanem bizalmat is sugároz az ügyfelek felé — még mielőtt belépnének.</p>
+    <p>Budapest XVII. kerületében és környékén évek óta segítünk vállalkozásoknak megtalálni a hangjukat vizuálisan. Minden projekt ingyenes konzultációval és látványtervvel kezdődik.</p>
+    <a href="tel:+36203125175" class="btn-red" style="margin-top:8px;display:inline-flex">Hívjon most →</a>
+  </div>
+  <div class="intro-highlights">
+    <div class="highlight-item">
+      <div class="hi-icon">✓</div>
+      <div class="hi-text"><div class="hi-title">Ingyenes látványterv</div><div class="hi-desc">Megrendelés előtt digitálisan mutatjuk meg, hogyan fog kinézni a kész tábla.</div></div>
+    </div>
+    <div class="highlight-item">
+      <div class="hi-icon">✓</div>
+      <div class="hi-text"><div class="hi-title">UV-álló anyagok</div><div class="hi-desc">Kültéri táblákhoz csak időjárásálló, tartós alapanyagokat használunk.</div></div>
+    </div>
+    <div class="highlight-item">
+      <div class="hi-icon">✓</div>
+      <div class="hi-text"><div class="hi-title">Helyszíni felszerelés</div><div class="hi-desc">Nem csak elkészítjük — igény esetén fel is szereljük a helyszínen.</div></div>
+    </div>
+    <div class="highlight-item">
+      <div class="hi-icon">✓</div>
+      <div class="hi-text"><div class="hi-title">Gyors átfutás</div><div class="hi-desc">Sürgős megrendeléseket is vállalunk, rugalmas határidőkkel.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="types">
+  <div class="section-label">Táblafajták</div>
+  <h2 class="section-title">Milyen táblákat <span>készítünk?</span></h2>
+  <div class="types-grid">
+    <div class="type-card">
+      <div class="type-num">01</div>
+      <div class="type-name">Kültéri cégtáblák</div>
+      <p class="type-desc">Időjárásálló, UV-stabil anyagból készült homlokzati táblák, kapufeliratok, kerítéstáblák. Alumínium, dibond, PVC és egyéb tartós alapanyagokon.</p>
+    </div>
+    <div class="type-card">
+      <div class="type-num">02</div>
+      <div class="type-name">Kivilágított feliratok</div>
+      <p class="type-desc">LED-es háttérvilágítású dobozos táblák, egyedi neon-hatású feliratok, backlit cégtáblák — amelyek éjjel is láthatók és hatásosak.</p>
+    </div>
+    <div class="type-card">
+      <div class="type-num">03</div>
+      <div class="type-name">Beltéri táblák</div>
+      <p class="type-desc">Recepciós falfeliratok, irodai tájékoztató táblák, irányjelző rendszerek, akril és plexi alapon, elegáns kivitelben.</p>
+    </div>
+    <div class="type-card">
+      <div class="type-num">04</div>
+      <div class="type-name">Közterületi táblák</div>
+      <p class="type-desc">Utcai reklámtáblák, City Light posztertartók, plakátkeret rendszerek és közterületi információs táblák.</p>
+    </div>
+    <div class="type-card">
+      <div class="type-num">05</div>
+      <div class="type-name">Tájékoztató rendszerek</div>
+      <p class="type-desc">Épületen belüli wayfinding rendszerek, emeleti táblarendszerek, parkolási és biztonsági feliratok.</p>
+    </div>
+    <div class="type-card">
+      <div class="type-num">06</div>
+      <div class="type-name">Egyedi formák</div>
+      <p class="type-desc">Logó formájú kivágott táblák, konturvágott betűk és formák — ha valami igazán egyedire vágyik, nekünk kihívás nélkül megy.</p>
+    </div>
+  </div>
+</div>
+
+<div class="process">
+  <div class="section-label">Hogyan működik</div>
+  <h2 class="section-title">Egyszerű folyamat, <span>profi eredmény</span></h2>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Konzultáció</div>
+      <p class="step-desc">Felhív minket vagy e-mailt küld. Megbeszéljük az elképzeléseit, méreteket, anyagot, helyszínt.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Ingyenes látványterv</div>
+      <p class="step-desc">Elkészítjük a digitális látványtervet — pontosan látni fogja, hogyan néz majd ki a tábla a helyszínen.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Gyártás</div>
+      <p class="step-desc">A jóváhagyott terv alapján saját műhelyben, minőségi anyagokból elkészítjük a táblát.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Átadás / Felszerelés</div>
+      <p class="step-desc">Igény szerint helyszíni felszereléssel adjuk át — hogy azonnal látható legyen az eredmény.</p>
+    </div>
+  </div>
+</div>
+
+<div class="faq">
+  <div class="section-label">Gyakori kérdések</div>
+  <h2 class="section-title">Amit a legtöbben <span>kérdeznek</span></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Mennyi idő alatt készül el egy reklámtábla? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Az egyszerűbb táblák 3–5 munkanap alatt elkészülnek. Bonyolultabb, kivilágított vagy egyedi formájú táblák esetén 5–10 munkanappal számoljon. Sürgős esetben egyeztetés alapján gyorsítható.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Valóban ingyenes a látványterv? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Igen, teljesen ingyenes. Megrendelés előtt elkészítjük a digitális látványtervet, hogy biztosan elégedett legyen az eredménnyel. Ha valamit változtatni szeretne, azt is megcsináljuk.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Hogyan tudok árajánlatot kérni? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Telefonon (+36 20 312 5175) vagy e-mailben (eperdekor@gmail.com) kereshet minket. Mondja el az elképzeléseit, a méretet és a helyszínt, és hamarosan visszaküldjük az ajánlatot.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Vállalnak felszerelést is? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Igen, igény esetén a helyszíni felszerelést is vállaljuk. Budapest XVII. kerületében és környékén külön díjazás nélkül, távolabbi helyszínekre egyeztetés alapján.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Milyen anyagokból dolgoznak? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Kültéri táblákhoz UV-álló dibond, alumínium, PVC és akril anyagokat használunk. Beltéri táblákhoz plexi, akril, MDF és egyéb dekoratív anyagok is elérhetők. Az igényhez mindig a legmegfelelőbb anyagot javasoljuk.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-strip" id="contact">
+  <h2>Kérjen ingyenes ajánlatot!</h2>
+  <p>Mondja el elképzeléseit — 24 órán belül visszajelzünk ingyenes látványtervvel.</p>
+  <div class="cta-contacts">
+    <a href="tel:+36203125175" class="cta-contact">📞 +36 20 312 5175</a>
+    <a href="mailto:eperdekor@gmail.com" class="cta-contact">✉️ eperdekor@gmail.com</a>
+    <span class="cta-contact">📍 Budapest XVII. kerület</span>
+  </div>
+  <a href="mailto:eperdekor@gmail.com" class="btn-red">Ajánlatot kérek →</a>
+</div>
+
+<footer>
+  <div class="f-logo">Eper<span>Dekor</span></div>
+  <div class="f-copy">© 2024 EperDekor — Budapest XVII. kerület</div>
+  <a href="index.html" class="f-back">← Vissza a főoldalra</a>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>

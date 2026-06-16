@@ -1,0 +1,23 @@
+/* EperDekor — Shared service page styles */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #E8192C;
+  --red-dark: #B01020;
+  --black: #0A0A0A;
+  --surface: #111111;
+  --surface2: #181818;
+  --border: rgba(255,255,255,0.08);
+  --white: #F5F5F0;
+  --dim: rgba(245,245,240,0.5);
+  --dimmer: rgba(245,245,240,0.28);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: var(--font-body); overflow-x: hidden; }
+
+body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:0.028; pointer-events:none; z-index:9998; }

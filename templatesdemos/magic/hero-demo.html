@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Section — magic (21st.dev) demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-12px); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes gridFade {
+      from { opacity: 0; } to { opacity: .5; }
+    }
+
+    .fade-up-1 { animation: fadeUp .7s ease .1s both; }
+    .fade-up-2 { animation: fadeUp .7s ease .25s both; }
+    .fade-up-3 { animation: fadeUp .7s ease .4s both; }
+    .fade-up-4 { animation: fadeUp .7s ease .55s both; }
+    .fade-up-5 { animation: fadeUp .7s ease .7s both; }
+
+    .shimmer-text {
+      background: linear-gradient(90deg, #fff 0%, #fff 35%, #93c5fd 50%, #fff 65%, #fff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite 1.2s;
+    }
+
+    .badge-glow {
+      box-shadow: 0 0 20px rgba(147,197,253,.2);
+    }
+    .btn-glow {
+      background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+      box-shadow: 0 4px 24px rgba(59,130,246,.35);
+      transition: all .25s;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 8px 40px rgba(59,130,246,.55);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+      transition: all .25s;
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.35);
+    }
+
+    .mockup-frame {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 10px;
+      backdrop-filter: blur(20px);
+      animation: fadeUp .8s ease .9s both, float 6s ease-in-out 1.8s infinite;
+    }
+    .mockup-inner {
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg,#1e293b,#0f172a);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* grid bg */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridFade 1s ease .3s both;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
+    }
+  </style>
+</head>
+<body style="background:linear-gradient(to bottom,#020817,#0f172a 50%,#020817)" class="text-white min-h-screen overflow-x-hidden">
+
+  <!-- grid bg -->
+  <div class="grid-bg fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- blue glow top -->
+  <div class="fixed top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none z-0"
+       style="background:radial-gradient(ellipse,rgba(59,130,246,.2),transparent 65%);"></div>
+
+  <div class="relative z-10 flex flex-col items-center text-center px-4 pt-28 pb-24 max-w-5xl mx-auto">
+
+    <!-- badge -->
+    <div class="fade-up-1 mb-8">
+      <span class="badge-glow inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase"
+            style="background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:#93c5fd;">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+        Introducing magic components
+        <span style="color:rgba(147,197,253,.6)">→ Learn more</span>
+      </span>
+    </div>
+
+    <!-- headline -->
+    <h1 class="fade-up-2 text-6xl md:text-8xl font-black leading-none tracking-tighter mb-6">
+      <span class="shimmer-text">Build faster</span><br>
+      <span style="-webkit-text-fill-color:rgba(255,255,255,.85);">with beautiful</span><br>
+      <span class="shimmer-text">components</span>
+    </h1>
+
+    <!-- subtext -->
+    <p class="fade-up-3 text-lg md:text-xl text-white/50 max-w-2xl mb-10 leading-relaxed">
+      Premium UI components built with React and Tailwind CSS.
+      Save time and ship your next project faster with our ready-to-use, production-grade components.
+    </p>
+
+    <!-- CTA buttons -->
+    <div class="fade-up-4 flex flex-wrap gap-4 justify-center mb-20">
+      <button class="btn-glow px-8 py-3.5 rounded-xl font-semibold text-white text-sm">
+        Get Started Free →
+      </button>
+      <button class="btn-outline px-8 py-3.5 rounded-xl font-semibold text-white/80 text-sm flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        View on GitHub
+      </button>
+    </div>
+
+    <!-- mockup -->
+    <div class="fade-up-5 w-full max-w-4xl">
+      <div class="mockup-frame">
+        <div class="mockup-inner">
+          <!-- fake UI inside mockup -->
+          <div class="absolute inset-0 p-6 flex flex-col gap-3">
+            <!-- top bar -->
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+              <div class="ml-4 flex-1 h-5 rounded bg-white/5 max-w-xs"></div>
+            </div>
+            <!-- content rows -->
+            <div class="flex gap-4 flex-1">
+              <div class="w-48 space-y-2">
+                <div class="h-7 rounded bg-blue-500/20"></div>
+                <div class="h-5 rounded bg-white/5"></div>
+                <div class="h-5 rounded bg-white/5"></div>
+                <div class="h-5 rounded bg-white/5"></div>
+                <div class="h-5 rounded bg-white/3"></div>
+              </div>
+              <div class="flex-1 space-y-3">
+                <div class="grid grid-cols-3 gap-3 h-24">
+                  <div class="rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-blue-400/30"></div>
+                  </div>
+                  <div class="rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-purple-400/30"></div>
+                  </div>
+                  <div class="rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-cyan-400/30"></div>
+                  </div>
+                </div>
+                <div class="h-4 rounded bg-white/5 w-3/4"></div>
+                <div class="h-4 rounded bg-white/4 w-1/2"></div>
+                <div class="h-8 rounded bg-blue-500/20 w-24"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- glow under mockup -->
+      <div class="w-full h-24 -mt-8 pointer-events-none"
+           style="background:radial-gradient(ellipse 60% 40% at 50% 100%,rgba(59,130,246,.2),transparent);"></div>
+    </div>
+
+    <!-- back link -->
+    <a href="../index.html" class="mt-8 text-sm text-white/25 hover:text-white/60 transition-colors">← Back to all demos</a>
+  </div>
+</body>
+</html>

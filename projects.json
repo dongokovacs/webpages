@@ -1,5 +1,17 @@
 [
   {
+    "title": "EperDekor — Reklám & Grafika",
+    "description": "Modern reklámügynökségi website. Táblák, autófóliázás, 3D betűk, molinók, digitális nyomtatás. Budapest XVII. kerület.",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop",
+    "link": "eperdekor/"
+  },
+  {
+    "title": "Meridian® — Infrastructure Investment",
+    "description": "Cinematic 3D scroll-driven website for an international infrastructure investment firm. Aviation, Energy & Space sectors.",
+    "image": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1600&q=80&auto=format&fit=crop",
+    "link": "space/"
+  },
+  {
     "title": "Galiba Társulat – Portfolio",
     "description": "Galiba Társulat bemutatkozó portfólió oldal.",
     "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80&auto=format&fit=crop",

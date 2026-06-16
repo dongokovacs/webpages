@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN® — Strategic Infrastructure Investment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000000;
+    --navy: #030510;
+    --white: #F0EDE6;
+    --blue: #1A6EFF;
+    --teal: #0A3D62;
+    --cyan: #00CFFF;
+    --green: #00FF80;
+    --purple: #8B5CF6;
+    --text-dim: rgba(255,255,255,0.5);
+    --text-mid: rgba(255,255,255,0.7);
+    --font-head: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: auto; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── CUSTOM CURSOR ── */
+  #cursor-dot {
+    position: fixed;
+    width: 6px; height: 6px;
+    background: var(--white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%,-50%);
+    transition: transform 0.05s;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(240,237,230,0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%,-50%);
+    transition: transform 0.15s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  body.cursor-hover #cursor-ring {
+    width: 52px; height: 52px;
+    border-color: rgba(240,237,230,0.9);
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 48px;
+    background: transparent;
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo sup { font-size: 9px; vertical-align: super; }
+  .nav-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .nav-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.28);
+    transition: background 0.4s, box-shadow 0.4s;
+    cursor: none;
+  }
+  .nav-dot.active {
+    background: var(--white);
+    box-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.3);
+  }
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+    letter-spacing: 0.05em;
+    cursor: none;
+  }
+  .nav-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--white);
+    transition: width 0.3s ease;
+  }
+  .nav-cta:hover::after { width: 100%; }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* ── SECTION 1: HERO ── */
+  #hero {
+    justify-content: center;
+    background: radial-gradient(ellipse at 50% 60%, #030A2A 0%, #000000 70%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .hero-title {
+    font-family: var(--font-head);
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease forwards;
+  }
+  .hero-title sup { font-size: 0.35em; vertical-align: super; letter-spacing: 0; }
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: clamp(14px, 2vw, 20px);
+    color: var(--text-dim);
+    max-width: 500px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+  .hero-cta {
+    font-family: var(--font-head);
+    font-size: 14px;
+    color: var(--white);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+    cursor: none;
+  }
+  .hero-cta .arrow { transition: transform 0.3s ease; }
+  .hero-cta:hover .arrow { transform: translateX(6px); }
+
+  /* Globe */
+  .globe-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .globe {
+    width: clamp(280px, 45vw, 520px);
+    height: clamp(280px, 45vw, 520px);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 32%,
+        rgba(30,100,255,0.75) 0%,
+        rgba(10,40,100,0.55) 35%,
+        rgba(0,5,20,0.92) 100%);
+    box-shadow:
+      0 0 60px rgba(30,100,255,0.25),
+      0 0 130px rgba(30,100,255,0.12),
+      inset -25px -25px 50px rgba(0,0,0,0.55);
+    position: relative;
+    animation: globePulse 8s ease-in-out infinite;
+    opacity: 0;
+    animation: globeAppear 1.6s ease 0.3s forwards, globePulse 8s ease-in-out 2s infinite;
+  }
+  @keyframes globeAppear { to { opacity: 1; } }
+  @keyframes globePulse {
+    0%,100% { box-shadow: 0 0 60px rgba(30,100,255,0.25),0 0 130px rgba(30,100,255,0.12),inset -25px -25px 50px rgba(0,0,0,0.55); }
+    50% { box-shadow: 0 0 80px rgba(30,100,255,0.35),0 0 160px rgba(30,100,255,0.18),inset -25px -25px 50px rgba(0,0,0,0.55); }
+  }
+  .globe-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: rotateSvg 30s linear infinite;
+  }
+  @keyframes rotateSvg { to { transform: rotate(360deg); } }
+  .globe-point {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(100,200,255,0.9);
+    box-shadow: 0 0 12px rgba(100,200,255,0.8);
+    transform: translate(-50%,-50%);
+    animation: pointPulse 2.5s ease-in-out infinite;
+  }
+  .globe-point::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(100,200,255,0.5);
+    animation: ringExpand 2.5s ease-out infinite;
+  }
+  @keyframes pointPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  @keyframes ringExpand { 0%{transform:scale(1);opacity:0.7} 100%{transform:scale(2.5);opacity:0} }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.4s forwards;
+  }
+  .scroll-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--text-dim);
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollBounce 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollBounce { 0%,100%{transform:scaleY(1);opacity:0.5} 50%{transform:scaleY(0.5);opacity:1} }
+
+  /* ── SECTION 2: AVIATION ── */
+  #aviation {
+    background: linear-gradient(180deg, #000005 0%, #050A20 55%, #0A1540 100%);
+  }
+  .avi-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .cloud-layer {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .cloud-1 {
+    width: 500px; height: 200px;
+    background: rgba(100,150,255,0.04);
+    top: 30%; left: -10%;
+    animation: cloudDrift 18s ease-in-out infinite;
+  }
+  .cloud-2 {
+    width: 400px; height: 150px;
+    background: rgba(80,130,255,0.04);
+    top: 55%; right: -5%;
+    animation: cloudDrift 22s ease-in-out infinite reverse;
+  }
+  @keyframes cloudDrift {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(60px); }
+  }
+  .horizon-line {
+    position: absolute;
+    top: 60%; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(100,200,255,0.25), transparent);
+  }
+  .aircraft-wrap {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: aircraftDrift 8s ease-in-out infinite;
+  }
+  @keyframes aircraftDrift {
+    0%,100% { transform: translateY(-50%) translateX(-20px); }
+    50% { transform: translateY(-50%) translateX(20px); }
+  }
+  .aircraft-trails {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .trail {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.08));
+  }
+  .trail:nth-child(1) { width: 200px; }
+  .trail:nth-child(2) { width: 160px; opacity: 0.7; }
+  .trail:nth-child(3) { width: 100px; opacity: 0.4; }
+
+  /* ── SECTION 3: ENERGY ── */
+  #energy {
+    background: linear-gradient(180deg, #000000 0%, #000805 50%, #001508 100%);
+  }
+  .energy-grid {
+    position: absolute;
+    inset: 0;
+    perspective: 600px;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .energy-grid-inner {
+    position: absolute;
+    bottom: 0; left: -50%;
+    width: 200%; height: 80%;
+    background-image:
+      linear-gradient(rgba(0,255,100,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,100,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: rotateX(65deg);
+    transform-origin: bottom center;
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 70%);
+  }
+  .energy-core-wrap {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .energy-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0,255,128,0.25);
+  }
+  .energy-ring-1 {
+    width: 280px; height: 280px;
+    animation: orbitRing1 6s linear infinite;
+  }
+  .energy-ring-2 {
+    width: 220px; height: 220px;
+    animation: orbitRing2 4s linear infinite;
+    border-color: rgba(0,255,128,0.18);
+  }
+  .energy-ring-3 {
+    width: 360px; height: 360px;
+    animation: orbitRing3 9s linear infinite;
+    border-color: rgba(0,180,255,0.12);
+  }
+  @keyframes orbitRing1 { to { transform: rotateX(70deg) rotateZ(360deg); } }
+  @keyframes orbitRing2 { to { transform: rotateX(45deg) rotateY(360deg); } }
+  @keyframes orbitRing3 { to { transform: rotateX(80deg) rotateZ(-360deg); } }
+  .energy-core {
+    width: 140px; height: 140px;
+    background: conic-gradient(from 0deg, #00FF80, #0080FF, #00FF80);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: coreSpin 10s linear infinite;
+    box-shadow: 0 0 50px rgba(0,255,128,0.5), 0 0 100px rgba(0,255,128,0.2);
+    filter: drop-shadow(0 0 20px rgba(0,255,128,0.6));
+  }
+  @keyframes coreSpin { to { transform: rotate(360deg); } }
+
+  /* ── SECTION 4: SPACE ── */
+  #space-sector {
+    background: #000000;
+  }
+  .star-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .nebula {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .nebula-1 {
+    width: 500px; height: 400px;
+    background: rgba(80,20,140,0.14);
+    top: 10%; right: 5%;
+  }
+  .nebula-2 {
+    width: 400px; height: 300px;
+    background: rgba(20,50,200,0.09);
+    bottom: 15%; left: 10%;
+  }
+  .nebula-3 {
+    width: 300px; height: 300px;
+    background: rgba(100,20,180,0.08);
+    top: 50%; left: 40%;
+  }
+  .satellite-wrap {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .orbit-path {
+    position: absolute;
+    width: 320px; height: 180px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.12);
+    animation: orbitPath 12s linear infinite;
+  }
+  @keyframes orbitPath { to { transform: rotateY(360deg); } }
+  .orbit-path-2 {
+    width: 240px; height: 240px;
+    animation: orbitPath2 18s linear infinite;
+    border-color: rgba(139,92,246,0.15);
+  }
+  @keyframes orbitPath2 { to { transform: rotateX(30deg) rotateZ(-360deg); } }
+  .satellite-drift {
+    animation: satDrift 6s ease-in-out infinite;
+  }
+  @keyframes satDrift {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* ── SECTION 5: INVESTMENT MODEL ── */
+  #investment {
+    background: linear-gradient(180deg, #000000 0%, #020510 100%);
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 48px;
+  }
+  .section-inner {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .investment-phases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 80px;
+    position: relative;
+  }
+  .phase-connector {
+    position: absolute;
+    top: 32px;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    overflow: visible;
+  }
+  .phase-connector-line {
+    stroke: rgba(26,110,255,0.4);
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 1.8s ease;
+  }
+  .in-view .phase-connector-line { stroke-dashoffset: 0; }
+  .phase-card {
+    padding: 20px 28px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .phase-card.in-view { opacity: 1; transform: translateY(0); }
+  .phase-num {
+    font-family: var(--font-head);
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--blue);
+    text-shadow: 0 0 30px rgba(26,110,255,0.5);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .phase-name {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .phase-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── SECTION 6: CLOSING CTA ── */
+  #closing {
+    background: linear-gradient(180deg, #010209 0%, #000000 100%);
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .closing-globe-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .closing-globe {
+    width: clamp(200px, 35vw, 420px);
+    height: clamp(200px, 35vw, 420px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+      rgba(30,100,255,0.35) 0%,
+      rgba(10,40,100,0.25) 40%,
+      rgba(0,5,20,0.6) 100%);
+    box-shadow:
+      0 0 80px rgba(30,100,255,0.15),
+      0 0 180px rgba(30,100,255,0.08);
+    opacity: 0.5;
+    animation: closingGlobe 12s ease-in-out infinite;
+  }
+  @keyframes closingGlobe {
+    0%,100% { box-shadow: 0 0 80px rgba(30,100,255,0.15),0 0 180px rgba(30,100,255,0.08); }
+    50% { box-shadow: 0 0 120px rgba(30,100,255,0.25),0 0 240px rgba(30,100,255,0.12); }
+  }
+  .closing-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+  .closing-title {
+    font-family: var(--font-head);
+    font-size: clamp(32px, 5.5vw, 62px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 700px;
+  }
+  .btn-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-outline {
+    font-family: var(--font-head);
+    font-size: 14px;
+    color: var(--white);
+    border: 1px solid rgba(240,237,230,0.5);
+    padding: 14px 32px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.03em;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+  .btn-fill {
+    font-family: var(--font-head);
+    font-size: 14px;
+    color: var(--white);
+    background: var(--blue);
+    padding: 14px 32px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.03em;
+    transition: background 0.3s;
+    cursor: none;
+  }
+  .btn-fill:hover { background: #2278FF; }
+
+  /* ── SHARED CONTENT LAYOUT ── */
+  .sector-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    width: 100%;
+  }
+  .sector-text { max-width: 540px; }
+  .sector-text.right {
+    margin-left: auto;
+    text-align: right;
+  }
+  .sector-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+    display: block;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .sector-text.right .sector-label {
+    transform: translateX(20px);
+  }
+  .sector-label.in-view { opacity: 1; transform: translateX(0); }
+
+  .sector-heading {
+    font-family: var(--font-head);
+    font-size: clamp(28px, 4vw, 50px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .sector-heading .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .sector-heading .word.in-view { opacity: 1; transform: translateY(0); }
+
+  .sector-body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-mid);
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+  }
+  .sector-body.in-view { opacity: 1; transform: translateY(0); }
+
+  .sector-link {
+    font-family: var(--font-head);
+    font-size: 14px;
+    color: var(--white);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s;
+    cursor: none;
+  }
+  .sector-link.in-view { opacity: 1; transform: translateY(0); }
+  .sector-link .arrow { transition: transform 0.3s; }
+  .sector-link:hover .arrow { transform: translateX(6px); }
+
+  /* Stats cards */
+  .stats-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .sector-text.right .stats-row { justify-content: flex-end; }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 16px 22px;
+    min-width: 120px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .stat-card.in-view { opacity: 1; transform: translateY(0); }
+  .stat-value {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  /* Investment section title */
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(28px, 4.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+  .section-title .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .section-title .word.in-view { opacity: 1; transform: translateY(0); }
+  .section-subtitle {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .section-subtitle.in-view { opacity: 1; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #000;
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-cta { display: none; }
+    .sector-content { padding: 0 24px; }
+    .sector-text.right { margin-left: 0; text-align: left; }
+    .sector-text.right .sector-label { transform: translateX(-20px); }
+    .sector-text.right .stats-row { justify-content: flex-start; }
+    .aircraft-wrap, .energy-core-wrap, .satellite-wrap { display: none; }
+    #investment { padding: 80px 24px; }
+    .investment-phases { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .phase-connector { display: none; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .btn-group { flex-direction: column; align-items: center; }
+  }
+
+  @media (max-width: 480px) {
+    .investment-phases { grid-template-columns: 1fr; }
+    .stats-row { flex-direction: column; }
+    .stat-card { min-width: unset; }
+    .globe { width: 260px; height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Navbar -->
+<nav>
+  <a href="#hero" class="nav-logo">Meridian<sup>®</sup></a>
+  <div class="nav-dots">
+    <span class="nav-dot active" data-section="0" title="Aviation"></span>
+    <span class="nav-dot" data-section="1" title="Energy"></span>
+    <span class="nav-dot" data-section="2" title="Space"></span>
+  </div>
+  <a href="#closing" class="nav-cta">Explore Horizons →</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="globe-wrap">
+    <div class="globe" id="globe">
+      <!-- SVG Grid lines -->
+      <svg class="globe-svg" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="260" cy="260" rx="258" ry="258" stroke="rgba(100,150,255,0.12)" stroke-width="0.5"/>
+        <ellipse cx="260" cy="260" rx="200" ry="258" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <ellipse cx="260" cy="260" rx="120" ry="258" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <ellipse cx="260" cy="260" rx="40" ry="258" stroke="rgba(100,150,255,0.06)" stroke-width="0.5"/>
+        <line x1="2" y1="130" x2="518" y2="130" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <line x1="2" y1="200" x2="518" y2="200" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <line x1="2" y1="260" x2="518" y2="260" stroke="rgba(100,150,255,0.1)" stroke-width="0.5"/>
+        <line x1="2" y1="320" x2="518" y2="320" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <line x1="2" y1="390" x2="518" y2="390" stroke="rgba(100,150,255,0.08)" stroke-width="0.5"/>
+        <!-- Connection lines -->
+        <path d="M 155 180 Q 260 220 370 160" stroke="rgba(100,200,255,0.35)" stroke-width="0.7" stroke-dasharray="4 4">
+          <animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 370 160 Q 380 290 300 360" stroke="rgba(100,200,255,0.3)" stroke-width="0.7" stroke-dasharray="4 4">
+          <animate attributeName="stroke-dashoffset" values="0;-20" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 155 180 Q 200 300 300 360" stroke="rgba(100,200,255,0.25)" stroke-width="0.7" stroke-dasharray="4 4">
+          <animate attributeName="stroke-dashoffset" values="0;-20" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+      <!-- Connection points -->
+      <div class="globe-point" style="top:34%;left:30%"></div>
+      <div class="globe-point" style="top:31%;left:71%;animation-delay:0.8s"></div>
+      <div class="globe-point" style="top:69%;left:58%;animation-delay:1.6s"></div>
+      <div class="globe-point" style="top:52%;left:22%;animation-delay:0.4s"></div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">Meridian<sup>®</sup></h1>
+    <p class="hero-tagline">Strategic by Nature. Systemic at Core.<br>Infrastructure investment across three frontiers.</p>
+    <a href="#aviation" class="hero-cta">Explore Horizons <span class="arrow">→</span></a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-label">SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── AVIATION ─── -->
+<section id="aviation">
+  <div class="avi-bg">
+    <div class="cloud-layer cloud-1"></div>
+    <div class="cloud-layer cloud-2"></div>
+    <div class="horizon-line"></div>
+  </div>
+
+  <!-- Aircraft SVG -->
+  <div class="aircraft-wrap">
+    <div class="aircraft-trails">
+      <div class="trail"></div>
+      <div class="trail" style="margin-top:24px"></div>
+      <div class="trail" style="margin-top:24px"></div>
+    </div>
+    <svg width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.85">
+      <!-- Fuselage -->
+      <path d="M 110 20 L 118 90 L 180 110 L 118 118 L 116 170 L 110 180 L 104 170 L 102 118 L 40 110 L 102 90 Z" stroke="rgba(255,255,255,0.6)" stroke-width="1" fill="rgba(255,255,255,0.03)"/>
+      <!-- Nose -->
+      <path d="M 106 20 L 110 5 L 114 20" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none"/>
+      <!-- Engine pods -->
+      <ellipse cx="75" cy="108" rx="14" ry="5" stroke="rgba(255,255,255,0.3)" stroke-width="0.8" fill="rgba(255,255,255,0.02)"/>
+      <ellipse cx="145" cy="108" rx="14" ry="5" stroke="rgba(255,255,255,0.3)" stroke-width="0.8" fill="rgba(255,255,255,0.02)"/>
+      <!-- Cockpit -->
+      <ellipse cx="110" cy="45" rx="5" ry="8" stroke="rgba(100,200,255,0.5)" stroke-width="0.8" fill="rgba(100,200,255,0.06)"/>
+      <!-- Nav lights -->
+      <circle cx="40" cy="110" r="2" fill="rgba(100,200,255,0.8)">
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="180" cy="110" r="2" fill="rgba(100,200,255,0.8)">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <div class="sector-content">
+    <div class="sector-text" data-animate>
+      <span class="sector-label" style="color: var(--cyan)">— Air Mobility</span>
+      <h2 class="sector-heading">
+        <span class="word">Redefining</span>
+        <span class="word"> the</span>
+        <span class="word"> corridors</span>
+        <span class="word"> of</span>
+        <span class="word"> global</span>
+        <span class="word"> movement.</span>
+      </h2>
+      <p class="sector-body">From next-generation airports to advanced air mobility networks, we position capital at the intersection of infrastructure and aerospace innovation — building the arteries of tomorrow's economy.</p>
+      <a href="#" class="sector-link">Discover More <span class="arrow">→</span></a>
+      <div class="stats-row">
+        <div class="stat-card" style="transition-delay:0.1s">
+          <div class="stat-value" style="color:var(--cyan)">$4.2B</div>
+          <div class="stat-label">COMMITTED AUM</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.2s">
+          <div class="stat-value">38</div>
+          <div class="stat-label">PROJECTS ACTIVE</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.3s">
+          <div class="stat-value">19</div>
+          <div class="stat-label">COUNTRIES</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ENERGY ─── -->
+<section id="energy">
+  <div class="energy-grid">
+    <div class="energy-grid-inner"></div>
+  </div>
+
+  <div class="energy-core-wrap">
+    <div class="energy-ring energy-ring-3"></div>
+    <div class="energy-ring energy-ring-1"></div>
+    <div class="energy-ring energy-ring-2"></div>
+    <div class="energy-core"></div>
+  </div>
+
+  <div class="sector-content">
+    <div class="sector-text right" data-animate>
+      <span class="sector-label" style="color: var(--green)">— Energy Transition</span>
+      <h2 class="sector-heading">
+        <span class="word">Powering</span>
+        <span class="word"> civilisation's</span>
+        <span class="word"> next</span>
+        <span class="word"> chapter.</span>
+      </h2>
+      <p class="sector-body">We deploy patient capital into clean power infrastructure, grid modernisation, and energy storage systems — accelerating the transition while generating resilient, long-duration returns.</p>
+      <a href="#" class="sector-link">Discover More <span class="arrow">→</span></a>
+      <div class="stats-row">
+        <div class="stat-card" style="transition-delay:0.1s">
+          <div class="stat-value" style="color:var(--green)">12 GW</div>
+          <div class="stat-label">CLEAN CAPACITY</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.2s">
+          <div class="stat-value">$6.8B</div>
+          <div class="stat-label">DEPLOYED</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.3s">
+          <div class="stat-value">26</div>
+          <div class="stat-label">MARKETS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPACE ─── -->
+<section id="space-sector">
+  <canvas class="star-canvas" id="starCanvas"></canvas>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+
+  <div class="satellite-wrap">
+    <div class="orbit-path"></div>
+    <div class="orbit-path orbit-path-2"></div>
+    <div class="satellite-drift">
+      <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main body -->
+        <rect x="55" y="55" width="50" height="50" stroke="rgba(255,255,255,0.65)" stroke-width="1" fill="rgba(255,255,255,0.03)"/>
+        <!-- Cross detail -->
+        <line x1="80" y1="55" x2="80" y2="105" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+        <line x1="55" y1="80" x2="105" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+        <!-- Solar panels left -->
+        <rect x="5" y="68" width="44" height="24" stroke="rgba(139,92,246,0.6)" stroke-width="0.8" fill="rgba(139,92,246,0.06)"/>
+        <line x1="5" y1="72" x2="49" y2="72" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="5" y1="76" x2="49" y2="76" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="5" y1="80" x2="49" y2="80" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="5" y1="84" x2="49" y2="84" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="5" y1="88" x2="49" y2="88" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <!-- Solar panels right -->
+        <rect x="111" y="68" width="44" height="24" stroke="rgba(139,92,246,0.6)" stroke-width="0.8" fill="rgba(139,92,246,0.06)"/>
+        <line x1="111" y1="72" x2="155" y2="72" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="111" y1="76" x2="155" y2="76" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="111" y1="80" x2="155" y2="80" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="111" y1="84" x2="155" y2="84" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <line x1="111" y1="88" x2="155" y2="88" stroke="rgba(139,92,246,0.3)" stroke-width="0.4"/>
+        <!-- Antenna -->
+        <line x1="80" y1="55" x2="80" y2="20" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+        <circle cx="80" cy="18" r="3" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" fill="none"/>
+        <!-- Signal -->
+        <circle cx="80" cy="18" r="8" stroke="rgba(139,92,246,0.3)" stroke-width="0.5" fill="none">
+          <animate attributeName="r" values="8;16" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Corner lights -->
+        <circle cx="55" cy="55" r="2" fill="rgba(139,92,246,0.8)">
+          <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="105" cy="55" r="2" fill="rgba(139,92,246,0.8)">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="55" cy="105" r="2" fill="rgba(255,255,255,0.6)">
+          <animate attributeName="opacity" values="1;0.2;1" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="105" cy="105" r="2" fill="rgba(255,255,255,0.6)">
+          <animate attributeName="opacity" values="0.2;1;0.2" dur="3s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+
+  <div class="sector-content">
+    <div class="sector-text" data-animate>
+      <span class="sector-label" style="color: var(--purple)">— Space Economy</span>
+      <h2 class="sector-heading">
+        <span class="word">Investing</span>
+        <span class="word"> at</span>
+        <span class="word"> the</span>
+        <span class="word"> frontier</span>
+        <span class="word"> of</span>
+        <span class="word"> human</span>
+        <span class="word"> reach.</span>
+      </h2>
+      <p class="sector-body">Satellite infrastructure, launch ecosystems, and orbital logistics — we fund the foundational layer of the space economy as it transitions from government mission to commercial imperative.</p>
+      <a href="#" class="sector-link">Discover More <span class="arrow">→</span></a>
+      <div class="stats-row">
+        <div class="stat-card" style="transition-delay:0.1s">
+          <div class="stat-value" style="color:var(--purple)">$1.9B</div>
+          <div class="stat-label">SPACE PORTFOLIO</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.2s">
+          <div class="stat-value">14</div>
+          <div class="stat-label">VENTURES</div>
+        </div>
+        <div class="stat-card" style="transition-delay:0.3s">
+          <div class="stat-value">2031</div>
+          <div class="stat-label">HORIZON</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INVESTMENT MODEL ─── -->
+<section id="investment">
+  <div class="section-inner" data-animate>
+    <div class="section-subtitle">— Our Approach</div>
+    <h2 class="section-title">
+      <span class="word">Our</span>
+      <span class="word"> Investment</span>
+      <span class="word"> Model</span>
+    </h2>
+
+    <div class="investment-phases">
+      <!-- SVG connector line -->
+      <svg class="phase-connector" height="1" style="overflow:visible">
+        <line class="phase-connector-line" x1="0%" y1="0" x2="100%" y2="0"/>
+      </svg>
+
+      <div class="phase-card" style="transition-delay:0.1s">
+        <div class="phase-num">01</div>
+        <div class="phase-name">Identify</div>
+        <p class="phase-desc">Systematic macro mapping of infrastructure deficits across aviation, energy, and space verticals in emerging and frontier markets.</p>
+      </div>
+      <div class="phase-card" style="transition-delay:0.3s">
+        <div class="phase-num">02</div>
+        <div class="phase-name">Structure</div>
+        <p class="phase-desc">Patient capital frameworks built for long-duration infrastructure — blended finance, co-investment, and sovereign partnership models.</p>
+      </div>
+      <div class="phase-card" style="transition-delay:0.5s">
+        <div class="phase-num">03</div>
+        <div class="phase-name">Deploy</div>
+        <p class="phase-desc">Phased capital deployment with embedded operational expertise, ensuring projects move from conception to cash-flowing asset.</p>
+      </div>
+      <div class="phase-card" style="transition-delay:0.7s">
+        <div class="phase-num">04</div>
+        <div class="phase-name">Compound</div>
+        <p class="phase-desc">Reinvesting infrastructure returns into the next wave — creating a self-reinforcing cycle of strategic asset creation at global scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLOSING CTA ─── -->
+<section id="closing">
+  <div class="closing-globe-wrap">
+    <div class="closing-globe" id="closingGlobe">
+      <div class="globe-point" style="top:38%;left:32%;"></div>
+      <div class="globe-point" style="top:28%;left:68%;animation-delay:1s"></div>
+      <div class="globe-point" style="top:62%;left:55%;animation-delay:2s"></div>
+    </div>
+  </div>
+
+  <div class="closing-content" data-animate>
+    <h2 class="closing-title section-title">
+      <span class="word">Shaping</span>
+      <span class="word"> Global</span>
+      <span class="word"> Infrastructure</span>
+    </h2>
+    <p class="sector-body" style="max-width:480px;text-align:center">
+      The systems that move people, power civilisations, and connect planets are built by those who move first.
+    </p>
+    <div class="btn-group">
+      <a href="#aviation" class="btn-outline">Explore Horizons <span class="arrow">→</span></a>
+      <a href="#" class="btn-fill">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Meridian<sup style="font-size:8px;vertical-align:super">®</sup></div>
+  <div class="footer-copy">© 2026 Meridian Capital Partners. All rights reserved.</div>
+</footer>
+
+<script>
+// ── CUSTOM CURSOR ──
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a, button, .nav-dot').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ── SMOOTH SCROLL (Lenis-like native) ──
+// Using CSS scroll-behavior but with smooth native scrolling
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ── STAR CANVAS ──
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+function initStars() {
+  stars = [];
+  const count = window.innerWidth < 768 ? 80 : 300;
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.2 + 0.2,
+      opacity: Math.random() * 0.6 + 0.2,
+      twinkle: Math.random() > 0.7,
+      twinkleSpeed: Math.random() * 0.02 + 0.005,
+      twinklePhase: Math.random() * Math.PI * 2
+    });
+  }
+}
+function drawStars(ts) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    let op = s.opacity;
+    if (s.twinkle) {
+      op = s.opacity * (0.5 + 0.5 * Math.sin(ts * s.twinkleSpeed + s.twinklePhase));
+    }
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${op})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+resizeCanvas();
+initStars();
+requestAnimationFrame(drawStars);
+window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+// ── INTERSECTION OBSERVER ──
+// For sector text blocks
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+
+    // Activate labels
+    el.querySelectorAll('.sector-label').forEach(l => l.classList.add('in-view'));
+    // Activate words with stagger
+    el.querySelectorAll('.word').forEach((w, i) => {
+      setTimeout(() => w.classList.add('in-view'), i * 80);
+    });
+    // Activate body
+    el.querySelectorAll('.sector-body').forEach(b => b.classList.add('in-view'));
+    // Activate links
+    el.querySelectorAll('.sector-link').forEach(l => l.classList.add('in-view'));
+    // Activate stat cards
+    el.querySelectorAll('.stat-card').forEach((c, i) => {
+      setTimeout(() => c.classList.add('in-view'), 600 + i * 120);
+    });
+    // Activate phase cards
+    el.querySelectorAll('.phase-card').forEach((c, i) => {
+      setTimeout(() => c.classList.add('in-view'), i * 200);
+    });
+    // Activate subtitle
+    el.querySelectorAll('.section-subtitle').forEach(s => s.classList.add('in-view'));
+
+    io.unobserve(el);
+  });
+}, { threshold: 0.18 });
+
+document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+
+// Phase connector (observe investment section separately)
+const phaseIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelector('.phase-connector')?.classList.add('in-view');
+    }
+  });
+}, { threshold: 0.3 });
+const investSec = document.querySelector('#investment');
+if (investSec) phaseIO.observe(investSec);
+
+// ── NAVBAR DOTS — update on scroll ──
+const sectorSections = [
+  document.getElementById('aviation'),
+  document.getElementById('energy'),
+  document.getElementById('space-sector')
+];
+const navDots = document.querySelectorAll('.nav-dot');
+
+const dotIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const idx = sectorSections.indexOf(e.target);
+    if (idx === -1) return;
+    if (e.isIntersecting) {
+      navDots.forEach(d => d.classList.remove('active'));
+      navDots[idx]?.classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+
+sectorSections.forEach(s => { if (s) dotIO.observe(s); });
+</script>
+</body>
+</html>

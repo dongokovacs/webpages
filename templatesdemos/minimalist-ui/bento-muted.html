@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalist UI — Bento Muted Pastels</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F2F0EC;
+  --white:#FDFCFA;
+  --ink:#1A1916;
+  --mid:#9A9589;
+  --border:#E0DDD7;
+  --sage:#A8B8A8;
+  --clay:#C4A882;
+  --blush:#D4AFAF;
+  --slate:#8FA8BE;
+  --sand:#C8BC9C;
+  --lavender:#B8A8D4;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{font-size:16px;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;padding:32px;}
+
+/* TOP */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.logo{font-size:15px;font-weight:500;letter-spacing:-0.2px;}
+.topbar-right{display:flex;gap:20px;align-items:center;}
+.tb-link{font-family:var(--mono);font-size:11px;color:var(--mid);cursor:pointer;transition:color 0.2s;letter-spacing:0.04em;}
+.tb-link:hover{color:var(--ink);}
+.tb-btn{background:var(--ink);color:var(--white);font-family:var(--mono);font-size:11px;padding:9px 18px;border-radius:2px;cursor:pointer;letter-spacing:0.04em;transition:opacity 0.2s;}
+.tb-btn:hover{opacity:0.75;}
+
+/* BENTO GRID */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:80px;gap:12px;}
+
+/* Base card */
+.card{border-radius:4px;padding:24px;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.06);}
+.card-bg-white{background:var(--white);border:1px solid var(--border);}
+.card-bg-sage{background:#D4E0D4;}
+.card-bg-clay{background:#EDD8BA;}
+.card-bg-blush{background:#E8D4D4;}
+.card-bg-slate{background:#C8D8E8;}
+.card-bg-sand{background:#E4DCC4;}
+.card-bg-lavender{background:#D8CCEC;}
+.card-bg-ink{background:var(--ink);color:var(--white);}
+.card-bg-dark{background:#2A2820;color:var(--white);}
+
+/* Sizes */
+.c-hero{grid-column:span 5;grid-row:span 5;}
+.c-wide{grid-column:span 7;grid-row:span 3;}
+.c-tall{grid-column:span 4;grid-row:span 4;}
+.c-sq{grid-column:span 3;grid-row:span 3;}
+.c-sq2{grid-column:span 4;grid-row:span 3;}
+.c-half{grid-column:span 3;grid-row:span 2;}
+.c-sm{grid-column:span 3;grid-row:span 2;}
+.c-bar{grid-column:span 7;grid-row:span 2;}
+
+/* Card internals */
+.card-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;opacity:0.45;margin-bottom:12px;text-transform:uppercase;}
+.card-title{font-size:clamp(16px,2vw,22px);font-weight:600;line-height:1.2;letter-spacing:-0.3px;}
+.card-body{font-size:13px;line-height:1.7;opacity:0.6;margin-top:10px;}
+.card-num{font-size:clamp(40px,5vw,72px);font-weight:700;letter-spacing:-3px;line-height:1;}
+.card-num-label{font-size:12px;opacity:0.5;margin-top:4px;letter-spacing:0.02em;}
+.card-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;padding:5px 10px;border-radius:2px;background:rgba(0,0,0,0.06);letter-spacing:0.04em;margin-top:12px;}
+.card-bg-ink .card-tag{background:rgba(255,255,255,0.1);}
+.card-link{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;margin-top:auto;position:absolute;bottom:24px;left:24px;opacity:0.5;transition:opacity 0.2s;}
+.card:hover .card-link{opacity:1;}
+
+/* Decorative elements */
+.orb{position:absolute;border-radius:50%;pointer-events:none;}
+.orb-1{width:120px;height:120px;background:rgba(168,184,168,0.3);right:-30px;bottom:-30px;filter:blur(20px);}
+.orb-2{width:80px;height:80px;background:rgba(180,168,212,0.4);left:50%;top:-10px;filter:blur(15px);}
+.stripe{position:absolute;right:0;top:0;bottom:0;width:3px;background:currentColor;opacity:0.15;}
+
+/* Progress bars */
+.prog{height:3px;background:rgba(0,0,0,0.1);border-radius:2px;margin-top:8px;}
+.prog-fill{height:100%;border-radius:2px;background:var(--ink);transition:width 0.8s;}
+.prog-row{margin-top:16px;}
+.prog-row-label{display:flex;justify-content:space-between;font-size:11px;opacity:0.5;margin-bottom:4px;}
+
+/* Mini chart */
+.mini-bars{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:auto;position:absolute;bottom:24px;left:24px;right:24px;}
+.mini-bar{flex:1;border-radius:2px 2px 0 0;transition:opacity 0.2s;}
+.card:hover .mini-bar{opacity:0.8;}
+
+/* Pill list */
+.pill-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.pill{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid rgba(0,0,0,0.12);letter-spacing:0.04em;transition:background 0.2s;}
+.pill:hover{background:rgba(0,0,0,0.06);}
+
+/* Avatar cluster */
+.av-cluster{display:flex;margin-top:12px;}
+.av{width:32px;height:32px;border-radius:50%;border:2px solid var(--white);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
+.av:first-child{margin-left:0;}
+
+/* Toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+.toggle-row:first-child{border-top:1px solid rgba(0,0,0,0.07);}
+.toggle-label{font-size:13px;}
+.toggle-pill{width:32px;height:18px;border-radius:9px;position:relative;cursor:pointer;transition:background 0.2s;}
+.toggle-pill.on{background:var(--ink);}
+.toggle-pill.off{background:rgba(0,0,0,0.12);}
+.toggle-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:white;top:3px;transition:left 0.2s;}
+.toggle-pill.on .toggle-dot{left:17px;}
+.toggle-pill.off .toggle-dot{left:3px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Palette System</div>
+  <div class="topbar-right">
+    <div class="tb-link">Dashboard</div>
+    <div class="tb-link">Library</div>
+    <div class="tb-link">Settings</div>
+    <div class="tb-btn">New Project</div>
+  </div>
+</div>
+
+<div class="bento">
+
+  <!-- Hero card -->
+  <div class="card card-bg-ink c-hero">
+    <div class="orb orb-2" style="background:rgba(180,168,212,0.2)"></div>
+    <div class="card-label">Overview</div>
+    <div class="card-title" style="font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-0.5px;max-width:240px">Design System at a Glance</div>
+    <div class="card-body" style="color:rgba(255,255,255,0.5);max-width:260px">All your tokens, components, and patterns in one minimal workspace.</div>
+    <div class="pill-list" style="margin-top:20px">
+      <div class="pill" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6)">Colors</div>
+      <div class="pill" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6)">Typography</div>
+      <div class="pill" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6)">Spacing</div>
+      <div class="pill" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.6)">Motion</div>
+    </div>
+    <div class="card-link" style="color:rgba(255,255,255,0.5);bottom:24px;left:24px;position:absolute">Open workspace →</div>
+  </div>
+
+  <!-- Wide card: Progress -->
+  <div class="card card-bg-white c-wide">
+    <div class="card-label">Component Library</div>
+    <div class="card-title">Build progress</div>
+    <div style="margin-top:16px">
+      <div class="prog-row"><div class="prog-row-label"><span>Navigation</span><span>94%</span></div><div class="prog"><div class="prog-fill" style="width:94%;background:#A8B8A8"></div></div></div>
+      <div class="prog-row"><div class="prog-row-label"><span>Forms</span><span>78%</span></div><div class="prog"><div class="prog-fill" style="width:78%;background:#C4A882"></div></div></div>
+      <div class="prog-row"><div class="prog-row-label"><span>Data Display</span><span>61%</span></div><div class="prog"><div class="prog-fill" style="width:61%;background:#B8A8D4"></div></div></div>
+      <div class="prog-row"><div class="prog-row-label"><span>Feedback</span><span>45%</span></div><div class="prog"><div class="prog-fill" style="width:45%;background:#D4AFAF"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Stat: tokens -->
+  <div class="card card-bg-sage c-sq">
+    <div class="card-label">Design Tokens</div>
+    <div class="card-num">248</div>
+    <div class="card-num-label">Total tokens defined</div>
+    <div class="card-tag">↑ 12 this week</div>
+  </div>
+
+  <!-- Stat: components -->
+  <div class="card card-bg-white c-sq">
+    <div class="card-label">Components</div>
+    <div class="card-num">64</div>
+    <div class="card-num-label">Published to library</div>
+    <div class="card-tag">v2.4.1</div>
+  </div>
+
+  <!-- Settings toggles -->
+  <div class="card card-bg-white c-sq2">
+    <div class="card-label">Preferences</div>
+    <div class="toggle-row"><span class="toggle-label">Dark mode</span><div class="toggle-pill off"><div class="toggle-dot"></div></div></div>
+    <div class="toggle-row"><span class="toggle-label">Motion reduced</span><div class="toggle-pill off"><div class="toggle-dot"></div></div></div>
+    <div class="toggle-row"><span class="toggle-label">Grid overlay</span><div class="toggle-pill on"><div class="toggle-dot"></div></div></div>
+  </div>
+
+  <!-- Chart -->
+  <div class="card card-bg-dark c-tall">
+    <div class="card-label" style="color:rgba(255,255,255,0.4)">Monthly usage</div>
+    <div class="card-title" style="color:white;font-size:16px">Component renders</div>
+    <div class="mini-bars">
+      <div class="mini-bar" style="height:30%;background:rgba(168,184,168,0.3)"></div>
+      <div class="mini-bar" style="height:50%;background:rgba(168,184,168,0.4)"></div>
+      <div class="mini-bar" style="height:40%;background:rgba(168,184,168,0.3)"></div>
+      <div class="mini-bar" style="height:70%;background:rgba(168,184,168,0.5)"></div>
+      <div class="mini-bar" style="height:55%;background:rgba(168,184,168,0.4)"></div>
+      <div class="mini-bar" style="height:85%;background:rgba(168,184,168,0.6)"></div>
+      <div class="mini-bar" style="height:60%;background:rgba(168,184,168,0.4)"></div>
+      <div class="mini-bar" style="height:95%;background:#A8B8A8"></div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="card card-bg-blush c-sq">
+    <div class="card-label">Contributors</div>
+    <div class="card-num">7</div>
+    <div class="card-num-label">Active this week</div>
+    <div class="av-cluster" style="margin-top:12px">
+      <div class="av" style="background:#D4E0D4">KM</div>
+      <div class="av" style="background:#C8D8E8">AJ</div>
+      <div class="av" style="background:#EDD8BA">RB</div>
+      <div class="av" style="background:#D8CCEC">LN</div>
+      <div class="av" style="background:var(--ink);color:white;font-size:10px">+3</div>
+    </div>
+  </div>
+
+  <!-- Color palette card -->
+  <div class="card card-bg-white c-sq">
+    <div class="card-label">Color Tokens</div>
+    <div class="pill-list">
+      <div class="pill" style="background:#D4E0D4;border-color:transparent">Sage</div>
+      <div class="pill" style="background:#EDD8BA;border-color:transparent">Clay</div>
+      <div class="pill" style="background:#E8D4D4;border-color:transparent">Blush</div>
+      <div class="pill" style="background:#C8D8E8;border-color:transparent">Slate</div>
+      <div class="pill" style="background:#D8CCEC;border-color:transparent">Lavender</div>
+      <div class="pill" style="background:#E4DCC4;border-color:transparent">Sand</div>
+    </div>
+  </div>
+
+  <!-- Bar card with slot -->
+  <div class="card card-bg-lavender c-bar">
+    <div class="stripe"></div>
+    <div class="card-label">Documentation coverage</div>
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <div class="card-num" style="font-size:clamp(32px,4vw,56px)">76%</div>
+      <div class="card-body" style="margin-top:0">of components have<br>full documentation</div>
+    </div>
+    <div class="card-link">View docs →</div>
+  </div>
+
+  <!-- Small stat -->
+  <div class="card card-bg-sand c-half">
+    <div class="card-label">Issues open</div>
+    <div class="card-num" style="font-size:36px">12</div>
+    <div class="card-tag" style="color:var(--ink)">3 critical</div>
+  </div>
+
+  <!-- Small stat 2 -->
+  <div class="card card-bg-white c-half">
+    <div class="card-label">Last release</div>
+    <div class="card-title" style="font-size:18px">v2.4.1</div>
+    <div class="card-body" style="font-size:12px">3 days ago</div>
+  </div>
+
+  <!-- Monochrome card -->
+  <div class="card card-bg-slate c-half">
+    <div class="card-label">Accessibility</div>
+    <div class="card-num" style="font-size:36px">AA</div>
+    <div class="card-tag">WCAG 2.1</div>
+  </div>
+
+</div>
+
+</body>
+</html>

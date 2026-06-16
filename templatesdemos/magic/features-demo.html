@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature Cards — magic (21st.dev) demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .5s ease both; }
+
+    .feature-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      transition: all .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: inherit;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,255,255,.2);
+      transform: translateY(-4px);
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+
+    /* card-specific accent colours */
+    .c1:hover { box-shadow: 0 20px 40px rgba(59,130,246,.12); }
+    .c1 .icon-wrap { background: rgba(59,130,246,.15); }
+    .c2:hover { box-shadow: 0 20px 40px rgba(139,92,246,.12); }
+    .c2 .icon-wrap { background: rgba(139,92,246,.15); }
+    .c3:hover { box-shadow: 0 20px 40px rgba(34,211,238,.12); }
+    .c3 .icon-wrap { background: rgba(34,211,238,.15); }
+    .c4:hover { box-shadow: 0 20px 40px rgba(249,115,22,.12); }
+    .c4 .icon-wrap { background: rgba(249,115,22,.15); }
+    .c5:hover { box-shadow: 0 20px 40px rgba(16,185,129,.12); }
+    .c5 .icon-wrap { background: rgba(16,185,129,.15); }
+    .c6:hover { box-shadow: 0 20px 40px rgba(244,63,94,.12); }
+    .c6 .icon-wrap { background: rgba(244,63,94,.15); }
+
+    /* wide card */
+    .card-wide {
+      background: rgba(59,130,246,.06);
+      border: 1px solid rgba(59,130,246,.2);
+    }
+    .card-wide:hover {
+      background: rgba(59,130,246,.1);
+      box-shadow: 0 20px 50px rgba(59,130,246,.15);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+  </style>
+</head>
+<body style="background:linear-gradient(160deg,#08091a,#0f1628 50%,#08091a)" class="text-white min-h-screen px-4 py-24">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- header -->
+    <div class="text-center mb-16 fade-up" style="animation-delay:.05s">
+      <span class="tag mb-5" style="background:rgba(139,92,246,.15);color:#c4b5fd;border:1px solid rgba(139,92,246,.25);">
+        Features
+      </span>
+      <h2 class="text-5xl font-extrabold tracking-tight mt-4 mb-4"
+          style="background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+        Everything you need
+      </h2>
+      <p class="text-white/45 text-lg max-w-lg mx-auto">
+        A complete toolkit for building modern web applications — from design to deployment.
+      </p>
+    </div>
+
+    <!-- grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- 1 -->
+      <div class="feature-card c1 rounded-2xl p-7 fade-up" style="animation-delay:.1s">
+        <div class="icon-wrap mb-5">⚡</div>
+        <h3 class="text-lg font-bold text-white mb-2">Lightning Fast</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          Optimized for performance with sub-100ms response times. Built on edge infrastructure that scales to millions of users.
+        </p>
+        <div class="mt-5 flex items-center gap-2 text-xs text-blue-400 font-medium">
+          Learn more <span>→</span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="feature-card c2 rounded-2xl p-7 fade-up" style="animation-delay:.15s">
+        <div class="icon-wrap mb-5">🔒</div>
+        <h3 class="text-lg font-bold text-white mb-2">Enterprise Security</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          SOC 2 Type II certified with end-to-end encryption, SSO, RBAC, and audit logs for complete compliance.
+        </p>
+        <div class="mt-5 flex items-center gap-2 text-xs text-purple-400 font-medium">
+          Learn more <span>→</span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="feature-card c3 rounded-2xl p-7 fade-up" style="animation-delay:.2s">
+        <div class="icon-wrap mb-5">🤖</div>
+        <h3 class="text-lg font-bold text-white mb-2">AI-Powered</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          Intelligent automation that learns from your workflows. Generate code, content, and insights with one click.
+        </p>
+        <div class="mt-5 flex items-center gap-2 text-xs text-cyan-400 font-medium">
+          Learn more <span>→</span>
+        </div>
+      </div>
+
+      <!-- 4 (wide) -->
+      <div class="feature-card card-wide rounded-2xl p-7 fade-up md:col-span-2" style="animation-delay:.25s">
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <div class="flex-1">
+            <div class="icon-wrap mb-5" style="background:rgba(59,130,246,.2);">📊</div>
+            <h3 class="text-lg font-bold text-white mb-2">Advanced Analytics</h3>
+            <p class="text-sm text-white/50 leading-relaxed">
+              Real-time dashboards with customizable metrics. Track funnels, cohorts, and revenue attribution across all your channels with pixel-perfect visualizations.
+            </p>
+            <div class="mt-5 flex items-center gap-2 text-xs text-blue-400 font-medium">
+              Explore analytics <span>→</span>
+            </div>
+          </div>
+          <!-- mini chart placeholder -->
+          <div class="w-full md:w-64 h-32 rounded-xl flex items-end gap-1.5 p-3"
+               style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);">
+            <div class="flex-1 rounded-t bg-blue-500/40" style="height:40%"></div>
+            <div class="flex-1 rounded-t bg-blue-500/40" style="height:65%"></div>
+            <div class="flex-1 rounded-t bg-blue-500/60" style="height:50%"></div>
+            <div class="flex-1 rounded-t bg-blue-500/40" style="height:80%"></div>
+            <div class="flex-1 rounded-t bg-blue-500/70" style="height:60%"></div>
+            <div class="flex-1 rounded-t bg-blue-400" style="height:95%"></div>
+            <div class="flex-1 rounded-t bg-blue-500/40" style="height:70%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="feature-card c5 rounded-2xl p-7 fade-up" style="animation-delay:.3s">
+        <div class="icon-wrap mb-5">🔗</div>
+        <h3 class="text-lg font-bold text-white mb-2">200+ Integrations</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          Connect with your favorite tools — Slack, GitHub, Notion, Stripe, and more — in one click.
+        </p>
+        <div class="mt-5 flex gap-2">
+          <span class="tag" style="background:rgba(16,185,129,.1);color:#6ee7b7;border:1px solid rgba(16,185,129,.2);">Slack</span>
+          <span class="tag" style="background:rgba(16,185,129,.1);color:#6ee7b7;border:1px solid rgba(16,185,129,.2);">GitHub</span>
+          <span class="tag" style="background:rgba(16,185,129,.1);color:#6ee7b7;border:1px solid rgba(16,185,129,.2);">Stripe</span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="feature-card c4 rounded-2xl p-7 fade-up" style="animation-delay:.35s">
+        <div class="icon-wrap mb-5">🌍</div>
+        <h3 class="text-lg font-bold text-white mb-2">Global CDN</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          Assets served from 200+ PoPs worldwide. Your users get blazing-fast load times regardless of location.
+        </p>
+        <div class="mt-5 flex items-center gap-2 text-xs text-orange-400 font-medium">
+          View network <span>→</span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="feature-card c6 rounded-2xl p-7 fade-up" style="animation-delay:.4s">
+        <div class="icon-wrap mb-5">🎨</div>
+        <h3 class="text-lg font-bold text-white mb-2">Design System</h3>
+        <p class="text-sm text-white/50 leading-relaxed">
+          500+ components built on Radix UI and Tailwind CSS. Fully accessible, dark-mode ready, and customizable.
+        </p>
+        <div class="mt-5 flex items-center gap-2 text-xs text-rose-400 font-medium">
+          Browse components <span>→</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- back -->
+    <div class="text-center mt-16">
+      <a href="../index.html" class="text-sm text-white/25 hover:text-white/60 transition-colors">← Back to all demos</a>
+    </div>
+  </div>
+
+  <script>
+    // Intersection Observer for staggered reveal
+    const cards = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } });
+    }, { threshold: .1 });
+    cards.forEach(c => { c.style.animationPlayState = 'paused'; io.observe(c); });
+  </script>
+</body>
+</html>

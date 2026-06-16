@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Brutalist — Swiss Grid Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FFFFFF;
+  --ink:#0A0A0A;
+  --rule:1px solid #0A0A0A;
+  --rule2:2px solid #0A0A0A;
+  --rule3:3px solid #0A0A0A;
+  --yellow:#FFE500;
+  --red:#E8000D;
+  --mono:'IBM Plex Mono',monospace;
+  --cond:'Barlow Condensed',sans-serif;
+}
+html{font-size:16px;}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);}
+
+/* NOISE */
+body::after{content:'';position:fixed;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  background:var(--bg);
+  border-bottom:var(--rule3);
+  display:flex;align-items:stretch;
+}
+.nav-logo{
+  padding:0 28px;
+  border-right:var(--rule3);
+  display:flex;align-items:center;
+}
+.nav-logo span{font-family:var(--cond);font-size:22px;font-weight:900;letter-spacing:0.05em;text-transform:uppercase;}
+.nav-logo sup{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:2px;opacity:0.4;display:block;margin-top:2px;}
+.nav-links{display:flex;align-items:stretch;flex:1;}
+.nav-link{
+  padding:0 24px;
+  border-right:var(--rule);
+  display:flex;align-items:center;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;
+  transition:background 0.15s;
+  text-decoration:none;color:var(--ink);
+}
+.nav-link:hover,.nav-link.active{background:var(--ink);color:var(--bg);}
+.nav-end{
+  margin-left:auto;
+  padding:16px 24px;
+  border-left:var(--rule3);
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;
+  transition:background 0.15s;
+}
+.nav-end:hover{background:var(--yellow);}
+
+/* HERO */
+.hero{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:var(--rule3);
+}
+.hero-left{
+  border-right:var(--rule3);
+  padding:80px 60px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:70vh;
+}
+.hero-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:0.4;margin-bottom:32px;}
+.hero-h1{font-family:var(--cond);font-size:clamp(64px,9vw,128px);font-weight:900;line-height:0.9;letter-spacing:-2px;text-transform:uppercase;}
+.hero-h1 em{font-style:normal;color:var(--red);}
+.hero-meta{display:flex;gap:32px;margin-top:48px;}
+.meta-item .label{font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:0.4;margin-bottom:4px;}
+.meta-item .val{font-family:var(--cond);font-size:18px;font-weight:800;}
+.hero-right{
+  display:grid;grid-template-rows:1fr 60px;
+}
+.hero-img{
+  position:relative;overflow:hidden;
+  background:#0a0a0a;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-img-inner{
+  font-family:var(--cond);font-size:180px;font-weight:900;
+  color:rgba(255,255,255,0.04);
+  letter-spacing:-10px;
+  user-select:none;
+  line-height:1;
+}
+.hero-img-accent{
+  position:absolute;
+  width:200px;height:200px;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+  opacity:0.9;
+  animation:spin 20s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-cta{
+  border-top:var(--rule3);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+  background:var(--ink);
+  color:var(--bg);
+  cursor:pointer;
+  transition:background 0.15s;
+}
+.hero-cta:hover{background:var(--red);}
+.hero-cta span{font-family:var(--cond);font-size:16px;font-weight:800;letter-spacing:2px;text-transform:uppercase;}
+.hero-cta .arr{font-size:24px;}
+
+/* MARQUEE */
+.marquee{border-bottom:var(--rule3);border-top:var(--rule2);padding:12px 0;overflow:hidden;background:var(--yellow);}
+.marquee-inner{display:inline-flex;white-space:nowrap;animation:mq 18s linear infinite;}
+.mq-item{font-family:var(--cond);font-size:14px;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding:0 32px;}
+.mq-sep{opacity:0.4;}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* WORKS GRID */
+.works{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:var(--rule3);}
+.work{
+  border-right:var(--rule2);
+  border-bottom:var(--rule2);
+  cursor:pointer;
+  overflow:hidden;
+  position:relative;
+}
+.work:nth-child(3n){border-right:none;}
+.work:nth-last-child(-n+3){border-bottom:none;}
+.work-img{
+  height:280px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.work:hover .work-num-bg{transform:scale(1.1);}
+.work-num-bg{
+  font-family:var(--cond);font-size:160px;font-weight:900;
+  line-height:1;letter-spacing:-6px;
+  transition:transform 0.4s;
+  user-select:none;
+}
+.work-overlay{
+  position:absolute;inset:0;
+  opacity:0;
+  display:flex;align-items:flex-end;padding:20px;
+  transition:opacity 0.3s;
+}
+.work:hover .work-overlay{opacity:1;}
+.work-tag-hover{
+  background:var(--yellow);
+  color:var(--ink);
+  font-family:var(--cond);font-size:14px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:6px 14px;
+}
+.work-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  border-top:var(--rule2);
+}
+.work-cat{font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:0.4;}
+.work-title{font-family:var(--cond);font-size:16px;font-weight:800;letter-spacing:0.3px;}
+
+/* ABOUT STRIP */
+.about-strip{
+  display:grid;grid-template-columns:2fr 1fr;
+  border-bottom:var(--rule3);
+}
+.about-text{
+  border-right:var(--rule3);
+  padding:60px;
+}
+.about-text h2{font-family:var(--cond);font-size:clamp(36px,5vw,72px);font-weight:900;letter-spacing:-1px;text-transform:uppercase;line-height:1;margin-bottom:24px;}
+.about-text h2 em{font-style:normal;color:var(--red);}
+.about-text p{font-size:13px;line-height:1.8;opacity:0.6;max-width:500px;}
+.about-stats{padding:60px;display:flex;flex-direction:column;gap:32px;}
+.a-stat .n{font-family:var(--cond);font-size:56px;font-weight:900;letter-spacing:-2px;line-height:1;}
+.a-stat .l{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:0.4;margin-top:4px;}
+
+/* FOOTER */
+footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;
+  border-top:var(--rule3);
+}
+.f-logo{font-family:var(--cond);font-size:16px;font-weight:900;letter-spacing:1px;text-transform:uppercase;}
+.f-copy{font-size:10px;opacity:0.35;letter-spacing:1px;}
+
+/* WORK COLORS */
+.wc1{background:#0a0a0a;color:rgba(255,255,255,0.05);}
+.wc2{background:#ffe500;color:rgba(0,0,0,0.06);}
+.wc3{background:#e8000d;color:rgba(255,255,255,0.05);}
+.wc4{background:#f5f0e8;color:rgba(0,0,0,0.05);}
+.wc5{background:#0033cc;color:rgba(255,255,255,0.05);}
+.wc6{background:#1a1a1a;color:rgba(255,255,255,0.04);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div><span>NK Studio</span><sup>EST. 2014</sup></div></div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#">Work</a>
+    <a class="nav-link" href="#">Studio</a>
+    <a class="nav-link" href="#">Services</a>
+    <a class="nav-link" href="#">Journal</a>
+  </div>
+  <div class="nav-end">Contact →</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-tag">// Creative Studio — Vol. 08</div>
+      <h1 class="hero-h1">We Build<br><em>Bold</em><br>Systems.</h1>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="label">Founded</div><div class="val">2014</div></div>
+      <div class="meta-item"><div class="label">Projects</div><div class="val">240+</div></div>
+      <div class="meta-item"><div class="label">Location</div><div class="val">BP / NYC</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">
+      <div class="hero-img-inner">NK</div>
+      <div class="hero-img-accent"></div>
+    </div>
+    <div class="hero-cta">
+      <span>View Selected Work</span>
+      <span class="arr">↗</span>
+    </div>
+  </div>
+</div>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="mq-item">Branding</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Identity Systems</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Editorial Design</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Motion</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Digital Products</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Print</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Branding</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Identity Systems</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Editorial Design</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Motion</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Digital Products</span><span class="mq-item mq-sep">×</span>
+    <span class="mq-item">Print</span><span class="mq-item mq-sep">×</span>
+  </div>
+</div>
+
+<div class="works">
+  <div class="work">
+    <div class="work-img wc1"><div class="work-num-bg">01</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Branding // 2024</div><div class="work-title">Vanta Capital</div></div>
+  </div>
+  <div class="work">
+    <div class="work-img wc2"><div class="work-num-bg">02</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Editorial // 2024</div><div class="work-title">Form Magazine</div></div>
+  </div>
+  <div class="work">
+    <div class="work-img wc3"><div class="work-num-bg" style="color:rgba(255,255,255,0.07)">03</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Identity // 2023</div><div class="work-title">Red Matter Co.</div></div>
+  </div>
+  <div class="work">
+    <div class="work-img wc4"><div class="work-num-bg">04</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Product // 2023</div><div class="work-title">Grain Studio</div></div>
+  </div>
+  <div class="work">
+    <div class="work-img wc5"><div class="work-num-bg" style="color:rgba(255,255,255,0.05)">05</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Digital // 2023</div><div class="work-title">Bluepoint SaaS</div></div>
+  </div>
+  <div class="work">
+    <div class="work-img wc6"><div class="work-num-bg" style="color:rgba(255,255,255,0.04)">06</div>
+      <div class="work-overlay"><span class="work-tag-hover">View Project ↗</span></div>
+    </div>
+    <div class="work-meta"><div class="work-cat">Motion // 2022</div><div class="work-title">Nox Films</div></div>
+  </div>
+</div>
+
+<div class="about-strip">
+  <div class="about-text">
+    <h2>We Design<br><em>Systems</em><br>Not Surfaces.</h2>
+    <p>A Budapest és New York között működő független kreatív stúdió. Brandépítés, digitális termékek és editoriál design — kérlelhetetlen tipográfiai fegyelemmel és strukturális pontossággal.</p>
+  </div>
+  <div class="about-stats">
+    <div class="a-stat"><div class="n">240+</div><div class="l">Projects Completed</div></div>
+    <div class="a-stat"><div class="n">10 yr</div><div class="l">In Business</div></div>
+    <div class="a-stat"><div class="n" style="color:var(--red)">∞</div><div class="l">Obsession Level</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">NK Studio®</div>
+  <div class="f-copy">© 2024 — Budapest / New York</div>
+</footer>
+
+</body>
+</html>

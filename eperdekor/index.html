@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EperDekor — Reklám & Grafika | Budapest XVII. kerület</title>
+<meta name="description" content="EperDekor reklámkészítő és grafikai műhely Budapest XVII. kerületben. Táblák, autófóliázás, molinók, matrica, 3D betűk, kiállítási dekoráció.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #E8192C;
+  --red-dark: #B01020;
+  --red-glow: rgba(232,25,44,0.18);
+  --black: #0A0A0A;
+  --surface: #111111;
+  --surface2: #181818;
+  --border: rgba(255,255,255,0.08);
+  --white: #F5F5F0;
+  --dim: rgba(245,245,240,0.5);
+  --dimmer: rgba(245,245,240,0.28);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+#cur-dot, #cur-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+#cur-dot {
+  width: 5px; height: 5px;
+  background: var(--red);
+  transition: transform 0.08s;
+}
+#cur-ring {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(232,25,44,0.5);
+  transition: width 0.2s var(--ease), height 0.2s var(--ease), border-color 0.2s;
+}
+body.hovered #cur-ring {
+  width: 56px; height: 56px;
+  border-color: rgba(232,25,44,0.8);
+}
+body.hovered #cur-dot { transform: translate(-50%,-50%) scale(1.8); }
+
+/* ── GRAIN ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled {
+  background: rgba(10,10,10,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: none;
+}
+.nav-logo span { color: var(--red); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+  cursor: none;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-contact-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--white);
+  background: var(--red);
+  border: none;
+  padding: 10px 22px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: background 0.2s, transform 0.2s;
+  cursor: none;
+  display: inline-block;
+}
+.nav-contact-btn:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(232,25,44,0.12) 0%, transparent 55%),
+              radial-gradient(ellipse at 20% 80%, rgba(232,25,44,0.06) 0%, transparent 50%),
+              var(--black);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 75%);
+}
+.hero-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+}
+.hero-badge::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--red);
+}
+.hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(52px, 9vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  max-width: 900px;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease) 0.4s forwards;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--red);
+  display: block;
+}
+.hero-subtitle {
+  margin-top: 32px;
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--dim);
+  max-width: 480px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease) 0.65s forwards;
+}
+.hero-actions {
+  margin-top: 44px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease) 0.85s forwards;
+}
+.btn-primary {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  background: var(--red);
+  padding: 16px 36px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s, transform 0.25s var(--ease);
+  cursor: none;
+}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+.btn-ghost {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  border: 1px solid var(--border);
+  padding: 16px 36px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s, background 0.2s, transform 0.25s var(--ease);
+  cursor: none;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+.hero-scroll {
+  position: absolute;
+  bottom: 80px; right: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 1.2s forwards;
+}
+.hero-scroll-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--dimmer);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.hero-scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--red), transparent);
+  animation: scrollAnim 1.8s ease-in-out infinite;
+}
+@keyframes scrollAnim { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
+
+/* Hero floating tags */
+.hero-tags {
+  position: absolute;
+  top: 50%; right: 48px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease) 1.4s forwards;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--dimmer);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.hero-tag:hover { color: var(--white); border-color: var(--red); }
+
+/* ── MARQUEE ── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+  background: var(--surface);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 0 32px;
+  white-space: nowrap;
+}
+.marquee-track span.sep {
+  color: var(--red);
+  padding: 0;
+  font-size: 16px;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ── SECTION SHARED ── */
+section { position: relative; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--red);
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.section-title .accent { color: var(--red); }
+
+/* ── SERVICES ── */
+#services {
+  padding: 120px 0;
+  background: var(--black);
+}
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 70px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.services-desc {
+  font-size: 16px;
+  color: var(--dim);
+  max-width: 360px;
+  line-height: 1.75;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.service-card {
+  background: var(--surface);
+  padding: 36px 32px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s var(--ease);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), background 0.3s;
+}
+.service-card.in-view { opacity: 1; transform: translateY(0); }
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.service-card:hover { background: var(--surface2); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+}
+.service-icon {
+  width: 44px; height: 44px;
+  margin-bottom: 20px;
+  color: var(--red);
+}
+.service-name {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.service-desc {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.7;
+}
+.service-arrow {
+  position: absolute;
+  bottom: 28px; right: 28px;
+  color: var(--dimmer);
+  font-size: 20px;
+  transition: transform 0.3s var(--ease), color 0.3s;
+}
+.service-card:hover .service-arrow { transform: translate(4px,-4px); color: var(--red); }
+
+/* ── HOW WE WORK ── */
+#process {
+  padding: 120px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+}
+.process-steps { display: flex; flex-direction: column; gap: 0; }
+.process-step {
+  display: flex;
+  gap: 28px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.process-step:first-child { border-top: 1px solid var(--border); }
+.process-step.in-view { opacity: 1; transform: translateX(0); }
+.step-num {
+  font-family: var(--font-head);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--red);
+  opacity: 0.3;
+  line-height: 1;
+  min-width: 56px;
+  transition: opacity 0.3s;
+}
+.process-step:hover .step-num { opacity: 0.9; }
+.step-content {}
+.step-title {
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.7;
+}
+.process-visual {
+  position: relative;
+  aspect-ratio: 1;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.process-visual.in-view { opacity: 1; transform: scale(1); }
+.process-visual-inner {
+  width: 100%; height: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.process-visual-inner::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,25,44,0.2), transparent 70%);
+  border-radius: 50%;
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+.visual-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.visual-big {
+  font-family: var(--font-head);
+  font-size: 80px;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+  display: block;
+  text-shadow: 0 0 40px rgba(232,25,44,0.4);
+}
+.visual-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  margin-top: 8px;
+  display: block;
+}
+.visual-rings {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(232,25,44,0.15);
+  animation: expandRing 4s ease-out infinite;
+}
+.ring:nth-child(1) { width: 140px; height: 140px; animation-delay: 0s; }
+.ring:nth-child(2) { width: 220px; height: 220px; animation-delay: 1s; }
+.ring:nth-child(3) { width: 300px; height: 300px; animation-delay: 2s; }
+@keyframes expandRing {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+
+/* ── WORKS / PORTFOLIO ── */
+#works {
+  padding: 120px 0;
+  background: var(--black);
+}
+.works-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.work-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  aspect-ratio: 4/3;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+  cursor: none;
+}
+.work-card.in-view { opacity: 1; transform: translateY(0); }
+.work-card:nth-child(1) { grid-column: span 7; }
+.work-card:nth-child(2) { grid-column: span 5; }
+.work-card:nth-child(3) { grid-column: span 4; }
+.work-card:nth-child(4) { grid-column: span 4; }
+.work-card:nth-child(5) { grid-column: span 4; }
+.work-card:nth-child(6) { grid-column: span 6; }
+.work-card:nth-child(7) { grid-column: span 6; }
+.work-pattern {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 800;
+  transition: transform 0.5s var(--ease), opacity 0.3s;
+  user-select: none;
+}
+.work-card:hover .work-pattern { transform: scale(1.06); opacity: 0.7; }
+.work-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  display: flex; align-items: flex-end;
+  padding: 24px;
+}
+.work-card:hover .work-overlay { opacity: 1; }
+.work-info { }
+.work-cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.work-title {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ── STATS ── */
+#stats {
+  padding: 100px 0;
+  background: var(--red);
+  overflow: hidden;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(0,0,0,0.15);
+}
+.stat-item {
+  background: var(--red);
+  padding: 48px 40px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.stat-item.in-view { opacity: 1; transform: translateY(0); }
+.stat-value {
+  font-family: var(--font-head);
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ── WHY US ── */
+#why {
+  padding: 120px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+}
+.why-text h3 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+.why-text p {
+  font-size: 16px;
+  color: var(--dim);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.why-list {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.why-item.in-view { opacity: 1; transform: translateX(0); }
+.why-item::before {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  background: var(--red);
+  clip-path: polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%);
+  margin-top: 2px;
+}
+.why-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.why-feature {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.why-feature.in-view { opacity: 1; transform: translateY(0); }
+.why-feature::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.why-feature:hover::before { transform: scaleX(1); }
+.wf-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  display: block;
+}
+.wf-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.wf-desc {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.65;
+}
+
+/* ── CONTACT ── */
+#contact {
+  padding: 120px 0;
+  background: var(--black);
+  border-top: 1px solid var(--border);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 60px;
+}
+.contact-info h3 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.contact-info p {
+  font-size: 16px;
+  color: var(--dim);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+.contact-details { display: flex; flex-direction: column; gap: 20px; }
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.cd-icon {
+  width: 40px; height: 40px;
+  background: rgba(232,25,44,0.12);
+  border: 1px solid rgba(232,25,44,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--red);
+}
+.cd-text { }
+.cd-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--dimmer);
+  margin-bottom: 4px;
+}
+.cd-value {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a.cd-value { cursor: none; }
+a.cd-value:hover { color: var(--red); }
+.contact-form { }
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--dimmer);
+  display: block;
+  margin-bottom: 8px;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color 0.2s;
+  cursor: none;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--red); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--dimmer); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  width: 100%;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 18px;
+  cursor: none;
+  transition: background 0.2s, transform 0.25s var(--ease);
+}
+.form-submit:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+}
+.footer-logo span { color: var(--red); }
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  letter-spacing: 0.04em;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dimmer);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+  cursor: none;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* ── MOBILE ── */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .works-grid { grid-template-columns: 1fr 1fr; }
+  .work-card:nth-child(n) { grid-column: span 1; }
+  .why-grid, .process-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .process-visual { display: none; }
+  .hero-tags { display: none; }
+}
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  #hero { padding: 0 24px 60px; }
+  .container { padding: 0 24px; }
+  footer { padding: 32px 24px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-features { grid-template-columns: 1fr; }
+  .works-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Eper<span>Dekor</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Szolgáltatások</a></li>
+    <li><a href="#process">Folyamat</a></li>
+    <li><a href="#works">Munkáink</a></li>
+    <li><a href="#contact">Kapcsolat</a></li>
+  </ul>
+  <a href="#contact" class="nav-contact-btn">Ajánlatot kérek</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-tags" aria-hidden="true">
+    <div class="hero-tag">// TÁBLÁK & FELIRATOK</div>
+    <div class="hero-tag">// AUTÓFÓLIÁZÁS</div>
+    <div class="hero-tag">// 3D BETŰK</div>
+    <div class="hero-tag">// MOLINÓK</div>
+    <div class="hero-tag">// MATRICA & CÍMKE</div>
+  </div>
+
+  <div class="hero-content" style="position:relative;z-index:10">
+    <div class="hero-badge">Budapest XVII. kerület — Reklám & Grafika</div>
+    <h1 class="hero-title">
+      Látható<em>leszel.</em>
+    </h1>
+    <p class="hero-subtitle">
+      Egyedi reklámeszközök és grafikai megoldások, amelyek megkülönböztetnek a versenytársaktól. Ingyenes látványterv, profi kivitelezés.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Ingyenes ajánlat →</a>
+      <a href="#works" class="btn-ghost">Munkáink</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-label">SCROLL</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Táblák</span><span class="sep">✦</span>
+    <span>Autófóliázás</span><span class="sep">✦</span>
+    <span>Molinók</span><span class="sep">✦</span>
+    <span>3D Betűk</span><span class="sep">✦</span>
+    <span>Matricák</span><span class="sep">✦</span>
+    <span>Kiállítási Dekoráció</span><span class="sep">✦</span>
+    <span>Digitális Nyomtatás</span><span class="sep">✦</span>
+    <span>Logótervezés</span><span class="sep">✦</span>
+    <span>Táblák</span><span class="sep">✦</span>
+    <span>Autófóliázás</span><span class="sep">✦</span>
+    <span>Molinók</span><span class="sep">✦</span>
+    <span>3D Betűk</span><span class="sep">✦</span>
+    <span>Matricák</span><span class="sep">✦</span>
+    <span>Kiállítási Dekoráció</span><span class="sep">✦</span>
+    <span>Digitális Nyomtatás</span><span class="sep">✦</span>
+    <span>Logótervezés</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <div class="section-label">Szolgáltatásaink</div>
+        <h2 class="section-title">Minden, amire<br><span class="accent">szükséged van.</span></h2>
+      </div>
+      <p class="services-desc">Az egyedi megjelenéstől a komplex reklámrendszerig — mindent egy helyen, Budapest XVII. kerületében.</p>
+    </div>
+    <div class="services-grid">
+
+      <a href="reklamtablak.html" class="service-card" data-observe>
+        <div class="service-num">01</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="4" y="10" width="36" height="24" rx="1"/>
+          <line x1="4" y1="18" x2="40" y2="18"/>
+          <line x1="16" y1="34" x2="12" y2="40"/><line x1="28" y1="34" x2="32" y2="40"/>
+          <line x1="10" y1="40" x2="34" y2="40"/>
+        </svg>
+        <div class="service-name">Reklámtáblák</div>
+        <p class="service-desc">Egyedi tervezésű és kivitelezésű cégtáblák, kivilágított feliratok, beltéri és kültéri táblák minden méretben.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <a href="autofolia.html" class="service-card" data-observe style="transition-delay:0.08s">
+        <div class="service-num">02</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 30 Q12 22 22 22 Q32 22 38 14"/>
+          <ellipse cx="22" cy="28" rx="16" ry="8" transform="rotate(-8 22 28)"/>
+          <circle cx="10" cy="34" r="3"/><circle cx="34" cy="22" r="3"/>
+        </svg>
+        <div class="service-name">Autófóliázás</div>
+        <p class="service-desc">Járműfeliratok, teljes és részleges autófóliázás, speciális fóliák UV-álló kivitelben, professzionálisan felvive.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <a href="digitalis-nyomtatas.html" class="service-card" data-observe style="transition-delay:0.16s">
+        <div class="service-num">03</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="4" y="6" width="36" height="32" rx="1"/>
+          <line x1="4" y1="14" x2="40" y2="14"/>
+          <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+          <circle cx="16" cy="10" r="1.5" fill="currentColor"/>
+          <rect x="10" y="20" width="24" height="14" rx="0.5"/>
+        </svg>
+        <div class="service-name">Digitális Nyomtatás</div>
+        <p class="service-desc">Nagyfelbontású nyomtatás különféle alapanyagokra — molinó, öntapadó fólia, canvas, PVC, backlit fólia.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <a href="molinok-bannerek.html" class="service-card" data-observe style="transition-delay:0.24s">
+        <div class="service-num">04</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 36 L8 20 L22 8 L36 20 L36 36 Z"/>
+          <rect x="17" y="26" width="10" height="10"/>
+          <line x1="22" y1="8" x2="22" y2="4"/>
+        </svg>
+        <div class="service-name">Molinók & Bannerek</div>
+        <p class="service-desc">Reklámmolinók, roll-up bannerek, meshabanner, egyedi méretű kültéri textil reklámfelületek gyors szállítással.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <a href="3d-betuk.html" class="service-card" data-observe style="transition-delay:0.0s">
+        <div class="service-num">05</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M10 28 L22 12 L34 28 Z"/>
+          <path d="M10 28 L22 36 L34 28"/>
+          <line x1="22" y1="12" x2="22" y2="4"/>
+        </svg>
+        <div class="service-name">3D Betűk & Logók</div>
+        <p class="service-desc">Habszivacs, PVC és akril 3D betűk, domborított logók beltéri és kültéri használatra, belső megvilágítással is.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <a href="kiallitasi-dekoracio.html" class="service-card" data-observe style="transition-delay:0.08s">
+        <div class="service-num">06</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="10" width="14" height="9" rx="0.5"/>
+          <rect x="24" y="10" width="14" height="9" rx="0.5"/>
+          <rect x="6" y="25" width="14" height="9" rx="0.5"/>
+          <rect x="24" y="25" width="14" height="9" rx="0.5"/>
+        </svg>
+        <div class="service-name">Kiállítási Dekoráció</div>
+        <p class="service-desc">Vásári standok, kiállítóhelyek teljes dekorációja — pop-up falak, display rendszerek, egyedi látványtervvel.</p>
+        <span class="service-arrow">↗</span>
+      </a>
+
+      <div class="service-card" data-observe style="transition-delay:0.16s">
+        <div class="service-num">07</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="14" width="20" height="26" rx="1"/>
+          <path d="M6 20 L26 20"/>
+          <path d="M12 8 L12 14"/><path d="M20 8 L20 14"/>
+          <path d="M30 6 L38 6 L38 22 L30 22" stroke-dasharray="2 2"/>
+        </svg>
+        <div class="service-name">Matrica & Címke</div>
+        <p class="service-desc">Egyedi öntapadó matricák, termékfeliratok, csomagolási címkék, konturvágott és laminált kivitelben.</p>
+        <span class="service-arrow">↗</span>
+      </div>
+
+      <div class="service-card" data-observe style="transition-delay:0.24s">
+        <div class="service-num">08</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="22" cy="22" r="8"/>
+          <path d="M22 6 L22 10"/><path d="M22 34 L22 38"/>
+          <path d="M6 22 L10 22"/><path d="M34 22 L38 22"/>
+          <path d="M10.5 10.5 L13.5 13.5"/><path d="M30.5 30.5 L33.5 33.5"/>
+          <path d="M33.5 10.5 L30.5 13.5"/><path d="M13.5 30.5 L10.5 33.5"/>
+        </svg>
+        <div class="service-name">Grafikai Tervezés</div>
+        <p class="service-desc">Logótervezés, arculati anyagok, plakátok, webes grafikák és beltéri falfestmények — kreatív megoldások.</p>
+        <span class="service-arrow">↗</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-label">Hogyan dolgozunk</div>
+    <h2 class="section-title">Egyszerű folyamat,<br><span class="accent">profi eredmény.</span></h2>
+
+    <div class="process-grid">
+      <div class="process-steps">
+        <div class="process-step" data-observe>
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <div class="step-title">Kapcsolatfelvétel</div>
+            <p class="step-desc">Mesélje el elképzeléseit — telefonon, e-mailben vagy személyesen. Minden projekt egyedi konzultációval indul.</p>
+          </div>
+        </div>
+        <div class="process-step" data-observe style="transition-delay:0.12s">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <div class="step-title">Ingyenes látványterv</div>
+            <p class="step-desc">Még a megrendelés előtt elkészítjük a digitális látványtervet, hogy pontosan lássa az elkészült termék kinézetét.</p>
+          </div>
+        </div>
+        <div class="process-step" data-observe style="transition-delay:0.24s">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <div class="step-title">Gyártás & Kivitelezés</div>
+            <p class="step-desc">A jóváhagyott terv alapján gyorsan és precízen elkészítjük a terméket — saját műhelyben, minőségi alapanyagokból.</p>
+          </div>
+        </div>
+        <div class="process-step" data-observe style="transition-delay:0.36s">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <div class="step-title">Átadás & Felszerelés</div>
+            <p class="step-desc">A kész terméket igény szerint helyszíni felszereléssel is adjuk át — hogy azonnal látható legyen a különbség.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-visual" data-observe>
+        <div class="process-visual-inner">
+          <div class="visual-rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+          </div>
+          <div class="visual-center">
+            <span class="visual-big">ED</span>
+            <span class="visual-label">EPER DEKOR — BUDAPEST XVII.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="container">
+    <div class="works-header">
+      <div>
+        <div class="section-label">Portfólió</div>
+        <h2 class="section-title">Néhány <span class="accent">munkánk.</span></h2>
+      </div>
+      <a href="#contact" class="btn-ghost">Minden munkánk →</a>
+    </div>
+
+    <div class="works-grid">
+      <div class="work-card" data-observe>
+        <div class="work-pattern" style="background:linear-gradient(135deg,#1a0a0a,#2d0a0a);color:rgba(232,25,44,0.15)">ABC</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">REKLÁMTÁBLA</div>
+            <div class="work-title">Cégtábla — Kültéri</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.08s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#0a0a1a,#0a1030);color:rgba(30,80,255,0.12)">🚗</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">AUTÓFÓLIÁZÁS</div>
+            <div class="work-title">Flottafóliázás</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.1s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#0a1a0a,#0a2010);color:rgba(30,200,60,0.1)">▦</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">MATRICA</div>
+            <div class="work-title">Üvegmatrica</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.14s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#1a0a12,#28081a);color:rgba(200,30,100,0.12)">3D</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">3D BETŰK</div>
+            <div class="work-title">Hab logó — Beltéri</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.18s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#120a1a,#1a0826);color:rgba(139,92,246,0.12)">✦</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">KIÁLLÍTÁS</div>
+            <div class="work-title">Standdekoráció</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.08s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#1a1000,#281800);color:rgba(255,160,0,0.1)">◉</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">MOLINÓ</div>
+            <div class="work-title">Kültéri banner</div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card" data-observe style="transition-delay:0.12s">
+        <div class="work-pattern" style="background:linear-gradient(135deg,#0a0a0a,#1a1212);color:rgba(232,25,44,0.1)">★</div>
+        <div class="work-overlay">
+          <div class="work-info">
+            <div class="work-cat">GRAFIKA</div>
+            <div class="work-title">Logó & Arculat</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item" data-observe>
+        <div class="stat-value">500+</div>
+        <div class="stat-label">ELKÉSZÜLT PROJEKT</div>
+      </div>
+      <div class="stat-item" data-observe style="transition-delay:0.1s">
+        <div class="stat-value">10+</div>
+        <div class="stat-label">ÉV TAPASZTALAT</div>
+      </div>
+      <div class="stat-item" data-observe style="transition-delay:0.2s">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">ELÉGEDETT ÜGYFÉL</div>
+      </div>
+      <div class="stat-item" data-observe style="transition-delay:0.3s">
+        <div class="stat-value">0 Ft</div>
+        <div class="stat-label">LÁTVÁNYTERV DÍJA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text">
+        <div class="section-label">Miért mi?</div>
+        <h3>Nem csak reklámot<br>készítünk — <span style="color:var(--red)">eredményt.</span></h3>
+        <p>Budapest XVII. kerületének megbízható reklámkészítő műhelye vagyunk. Gyors, precíz, átlátható. Minden megrendelés mögött személyes odafigyelés és minőségi anyaghasználat áll.</p>
+        <div class="why-list">
+          <div class="why-item" data-observe>Ingyenes látványterv minden megrendelés előtt</div>
+          <div class="why-item" data-observe style="transition-delay:0.1s">UV-álló, időjárásálló anyagok kültéri használatra</div>
+          <div class="why-item" data-observe style="transition-delay:0.2s">Gyors átfutási idő, rugalmas határidők</div>
+          <div class="why-item" data-observe style="transition-delay:0.3s">Helyszíni felszerelés és szerviz igény esetén</div>
+          <div class="why-item" data-observe style="transition-delay:0.4s">Egyedi árajánlat, rejtett díjak nélkül</div>
+        </div>
+      </div>
+      <div class="why-features">
+        <div class="why-feature" data-observe>
+          <span class="wf-icon">⚡</span>
+          <div class="wf-title">Gyors átfutás</div>
+          <p class="wf-desc">Sürgős megrendeléseket is vállalunk. Expressz gyártás extra felár nélkül, egyeztetés alapján.</p>
+        </div>
+        <div class="why-feature" data-observe style="transition-delay:0.1s">
+          <span class="wf-icon">🎯</span>
+          <div class="wf-title">Prémium minőség</div>
+          <p class="wf-desc">Csak bevált, minőségi alapanyagokat és technológiákat alkalmazunk — az első naptól az utolsóig.</p>
+        </div>
+        <div class="why-feature" data-observe style="transition-delay:0.2s">
+          <span class="wf-icon">💬</span>
+          <div class="wf-title">Személyes tanácsadás</div>
+          <p class="wf-desc">Nem dobozos megoldások — minden ügyfélnek egyéni elképzeléseihez igazított ajánlatot adunk.</p>
+        </div>
+        <div class="why-feature" data-observe style="transition-delay:0.3s">
+          <span class="wf-icon">🛡️</span>
+          <div class="wf-title">Garanciával</div>
+          <p class="wf-desc">Termékeinkre garanciát vállalunk. Ha valami nem tökéletes, kijavítjuk — ez az ígéretünk.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Kapcsolat</div>
+    <h2 class="section-title">Kezdjük el <span class="accent">együtt.</span></h2>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Kérjen ingyenes<br>árajánlatot még ma!</h3>
+        <p>Írjon vagy hívjon minket — 24 órán belül válaszolunk. Ingyenes konzultáció és látványterv minden érdeklődőnek.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="cd-icon">📞</div>
+            <div class="cd-text">
+              <div class="cd-label">TELEFON</div>
+              <a href="tel:+36203125175" class="cd-value">+36 20 312 5175</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">✉️</div>
+            <div class="cd-text">
+              <div class="cd-label">E-MAIL</div>
+              <a href="mailto:eperdekor@gmail.com" class="cd-value">eperdekor@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">📍</div>
+            <div class="cd-text">
+              <div class="cd-label">HELYSZÍN</div>
+              <span class="cd-value">Budapest XVII. kerület</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">🌐</div>
+            <div class="cd-text">
+              <div class="cd-label">FACEBOOK</div>
+              <a href="https://www.facebook.com/eperdekor17" target="_blank" rel="noopener" class="cd-value">EperDekor17</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">NÉV</label>
+          <input type="text" class="form-input" placeholder="Az Ön neve" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-MAIL CÍM</label>
+          <input type="email" class="form-input" placeholder="pelda@email.hu" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">TELEFONSZÁM</label>
+          <input type="tel" class="form-input" placeholder="+36 ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">MILYEN MUNKÁT SZERETNE?</label>
+          <textarea class="form-textarea" placeholder="Írja le röviden elképzeléseit..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Ajánlatot kérek →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Eper<span>Dekor</span></div>
+  <div class="footer-copy">© 2024 EperDekor — Budapest XVII. kerület. Minden jog fenntartva.</div>
+  <div class="footer-links">
+    <a href="#services">Szolgáltatások</a>
+    <a href="#works">Munkáink</a>
+    <a href="#contact">Kapcsolat</a>
+  </div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){
+  rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
+  dot.style.cssText = `left:${mx}px;top:${my}px`;
+  ring.style.cssText = `left:${rx}px;top:${ry}px`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.work-card,.service-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovered'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovered'));
+});
+
+// ── NAVBAR SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', ()=>{
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── INTERSECTION OBSERVER ──
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+  });
+},{ threshold: 0.15 });
+document.querySelectorAll('[data-observe]').forEach(el=>io.observe(el));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// ── FORM ──
+function handleSubmit(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Üzenet elküldve!';
+  btn.style.background = '#1a7a40';
+  setTimeout(()=>{ btn.textContent='Ajánlatot kérek →'; btn.style.background=''; }, 3500);
+}
+</script>
+</body>
+</html>

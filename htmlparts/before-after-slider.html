@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Előtte / Utána csúszka</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .ba-wrapper {
+      width: 100%;
+      max-width: 860px;
+      padding: 40px 20px;
+    }
+
+    .ba-label {
+      text-align: center;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #888;
+      letter-spacing: .05em;
+    }
+
+    /* ── A csúszka maga ── */
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 16px;
+      user-select: none;
+      touch-action: none;
+      cursor: ew-resize;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18);
+    }
+
+    /* Mindkét kép tölti ki a konténert */
+    .ba-slider img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* Az "utána" kép felülre kerül, clip-pel vágjuk */
+    .ba-after {
+      z-index: 2;
+      /* clip-path-t JS állítja */
+      clip-path: inset(0 50% 0 0);
+    }
+
+    /* Elválasztó vonal */
+    .ba-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;              /* JS állítja */
+      width: 3px;
+      background: #fff;
+      z-index: 3;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(0,0,0,.35);
+    }
+
+    /* Fogantyú */
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;              /* JS állítja */
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 14px rgba(0,0,0,.3);
+      z-index: 4;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* Kettős nyíl a fogantyún */
+    .ba-handle::before,
+    .ba-handle::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+    }
+    .ba-handle::before {
+      border-right: 8px solid #555;
+    }
+    .ba-handle::after {
+      border-left: 8px solid #555;
+    }
+
+    /* Előtte / Utána feliratok */
+    .ba-tag {
+      position: absolute;
+      top: 14px;
+      z-index: 5;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+    .ba-tag-before { left: 14px; }
+    .ba-tag-after  { right: 14px; }
+  </style>
+</head>
+<body>
+
+<div class="ba-wrapper">
+  <p class="ba-label">Húzd a csúszkát ←→</p>
+
+  <div class="ba-slider" id="baSlider">
+
+    <!-- ELŐTTE KÉP (alap réteg) -->
+    <img
+      class="ba-before"
+      src="https://images.unsplash.com/photo-1495195134817-aeb325a55b65?w=1600&q=80"
+      alt="Előtte"
+    />
+
+    <!-- UTÁNA KÉP (felső réteg, clip-pel vágva) -->
+    <img
+      class="ba-after"
+      id="baAfter"
+      src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=1600&q=80"
+      alt="Utána"
+    />
+
+    <!-- Vonal + fogantyú -->
+    <div class="ba-divider" id="baDivider"></div>
+    <div class="ba-handle"  id="baHandle"></div>
+
+    <!-- Feliratok -->
+    <span class="ba-tag ba-tag-before">Előtte</span>
+    <span class="ba-tag ba-tag-after">Utána</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  const slider  = document.getElementById('baSlider');
+  const after   = document.getElementById('baAfter');
+  const divider = document.getElementById('baDivider');
+  const handle  = document.getElementById('baHandle');
+
+  let dragging = false;
+
+  function setPosition(pct) {
+    pct = Math.min(Math.max(pct, 0), 100);
+    after.style.clipPath      = `inset(0 ${100 - pct}% 0 0)`;
+    divider.style.left        = pct + '%';
+    handle.style.left         = pct + '%';
+  }
+
+  function getPercent(clientX) {
+    const rect = slider.getBoundingClientRect();
+    return ((clientX - rect.left) / rect.width) * 100;
+  }
+
+  // Mouse
+  slider.addEventListener('mousedown',  (e) => { dragging = true; setPosition(getPercent(e.clientX)); });
+  window.addEventListener('mousemove',  (e) => { if (dragging) setPosition(getPercent(e.clientX)); });
+  window.addEventListener('mouseup',   ()  => { dragging = false; });
+
+  // Touch
+  slider.addEventListener('touchstart', (e) => { dragging = true; setPosition(getPercent(e.touches[0].clientX)); }, { passive: true });
+  window.addEventListener('touchmove',  (e) => { if (dragging) setPosition(getPercent(e.touches[0].clientX)); }, { passive: true });
+  window.addEventListener('touchend',  ()   => { dragging = false; });
+})();
+</script>
+
+</body>
+</html>

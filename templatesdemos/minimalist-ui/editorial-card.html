@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalist UI — Editorial Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F7F4EE;
+  --warm:#EDE8DF;
+  --stone:#C5BFB3;
+  --bark:#7A7268;
+  --ink:#1C1916;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{font-size:16px;}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);min-height:100vh;}
+
+/* NAV */
+nav{
+  padding:28px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--stone);
+}
+.logo{font-family:var(--serif);font-size:18px;font-style:italic;letter-spacing:-0.3px;}
+.nav-items{display:flex;gap:32px;}
+.nav-items a{font-size:12px;color:var(--bark);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s;}
+.nav-items a:hover{color:var(--ink);}
+.nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px;cursor:pointer;}
+
+/* HERO */
+.hero{
+  padding:80px 48px 60px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:end;
+  border-bottom:1px solid var(--stone);
+}
+.hero-issue{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--bark);margin-bottom:20px;}
+.hero-title{font-family:var(--serif);font-size:clamp(42px,6vw,80px);font-weight:400;line-height:1.05;letter-spacing:-1px;}
+.hero-title em{font-style:italic;color:var(--bark);}
+.hero-right{}
+.hero-desc{font-size:15px;color:var(--bark);line-height:1.85;max-width:380px;margin-bottom:28px;}
+.hero-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+  color:var(--ink);
+  border:1px solid var(--ink);
+  padding:12px 24px;
+  transition:background 0.2s,color 0.2s;
+  cursor:pointer;
+}
+.hero-btn:hover{background:var(--ink);color:var(--cream);}
+
+/* FEATURED */
+.featured{padding:60px 48px;border-bottom:1px solid var(--stone);}
+.section-rule{display:flex;align-items:center;gap:16px;margin-bottom:48px;}
+.section-rule span{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--bark);}
+.section-rule::after{content:'';flex:1;height:1px;background:var(--stone);}
+.feat-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;}
+.feat-main{}
+.feat-img{
+  aspect-ratio:3/2;
+  background:var(--warm);
+  border:1px solid var(--stone);
+  margin-bottom:20px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.feat-img .placeholder{font-family:var(--serif);font-size:60px;font-style:italic;color:var(--stone);user-select:none;}
+.feat-cat{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--bark);margin-bottom:8px;}
+.feat-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,30px);font-weight:400;line-height:1.2;margin-bottom:12px;}
+.feat-byline{font-size:12px;color:var(--bark);}
+.feat-small{display:flex;flex-direction:column;gap:28px;}
+.feat-small-item{border-top:1px solid var(--stone);padding-top:16px;}
+.fsi-cat{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--bark);margin-bottom:8px;}
+.fsi-title{font-family:var(--serif);font-size:16px;font-weight:400;line-height:1.3;margin-bottom:8px;}
+.fsi-byline{font-size:12px;color:var(--stone);}
+
+/* QUOTE */
+.quote-strip{
+  padding:60px 48px;
+  border-bottom:1px solid var(--stone);
+  display:grid;grid-template-columns:120px 1fr;gap:40px;align-items:start;
+}
+.q-rule{width:1px;height:80px;background:var(--ink);}
+.q-text{font-family:var(--serif);font-size:clamp(22px,3vw,38px);font-style:italic;line-height:1.4;font-weight:400;}
+.q-attr{font-family:var(--mono);font-size:11px;color:var(--bark);letter-spacing:0.08em;margin-top:20px;}
+
+/* GRID 3 */
+.three-col{padding:60px 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;border-bottom:1px solid var(--stone);}
+.tc-card{}
+.tc-num{font-family:var(--mono);font-size:10px;color:var(--stone);letter-spacing:0.12em;margin-bottom:16px;}
+.tc-head{font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.2;margin-bottom:12px;}
+.tc-body{font-size:13px;color:var(--bark);line-height:1.75;}
+.tc-link{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;margin-top:16px;border-bottom:1px solid var(--stone);display:inline-block;padding-bottom:2px;cursor:pointer;transition:border-color 0.2s;}
+.tc-link:hover{border-color:var(--ink);}
+
+/* FOOTER */
+footer{padding:40px 48px;display:flex;justify-content:space-between;align-items:center;}
+.f-logo{font-family:var(--serif);font-size:16px;font-style:italic;}
+.f-copy{font-family:var(--mono);font-size:10px;color:var(--stone);letter-spacing:0.06em;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Forma</div>
+  <div class="nav-items">
+    <a href="#">Essays</a>
+    <a href="#">Design</a>
+    <a href="#">Culture</a>
+    <a href="#">Archive</a>
+  </div>
+  <div class="nav-cta">Subscribe →</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-issue">Issue No. 24 — Spring 2024</div>
+    <h1 class="hero-title">The Art of<br><em>Intentional</em><br>Restraint.</h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc">On the quiet power of what is left unsaid — how the best designers, writers, and architects create meaning through absence rather than accumulation.</p>
+    <div class="hero-btn">Read the Issue <span>→</span></div>
+  </div>
+</div>
+
+<div class="featured">
+  <div class="section-rule"><span>Featured</span></div>
+  <div class="feat-grid">
+    <div class="feat-main">
+      <div class="feat-img"><span class="placeholder">F</span></div>
+      <div class="feat-cat">Essay</div>
+      <h2 class="feat-title">Why Everything Looks the Same, and What to Do About It</h2>
+      <div class="feat-byline">By Marta Kollár — 12 min read</div>
+    </div>
+    <div class="feat-small">
+      <div class="feat-small-item">
+        <div class="fsi-cat">Interview</div>
+        <div class="fsi-title">Jiro Watanabe on the Discipline of Omission</div>
+        <div class="fsi-byline">8 min · Design</div>
+      </div>
+      <div class="feat-small-item">
+        <div class="fsi-cat">Critique</div>
+        <div class="fsi-title">The Brutalist Revival: Substance or Trend?</div>
+        <div class="fsi-byline">6 min · Architecture</div>
+      </div>
+      <div class="feat-small-item">
+        <div class="fsi-cat">Profile</div>
+        <div class="fsi-title">Agnes Denes and the Long Arc of Land Art</div>
+        <div class="fsi-byline">10 min · Culture</div>
+      </div>
+    </div>
+    <div class="feat-small">
+      <div class="feat-small-item">
+        <div class="fsi-cat">Essay</div>
+        <div class="fsi-title">Against Optimization: Notes on Inefficiency as Practice</div>
+        <div class="fsi-byline">7 min · Theory</div>
+      </div>
+      <div class="feat-small-item">
+        <div class="fsi-cat">Review</div>
+        <div class="fsi-title">Massimo Vignelli's Unfinished Grid</div>
+        <div class="fsi-byline">5 min · Typography</div>
+      </div>
+      <div class="feat-small-item">
+        <div class="fsi-cat">Object</div>
+        <div class="fsi-title">The Braun Radio and the Ethics of Everyday Form</div>
+        <div class="fsi-byline">4 min · Objects</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quote-strip">
+  <div style="display:flex;flex-direction:column;align-items:center;padding-top:8px">
+    <div class="q-rule"></div>
+  </div>
+  <div>
+    <div class="q-text">"Good design is as little design as possible. Less, but better — because it concentrates on the essential aspects."</div>
+    <div class="q-attr">— Dieter Rams, Ten Principles</div>
+  </div>
+</div>
+
+<div class="three-col">
+  <div class="tc-card">
+    <div class="tc-num">01 / Typography</div>
+    <h3 class="tc-head">The Return of the Humanist Serif</h3>
+    <p class="tc-body">After two decades of grotesque dominance, a quiet counter-movement is underway in editorial and product design alike.</p>
+    <div class="tc-link">Continue reading →</div>
+  </div>
+  <div class="tc-card">
+    <div class="tc-num">02 / Color</div>
+    <h3 class="tc-head">On Warm Neutrals and the Rejection of Sterility</h3>
+    <p class="tc-body">The shift from cold grey systems to warm, organic palettes reflects a deeper cultural desire for texture and tactility.</p>
+    <div class="tc-link">Continue reading →</div>
+  </div>
+  <div class="tc-card">
+    <div class="tc-num">03 / Space</div>
+    <h3 class="tc-head">Negative Space as the Principal Element</h3>
+    <p class="tc-body">What surrounds form gives it meaning. An exploration of margins, silence, and the compositional power of emptiness.</p>
+    <div class="tc-link">Continue reading →</div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">Forma</div>
+  <div class="f-copy">© 2024 Forma Journal — All rights reserved</div>
+</footer>
+
+</body>
+</html>

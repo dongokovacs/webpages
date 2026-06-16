@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stats & Testimonials — magic (21st.dev) demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp .6s ease forwards; }
+
+    /* animated counter */
+    .counter { font-variant-numeric: tabular-nums; }
+
+    /* stat card */
+    .stat-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px; padding: 32px;
+      transition: all .25s;
+      position: relative; overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+    }
+    .stat-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.15); }
+
+    /* testimonial card */
+    .t-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px; padding: 28px;
+      transition: all .25s;
+    }
+    .t-card:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.13); }
+
+    /* logo ticker */
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .ticker-track { animation: ticker 22s linear infinite; display: flex; gap: 48px; white-space: nowrap; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-wrap { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+
+    .tag { display:inline-block;padding:3px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase; }
+  </style>
+</head>
+<body style="background:linear-gradient(160deg,#050810,#0d1a2e 50%,#050810)" class="text-white min-h-screen px-4">
+
+  <div class="max-w-6xl mx-auto py-24 space-y-24">
+
+    <!-- ===== STATS ===== -->
+    <section>
+      <div class="text-center mb-14 fade-up" style="animation-delay:.05s">
+        <span class="tag mb-4" style="background:rgba(34,211,238,.1);color:#67e8f9;border:1px solid rgba(34,211,238,.2);">By the numbers</span>
+        <h2 class="text-5xl font-extrabold mt-4 mb-3 tracking-tight"
+            style="background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+          Trusted at scale
+        </h2>
+        <p class="text-white/45 text-lg">Real numbers from real customers around the world.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="stats-grid">
+        <div class="stat-card fade-up text-center" style="animation-delay:.1s">
+          <div class="text-5xl font-black mb-2" style="background:linear-gradient(135deg,#22d3ee,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            <span class="counter" data-target="50000" data-suffix="+">0</span>
+          </div>
+          <div class="text-sm font-semibold text-white/80 mb-1">Active Users</div>
+          <div class="text-xs text-white/35">across 80+ countries</div>
+        </div>
+        <div class="stat-card fade-up text-center" style="animation-delay:.15s">
+          <div class="text-5xl font-black mb-2" style="background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            <span class="counter" data-target="99" data-suffix=".9%">0</span>
+          </div>
+          <div class="text-sm font-semibold text-white/80 mb-1">Uptime SLA</div>
+          <div class="text-xs text-white/35">guaranteed availability</div>
+        </div>
+        <div class="stat-card fade-up text-center" style="animation-delay:.2s">
+          <div class="text-5xl font-black mb-2" style="background:linear-gradient(135deg,#34d399,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            <span class="counter" data-target="2" data-prefix="$" data-suffix="B+">0</span>
+          </div>
+          <div class="text-sm font-semibold text-white/80 mb-1">Revenue Processed</div>
+          <div class="text-xs text-white/35">for our customers</div>
+        </div>
+        <div class="stat-card fade-up text-center" style="animation-delay:.25s">
+          <div class="text-5xl font-black mb-2" style="background:linear-gradient(135deg,#fb923c,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            <span class="counter" data-target="200" data-suffix="+">0</span>
+          </div>
+          <div class="text-sm font-semibold text-white/80 mb-1">Integrations</div>
+          <div class="text-xs text-white/35">plug-and-play connectors</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LOGO TICKER ===== -->
+    <section class="fade-up" style="animation-delay:.3s">
+      <p class="text-center text-xs font-semibold text-white/25 tracking-widest uppercase mb-8">Trusted by teams at</p>
+      <div class="ticker-wrap">
+        <div class="ticker-track">
+          <!-- duplicate for seamless loop -->
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Vercel</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Stripe</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Linear</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Notion</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Figma</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Loom</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Resend</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Neon</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Supabase</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Turso</span>
+          <!-- duplicate -->
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Vercel</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Stripe</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Linear</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Notion</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Figma</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Loom</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Resend</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Neon</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Supabase</span>
+          <span style="color:rgba(255,255,255,.4);font-size:18px;font-weight:700;letter-spacing:-.5px;">Turso</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section>
+      <div class="text-center mb-14 fade-up" style="animation-delay:.05s">
+        <span class="tag mb-4" style="background:rgba(139,92,246,.1);color:#c4b5fd;border:1px solid rgba(139,92,246,.2);">Testimonials</span>
+        <h2 class="text-5xl font-extrabold mt-4 tracking-tight"
+            style="background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+          Loved by builders
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="t-card fade-up" style="animation-delay:.1s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "We cut our component build time by 70% after switching. The design quality is unmatched — feels like hiring a full design team overnight."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">S</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Sarah Chen</div>
+              <div class="text-xs text-white/40">CTO at Flowwise</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card fade-up" style="animation-delay:.15s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "The magic component builder is genuinely magical. I describe what I want in plain English and get production-ready code back in seconds."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#34d399);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">M</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Marcus Rivera</div>
+              <div class="text-xs text-white/40">Lead Engineer at Prismatic</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card fade-up" style="animation-delay:.2s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "Our entire landing page was rebuilt in a day using these components. Clients always ask who did the design — the answer is: AI + 21st.dev."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#fb923c,#f43f5e);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">A</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Anya Patel</div>
+              <div class="text-xs text-white/40">Founder at Launchpad</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card fade-up" style="animation-delay:.25s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "Best component library I've used in 10 years of web development. The Tailwind integration is perfect and it works with every framework."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">T</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Tom Nakamura</div>
+              <div class="text-xs text-white/40">Staff Engineer at Deno</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card fade-up" style="animation-delay:.3s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "We integrate the magic MCP in our Claude Code workflow. Every developer on my team ships polished UI without a single Figma handoff."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#34d399,#22d3ee);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">L</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Leila Hassan</div>
+              <div class="text-xs text-white/40">VP Engineering at Modal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card fade-up" style="animation-delay:.35s">
+          <div class="flex mb-4">
+            <span style="color:#fbbf24;font-size:14px;letter-spacing:2px;">★★★★★</span>
+          </div>
+          <p class="text-white/75 text-sm leading-relaxed mb-5">
+            "The component quality keeps getting better with every release. Accessibility out of the box, responsive by default. Nothing else comes close."
+          </p>
+          <div class="flex items-center gap-3">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#fb923c);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">K</div>
+            <div>
+              <div class="text-sm font-semibold text-white">Kai Schmidt</div>
+              <div class="text-xs text-white/40">Design Lead at Raycast</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="../index.html" class="text-sm text-white/25 hover:text-white/60 transition-colors">← Back to all demos</a>
+    </div>
+  </div>
+
+  <script>
+    // Animated counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const duration = 1800;
+      const start = performance.now();
+      const update = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(ease * target);
+        el.textContent = prefix + value.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.counter').forEach(animateCounter);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: .3 });
+
+    document.getElementById('stats-grid') && io.observe(document.getElementById('stats-grid'));
+
+    // Stagger fade-up
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const fadeIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } });
+    }, { threshold: .1 });
+    fadeEls.forEach(el => { el.style.animationPlayState = 'paused'; fadeIO.observe(el); });
+  </script>
+</body>
+</html>

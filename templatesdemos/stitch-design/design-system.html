@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stitch Design Taste — Design System Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090B;
+  --surface:#111113;
+  --surface2:#18181B;
+  --border:#27272A;
+  --border2:rgba(255,255,255,0.06);
+  --white:#FAFAFA;
+  --dim:rgba(250,250,250,0.45);
+  --dimmer:rgba(250,250,250,0.22);
+  --accent:#7C3AED;
+  --accent2:#A78BFA;
+  --green:#10B981;
+  --orange:#F59E0B;
+  --red:#EF4444;
+  --blue:#3B82F6;
+  --mono:'Geist Mono','DM Mono',monospace;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html{font-size:14px;}
+body{background:var(--bg);color:var(--white);font-family:var(--sans);min-height:100vh;padding:0;}
+
+/* LAYOUT */
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sb-header{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:8px;}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.sb-logo-mark{width:24px;height:24px;background:var(--accent);border-radius:4px;display:flex;align-items:center;justify-content:center;}
+.sb-logo-mark svg{width:14px;height:14px;}
+.sb-logo-name{font-size:13px;font-weight:600;letter-spacing:-0.2px;}
+.sb-version{font-family:var(--mono);font-size:10px;color:var(--dimmer);background:var(--surface2);padding:2px 8px;border-radius:3px;border:1px solid var(--border);}
+.sb-search{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--dim);font-family:var(--mono);font-size:11px;padding:8px 12px;outline:none;border-radius:4px;letter-spacing:0.04em;}
+.sb-section{padding:8px 20px;}
+.sb-label{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:var(--dimmer);text-transform:uppercase;padding:12px 0 4px;}
+.sb-item{padding:6px 10px;border-radius:4px;font-size:12px;color:var(--dim);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:space-between;}
+.sb-item:hover{background:var(--surface2);color:var(--white);}
+.sb-item.active{background:rgba(124,58,237,0.15);color:var(--accent2);}
+.sb-item .badge{font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:3px;background:var(--surface2);border:1px solid var(--border);}
+.sb-item.active .badge{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.3);color:var(--accent2);}
+
+/* MAIN */
+.main{padding:32px 40px;max-width:1000px;}
+.page-head{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.page-breadcrumb{font-family:var(--mono);font-size:11px;color:var(--dimmer);margin-bottom:12px;letter-spacing:0.04em;}
+.page-breadcrumb span{color:var(--dim);}
+.page-title{font-size:26px;font-weight:600;letter-spacing:-0.5px;margin-bottom:8px;}
+.page-desc{font-size:14px;color:var(--dim);line-height:1.6;max-width:600px;}
+.page-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.tag{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:3px;border:1px solid var(--border);color:var(--dimmer);letter-spacing:0.04em;}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:28px;}
+.tab{font-size:13px;padding:10px 18px;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s,border-color 0.15s;}
+.tab:hover{color:var(--white);}
+.tab.active{color:var(--white);border-color:var(--accent);}
+
+/* COMPONENT PREVIEW */
+.preview-box{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:20px;}
+.preview-topbar{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.preview-dots{display:flex;gap:6px;}
+.preview-dot{width:10px;height:10px;border-radius:50%;}
+.preview-actions{display:flex;gap:8px;}
+.preview-action{font-family:var(--mono);font-size:10px;color:var(--dimmer);padding:3px 10px;border:1px solid var(--border);border-radius:3px;cursor:pointer;transition:color 0.15s,border-color 0.15s;}
+.preview-action:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+.preview-stage{padding:40px;display:flex;align-items:center;justify-content:center;min-height:200px;background:repeating-linear-gradient(0deg,transparent,transparent 23px,rgba(255,255,255,0.02) 23px,rgba(255,255,255,0.02) 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,rgba(255,255,255,0.02) 23px,rgba(255,255,255,0.02) 24px);}
+
+/* CODE BLOCK */
+.code-block{background:var(--surface2);border:1px solid var(--border);border-radius:6px;margin-bottom:20px;}
+.code-header{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.code-lang{font-family:var(--mono);font-size:11px;color:var(--dimmer);letter-spacing:0.06em;}
+.code-copy{font-family:var(--mono);font-size:10px;color:var(--dimmer);cursor:pointer;transition:color 0.15s;}
+.code-copy:hover{color:var(--white);}
+.code-body{padding:20px;overflow-x:auto;}
+.code-body code{font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--dim);}
+.kw{color:#C084FC;}
+.str{color:#86EFAC;}
+.prop{color:#93C5FD;}
+.val{color:#FCD34D;}
+.cmt{color:rgba(250,250,250,0.25);font-style:italic;}
+
+/* PROPS TABLE */
+.props-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.props-table th{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dimmer);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.props-table td{font-size:12px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:top;color:var(--dim);}
+.props-table tr:hover td{background:rgba(255,255,255,0.02);}
+.prop-name{font-family:var(--mono);color:var(--accent2);}
+.prop-type{font-family:var(--mono);color:var(--orange);font-size:11px;}
+.prop-default{font-family:var(--mono);font-size:11px;color:var(--green);}
+.prop-req{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,0.12);color:var(--red);border:1px solid rgba(239,68,68,0.2);}
+
+/* SPACING SECTION */
+.spacing-row{display:flex;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.spacing-bar{background:rgba(124,58,237,0.4);border:1px solid rgba(124,58,237,0.3);height:20px;border-radius:2px;transition:width 0.3s;}
+.spacing-name{font-family:var(--mono);font-size:11px;color:var(--accent2);min-width:60px;}
+.spacing-val{font-family:var(--mono);font-size:11px;color:var(--dimmer);min-width:50px;}
+.spacing-px{font-size:12px;color:var(--dim);}
+
+/* TOKEN GRID */
+.token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:20px;}
+.token-card{background:var(--surface2);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.15s;}
+.token-card:hover{border-color:rgba(255,255,255,0.15);}
+.tc-swatch{height:56px;}
+.tc-info{padding:10px 12px;}
+.tc-name{font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:3px;letter-spacing:0.04em;}
+.tc-hex{font-family:var(--mono);font-size:10px;color:var(--dimmer);}
+
+/* ALERTS */
+.alert{padding:12px 16px;border-radius:4px;border:1px solid;display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;font-size:13px;line-height:1.5;}
+.alert-icon{flex-shrink:0;width:16px;height:16px;margin-top:1px;}
+.alert.info{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:rgba(147,197,253,0.9);}
+.alert.success{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:rgba(110,231,183,0.9);}
+.alert.warn{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.2);color:rgba(252,211,77,0.9);}
+.alert.error{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);color:rgba(252,165,165,0.9);}
+
+/* SECTION DIVIDER */
+.section-head{margin:32px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.section-head h2{font-size:16px;font-weight:600;letter-spacing:-0.2px;}
+.section-head .meta{font-family:var(--mono);font-size:10px;color:var(--dimmer);}
+
+/* BUTTON VARIANTS */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.btn{font-size:13px;font-weight:500;padding:8px 18px;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:all 0.15s;font-family:var(--sans);}
+.btn-primary{background:var(--accent);color:white;border-color:var(--accent);}
+.btn-primary:hover{background:#6D28D9;}
+.btn-secondary{background:transparent;color:var(--white);border-color:var(--border);}
+.btn-secondary:hover{background:var(--surface2);}
+.btn-ghost{background:transparent;color:var(--dim);border-color:transparent;}
+.btn-ghost:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.btn-destructive{background:transparent;color:var(--red);border-color:rgba(239,68,68,0.3);}
+.btn-destructive:hover{background:rgba(239,68,68,0.08);}
+.btn-sm{padding:5px 12px;font-size:12px;}
+.btn-lg{padding:12px 28px;font-size:15px;}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-header">
+      <div class="sb-logo">
+        <div class="sb-logo-mark">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2v10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="sb-logo-name">Stitch DS</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="sb-version">v1.4.0</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--dimmer)">124 components</div>
+      </div>
+      <input class="sb-search" placeholder="Search components..." type="text">
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">Getting Started</div>
+      <div class="sb-item">Overview</div>
+      <div class="sb-item">Installation</div>
+      <div class="sb-item">Theming</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">Foundations</div>
+      <div class="sb-item active">Colors <span class="badge">48</span></div>
+      <div class="sb-item">Typography <span class="badge">12</span></div>
+      <div class="sb-item">Spacing <span class="badge">16</span></div>
+      <div class="sb-item">Motion <span class="badge">8</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">Components</div>
+      <div class="sb-item">Button <span class="badge">6</span></div>
+      <div class="sb-item">Input <span class="badge">8</span></div>
+      <div class="sb-item">Card <span class="badge">5</span></div>
+      <div class="sb-item">Alert <span class="badge">4</span></div>
+      <div class="sb-item">Badge <span class="badge">7</span></div>
+      <div class="sb-item">Modal <span class="badge">3</span></div>
+      <div class="sb-item">Table <span class="badge">4</span></div>
+      <div class="sb-item">Navigation <span class="badge">6</span></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">Patterns</div>
+      <div class="sb-item">Auth Forms</div>
+      <div class="sb-item">Data Tables</div>
+      <div class="sb-item">Empty States</div>
+      <div class="sb-item">Dashboards</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="page-head">
+      <div class="page-breadcrumb">Foundations <span>/ Colors</span></div>
+      <div class="page-title">Color Tokens</div>
+      <div class="page-desc">Semantic color system built on CSS custom properties. All tokens support light and dark mode via <code style="font-family:var(--mono);font-size:12px;background:var(--surface2);padding:1px 6px;border-radius:3px;border:1px solid var(--border)">data-theme</code> attribute switching.</div>
+      <div class="page-tags">
+        <div class="tag">WCAG AA</div>
+        <div class="tag">CSS Variables</div>
+        <div class="tag">Dark Mode</div>
+        <div class="tag">Semantic</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">Tokens</div>
+      <div class="tab">Usage</div>
+      <div class="tab">API</div>
+    </div>
+
+    <!-- Color Tokens -->
+    <div class="section-head">
+      <h2>Background</h2>
+      <div class="meta">4 tokens</div>
+    </div>
+    <div class="token-grid">
+      <div class="token-card"><div class="tc-swatch" style="background:#09090B"></div><div class="tc-info"><div class="tc-name">--bg-base</div><div class="tc-hex">#09090B</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#111113"></div><div class="tc-info"><div class="tc-name">--bg-surface</div><div class="tc-hex">#111113</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#18181B"></div><div class="tc-info"><div class="tc-name">--bg-elevated</div><div class="tc-hex">#18181B</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#27272A"></div><div class="tc-info"><div class="tc-name">--bg-overlay</div><div class="tc-hex">#27272A</div></div></div>
+    </div>
+
+    <div class="section-head">
+      <h2>Semantic</h2>
+      <div class="meta">8 tokens</div>
+    </div>
+    <div class="token-grid">
+      <div class="token-card"><div class="tc-swatch" style="background:#7C3AED"></div><div class="tc-info"><div class="tc-name">--color-primary</div><div class="tc-hex">#7C3AED</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#10B981"></div><div class="tc-info"><div class="tc-name">--color-success</div><div class="tc-hex">#10B981</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#F59E0B"></div><div class="tc-info"><div class="tc-name">--color-warning</div><div class="tc-hex">#F59E0B</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#EF4444"></div><div class="tc-info"><div class="tc-name">--color-error</div><div class="tc-hex">#EF4444</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#3B82F6"></div><div class="tc-info"><div class="tc-name">--color-info</div><div class="tc-hex">#3B82F6</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#A78BFA"></div><div class="tc-info"><div class="tc-name">--color-primary-lt</div><div class="tc-hex">#A78BFA</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#FAFAFA"></div><div class="tc-info"><div class="tc-name">--text-base</div><div class="tc-hex">#FAFAFA</div></div></div>
+      <div class="token-card"><div class="tc-swatch" style="background:#71717A;"></div><div class="tc-info"><div class="tc-name">--text-muted</div><div class="tc-hex">#71717A</div></div></div>
+    </div>
+
+    <!-- Button component -->
+    <div class="section-head">
+      <h2>Button — Variants</h2>
+      <div class="meta">Component · 6 variants</div>
+    </div>
+
+    <div class="preview-box">
+      <div class="preview-topbar">
+        <div class="preview-dots">
+          <div class="preview-dot" style="background:#EF4444"></div>
+          <div class="preview-dot" style="background:#F59E0B"></div>
+          <div class="preview-dot" style="background:#10B981"></div>
+        </div>
+        <div class="preview-actions">
+          <div class="preview-action">Figma</div>
+          <div class="preview-action">Copy</div>
+          <div class="preview-action">Fullscreen</div>
+        </div>
+      </div>
+      <div class="preview-stage">
+        <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+          <div class="btn-row">
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-destructive">Destructive</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary">Default</button>
+            <button class="btn btn-primary btn-lg">Large</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert component -->
+    <div class="section-head">
+      <h2>Alert — Variants</h2>
+      <div class="meta">Component · 4 variants</div>
+    </div>
+    <div class="alert info"><span>ℹ</span> This is an informational alert. Use for neutral context messages.</div>
+    <div class="alert success"><span>✓</span> Your changes have been saved successfully. The deployment is complete.</div>
+    <div class="alert warn"><span>⚠</span> This action may have unintended side effects. Review before proceeding.</div>
+    <div class="alert error"><span>✕</span> Failed to connect. Check your credentials and try again.</div>
+
+    <!-- Props -->
+    <div class="section-head">
+      <h2>Button Props</h2>
+      <div class="meta">API Reference</div>
+    </div>
+    <table class="props-table">
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Required</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="prop-name">variant</td>
+          <td class="prop-type">'primary' | 'secondary' | 'ghost' | 'destructive'</td>
+          <td class="prop-default">'primary'</td>
+          <td>—</td>
+          <td>Visual style variant</td>
+        </tr>
+        <tr>
+          <td class="prop-name">size</td>
+          <td class="prop-type">'sm' | 'md' | 'lg'</td>
+          <td class="prop-default">'md'</td>
+          <td>—</td>
+          <td>Size of the button</td>
+        </tr>
+        <tr>
+          <td class="prop-name">disabled</td>
+          <td class="prop-type">boolean</td>
+          <td class="prop-default">false</td>
+          <td>—</td>
+          <td>Disables interaction</td>
+        </tr>
+        <tr>
+          <td class="prop-name">onClick</td>
+          <td class="prop-type">() => void</td>
+          <td class="prop-default">—</td>
+          <td><span class="prop-req">required</span></td>
+          <td>Click handler callback</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Code -->
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-lang">TSX</div>
+        <div class="code-copy">Copy code</div>
+      </div>
+      <div class="code-body"><code><span class="kw">import</span> <span class="str">{ Button }</span> <span class="kw">from</span> <span class="str">'@stitch/ui'</span>
+
+<span class="cmt">// Primary (default)</span>
+&lt;<span class="prop">Button</span> <span class="prop">variant</span>=<span class="str">"primary"</span> <span class="prop">onClick</span>={handleClick}&gt;
+  Save changes
+&lt;/<span class="prop">Button</span>&gt;
+
+<span class="cmt">// Destructive — use for irreversible actions</span>
+&lt;<span class="prop">Button</span> <span class="prop">variant</span>=<span class="str">"destructive"</span> <span class="prop">size</span>=<span class="str">"sm"</span>&gt;
+  Delete account
+&lt;/<span class="prop">Button</span>&gt;</code></div>
+    </div>
+
+    <!-- Spacing scale -->
+    <div class="section-head">
+      <h2>Spacing Scale</h2>
+      <div class="meta">16 tokens · 4px base</div>
+    </div>
+    <div>
+      <div class="spacing-row"><div class="spacing-name">--space-1</div><div class="spacing-bar" style="width:4px"></div><div class="spacing-val">4px</div><div class="spacing-px">Hairline gap</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-2</div><div class="spacing-bar" style="width:8px"></div><div class="spacing-val">8px</div><div class="spacing-px">Tight inline</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-3</div><div class="spacing-bar" style="width:12px"></div><div class="spacing-val">12px</div><div class="spacing-px">Compact</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-4</div><div class="spacing-bar" style="width:16px"></div><div class="spacing-val">16px</div><div class="spacing-px">Default gap</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-6</div><div class="spacing-bar" style="width:24px"></div><div class="spacing-val">24px</div><div class="spacing-px">Section inner</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-8</div><div class="spacing-bar" style="width:32px"></div><div class="spacing-val">32px</div><div class="spacing-px">Card padding</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-12</div><div class="spacing-bar" style="width:48px"></div><div class="spacing-val">48px</div><div class="spacing-px">Section gap</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-16</div><div class="spacing-bar" style="width:64px"></div><div class="spacing-val">64px</div><div class="spacing-px">Layout margin</div></div>
+      <div class="spacing-row"><div class="spacing-name">--space-24</div><div class="spacing-bar" style="width:96px"></div><div class="spacing-val">96px</div><div class="spacing-px">Page section</div></div>
+    </div>
+
+    <div style="height:60px"></div>
+  </div>
+</div>
+
+</body>
+</html>
