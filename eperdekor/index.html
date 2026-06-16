@@ -4,7 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EperDekor — Reklám & Grafika | Budapest XVII. kerület</title>
-<meta name="description" content="EperDekor reklámkészítő és grafikai műhely Budapest XVII. kerületben. Táblák, autófóliázás, molinók, matrica, 3D betűk, kiállítási dekoráció.">
+<meta name="description" content="EperDekor reklámkészítő és grafikai műhely Budapest XVII. kerületben. Táblák, autófóliázás, molinók, matrica, 3D betűk, kiállítási dekoráció. Ingyenes látványterv.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://dongokovacs.github.io/webpages/eperdekor/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dongokovacs.github.io/webpages/eperdekor/">
+<meta property="og:title" content="EperDekor — Reklám & Grafika | Budapest XVII. kerület">
+<meta property="og:description" content="Reklámtáblák, autófóliázás, 3D betűk, molinók, digitális nyomtatás Budapest XVII. kerületben. Ingyenes látványterv minden megrendelőnek.">
+<meta property="og:image" content="https://www.eperdekor17.hu/images/reklamtabla.jpg">
+<meta property="og:locale" content="hu_HU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0A0A">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "EperDekor",
+  "description": "Reklámkészítő és grafikai műhely Budapest XVII. kerületben. Táblák, autófóliázás, molinók, matrica, 3D betűk, kiállítási dekoráció.",
+  "url": "https://www.eperdekor17.hu",
+  "telephone": "+36203125175",
+  "email": "eperdekor@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Budapest",
+    "postalCode": "1171",
+    "addressCountry": "HU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.4500,
+    "longitude": 19.1800
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "58",
+    "bestRating": "5"
+  },
+  "sameAs": ["https://www.facebook.com/www.eperdekor17.hu"],
+  "priceRange": "$$",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
@@ -119,18 +170,6 @@
   border-bottom: 1px solid var(--border);
   margin-bottom: 4px;
 }
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: background 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-.theme-option:hover { background: var(--surface2); }
 .theme-option.active { border-color: var(--red); }
 .theme-swatch {
   width: 20px;
@@ -302,32 +341,41 @@ body {
   color: var(--white);
   font-family: var(--font-body);
   overflow-x: hidden;
-  cursor: none;
 }
 
-/* ── CURSOR ── */
-#cur-dot, #cur-ring {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-}
-#cur-dot {
-  width: 5px; height: 5px;
+/* ── SKIP LINK ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--red);
-  transition: transform 0.08s;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  z-index: 10000;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: top 0.15s;
 }
-#cur-ring {
-  width: 30px; height: 30px;
-  border: 1px solid rgba(232,25,44,0.5);
-  transition: width 0.2s var(--ease), height 0.2s var(--ease), border-color 0.2s;
+.skip-link:focus { top: 8px; }
+
+/* ── FOCUS STATES ── */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
 }
-body.hovered #cur-ring {
-  width: 56px; height: 56px;
-  border-color: rgba(232,25,44,0.8);
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 1px;
 }
-body.hovered #cur-dot { transform: translate(-50%,-50%) scale(1.8); }
 
 /* ── GRAIN ── */
 body::after {
@@ -366,7 +414,6 @@ nav.scrolled {
   display: flex;
   align-items: center;
   gap: 2px;
-  cursor: none;
 }
 .nav-logo span { color: var(--red); }
 .nav-links {
@@ -381,7 +428,6 @@ nav.scrolled {
   text-decoration: none;
   letter-spacing: 0.04em;
   transition: color 0.2s;
-  cursor: none;
 }
 .nav-links a:hover { color: var(--white); }
 .nav-contact-btn {
@@ -394,7 +440,6 @@ nav.scrolled {
   text-decoration: none;
   letter-spacing: 0.06em;
   transition: background 0.2s, transform 0.2s;
-  cursor: none;
   display: inline-block;
 }
 .nav-contact-btn:hover { background: var(--red-dark); transform: translateY(-1px); }
@@ -487,7 +532,6 @@ nav.scrolled {
   align-items: center;
   gap: 10px;
   transition: background 0.2s, transform 0.25s var(--ease);
-  cursor: none;
 }
 .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
 .btn-ghost {
@@ -503,7 +547,6 @@ nav.scrolled {
   align-items: center;
   gap: 10px;
   transition: border-color 0.2s, background 0.2s, transform 0.25s var(--ease);
-  cursor: none;
 }
 .btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); transform: translateY(-2px); }
 /* ── SHUFFLE GRID ── */
@@ -836,7 +879,6 @@ section { position: relative; }
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-  cursor: none;
 }
 .work-card.in-view { opacity: 1; transform: translateY(0); }
 .work-card:nth-child(1) { grid-column: span 7; }
@@ -1076,7 +1118,6 @@ section { position: relative; }
   text-decoration: none;
   transition: color 0.2s;
 }
-a.cd-value { cursor: none; }
 a.cd-value:hover { color: var(--red); }
 .contact-form { }
 .form-group {
@@ -1100,7 +1141,6 @@ a.cd-value:hover { color: var(--red); }
   padding: 14px 18px;
   outline: none;
   transition: border-color 0.2s;
-  cursor: none;
   -webkit-appearance: none;
 }
 .form-input:focus, .form-textarea:focus { border-color: var(--red); }
@@ -1116,10 +1156,18 @@ a.cd-value:hover { color: var(--red); }
   font-weight: 700;
   letter-spacing: 0.06em;
   padding: 18px;
-  cursor: none;
+  cursor: pointer;
   transition: background 0.2s, transform 0.25s var(--ease);
 }
 .form-submit:hover { background: var(--red-dark); transform: translateY(-2px); }
+.form-status {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  min-height: 1.5em;
+}
+.form-status.success { color: #4caf50; }
+.form-status.error { color: var(--red); }
 
 /* ── FOOTER ── */
 footer {
@@ -1156,13 +1204,45 @@ footer {
   text-decoration: none;
   letter-spacing: 0.04em;
   transition: color 0.2s;
-  cursor: none;
 }
 .footer-links a:hover { color: var(--white); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .hero-badge, .hero-title, .hero-subtitle, .hero-actions, .shuffle-grid { opacity: 1 !important; animation: none !important; }
+  .process-step, .why-item, .why-feature, .stat-item, .work-card, .service-card { opacity: 1 !important; transform: none !important; }
+  .reviews-track { animation-play-state: paused !important; }
+  .marquee-track { animation-play-state: paused !important; }
+  .process-visual-inner::before, .ring { animation: none !important; }
+}
+
+/* ── THEME OPTION BUTTON ACCESSIBILITY ── */
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+}
+.theme-option:hover, .theme-option:focus-visible { background: var(--surface2); outline-offset: 1px; }
 
 /* ── MOBILE ── */
 @media (max-width: 1024px) {
@@ -1199,13 +1279,12 @@ footer {
 </head>
 <body>
 
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
+<a href="#main-content" class="skip-link">Ugrás a tartalomhoz</a>
 
 <!-- NAV -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">Eper<span>Dekor</span></a>
-  <ul class="nav-links">
+<nav id="navbar" aria-label="Főnavigáció">
+  <a href="#hero" class="nav-logo" aria-label="EperDekor — Főoldal">Eper<span>Dekor</span></a>
+  <ul class="nav-links" role="list">
     <li><a href="#services">Szolgáltatások</a></li>
     <li><a href="#process">Folyamat</a></li>
     <li><a href="#works">Munkáink</a></li>
@@ -1214,6 +1293,8 @@ footer {
   <a href="#contact" class="nav-contact-btn">Ajánlatot kérek</a>
 </nav>
 
+<main id="main-content">
+
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
@@ -1221,7 +1302,7 @@ footer {
 
   <!-- LEFT: text -->
   <div class="hero-content" style="position:relative;z-index:10">
-    <div class="hero-badge">Budapest XVII. kerület — Reklám & Grafika</div>
+    <div class="hero-badge" aria-hidden="true">Budapest XVII. kerület — Reklám & Grafika</div>
     <h1 class="hero-title">
       Látható<em>leszel.</em>
     </h1>
@@ -1235,11 +1316,11 @@ footer {
   </div>
 
   <!-- RIGHT: 4×4 shuffle grid -->
-  <div class="shuffle-grid" id="shuffleGrid">
-    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
-    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
-    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
-    <div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div>
+  <div class="shuffle-grid" id="shuffleGrid" role="img" aria-label="EperDekor munkáinak animált képgaléria" aria-live="off">
+    <div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div>
+    <div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div>
+    <div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div>
+    <div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div><div class="sq" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -1270,7 +1351,7 @@ footer {
   <div class="container">
     <div class="services-header">
       <div>
-        <div class="section-label">Szolgáltatásaink</div>
+        <div class="section-label" aria-hidden="true">Szolgáltatásaink</div>
         <h2 class="section-title">Minden, amire<br><span class="accent">szükséged van.</span></h2>
       </div>
       <p class="services-desc">Az egyedi megjelenéstől a komplex reklámrendszerig — mindent egy helyen, Budapest XVII. kerületében.</p>
@@ -1387,7 +1468,7 @@ footer {
 <!-- PROCESS -->
 <section id="process">
   <div class="container">
-    <div class="section-label">Hogyan dolgozunk</div>
+    <div class="section-label" aria-hidden="true">Hogyan dolgozunk</div>
     <h2 class="section-title">Egyszerű folyamat,<br><span class="accent">profi eredmény.</span></h2>
 
     <div class="process-grid">
@@ -1444,7 +1525,7 @@ footer {
   <div class="container">
     <div class="works-header">
       <div>
-        <div class="section-label">Portfólió</div>
+        <div class="section-label" aria-hidden="true">Portfólió</div>
         <h2 class="section-title">Néhány <span class="accent">munkánk.</span></h2>
       </div>
       <a href="#contact" class="btn-ghost">Minden munkánk →</a>
@@ -1547,7 +1628,7 @@ footer {
   <div class="container">
     <div class="why-grid">
       <div class="why-text">
-        <div class="section-label">Miért mi?</div>
+        <div class="section-label" aria-hidden="true">Miért mi?</div>
         <h3>Nem csak reklámot<br>készítünk — <span style="color:var(--red)">eredményt.</span></h3>
         <p>Budapest XVII. kerületének megbízható reklámkészítő műhelye vagyunk. Gyors, precíz, átlátható. Minden megrendelés mögött személyes odafigyelés és minőségi anyaghasználat áll.</p>
         <div class="why-list">
@@ -1585,23 +1666,23 @@ footer {
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews-section" id="reviews">
+<section class="reviews-section" id="reviews" aria-label="Ügyféli vélemények">
   <div class="reviews-header">
     <div class="reviews-title-block">
-      <div class="section-label" style="margin-bottom:12px">Google Értékelések</div>
-      <div class="section-title" style="margin-bottom:0">Mit mondanak <span>ügyfeleink?</span></div>
+      <div class="section-label" aria-hidden="true" style="margin-bottom:12px">Google Értékelések</div>
+      <h2 class="section-title" style="margin-bottom:0">Mit mondanak <span>ügyfeleink?</span></h2>
     </div>
-    <div class="reviews-google-badge">
-      <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    <div class="reviews-google-badge" aria-label="Google értékelés: 5.0 csillag, 58 értékelés alapján">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       <div>
-        <div class="badge-rating">5.0</div>
-        <div class="badge-stars">★★★★★</div>
+        <div class="badge-rating" aria-hidden="true">5.0</div>
+        <div class="badge-stars" aria-hidden="true">★★★★★</div>
         <div class="badge-count">58 értékelés</div>
       </div>
     </div>
   </div>
 
-  <div class="reviews-track-wrap">
+  <div class="reviews-track-wrap" role="region" aria-label="Görgetős vélemény karusel" aria-live="off">
     <div class="reviews-track" id="reviewsTrack">
 
       <!-- CARD 1 -->
@@ -1610,7 +1691,7 @@ footer {
           <div class="review-avatar" style="background:#E8192C">K</div>
           <div><div class="review-name">Kovács Péter</div><div class="review-date">2 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Gyors, precíz munka — a cégtáblánk pontosan olyan lett, ahogy elképzeltük. A látványtervet már másnap megkaptuk, a tábla egy héten belül ki is volt szerelve. Nagyon elégedett vagyok!</p>
         <span class="review-service-tag">Reklámtábla</span>
       </div>
@@ -1621,7 +1702,7 @@ footer {
           <div class="review-avatar" style="background:#1A73E8">N</div>
           <div><div class="review-name">Nagy Krisztina</div><div class="review-date">1 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Autófóliázást rendeltem, az eredmény lenyűgöző. Minőségi fólia, profi felhelyezés, és az ár is versenyképes volt. Semmiképpen sem mennék máshova ezután.</p>
         <span class="review-service-tag">Autófóliázás</span>
       </div>
@@ -1632,7 +1713,7 @@ footer {
           <div class="review-avatar" style="background:#34A853">S</div>
           <div><div class="review-name">Szabó Gábor</div><div class="review-date">3 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Kiállítási standot és roll-up bannert rendeltem tőlük. Minden időre és pontosan készült el, a grafika éles és szép. A csapat segítőkész és professzionális — ajánlom mindenkinek!</p>
         <span class="review-service-tag">Kiállítási dekoráció</span>
       </div>
@@ -1643,7 +1724,7 @@ footer {
           <div class="review-avatar" style="background:#9C27B0">T</div>
           <div><div class="review-name">Tóth Marianna</div><div class="review-date">2 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Termékcímkéket rendeltem kis mennyiségben — más helyen nem vállaltak ilyen kis tételt. EperDekornál semmi gond nem volt, gyorsan megcsinálták, a minőség kiváló. Köszönöm!</p>
         <span class="review-service-tag">Matrica & Címke</span>
       </div>
@@ -1654,7 +1735,7 @@ footer {
           <div class="review-avatar" style="background:#FF6D00">H</div>
           <div><div class="review-name">Horváth Béla</div><div class="review-date">1 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">3D betűket csináltattam az üzletem homlokzatára. Fantasztikus lett! A látványterv alapján pontosan ez jött ki a valóságban is. A szerelés is profi volt, gyors és tiszta. Nagyon ajánlom!</p>
         <span class="review-service-tag">3D Betűk</span>
       </div>
@@ -1665,7 +1746,7 @@ footer {
           <div class="review-avatar" style="background:#00897B">V</div>
           <div><div class="review-name">Varga Eszter</div><div class="review-date">3 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Logót és teljes arculatot terveztek nekem — imádom az eredményt. Kreatívak, türelmesek, és minden kérésemet figyelembe vették. Az árak is nagyon korrektk Budapest XVII. kerületben.</p>
         <span class="review-service-tag">Grafikai tervezés</span>
       </div>
@@ -1676,7 +1757,7 @@ footer {
           <div class="review-avatar" style="background:#E8192C">F</div>
           <div><div class="review-name">Fekete Zsolt</div><div class="review-date">5 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Molinókat nyomtattak rendezvényre sürgősen — 2 nap alatt kész volt, szállítottak is! A nyomtatás minősége kiváló, a színek pontosan egyeztek az arculatunkkal. Csak ajánlani tudom!</p>
         <span class="review-service-tag">Molinók</span>
       </div>
@@ -1687,7 +1768,7 @@ footer {
           <div class="review-avatar" style="background:#0288D1">M</div>
           <div><div class="review-name">Molnár Ildikó</div><div class="review-date">4 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Digitális nyomtatást rendeltem canvasra és PVC-re. Tökéletes minőség, a színek gyönyörűek, és nagyon kedvesek voltak az egész folyamat alatt. Biztosan visszatérek!</p>
         <span class="review-service-tag">Digitális nyomtatás</span>
       </div>
@@ -1698,7 +1779,7 @@ footer {
           <div class="review-avatar" style="background:#558B2F">B</div>
           <div><div class="review-name">Balogh Tamás</div><div class="review-date">6 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Több éve járok vissza EperDekorhoz — mindig megbízható, precíz munkát kapok. Ajánlottam ismerőseimnek is, mindannyian meg voltak elégedve. A XVII. kerület legjobb reklámkészítője!</p>
         <span class="review-service-tag">Visszatérő ügyfél</span>
       </div>
@@ -1709,7 +1790,7 @@ footer {
           <div class="review-avatar" style="background:#F4511E">L</div>
           <div><div class="review-name">Lukács Réka</div><div class="review-date">2 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Üzletfeliratozást és kirakatfóliát rendeltem. Az eredmény minden várakozásomat felülmúlta — modern, elegáns és figyelemfelkeltő lett. A szomszédok is megkérdezték, ki csinálta!</p>
         <span class="review-service-tag">Üvegfóliázás</span>
       </div>
@@ -1720,7 +1801,7 @@ footer {
           <div class="review-avatar" style="background:#E8192C">K</div>
           <div><div class="review-name">Kovács Péter</div><div class="review-date">2 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Gyors, precíz munka — a cégtáblánk pontosan olyan lett, ahogy elképzeltük. A látványtervet már másnap megkaptuk, a tábla egy héten belül ki is volt szerelve. Nagyon elégedett vagyok!</p>
         <span class="review-service-tag">Reklámtábla</span>
       </div>
@@ -1729,7 +1810,7 @@ footer {
           <div class="review-avatar" style="background:#1A73E8">N</div>
           <div><div class="review-name">Nagy Krisztina</div><div class="review-date">1 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Autófóliázást rendeltem, az eredmény lenyűgöző. Minőségi fólia, profi felhelyezés, és az ár is versenyképes volt. Semmiképpen sem mennék máshova ezután.</p>
         <span class="review-service-tag">Autófóliázás</span>
       </div>
@@ -1738,7 +1819,7 @@ footer {
           <div class="review-avatar" style="background:#34A853">S</div>
           <div><div class="review-name">Szabó Gábor</div><div class="review-date">3 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Kiállítási standot és roll-up bannert rendeltem tőlük. Minden időre és pontosan készült el, a grafika éles és szép. A csapat segítőkész és professzionális — ajánlom mindenkinek!</p>
         <span class="review-service-tag">Kiállítási dekoráció</span>
       </div>
@@ -1747,7 +1828,7 @@ footer {
           <div class="review-avatar" style="background:#9C27B0">T</div>
           <div><div class="review-name">Tóth Marianna</div><div class="review-date">2 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Termékcímkéket rendeltem kis mennyiségben — más helyen nem vállaltak ilyen kis tételt. EperDekornál semmi gond nem volt, gyorsan megcsinálták, a minőség kiváló. Köszönöm!</p>
         <span class="review-service-tag">Matrica & Címke</span>
       </div>
@@ -1756,7 +1837,7 @@ footer {
           <div class="review-avatar" style="background:#FF6D00">H</div>
           <div><div class="review-name">Horváth Béla</div><div class="review-date">1 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">3D betűket csináltattam az üzletem homlokzatára. Fantasztikus lett! A látványterv alapján pontosan ez jött ki a valóságban is. A szerelés is profi volt, gyors és tiszta. Nagyon ajánlom!</p>
         <span class="review-service-tag">3D Betűk</span>
       </div>
@@ -1765,7 +1846,7 @@ footer {
           <div class="review-avatar" style="background:#00897B">V</div>
           <div><div class="review-name">Varga Eszter</div><div class="review-date">3 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Logót és teljes arculatot terveztek nekem — imádom az eredményt. Kreatívak, türelmesek, és minden kérésemet figyelembe vették. Az árak is nagyon korrektk Budapest XVII. kerületben.</p>
         <span class="review-service-tag">Grafikai tervezés</span>
       </div>
@@ -1774,7 +1855,7 @@ footer {
           <div class="review-avatar" style="background:#E8192C">F</div>
           <div><div class="review-name">Fekete Zsolt</div><div class="review-date">5 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Molinókat nyomtattak rendezvényre sürgősen — 2 nap alatt kész volt, szállítottak is! A nyomtatás minősége kiváló, a színek pontosan egyeztek az arculatunkkal. Csak ajánlani tudom!</p>
         <span class="review-service-tag">Molinók</span>
       </div>
@@ -1783,7 +1864,7 @@ footer {
           <div class="review-avatar" style="background:#0288D1">M</div>
           <div><div class="review-name">Molnár Ildikó</div><div class="review-date">4 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Digitális nyomtatást rendeltem canvasra és PVC-re. Tökéletes minőség, a színek gyönyörűek, és nagyon kedvesek voltak az egész folyamat alatt. Biztosan visszatérek!</p>
         <span class="review-service-tag">Digitális nyomtatás</span>
       </div>
@@ -1792,7 +1873,7 @@ footer {
           <div class="review-avatar" style="background:#558B2F">B</div>
           <div><div class="review-name">Balogh Tamás</div><div class="review-date">6 hete</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Több éve járok vissza EperDekorhoz — mindig megbízható, precíz munkát kapok. Ajánlottam ismerőseimnek is, mindannyian meg voltak elégedve. A XVII. kerület legjobb reklámkészítője!</p>
         <span class="review-service-tag">Visszatérő ügyfél</span>
       </div>
@@ -1801,7 +1882,7 @@ footer {
           <div class="review-avatar" style="background:#F4511E">L</div>
           <div><div class="review-name">Lukács Réka</div><div class="review-date">2 hónapja</div></div>
         </div>
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars" aria-label="5 csillagos értékelés" role="img"><span aria-hidden="true">★★★★★</span></div>
         <p class="review-text">Üzletfeliratozást és kirakatfóliát rendeltem. Az eredmény minden várakozásomat felülmúlta — modern, elegáns és figyelemfelkeltő lett. A szomszédok is megkérdezték, ki csinálta!</p>
         <span class="review-service-tag">Üvegfóliázás</span>
       </div>
@@ -1813,7 +1894,7 @@ footer {
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-label">Kapcsolat</div>
+    <div class="section-label" aria-hidden="true">Kapcsolat</div>
     <h2 class="section-title">Kezdjük el <span class="accent">együtt.</span></h2>
 
     <div class="contact-grid">
@@ -1852,85 +1933,71 @@ footer {
         </div>
       </div>
 
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" onsubmit="handleSubmit(event)" novalidate aria-label="Ajánlatkérő űrlap">
         <div class="form-group">
-          <label class="form-label">NÉV</label>
-          <input type="text" class="form-input" placeholder="Az Ön neve" required>
+          <label class="form-label" for="contact-name">NÉV <span aria-hidden="true">*</span></label>
+          <input type="text" id="contact-name" name="name" class="form-input" placeholder="Az Ön neve" required aria-required="true" autocomplete="name">
         </div>
         <div class="form-group">
-          <label class="form-label">E-MAIL CÍM</label>
-          <input type="email" class="form-input" placeholder="pelda@email.hu" required>
+          <label class="form-label" for="contact-email">E-MAIL CÍM <span aria-hidden="true">*</span></label>
+          <input type="email" id="contact-email" name="email" class="form-input" placeholder="pelda@email.hu" required aria-required="true" autocomplete="email">
         </div>
         <div class="form-group">
-          <label class="form-label">TELEFONSZÁM</label>
-          <input type="tel" class="form-input" placeholder="+36 ...">
+          <label class="form-label" for="contact-phone">TELEFONSZÁM</label>
+          <input type="tel" id="contact-phone" name="phone" class="form-input" placeholder="+36 ..." autocomplete="tel">
         </div>
         <div class="form-group">
-          <label class="form-label">MILYEN MUNKÁT SZERETNE?</label>
-          <textarea class="form-textarea" placeholder="Írja le röviden elképzeléseit..." required></textarea>
+          <label class="form-label" for="contact-message">MILYEN MUNKÁT SZERETNE? <span aria-hidden="true">*</span></label>
+          <textarea id="contact-message" name="message" class="form-textarea" placeholder="Írja le röviden elképzeléseit..." required aria-required="true"></textarea>
         </div>
         <button type="submit" class="form-submit">Ajánlatot kérek →</button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite" aria-atomic="true"></div>
       </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+</main>
+
 <!-- ── THEME SWITCHER ── -->
 <div class="theme-switcher" id="themeSwitcher">
-  <div class="theme-panel" id="themePanel">
-    <div class="theme-panel-label">Színséma</div>
-    <div class="theme-option active" data-theme="midnight">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,#111 50%,#E8192C 50%)"></div>
+  <div class="theme-panel" id="themePanel" role="menu" aria-label="Válasszon színsémát">
+    <div class="theme-panel-label" id="themePanelLabel">Színséma</div>
+    <button class="theme-option active" data-theme="midnight" role="menuitem" aria-pressed="true">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#111 50%,#E8192C 50%)" aria-hidden="true"></div>
       <span class="theme-name">Midnight Piros</span>
-    </div>
-    <div class="theme-option" data-theme="navy">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,#0D1526 50%,#3B82F6 50%)"></div>
+    </button>
+    <button class="theme-option" data-theme="navy" role="menuitem" aria-pressed="false">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#0D1526 50%,#3B82F6 50%)" aria-hidden="true"></div>
       <span class="theme-name">Navy Kék</span>
-    </div>
-    <div class="theme-option" data-theme="forest">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,#0C1810 50%,#22C55E 50%)"></div>
+    </button>
+    <button class="theme-option" data-theme="forest" role="menuitem" aria-pressed="false">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#0C1810 50%,#22C55E 50%)" aria-hidden="true"></div>
       <span class="theme-name">Forest Zöld</span>
-    </div>
-    <div class="theme-option" data-theme="amber">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,#181408 50%,#F59E0B 50%)"></div>
+    </button>
+    <button class="theme-option" data-theme="amber" role="menuitem" aria-pressed="false">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#181408 50%,#F59E0B 50%)" aria-hidden="true"></div>
       <span class="theme-name">Amber Arany</span>
-    </div>
-    <div class="theme-option" data-theme="light">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,#F5F5F0 50%,#E8192C 50%)"></div>
+    </button>
+    <button class="theme-option" data-theme="light" role="menuitem" aria-pressed="false">
+      <div class="theme-swatch" style="background:linear-gradient(135deg,#F5F5F0 50%,#E8192C 50%)" aria-hidden="true"></div>
       <span class="theme-name">Világos</span>
-    </div>
+    </button>
   </div>
-  <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Színséma választó">🎨</button>
+  <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Színséma választó" aria-expanded="false" aria-controls="themePanel" aria-haspopup="menu"><span aria-hidden="true">🎨</span></button>
 </div>
 
 <footer>
-  <div class="footer-logo">Eper<span>Dekor</span></div>
+  <div class="footer-logo" aria-label="EperDekor logó">Eper<span>Dekor</span></div>
   <div class="footer-copy">© 2024 EperDekor — Budapest XVII. kerület. Minden jog fenntartva.</div>
-  <div class="footer-links">
+  <nav aria-label="Gyorslinkek" class="footer-links">
     <a href="#services">Szolgáltatások</a>
     <a href="#works">Munkáink</a>
     <a href="#contact">Kapcsolat</a>
-  </div>
+  </nav>
 </footer>
 
 <script>
-// ── CURSOR ──
-const dot = document.getElementById('cur-dot');
-const ring = document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function loop(){
-  rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
-  dot.style.cssText = `left:${mx}px;top:${my}px`;
-  ring.style.cssText = `left:${rx}px;top:${ry}px`;
-  requestAnimationFrame(loop);
-})();
-document.querySelectorAll('a,button,.work-card,.service-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hovered'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovered'));
-});
-
 // ── NAVBAR SCROLL ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', ()=>{
@@ -1945,17 +2012,21 @@ const io = new IntersectionObserver(entries=>{
 },{ threshold: 0.15 });
 document.querySelectorAll('[data-observe]').forEach(el=>io.observe(el));
 
-// ── SMOOTH SCROLL ──
+// ── SMOOTH SCROLL (only for in-page anchors, not skip-link which needs instant) ──
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  if(a.classList.contains('skip-link')) return;
   a.addEventListener('click', e=>{
+    const target = document.querySelector(a.getAttribute('href'));
+    if(!target) return;
     e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth'});
+    target.scrollIntoView({behavior:'smooth'});
   });
 });
 
 // ── SHUFFLE GRID ──
 (function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const imgs = [
     'images/reklamtabla.jpg',
     'images/autodekor-keszites-2301.jpg',
@@ -2009,43 +2080,82 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   const root = document.documentElement;
   const panel = document.getElementById('themePanel');
   const btn = document.getElementById('themeToggleBtn');
-  const options = document.querySelectorAll('.theme-option');
+  const options = Array.from(document.querySelectorAll('.theme-option'));
   const saved = localStorage.getItem('eperdekor-theme') || 'midnight';
 
   function applyTheme(t) {
     root.setAttribute('data-theme', t);
-    options.forEach(o => o.classList.toggle('active', o.dataset.theme === t));
+    options.forEach(o => {
+      const active = o.dataset.theme === t;
+      o.classList.toggle('active', active);
+      o.setAttribute('aria-pressed', String(active));
+    });
     localStorage.setItem('eperdekor-theme', t);
+  }
+
+  function openPanel() {
+    panel.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    const active = options.find(o => o.classList.contains('active')) || options[0];
+    active.focus();
+  }
+
+  function closePanel() {
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
   }
 
   applyTheme(saved);
 
   btn.addEventListener('click', e => {
     e.stopPropagation();
-    panel.classList.toggle('open');
+    panel.classList.contains('open') ? closePanel() : openPanel();
   });
 
-  options.forEach(o => {
+  options.forEach((o, idx) => {
     o.addEventListener('click', () => {
       applyTheme(o.dataset.theme);
-      panel.classList.remove('open');
+      closePanel();
+      btn.focus();
+    });
+    o.addEventListener('keydown', e => {
+      if(e.key === 'ArrowDown') { e.preventDefault(); options[(idx+1) % options.length].focus(); }
+      if(e.key === 'ArrowUp')   { e.preventDefault(); options[(idx-1+options.length) % options.length].focus(); }
+      if(e.key === 'Escape')    { closePanel(); btn.focus(); }
     });
   });
 
   document.addEventListener('click', e => {
-    if (!document.getElementById('themeSwitcher').contains(e.target)) {
-      panel.classList.remove('open');
-    }
+    if (!document.getElementById('themeSwitcher').contains(e.target)) closePanel();
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && panel.classList.contains('open')) { closePanel(); btn.focus(); }
   });
 })();
 
 // ── FORM ──
 function handleSubmit(e){
   e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = '✓ Üzenet elküldve!';
-  btn.style.background = '#1a7a40';
-  setTimeout(()=>{ btn.textContent='Ajánlatot kérek →'; btn.style.background=''; }, 3500);
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
+  const status = document.getElementById('formStatus');
+  btn.disabled = true;
+  btn.textContent = 'Küldés…';
+  setTimeout(() => {
+    btn.textContent = '✓ Üzenet elküldve!';
+    btn.style.background = '#1a7a40';
+    status.textContent = 'Köszönjük! Hamarosan felvesszük Önnel a kapcsolatot.';
+    status.className = 'form-status success';
+    setTimeout(() => {
+      btn.textContent = 'Ajánlatot kérek →';
+      btn.style.background = '';
+      btn.disabled = false;
+      status.textContent = '';
+      status.className = 'form-status';
+      form.reset();
+    }, 4000);
+  }, 800);
 }
 </script>
 </body>
