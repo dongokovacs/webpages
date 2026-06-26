@@ -50,36 +50,63 @@
     }
     nav a.cta-nav:hover { background: var(--green-d); transform: translateY(-1px); }
 
-    /* ── HERO ── */
+    /* ── HERO SLIDER (full-bleed) ── */
     .hero {
+      position: relative;
       min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: flex;
       align-items: center;
-      gap: 60px;
-      padding: 120px 7% 80px;
-      background: linear-gradient(135deg, #faf7f2 60%, #e8f5ee 100%);
+      overflow: hidden;
+      padding: 0 7%;
+      background: var(--green-d);
     }
-    .hero-text { max-width: 560px; }
+    .hero-slides { position: absolute; inset: 0; z-index: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1.5s cubic-bezier(.4,0,.2,1);
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+      filter: blur(60px) brightness(.6) saturate(1.15);
+      transform: scale(1.25);
+    }
+    .hero-slide-fg {
+      position: absolute; inset: 0;
+      background-size: contain; background-position: center; background-repeat: no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(110deg, rgba(8,18,13,.82) 0%, rgba(8,18,13,.55) 38%, rgba(8,18,13,.18) 65%, rgba(8,18,13,.05) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; }
     .badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: var(--green-l); color: var(--green-d);
-      border: 1px solid #b8dfc9;
+      background: rgba(255,255,255,.12); color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(10px);
       padding: 6px 14px; border-radius: 50px;
       font-size: .8rem; font-weight: 600; letter-spacing: .4px;
       margin-bottom: 24px;
     }
-    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #8fe0ad; animation: pulse 2s ease infinite; }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
     h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
       font-weight: 900; line-height: 1.1;
       letter-spacing: -1.5px;
+      color: #fff;
       margin-bottom: 22px;
+      text-shadow: 0 2px 24px rgba(0,0,0,.25);
     }
-    h1 em { font-style: normal; color: var(--green); }
+    h1 em { font-style: normal; color: #8fe0ad; }
     .hero-sub {
-      font-size: 1.1rem; color: var(--mid);
+      font-size: 1.1rem; color: rgba(255,255,255,.82);
       line-height: 1.7; margin-bottom: 36px;
+      text-shadow: 0 1px 12px rgba(0,0,0,.2);
     }
     .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
     .btn-primary {
@@ -87,39 +114,55 @@
       padding: 15px 32px; border-radius: 50px;
       text-decoration: none; font-weight: 700; font-size: 1rem;
       transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(58,125,92,.3);
+      box-shadow: 0 4px 20px rgba(58,125,92,.4);
     }
-    .btn-primary:hover { background: var(--green-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,125,92,.4); }
+    .btn-primary:hover { background: var(--green-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(58,125,92,.5); }
     .btn-secondary {
-      background: transparent; color: var(--dark);
+      background: rgba(255,255,255,.08); color: #fff;
       padding: 15px 28px; border-radius: 50px;
       text-decoration: none; font-weight: 600; font-size: 1rem;
-      border: 2px solid var(--border);
-      transition: border-color .2s, transform .15s;
+      border: 2px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      transition: border-color .2s, background .2s, transform .15s;
       display: flex; align-items: center; gap: 8px;
     }
-    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
+    .btn-secondary:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.16); transform: translateY(-2px); }
 
-    .hero-visual {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-img-wrap {
-      position: relative; border-radius: 24px; overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,.15);
-      width: 100%; max-width: 480px;
-    }
-    .hero-img-wrap img { width: 100%; height: 500px; object-fit: cover; display: block; }
     .float-card {
       position: absolute;
-      background: #fff; border-radius: 14px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(14px);
+      color: #fff;
+      border-radius: 14px;
       padding: 12px 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.12);
       font-size: .85rem; font-weight: 600;
       display: flex; align-items: center; gap: 8px;
+      z-index: 2;
     }
-    .float-card.top-left  { top: 24px; left: -20px; }
-    .float-card.bot-right { bottom: 32px; right: -20px; }
+    .float-card.top-left  { top: 120px; right: 7%; }
+    .float-card.bot-right { bottom: 120px; right: 7%; }
+
+    .hero-dots {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-dot {
+      width: 26px; height: 9px; border-radius: 5px;
+      background: rgba(255,255,255,.4);
+      border: none; padding: 0; cursor: pointer;
+      transform: scaleX(.35);
+      transform-origin: center;
+      transition: background .25s, transform .25s;
+    }
+    .hero-dot.active { background: #fff; transform: scaleX(1); }
+    .hero-dot:hover { background: rgba(255,255,255,.7); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-slide { transition: opacity .01ms; }
+      .badge-dot { animation: none; }
+    }
 
     /* ── MARQUEE STRIP ── */
     .marquee-wrap {
@@ -165,6 +208,63 @@
       font-weight: 600; font-size: .78rem;
     }
 
+    /* ── SPECS ── */
+    #adatok { background: var(--cream); }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 16px;
+    }
+    .spec-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+    }
+    .spec-icon { font-size: 2rem; margin-bottom: 14px; }
+    .spec-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 18px; color: var(--green-d); }
+    .spec-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .spec-list li {
+      font-size: .92rem; color: var(--mid); line-height: 1.55;
+      padding-left: 24px; position: relative;
+    }
+    .spec-list li::before {
+      content: '✓'; position: absolute; left: 0; top: 0;
+      color: var(--green); font-weight: 700;
+    }
+    .spec-list li strong { color: var(--dark); }
+    .spec-demo-img {
+      display: block;
+      width: 100%; max-width: 220px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover; object-position: center;
+      border-radius: 14px;
+      margin-top: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-tabs {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+    .filter-tab {
+      font-family: inherit;
+      background: #fff; color: var(--dark);
+      border: 2px solid var(--border);
+      padding: 10px 24px; border-radius: 50px;
+      font-weight: 600; font-size: .88rem;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, color .2s, transform .15s;
+    }
+    .filter-tab:hover { border-color: var(--green); transform: translateY(-1px); }
+    .filter-tab.active {
+      background: var(--green); border-color: var(--green); color: #fff;
+    }
+    .face-card.cat-hidden { display: none; }
+
     .faces-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -179,10 +279,11 @@
       position: relative;
     }
     .face-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
-    .face-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+    .face-card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
     .face-info { padding: 18px 20px; }
     .face-name { font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
     .face-desc { font-size: .82rem; color: var(--mid); line-height: 1.5; margin-bottom: 14px; }
+    .face-price { font-weight: 800; font-size: 1.05rem; color: var(--green-d); margin-bottom: 12px; }
     .face-footer { display: flex; align-items: center; justify-content: space-between; }
     .face-tag {
       display: inline-block;
@@ -252,17 +353,14 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 100px 6% 60px; gap: 40px; }
-      .hero-visual { order: -1; }
-      .hero-img-wrap img { height: 340px; }
-      .float-card.top-left { left: 10px; }
-      .float-card.bot-right { right: 10px; }
+      .hero { padding: 0 6%; }
+      .float-card { display: none; }
     }
     @media (max-width: 600px) {
       nav { padding: 14px 5%; }
       .steps-grid { grid-template-columns: 1fr 1fr; }
-      .hero-img-wrap img { height: 260px; }
       .faces-grid { grid-template-columns: 1fr 1fr; }
+      .hero-content { max-width: 100%; }
     }
     @media (max-width: 420px) {
       .steps-grid { grid-template-columns: 1fr; }
@@ -285,9 +383,21 @@
     <a href="#kapcsolat" class="cta-nav">Megrendelem →</a>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text fade-up">
+  <!-- HERO SLIDER -->
+  <section class="hero" id="hero" aria-roledescription="carousel" aria-label="Bemutató diavetítés">
+    <div class="hero-slides" aria-hidden="true">
+      <div class="hero-slide active">
+        <div class="hero-slide-bg" style="background-image:url('images/hero/faces_hero.jpg')"></div>
+        <div class="hero-slide-fg" style="background-image:url('images/hero/faces_hero.jpg')"></div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-slide-bg" style="background-image:url('images/hero/hero1.jpg')"></div>
+        <div class="hero-slide-fg" style="background-image:url('images/hero/hero1.jpg')"></div>
+      </div>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content fade-up">
       <div class="badge">
         <span class="badge-dot"></span>
         Rendelhető · Készlet bővül
@@ -301,12 +411,13 @@
         <a href="#hogyan" class="btn-secondary">Hogyan működik? ↓</a>
       </div>
     </div>
-    <div class="hero-visual fade-up">
-      <div class="hero-img-wrap">
-        <img src="images/faces/faces_hero.jpg" alt="Arc kaspók kollekció" />
-      </div>
-      <div class="float-card top-left">🌱 Növény kaspók</div>
-      <div class="float-card bot-right">🖨️ 3D nyomtatva</div>
+
+    <div class="float-card top-left" aria-hidden="true">🌱 Növény kaspók</div>
+    <div class="float-card bot-right" aria-hidden="true">🖨️ 3D nyomtatva</div>
+
+    <div class="hero-dots" role="tablist" aria-label="Diák választása">
+      <button class="hero-dot active" data-slide="0" role="tab" aria-selected="true" aria-label="1. dia"></button>
+      <button class="hero-dot" data-slide="1" role="tab" aria-selected="false" aria-label="2. dia"></button>
     </div>
   </section>
 
@@ -343,13 +454,87 @@
       <span>✦ Készlet bővül</span>
       Folyamatosan jönnek az új karakterek – kövess, hogy ne maradj le.
     </div>
+
+    <div class="filter-tabs fade-up" role="tablist" aria-label="Kaspó kategória szűrő">
+      <button class="filter-tab active" data-filter="mind" role="tab" aria-selected="true">Mind</button>
+      <button class="filter-tab" data-filter="izuletes" role="tab" aria-selected="false">Ízületes</button>
+      <button class="filter-tab" data-filter="kezjelek" role="tab" aria-selected="false">Kézjelek</button>
+      <button class="filter-tab" data-filter="arcok" role="tab" aria-selected="false">Arcok</button>
+    </div>
+
     <div class="faces-grid">
 
-      <div class="face-card fade-up">
+      <div class="face-card fade-up" data-cat="izuletes">
+        <img src="images/cserep/animal-cserep.jpg" alt="Állat kaspó" />
+        <div class="face-info">
+          <div class="face-name">Állat kaspó</div>
+          <div class="face-desc">A kis vadóc, aki bárhova illik. Játékos forma, amitől minden növény egy kicsit cuholandóbb lesz.</div>
+          <div class="face-price">5 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="Állat kaspó">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" data-cat="izuletes">
+        <img src="images/cserep/ulocserep.jpg" alt="Ülő kaspó" />
+        <div class="face-info">
+          <div class="face-name">Ülő kaspó</div>
+          <div class="face-desc">Csendben megül, és figyel. Egyszerű, letisztult forma azoknak, akik a minimalizmust szeretik.</div>
+          <div class="face-price">5 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="Ülő kaspó">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" data-cat="kezjelek">
+        <img src="images/cserep/lovika.jpg" alt="Lovacska kaspó" />
+        <div class="face-info">
+          <div class="face-name">Lovacska</div>
+          <div class="face-desc">Apró, vidám forma – mert ki ne szeretne egy mini lovacskát az ablakpárkányon?</div>
+          <div class="face-price">3 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="Lovacska">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" data-cat="izuletes">
+        <img src="images/izuletes/happyface.jpg" alt="Mosolyka kaspó" />
+        <div class="face-info">
+          <div class="face-name">Mosolyka</div>
+          <div class="face-desc">Csuklós, mozgatható forma – aki ránéz, óhatatlanul visszamosolyog rá.</div>
+          <div class="face-price">5 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="Mosolyka">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" data-cat="kezjelek">
+        <img src="images/cserep/handcserep.jpg" alt="Kéz kaspó" />
+        <div class="face-info">
+          <div class="face-name">Kéz kaspó</div>
+          <div class="face-desc">Mutatja, ahogy kell. Kifejező kézjel-forma kaspó azoknak, akik szeretik a furát.</div>
+          <div class="face-price">3 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="Kéz kaspó">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="face-card fade-up" data-cat="arcok">
         <img src="images/faces/smile.jpg" alt="Smile kaspó" />
         <div class="face-info">
           <div class="face-name">Smile</div>
           <div class="face-desc">Az örök optimista. Mindig mosolygó, mindig jókedvű – akár a növénye is jobban nő mellette.</div>
+          <div class="face-price">3 000 Ft</div>
           <div class="face-footer">
             <span class="face-tag">Rendelhető</span>
             <button class="face-order-btn" data-name="Smile">Megrendelem</button>
@@ -357,11 +542,12 @@
         </div>
       </div>
 
-      <div class="face-card fade-up">
+      <div class="face-card fade-up" data-cat="kezjelek">
         <img src="images/faces/kukucs.jpg" alt="Kukucs kaspó" />
         <div class="face-info">
           <div class="face-name">Kukucs</div>
           <div class="face-desc">Csak egy kicsit kandikál ki – tökéletes ha valaki szereti a meglepetéseket.</div>
+          <div class="face-price">3 000 Ft</div>
           <div class="face-footer">
             <span class="face-tag">Rendelhető</span>
             <button class="face-order-btn" data-name="Kukucs">Megrendelem</button>
@@ -369,23 +555,12 @@
         </div>
       </div>
 
-      <div class="face-card fade-up">
-        <img src="images/faces/sad.jpg" alt="Sad kaspó" />
-        <div class="face-info">
-          <div class="face-name">Sad</div>
-          <div class="face-desc">Mert néha szomorú is lehet az ember. Szarkasztikus ajándék – humorral teli.</div>
-          <div class="face-footer">
-            <span class="face-tag">Rendelhető</span>
-            <button class="face-order-btn" data-name="Sad">Megrendelem</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="face-card fade-up">
+      <div class="face-card fade-up" data-cat="kezjelek">
         <img src="images/faces/love.jpg" alt="Love kaspó" />
         <div class="face-info">
           <div class="face-name">Love</div>
           <div class="face-desc">Szívvel a szemében – a tökéletes ajándék párodnak, barátodnak, bárkinek akit szeretsz.</div>
+          <div class="face-price">3 000 Ft</div>
           <div class="face-footer">
             <span class="face-tag">Rendelhető</span>
             <button class="face-order-btn" data-name="Love">Megrendelem</button>
@@ -393,11 +568,12 @@
         </div>
       </div>
 
-      <div class="face-card fade-up">
+      <div class="face-card fade-up" data-cat="arcok">
         <img src="images/faces/happyhappy.jpg" alt="HappyHappy kaspó" />
         <div class="face-info">
           <div class="face-name">HappyHappy</div>
           <div class="face-desc">Dupla boldogság. Ha egy mosoly nem elég – ez kétszer annyira boldog.</div>
+          <div class="face-price">3 000 Ft</div>
           <div class="face-footer">
             <span class="face-tag">Rendelhető</span>
             <button class="face-order-btn" data-name="HappyHappy">Megrendelem</button>
@@ -405,47 +581,12 @@
         </div>
       </div>
 
-      <div class="face-card fade-up">
-        <img src="images/faces/fuck.jpg" alt="Fuck kaspó" />
-        <div class="face-info">
-          <div class="face-name">F*** it</div>
-          <div class="face-desc">Van, aki nyíltan kifejezi magát. Ez a kaspó nem finomkodik – bátor ajándék bátor embereknek.</div>
-          <div class="face-footer">
-            <span class="face-tag">Rendelhető</span>
-            <button class="face-order-btn" data-name="F*** it">Megrendelem</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="face-card fade-up">
-        <img src="images/faces/happy2.jpg" alt="Happy 2 kaspó" />
-        <div class="face-info">
-          <div class="face-name">Happy Vol. 2</div>
-          <div class="face-desc">Másféle boldog, de ugyanolyan jó. Mert a jó hangulatnak sok arca van.</div>
-          <div class="face-footer">
-            <span class="face-tag">Rendelhető</span>
-            <button class="face-order-btn" data-name="Happy Vol. 2">Megrendelem</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="face-card fade-up">
-        <img src="images/faces/happy3.jpg" alt="Happy 3 kaspó" />
-        <div class="face-info">
-          <div class="face-name">Happy Vol. 3</div>
-          <div class="face-desc">A harmadik variáció – mert a boldogság nem egysíkú. Mindenki másképp sugározza.</div>
-          <div class="face-footer">
-            <span class="face-tag">Rendelhető</span>
-            <button class="face-order-btn" data-name="Happy Vol. 3">Megrendelem</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="face-card fade-up">
+      <div class="face-card fade-up" data-cat="kezjelek">
         <img src="images/faces/jee.jpg" alt="Jee kaspó" />
         <div class="face-info">
           <div class="face-name">Jee!</div>
           <div class="face-desc">Rock on. Aki ezt választja, tudja ki ő – és nem szégyelli megmutatni.</div>
+          <div class="face-price">3 000 Ft</div>
           <div class="face-footer">
             <span class="face-tag">Rendelhető</span>
             <button class="face-order-btn" data-name="Jee!">Megrendelem</button>
@@ -453,6 +594,61 @@
         </div>
       </div>
 
+      <div class="face-card fade-up" data-cat="arcok">
+        <img src="images/cserep/devitohead.jpg" alt="DeVito kaspó" />
+        <div class="face-info">
+          <div class="face-name">DeVito</div>
+          <div class="face-desc">A sztárfejű kaspó. Karakteres arc, amitől mindenki elneveti magát első pillantásra.</div>
+          <div class="face-price">3 000 Ft</div>
+          <div class="face-footer">
+            <span class="face-tag">Rendelhető</span>
+            <button class="face-order-btn" data-name="DeVito">Megrendelem</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section id="adatok">
+    <div class="process-header fade-up">
+      <div class="section-tag">Anyag & Méret</div>
+      <h2 class="section-title">Amit tudnod kell</h2>
+      <p class="section-sub">Minőségi alapanyag, pontos méretek – hogy tudd, mire számíthatsz vásárlás előtt.</p>
+    </div>
+    <div class="specs-grid">
+      <div class="spec-card fade-up">
+        <div class="spec-icon">🧪</div>
+        <div class="spec-title">PETG műanyag</div>
+        <ul class="spec-list">
+          <li>Ütésálló és tartós – nem törik, nem reped, évekig elkísér</li>
+          <li>UV- és időjárásálló – kültéren is megőrzi formáját és színét</li>
+          <li>Vízálló – nem szívja magába a nedvességet, nem ázik szét</li>
+          <li>Élelmiszeripari minőségű alapanyag – ugyanaz, mint az ásványvizes palackoknál</li>
+          <li>Fényes, prémium felület, ami nem sárgul az idővel</li>
+          <li>100%-ban újrahasznosítható, környezetbarát</li>
+        </ul>
+      </div>
+      <div class="spec-card fade-up">
+        <div class="spec-icon">📏</div>
+        <div class="spec-title">Méretek</div>
+        <ul class="spec-list">
+          <li>Max. <strong>10 cm széles</strong> cserép fér el benne</li>
+          <li><strong>10 cm mély</strong> a kaspó befogadó üregének mérete</li>
+          <li>Kompakt, asztalra, ablakpárkányra, polcra egyaránt tökéletes</li>
+        </ul>
+        <img src="images/hero/hero1.jpg" alt="Kaspó méretarány demonstráció" class="spec-demo-img" />
+      </div>
+      <div class="spec-card fade-up">
+        <div class="spec-icon">✏️</div>
+        <div class="spec-title">Árazás & Egyedi kérés</div>
+        <ul class="spec-list">
+          <li>Alapár: <strong>5 000 Ft</strong> / darab</li>
+          <li>Egyedi felirat (pl. <strong>név</strong>) felárral rányomtatható</li>
+          <li>Bármilyen más egyedi kérésed van, írj nekünk – megbeszéljük</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -500,6 +696,50 @@
   </footer>
 
   <script>
+    // Hero slider
+    (function () {
+      const hero = document.getElementById('hero');
+      if (!hero) return;
+      const slides = hero.querySelectorAll('.hero-slide');
+      const dots = hero.querySelectorAll('.hero-dot');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let current = 0;
+      let timer = null;
+      const INTERVAL = 6000;
+
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        dots[current].setAttribute('aria-selected', 'false');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function next() { goTo(current + 1); }
+
+      function start() {
+        if (reduceMotion || slides.length < 2) return;
+        stop();
+        timer = setInterval(next, INTERVAL);
+      }
+      function stop() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => { goTo(i); start(); });
+      });
+      hero.addEventListener('mouseenter', stop);
+      hero.addEventListener('mouseleave', start);
+      hero.addEventListener('focusin', stop);
+      hero.addEventListener('focusout', start);
+
+      start();
+    })();
+
     // Scroll fade-in
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -510,6 +750,23 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Category filter
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const faceCards = document.querySelectorAll('.face-card');
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.dataset.filter;
+        filterTabs.forEach(t => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+        faceCards.forEach(card => {
+          const show = filter === 'mind' || card.dataset.cat === filter;
+          card.classList.toggle('cat-hidden', !show);
+        });
+      });
+    });
 
     const CONTACT = 'info@steeldecor.hu';
     const ctaBtn = document.querySelector('#kapcsolat .btn-cta');
