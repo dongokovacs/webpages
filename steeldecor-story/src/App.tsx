@@ -20,7 +20,7 @@ export default function SteelDecorStory() {
         </div>
         <hr className="my-[2vw] border-t border-[#F4EFE4]/20" />
         <p className="mt-auto max-w-[55ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed opacity-80">
-          2015-ben minden egy kis műhellyel kezdődött. Egyetlen ember, egyetlen
+          2020-ben minden egy kis műhellyel kezdődött. Egyetlen ember, egyetlen
           hegesztő, és egy makacs kérdés: miért néznek ki az éremtartók olyan
           unalmasan? Onnan indult a SteelDecor – nem befektetőkkel, nem üzleti
           tervvel, hanem kézzel, acéllal és szenvedéllyel.

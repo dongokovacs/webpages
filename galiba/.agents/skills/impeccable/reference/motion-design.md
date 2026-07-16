@@ -36,7 +36,7 @@ Timing matters more than easing. These durations feel right for most UI:
 --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 ```
 
-**Avoid bounce and elastic curves.** They were trendy in 2015 but now feel tacky and amateurish. Real objects don't bounce when they stop; they decelerate smoothly. Overshoot effects draw attention to the animation itself rather than the content.
+**Avoid bounce and elastic curves.** They were trendy in 2020 but now feel tacky and amateurish. Real objects don't bounce when they stop; they decelerate smoothly. Overshoot effects draw attention to the animation itself rather than the content.
 
 ## Premium Motion Materials
 

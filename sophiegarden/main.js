@@ -136,8 +136,8 @@ if (form) {
     if (btn) { btn.disabled = true; btn.textContent = 'Küldés…'; }
     const subject = encodeURIComponent(`Érdeklődés – ${alkalom || 'általános'} – ${name}`);
     const body = encodeURIComponent(`Szia!\n\nNevem: ${name}\nEmail: ${email}\nAlkalom: ${alkalom || '–'}\n\n${msg}`);
-    const mailto = `mailto:sophiesgarden.maglod@gmail.com?subject=${subject}&body=${body}`;
-    const gmail = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent('sophiesgarden.maglod@gmail.com')}&su=${encodeURIComponent(`Érdeklődés – ${alkalom || 'általános'} – ${name}`)}&body=${body}`;
+    const mailto = `mailto:sophiesgardenmaglod@gmail.com?subject=${subject}&body=${body}`;
+    const gmail = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent('sophiesgardenmaglod@gmail.com')}&su=${encodeURIComponent(`Érdeklődés – ${alkalom || 'általános'} – ${name}`)}&body=${body}`;
     let opened = false;
     window.addEventListener('blur', () => { opened = true; }, { once: true });
     window.location.href = mailto;
