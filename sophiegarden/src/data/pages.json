@@ -1,0 +1,50 @@
+{
+  "index": {
+    "file": "index.html",
+    "bodyClass": "hero-page",
+    "activeNav": "home",
+    "showFeatSlot": true,
+    "showSdBanner": true,
+    "footerThirdColumn": "default"
+  },
+  "kinalet": {
+    "file": "kinalet.html",
+    "bodyClass": "",
+    "activeNav": "kinalet",
+    "showFeatSlot": false,
+    "showSdBanner": true,
+    "footerThirdColumn": "default"
+  },
+  "hirek": {
+    "file": "hirek.html",
+    "bodyClass": "",
+    "activeNav": "hirek",
+    "showFeatSlot": false,
+    "showSdBanner": true,
+    "footerThirdColumn": "default"
+  },
+  "rolunk": {
+    "file": "rolunk.html",
+    "bodyClass": "",
+    "activeNav": "rolunk",
+    "showFeatSlot": false,
+    "showSdBanner": true,
+    "footerThirdColumn": "default"
+  },
+  "kapcsolat": {
+    "file": "kapcsolat.html",
+    "bodyClass": "",
+    "activeNav": "kapcsolat",
+    "showFeatSlot": false,
+    "showSdBanner": true,
+    "footerThirdColumn": "default"
+  },
+  "egyuttmukodesek": {
+    "file": "egyuttmukodesek.html",
+    "bodyClass": "",
+    "activeNav": "egyuttmukodesek",
+    "showFeatSlot": false,
+    "showSdBanner": false,
+    "footerThirdColumn": "partners"
+  }
+}

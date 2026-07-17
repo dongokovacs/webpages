@@ -1,0 +1,26 @@
+{
+  "name": "Sophie's Garden",
+  "tagline": "Virágos világod",
+  "foundingDate": "2025-10",
+  "email": "sophiesgardenmaglod@gmail.com",
+  "phoneDisplay": "+36 30 487 2215",
+  "phoneHref": "+36304872215",
+  "address": {
+    "street": "Határ utca 13",
+    "city": "Maglód",
+    "region": "Pest vármegye",
+    "postalCode": "2234",
+    "country": "HU",
+    "full": "2234 Maglód, Határ utca 13",
+    "mapsQuery": "2234+Maglód,+Határ+utca+13"
+  },
+  "geo": { "lat": 47.4442, "lng": 19.3534 },
+  "areaServed": ["Maglód", "Gyömrő", "Üllő", "Monor", "Vecsés"],
+  "social": {
+    "facebook": "https://www.facebook.com/SophiesGardenMaglod",
+    "instagram": "https://www.instagram.com/sophiesgarden_maglod",
+    "tiktok": "https://www.tiktok.com/@sophiesgarden_maglod"
+  },
+  "baseUrl": "https://dongokovacs.github.io/webpages/sophiegarden/",
+  "logoUrl": "https://dongokovacs.github.io/webpages/sophiegarden/logo.png"
+}

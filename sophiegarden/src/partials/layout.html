@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>{{page.title}}</title>
+  <meta name="description" content="{{page.description}}"/>
+  <meta name="keywords" content="{{page.keywords}}"/>
+  <link rel="canonical" href="{{page.canonical}}"/>
+  <meta name="geo.region" content="HU-PE"/><meta name="geo.placename" content="{{biz.address.city}}"/><meta name="geo.position" content="{{biz.geo.lat}};{{biz.geo.lng}}"/><meta name="ICBM" content="{{biz.geo.lat}}, {{biz.geo.lng}}"/>
+  <link rel="alternate" hreflang="hu" href="{{page.canonical}}"/>
+  <meta property="og:type" content="website"/><meta property="og:locale" content="hu_HU"/><meta property="og:site_name" content="{{biz.name}} – {{biz.address.city}}"/>
+  <meta property="og:title" content="{{page.ogTitle}}"/>
+  <meta property="og:description" content="{{page.ogDescription}}"/>
+  <meta property="og:image" content="{{biz.logoUrl}}"/>
+  <meta property="og:url" content="{{page.canonical}}"/>
+  <meta name="robots" content="{{page.robots}}"/>
+{{page.schema}}
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+{{page.style}}
+</head>
+<body{{page.bodyClassAttr}}>
+  <a href="#main" class="skip-link">Ugrás a tartalomra</a>
+
+{{> nav}}
+
+{{> mobile-menu}}
+
+{{page.main}}
+
+{{#if showSdBanner}}
+{{> sd-banner}}
+{{/if}}
+
+{{> footer}}
+
+  <script src="main.js"></script>
+{{page.extraScript}}
+</body>
+</html>

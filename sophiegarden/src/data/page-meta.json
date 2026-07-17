@@ -1,0 +1,54 @@
+{
+  "index": {
+    "title": "Sophie's Garden – Kertészet Maglódon | Válogatott Növények",
+    "description": "Sophie's Garden – kis kertészet Maglódon (2234, Határ utca 13). Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszfüvek, díszcserjék. Csak személyes vásárlás.",
+    "keywords": "kertészet Maglód, növényvásár Maglód, évelő növények 2234, szárazságtűrő növények Pest megye, dísznövénykertész Maglód, Sophie's Garden",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/",
+    "ogTitle": "Sophie's Garden – Válogatott Növények Maglódon",
+    "ogDescription": "Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszfüvek és díszcserjék. Személyesen, Maglódon.",
+    "robots": "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+  },
+  "kinalet": {
+    "title": "Kertészeti Kínálat Maglódon | Sophie's Garden",
+    "description": "Évelők, szárazságtűrő növények, pálmák, díszfüvek és díszcserjék Sophie's Garden maglódi kínálatában (2234). Saját nevelésű 'Home Made' növények és válogatott ritkaságok.",
+    "keywords": "kertészet Maglód, évelő növények Maglód, szárazságtűrő növények 2234, pálma kertészet Pest megye, díszcserje Maglód, díszfű kertészet",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/kinalet.html",
+    "ogTitle": "Kínálatunk – Évelők, Pálmák, Díszcserjék | Sophie's Garden",
+    "ogDescription": "Saját nevelésű évelők, szárazságtűrő növények, prémium pálmák, díszfüvek és díszcserjék Maglódon. Nézd meg a kínálatunkat!"
+  },
+  "hirek": {
+    "title": "Egyedi Növénybeszerzés Maglódon | Sophie's Garden",
+    "description": "Nem találod az álomnövényed a környékbeli áruházakban? Sophie's Garden Maglódon személyes kapcsolatokon és szakértelmen keresztül felkutatja a ritka, egyedi növényeket.",
+    "keywords": "egyedi növénybeszerzés Maglód, ritka növények felkutatása, egyedi árajánlat növény, kertészet Maglód",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/hirek.html",
+    "ogTitle": "Egyedi Növénybeszerzés – Sophie's Garden Maglód",
+    "ogDescription": "Ritka, különleges vagy egyedi növényt keresel? Sophie's Garden Maglódon személyes kapcsolatain keresztül utánajár, megfizethető áron.",
+    "robots": "index, follow"
+  },
+  "rolunk": {
+    "title": "Sophie's Garden Story – Zsófi és a Sophie's Garden Maglódon",
+    "description": "Ismerd meg Zsófit, a Sophie's Garden megálmodóját Maglódon. Személyes sztori: hogyan lett egy hobbiból szerelemprojekt, és mit tanulunk útközben.",
+    "keywords": "Sophie's Garden Maglód, Zsófi kertészet, kertésztechnikus képzés, dísznövénykertész Maglód, helyi kertészet Pest megye",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html",
+    "ogTitle": "Sophie's Garden Story – Zsófi sztorija",
+    "ogDescription": "Egy szerelemprojekt születése: hogyan lett egy multis munka mellett hobbiból a Sophie's Garden.",
+    "robots": "index, follow"
+  },
+  "kapcsolat": {
+    "title": "Kapcsolat – Sophie's Garden Kertészet Maglódon | 2234",
+    "description": "Kérdésed van egy növénnyel kapcsolatban vagy egyedi beszerzést kérnél? Keresd Sophie's Gardent Maglódon (2234, Határ utca 13) – email, telefon, Facebook.",
+    "keywords": "Sophie's Garden kapcsolat, kertészet Maglód cím, növény rendelés Maglód, kertészet Határ utca Maglód",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/kapcsolat.html",
+    "ogTitle": "Kapcsolat – Sophie's Garden Kertészet Maglód",
+    "ogDescription": "Keresd Sophie's Gardent Maglódon – személyes vásárlás, egyedi növénybeszerzés, email és telefon."
+  },
+  "egyuttmukodesek": {
+    "title": "Helyi Együttműködések Maglódon – SteelDecor Acél Dekorációk | Sophie's Garden",
+    "description": "Sophie's Garden és SteelDecor – két kézműves vállalkozás Maglódon. Egyedi acél dekorációk: éremtartó, házszám tábla, cégér, trófea, fali dekoráció. Maglód, 2234.",
+    "keywords": "SteelDecor Maglód, éremtartó Maglód, acél dekoráció Maglód, házszám tábla 2234, cégér Pest megye, helyi kézműves Maglód",
+    "canonical": "https://dongokovacs.github.io/webpages/sophiegarden/egyuttmukodesek.html",
+    "ogTitle": "Együttműködések – SteelDecor & Sophie's Garden Maglód",
+    "ogDescription": "Helyi maglódi kézműves vállalkozások. SteelDecor: egyedi acél dekorációk – éremtartó, házszám tábla, cégér, trófea, fali dekoráció.",
+    "robots": "index, follow"
+  }
+}

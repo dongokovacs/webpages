@@ -1,0 +1,24 @@
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><img src="./logo.png" alt="Sophie's Garden logó" class="footer-logo-img"/><div class="footer-name">Sophie's Garden</div></div>
+          <p class="footer-tagline">{{biz.tagline}} – Maglódon és online.</p>
+          <div class="footer-socials" aria-label="Közösségi média">
+            <a href="{{biz.social.facebook}}" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Facebook">{{> icons/icon-facebook}}</a>
+            <a href="{{biz.social.instagram}}" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Instagram">{{> icons/icon-instagram}}</a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Oldalak</h4><ul><li><a href="index.html">Főoldal</a></li><li><a href="kinalet.html">Kínálatunk</a></li><li><a href="hirek.html">Egyedi beszerzés</a></li><li><a href="rolunk.html">Sophie's Garden Story</a></li><li><a href="kapcsolat.html">Kapcsolat</a></li><li><a href="egyuttmukodesek.html">Együttműködések</a></li></ul></div>
+        {{#if isDefaultFooterThird}}
+        <div class="footer-col"><h4>Elérhetőség</h4><ul><li><a href="{{biz.social.facebook}}" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="{{biz.social.instagram}}" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><span>{{biz.address.full}}</span></li></ul></div>
+        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kinalet.html">Kínálatunk →</a></li><li><a href="hirek.html">Egyedi beszerzés →</a></li><li><a href="kapcsolat.html">Rendelés leadása →</a></li></ul></div>
+        {{/if}}
+        {{#if isPartnersFooterThird}}
+        <div class="footer-col"><h4>Együttműködők</h4><ul><li><a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer">SteelDecor – steeldecor.hu</a></li></ul></div>
+        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kapcsolat.html">Rendelés →</a></li><li><a href="kinalet.html">Kínálat →</a></li></ul></div>
+        {{/if}}
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2026 Sophie's Garden · Maglód</div></div>
+    </div>
+  </footer>

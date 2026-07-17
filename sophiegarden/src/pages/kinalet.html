@@ -1,0 +1,167 @@
+<!--SCHEMA-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Főoldal", "item": "{{biz.baseUrl}}"},
+          {"@type": "ListItem", "position": 2, "name": "Kínálatunk", "item": "https://dongokovacs.github.io/webpages/sophiegarden/kinalet.html"}
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Sophie's Garden kertészeti kínálat Maglód",
+        "description": "Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszfüvek és díszcserjék Maglódon",
+        "url": "https://dongokovacs.github.io/webpages/sophiegarden/kinalet.html",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Sophie's Garden 'Home Made'", "description": "Saját nevelésű, hazai klímához alkalmazkodott évelő növények a maglódi mini-kertészetből"}},
+          {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Klímabarát és szárazságtűrő növények", "description": "Kevesebb öntözést igénylő, a nyári hőséget is jól tűrő kerti növények"}},
+          {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Prémium pálmák és egzotikus növények", "description": "Gondosan válogatott kerti pálmák, eukaliptuszok és egzotikus ritkaságok"}},
+          {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Modern díszfüvek és textúranövények", "description": "Évelő díszfű fajták, amelyek textúrát és mozgást adnak a kertnek"}},
+          {"@type": "ListItem", "position": 5, "item": {"@type": "Product", "name": "Díszcserjék, kúszónövények és kerti kedvencek", "description": "Fás szárú növények és virágzó ritkaságok – kecskerágótól a hortenziáig"}}
+        ]
+      }
+    ]
+  }
+  </script>
+<!--STYLE-->
+  <style>
+    /* ── Intro ── */
+    .kinalet-intro { font-size: 1rem; color: var(--mid); line-height: 1.85; max-width: 760px; margin-bottom: 44px; }
+
+    /* ── Category grid ── */
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .category-card {
+      border-radius: var(--r); overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .25s;
+      display: flex; flex-direction: column;
+    }
+    .category-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--green-border); }
+    .category-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: var(--cream); }
+    .category-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .category-tag { font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+    .category-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 500; margin-bottom: 10px; line-height: 1.3; }
+    .category-desc { font-size: .87rem; color: var(--mid); line-height: 1.7; flex: 1; }
+    .category-link { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; color: var(--green); margin-top: 16px; transition: opacity .15s; }
+    .category-link:hover { opacity: .75; text-decoration: underline; }
+
+    /* ── Info banner ── */
+    .info-banner {
+      background: var(--cream); border: 1px solid rgba(199,21,133,.15);
+      border-radius: var(--r); padding: 28px 32px;
+      display: flex; align-items: center; gap: 20px; margin-top: 48px;
+    }
+    [data-theme="dark"] .info-banner { background: var(--surface2); }
+    .info-banner-icon { font-size: 2rem; flex-shrink: 0; }
+    .info-banner-text h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 6px; }
+    .info-banner-text p { font-size: .88rem; color: var(--mid); line-height: 1.6; }
+
+    /* Stagger animation for cards */
+    .category-card { opacity: 0; transform: translateY(24px); animation: none; }
+    .category-card.visible { opacity: 1; transform: translateY(0); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .25s; }
+
+    @media(max-width:600px) { .category-grid { grid-template-columns: 1fr; } .info-banner { flex-direction: column; text-align: center; } }
+  </style>
+<!--MAIN-->
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-label reveal">Kínálatunk</span>
+          <h1 class="page-hero-title reveal" data-delay="1">Zöld vagy színes?<br/><em>Bokros vagy futó?</em></h1>
+          <p class="page-hero-sub reveal" data-delay="2">A nagyi kertjének nosztalgikus bája vagy a modern növények izgalma? Kicsi vagy nagy? Szárazságtűrők, légies díszfüvek, életerős évelők, sziklakerti túlélők, zümmögő méhecske-legelők, gyerek- és állatbarát kedvencek vagy levegőtisztító hősök… a listát a végtelenségig folytathatnánk. Egy azonban biztos: a növények minden formájukban csodálatosak!</p>
+        </div>
+      </div>
+    </div>
+
+    <section style="padding:72px 0;background:var(--surface)">
+      <div class="container">
+        <p class="kinalet-intro reveal">Böngéssz kategóriáink között, és válaszd ki azt a növényt, amelyik pont úgy nő, ahogy megálmodtad: kicsiben, nagyban, kúszva vagy bokrosodva.</p>
+
+        <div class="category-grid" id="category-grid">
+          <article class="category-card reveal" data-delay="1">
+            <img class="category-img" src="https://images.unsplash.com/photo-1587334274328-64186a80aeee?w=500&q=80&auto=format&fit=crop" alt="Sophie's Garden Home Made – saját nevelésű évelők" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="category-body">
+              <div class="category-tag">Saját nevelés</div>
+              <div class="category-name">Sophie's Garden 'Home Made'</div>
+              <div class="category-desc">Saját nevelésű, szívvel-lélekkel gondozott hazai évelő növények maglódi mini-kertészetünkből. Karakteres, egészséges és strapabíró kerti növények széles választéka, amelyek tökéletesen alkalmazkodtak a hazai klímához.</div>
+              <a href="kapcsolat.html" class="category-link">Érdeklődöm →</a>
+            </div>
+          </article>
+
+          <article class="category-card reveal" data-delay="2">
+            <img class="category-img" src="https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?w=500&q=80&auto=format&fit=crop" alt="Klímabarát és szárazságtűrő növények" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="category-body">
+              <div class="category-tag">Kevesebb öntözés</div>
+              <div class="category-name">Klímabarát és szárazságtűrő növények</div>
+              <div class="category-desc">Gondot okoz a nyári hőség a kertben? Klímabarát és kiváló szárazságtűrő növények választékával várunk Maglódon. Olyan gyönyörű, kevesebb öntözést igénylő fajtákat válogattam össze Neked, amelyek a legforróbb napokon is a kerted ékszerei maradnak.</div>
+              <a href="kapcsolat.html" class="category-link">Érdeklődöm →</a>
+            </div>
+          </article>
+
+          <article class="category-card reveal" data-delay="3">
+            <img class="category-img" src="https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?w=500&q=80&auto=format&fit=crop" alt="Prémium pálmák és egzotikus növények" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="category-body">
+              <div class="category-tag">Mediterrán hangulat</div>
+              <div class="category-name">Prémium pálmák és egzotikus növények</div>
+              <div class="category-desc">Hozd el a mediterrán életérzést az otthonodba! Gondosan válogatott, prémium minőségű kerti pálmák, csodás eukaliptuszok és különleges egzotikus növények. Szándékosan kerüljük az unalmas kínálatot: nálunk igazi karakteres növénykincsekre bukkanhatsz megfizethető áron.</div>
+              <a href="kapcsolat.html" class="category-link">Érdeklődöm →</a>
+            </div>
+          </article>
+
+          <article class="category-card reveal" data-delay="1">
+            <img class="category-img" src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&q=80&auto=format&fit=crop" alt="Modern díszfüvek és textúranövények" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="category-body">
+              <div class="category-tag">Textúra & mozgás</div>
+              <div class="category-name">Modern díszfüvek és textúranövények</div>
+              <div class="category-desc">A modern kertek elengedhetetlen kellékei a légies és elegáns díszfüvek. Ha egy megbízható kertészetet keresel Pest megyében, a Sophie's Gardenben megtalálod a legszebb évelő díszfű fajtákat, amelyek textúrát, mozgást és különleges struktúrát adnak a kertednek az év minden szakaszában. Kiválóak modern kerttervezéshez és alacsony gondozási igényű ágyásokhoz.</div>
+              <a href="kapcsolat.html" class="category-link">Érdeklődöm →</a>
+            </div>
+          </article>
+
+          <article class="category-card reveal" data-delay="2">
+            <img class="category-img" src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=500&q=80&auto=format&fit=crop" alt="Díszcserjék, kúszónövények és kerti kedvencek" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="category-body">
+              <div class="category-tag">Fás szárúak</div>
+              <div class="category-name">Díszcserjék, kúszónövények és kerti kedvencek</div>
+              <div class="category-desc">Olyan csodás fás szárú növények és virágzó ritkaságok, amelyek hosszú távon határozzák meg a kerted arculatát. A tarka levelű kecskerágótól és az illatos jázmintól kezdve, a színpompás fukszián és mályvacserjén át, egészen a csodás bugás, annabelle és törzses hortenziákig vagy az árnyékkedvelő hostákig. Akár Maglód, Gyömrő, Pécel vagy a XVII. kerület felől érkezel, válogatott, egészséges díszcserjékkel és kerti kedvencekkel várunk a Sophie's Gardenben!</div>
+              <a href="kapcsolat.html" class="category-link">Érdeklődöm →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="info-banner reveal" data-delay="3">
+          <div class="info-banner-icon" aria-hidden="true">💬</div>
+          <div class="info-banner-text">
+            <h3>Nem találod amit keresel?</h3>
+            <p>Írj nekem, mondd el mit szeretnél és megbeszéljük. Szezon szerint változik mi érhető el, de mindig megpróbálom teljesíteni az egyedi kéréseket. → <a href="kapcsolat.html" style="color:var(--green);font-weight:600">Kapcsolat</a></p>
+          </div>
+        </div>
+
+        <div class="info-banner reveal" data-delay="4" style="margin-top:20px">
+          <div class="info-banner-icon" aria-hidden="true">♻️</div>
+          <div class="info-banner-text">
+            <h3>Kertészeti tanácsadás & Cserépmentő Program</h3>
+            <p>Minden választott növény mellé saját tapasztalaton alapuló gondozási tippeket is kapsz – személyesen, nálunk Maglódon. És ha van felesleges műanyag cseréped, hozd vissza: 30 darabtól meglepetés növény jár, egyébként pedig ingyen elviheted, amire otthon szükséged van. → <a href="rolunk.html" style="color:var(--green);font-weight:600">Sophie's Garden Story</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<!--SCRIPT-->
+  <script>
+    // Stagger animation for category cards
+    const cards = document.querySelectorAll('.category-card');
+    const cardObs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 70);
+          cardObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    cards.forEach(c => cardObs.observe(c));
+  </script>

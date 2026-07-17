@@ -50,16 +50,22 @@ jobs:
         run: npm run build
         working-directory: steeldecor-story
 
+      - name: Build sophiegarden
+        run: npm run build
+        working-directory: sophiegarden
+
       - name: Assemble site
         run: |
           mkdir -p _site/bube-viragbolt
           mkdir -p _site/v0-ai-chat
           mkdir -p _site/steeldecor-story
+          mkdir -p _site/sophiegarden
           cp index.html projects.json robots.txt sitemap.xml _site/
-          cp -r galiba Galiba2 serpa_sorfozde janoshalmi szamodra allatpatika templatesdemos sophiegarden eperdekor space _site/
+          cp -r galiba Galiba2 serpa_sorfozde janoshalmi szamodra allatpatika templatesdemos eperdekor space _site/
           cp -r bube-viragbolt/dist/. _site/bube-viragbolt/
           cp -r v0-ai-chat/dist/. _site/v0-ai-chat/
           cp -r steeldecor-story/dist/. _site/steeldecor-story/
+          cp -r sophiegarden/dist/. _site/sophiegarden/
 
       - uses: actions/configure-pages@v5
 

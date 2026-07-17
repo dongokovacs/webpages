@@ -1,0 +1,361 @@
+<!--SCHEMA-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://dongokovacs.github.io/webpages/sophiegarden/#business",
+        "name": "{{biz.name}}",
+        "alternateName": ["Sophie's Garden Maglód"],
+        "description": "Kis kertészet Maglódon: saját nevelésű évelők, szárazságtűrő növények, prémium pálmák, díszfüvek és díszcserjék. Csak személyes vásárlásra van lehetőség.",
+        "foundingDate": "{{biz.foundingDate}}",
+        "url": "{{biz.baseUrl}}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{biz.logoUrl}}",
+          "width": 500,
+          "height": 500
+        },
+        "image": "{{biz.logoUrl}}",
+        "email": "{{biz.email}}",
+        "telephone": "{{biz.phoneHref}}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{biz.address.street}}",
+          "addressLocality": "{{biz.address.city}}",
+          "addressRegion": "{{biz.address.region}}",
+          "postalCode": "{{biz.address.postalCode}}",
+          "addressCountry": "{{biz.address.country}}"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": {{biz.geo.lat}},
+          "longitude": {{biz.geo.lng}}
+        },
+        "priceRange": "$$",
+        "currenciesAccepted": "HUF",
+        "paymentAccepted": "Készpénz, Átutalás",
+        "areaServed": [
+          {"@type": "City", "name": "Maglód"},
+          {"@type": "City", "name": "Gyömrő"},
+          {"@type": "City", "name": "Üllő"},
+          {"@type": "City", "name": "Monor"},
+          {"@type": "City", "name": "Vecsés"},
+          {"@type": "AdministrativeArea", "name": "Pest vármegye"}
+        ],
+        "sameAs": [
+          "{{biz.social.facebook}}",
+          "{{biz.social.instagram}}",
+          "{{biz.social.tiktok}}"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Sophie's Garden kertészeti kínálat",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Sophie's Garden 'Home Made'", "description": "Saját nevelésű, hazai klímához alkalmazkodott évelő növények"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Klímabarát és szárazságtűrő növények", "description": "Kevesebb öntözést igénylő kerti növények"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Prémium pálmák és egzotikus növények", "description": "Válogatott kerti pálmák, eukaliptuszok, egzotikus ritkaságok"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Modern díszfüvek és textúranövények", "description": "Évelő díszfű fajták modern kerttervezéshez"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Díszcserjék, kúszónövények és kerti kedvencek", "description": "Fás szárú növények és virágzó ritkaságok"}}
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://dongokovacs.github.io/webpages/sophiegarden/#website",
+        "url": "{{biz.baseUrl}}",
+        "name": "{{biz.name}} – {{biz.address.city}}",
+        "description": "Kis kertészet Maglódon – válogatott évelők, szárazságtűrő növények, pálmák, díszcserjék",
+        "inLanguage": "hu-HU",
+        "publisher": {"@id": "https://dongokovacs.github.io/webpages/sophiegarden/#business"}
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://dongokovacs.github.io/webpages/sophiegarden/#webpage",
+        "url": "{{biz.baseUrl}}",
+        "name": "Sophie's Garden – Kertészet Maglódon",
+        "isPartOf": {"@id": "https://dongokovacs.github.io/webpages/sophiegarden/#website"},
+        "about": {"@id": "https://dongokovacs.github.io/webpages/sophiegarden/#business"},
+        "inLanguage": "hu-HU"
+      }
+    ]
+  }
+  </script>
+<!--STYLE-->
+  <style>
+    /* ── HERO (Főoldal) – fotó slider ── */
+    body { overflow-x: hidden; }
+    .hero {
+      min-height: 100dvh; display: flex; align-items: center;
+      padding: 100px 0 72px; position: relative; overflow: hidden;
+      background: #16222E;
+    }
+    .hero-slider { position: absolute; inset: 0; z-index: 0; }
+    .hero-slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      opacity: 0; transition: opacity 1.4s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(160deg, rgba(13,19,24,.92) 0%, rgba(22,34,46,.72) 45%, rgba(0,128,111,.6) 100%);
+    }
+    [data-theme="dark"] .hero::before { background: linear-gradient(160deg, rgba(9,13,17,.94) 0%, rgba(18,28,36,.8) 45%, rgba(0,105,92,.65) 100%); }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; }
+    .hero-label { font-size: .72rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: 20px; display: block; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 400; color: #fff; line-height: 1.05; letter-spacing: -.5px; margin-bottom: 20px; text-wrap: balance; }
+    .hero-title em { font-style: italic; color: #4FD8C4; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.85); line-height: 1.75; margin-bottom: 36px; max-width: 460px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
+    .btn-hero-primary { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--green-d); padding: 14px 26px; border-radius: 11px; font-size: .95rem; font-weight: 700; box-shadow: 0 4px 20px rgba(6,20,26,.28); transition: transform .2s, box-shadow .2s; }
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(6,20,26,.32); }
+    .btn-hero-primary:active { transform: translateY(0) scale(.97); box-shadow: 0 2px 10px rgba(6,20,26,.25); }
+    .btn-hero-ghost { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.3); color: #fff; padding: 14px 24px; border-radius: 11px; font-size: .95rem; font-weight: 600; transition: background .2s, transform .2s; }
+    .btn-hero-ghost:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+    .btn-hero-ghost:active { transform: translateY(0) scale(.97); }
+    .hero-trust { display: flex; gap: 10px; flex-wrap: wrap; }
+    .trust-pill { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 50px; padding: 7px 14px; font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.92); }
+    /* Slider dots */
+    .hero-slider-dots { position: absolute; z-index: 2; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+    .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); transition: all .3s; padding: 0; }
+    .hero-dot:hover { background: rgba(255,255,255,.6); }
+    .hero-dot.active { background: #fff; width: 26px; border-radius: 5px; }
+
+    /* ── Miért más a Sophie's Garden ── */
+    #why-us {
+      background: var(--surface); padding: 96px 0 88px;
+      border-radius: 32px 32px 0 0; position: relative; z-index: 2;
+      margin-top: -32px; box-shadow: 0 -24px 60px rgba(22,34,46,.12);
+    }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 48px; }
+    @media(max-width:900px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ── Mini kínálat preview ── */
+    #kinalet-preview { background: var(--cream); padding: 88px 0; }
+    [data-theme="dark"] #kinalet-preview { background: var(--surface2); }
+    .preview-grid { display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; margin-top: 48px; }
+    .preview-card { border-radius: 18px; overflow: hidden; background: var(--bg); border: 1px solid var(--border); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .25s; display: flex; flex-direction: column; }
+    .preview-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--green-border); }
+    .preview-card.featured { grid-row: span 2; }
+    .preview-card.featured .preview-img { aspect-ratio: 4/5; }
+    .preview-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--cream); display: block; }
+    .preview-body { padding: 18px 20px; flex: 1; display: flex; flex-direction: column; }
+    .preview-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 6px; }
+    .preview-desc { font-size: .8rem; color: var(--mid); line-height: 1.55; margin-bottom: 12px; flex: 1; }
+    .preview-footer { display: flex; justify-content: space-between; align-items: center; }
+    .preview-price { font-size: .9rem; font-weight: 700; color: var(--green); }
+    .preview-badge { font-size: .66rem; font-weight: 700; letter-spacing: .5px; padding: 4px 9px 4px 8px; border-radius: 5px; background: var(--green-bg); color: var(--green); border-left: 2.5px solid var(--green); }
+    .preview-cta { margin-top: 40px; text-align: center; }
+    @media(max-width:900px) { .preview-card.featured { grid-row: auto; } .preview-card.featured .preview-img { aspect-ratio: 4/3; } }
+
+    /* ── Piac szekció ── */
+    .market-strip {
+      background: linear-gradient(135deg, #16222E 0%, #00806F 65%, #00A896 100%);
+      padding: 72px 0; position: relative; overflow: hidden;
+    }
+    .market-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 70% at 95% 100%, rgba(199,21,133,.18), transparent 65%),
+        radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: auto, 20px 20px;
+    }
+    .market-strip::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+    }
+    .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
+    .market-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 500; color: #fff; line-height: 1.2; margin-bottom: 12px; text-wrap: balance; }
+    .market-sub { font-size: 1rem; color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 24px; }
+    .market-facts { display: flex; flex-direction: column; gap: 12px; }
+    .market-fact { display: flex; align-items: flex-start; gap: 12px; color: rgba(255,255,255,.85); font-size: .9rem; line-height: 1.5; }
+    .mf-icon { width: 36px; height: 36px; border-radius: 9px; background: rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+    .market-btns { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--green-d); padding: 13px 26px; border-radius: 11px; font-size: .95rem; font-weight: 700; transition: all .2s; box-shadow: 0 4px 20px rgba(6,20,26,.25); }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(6,20,26,.3); }
+    .btn-white:active { transform: translateY(0) scale(.97); }
+    .btn-ghost-white { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.3); color: #fff; padding: 13px 22px; border-radius: 11px; font-size: .95rem; font-weight: 500; transition: all .2s; }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+    .btn-ghost-white:active { transform: translateY(0) scale(.97); }
+
+    /* ── Stats ── */
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; background: var(--bg); }
+    .stat-box { padding: 48px 32px; text-align: center; border-right: 1px solid var(--border); }
+    .stat-box:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 400; color: var(--green); letter-spacing: -2px; line-height: 1; }
+    .stat-label { font-size: .78rem; color: var(--mid); margin-top: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+    @media(max-width:900px) { .preview-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; } .market-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .hero-content { max-width: 100%; } }
+    @media(max-width:600px) { .preview-grid { grid-template-columns:1fr; } .stats-row { grid-template-columns:1fr; } .stat-box { border-right:none; border-bottom:1px solid var(--border); } .hero-btns { flex-direction:column; align-items:flex-start; } }
+  </style>
+<!--MAIN-->
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-slider" aria-hidden="true">
+        <img class="hero-slide active" src="images/sophies-garden-udvozles-kertesz-maglod.png" alt="Zsófi, a Sophie's Garden kertésze üdvözöl a maglódi kertészet virágos udvarán" loading="eager"/>
+        <img class="hero-slide" src="images/sophies-garden-kerteszet-maglod-napkelte.png" alt="Sophie's Garden kertészet Maglódon – évelő virágágyások és üvegházak napkeltekor" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-kertesz-portre-viragoskert-maglod.png" alt="Sophie's Garden kertésze locsolókannával a maglódi virágoskertben" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-hortenzia-gondozas-kerteszet-maglod.png" alt="Bugás hortenzia gondozása a Sophie's Garden maglódi kertészetében" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-sajat-nevelesu-viragok-ultetes-maglod.png" alt="Saját nevelésű évelő növények ültetése a Sophie's Garden kertészetében, Maglódon" loading="lazy"/>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-label reveal">Válogatott növények, szívből adva</span>
+          <h1 class="hero-title reveal" id="hero-title" data-delay="1">Zöld vagy színes?<br/><em>Bokros vagy futó?</em></h1>
+          <p class="hero-sub reveal" data-delay="2">Nem tömegáru, hanem válogatott kincsek. Saját nevelésű évelők, szárazságtűrő növények, pálmák és díszcserjék Maglódon – csak olyan növények, amikbe én magam is beleszerettem.</p>
+          <div class="hero-btns reveal" data-delay="3">
+            <a href="kinalet.html" class="btn-hero-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              Kínálatunk
+            </a>
+            <a href="kapcsolat.html" class="btn-hero-ghost">Vegyük fel a kapcsolatot</a>
+          </div>
+          <div class="hero-trust reveal" data-delay="4" role="list">
+            <div class="trust-pill" role="listitem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              {{biz.address.city}}, {{biz.address.street}}
+            </div>
+            <div class="trust-pill" role="listitem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Saját nevelésű, válogatott
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slider-dots" role="tablist" aria-label="Galéria navigáció">
+        <button class="hero-dot active" role="tab" aria-selected="true" aria-label="1. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="2. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="3. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="4. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="5. kép"></button>
+      </div>
+    </section>
+
+    <!-- MIÉRT MÁS -->
+    <section id="why-us" aria-labelledby="why-title">
+      <div class="container">
+        <span class="section-label reveal">Ami minket megkülönböztet</span>
+        <h2 class="section-title reveal visible" id="why-title" data-delay="1">Miért más a<br/>Sophie's Garden?</h2>
+        <div class="why-grid">
+          <article class="preview-card card-base reveal visible">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=80&auto=format&fit=crop" alt="Kertészkedési tanácsadás személyesen" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">Személyes kapcsolat</div>
+              <div class="preview-desc">A növények iránti közös rajongás köt össze minket: a választott szépségek mellé mindig kapsz tőlem saját tapasztalaton alapuló gondozási tippeket is, hogy a kertészkedés számodra is valódi sikerélmény legyen. Nálunk csak személyes vásárlásra van lehetőség!</div>
+            </div>
+          </article>
+          <article class="preview-card card-base reveal visible">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=80&auto=format&fit=crop" alt="Válogatott növények kirakata" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">Válogatott kincsek</div>
+              <div class="preview-desc">A kerted nem csak egy hely a ház mellett – ez a Te személyes birodalmad. Ne elégedj meg az átlagossal! Keress olyan növényeket, amikre ha ránézel, mosolyogni támad kedved. Én pont ezeket segítek megtalálni Neked.</div>
+            </div>
+          </article>
+          <article class="preview-card card-base reveal visible">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1519643381401-22c77e60520e?w=500&q=80&auto=format&fit=crop" alt="Cserépmentő program – újrahasznosított cserepek" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">♻️ Fenntarthatóság & Cserépmentő Akció</div>
+              <div class="preview-desc">Nálunk a természet szeretete tettekben is megmutatkozik. Egyedülálló Cserépmentő Programunkkal a műanyag cserepeket tartjuk körforgásban: ha felesleges cseréped van, hozd vissza hozzánk (min. 30 darabért meglepetés növény jár!), ha pedig otthoni ültetéshez van szükséged rájuk, ingyen adunk a készletünkből! Mert egymást és a környezetet segíteni a legjobb dolog! ✨🌱</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI KÍNÁLAT -->
+    <section id="kinalet-preview" aria-labelledby="preview-title">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:flex-end;margin-bottom:8px;gap:16px;flex-wrap:wrap">
+          <div>
+            <span class="section-label reveal">Kínálatunk</span>
+            <h2 class="section-title reveal" id="preview-title" data-delay="1">Ízelítő abból,<br/>amit nálunk találsz.</h2>
+          </div>
+          <a href="kinalet.html" class="btn-text reveal" data-delay="2" style="margin-bottom:8px">Teljes kínálat →</a>
+        </div>
+        <div class="preview-grid">
+          <article class="preview-card featured card-base reveal" data-delay="1">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1587334274328-64186a80aeee?w=500&q=80&auto=format&fit=crop" alt="Sophie's Garden Home Made – saját nevelésű évelők" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=500&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">Sophie's Garden 'Home Made'</div>
+              <div class="preview-desc">Saját nevelésű, hazai klímához alkalmazkodott évelő növények a maglódi mini-kertészetből.</div>
+              <div class="preview-footer"><span class="preview-badge">Saját nevelés</span></div>
+            </div>
+          </article>
+          <article class="preview-card card-base reveal" data-delay="2">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?w=400&q=80&auto=format&fit=crop" alt="Klímabarát és szárazságtűrő növények" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">Klímabarát és szárazságtűrő</div>
+              <div class="preview-desc">Kevesebb öntözést igénylő fajták, amik a legforróbb napokon is a kerted ékszerei maradnak.</div>
+              <div class="preview-footer"><span class="preview-badge" style="background:var(--clay-bg);color:var(--clay);border-left-color:var(--clay)">Kevesebb öntözés</span></div>
+            </div>
+          </article>
+          <article class="preview-card card-base reveal" data-delay="3">
+            <img class="preview-img" src="https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?w=400&q=80&auto=format&fit=crop" alt="Prémium pálmák és egzotikus növények" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&q=80&auto=format&fit=crop'"/>
+            <div class="preview-body">
+              <div class="preview-name">Prémium pálmák és egzotikusok</div>
+              <div class="preview-desc">Hozd el a mediterrán életérzést az otthonodba – gondosan válogatott pálmák és ritkaságok.</div>
+              <div class="preview-footer"><span class="preview-badge">Mediterrán</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="preview-cta reveal" data-delay="4">
+          <a href="kinalet.html" class="btn-primary">Teljes kínálat megtekintése →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-row" role="list">
+      <div class="stat-box reveal" role="listitem">
+        <div class="stat-num" data-counter="1000" data-suffix="+">1000+</div>
+        <div class="stat-label">Elégedett ügyfél</div>
+      </div>
+      <div class="stat-box reveal" data-delay="1" role="listitem">
+        <div class="stat-num" data-counter="10" data-suffix="+">10+</div>
+        <div class="stat-label">Év tapasztalat</div>
+      </div>
+      <div class="stat-box reveal" data-delay="2" role="listitem">
+        <div class="stat-num">5/5</div>
+        <div class="stat-label">Google értékelés</div>
+      </div>
+    </div>
+
+    <!-- LÁTOGASS EL -->
+    <div class="market-strip" aria-label="Elérhetőség">
+      <div class="container">
+        <div class="market-grid">
+          <div>
+            <span class="section-label reveal" style="color:#5CDCC9">Látogass el hozzánk</span>
+            <h2 class="market-title reveal" data-delay="1">Személyesen is<br/>megtalálhatsz.</h2>
+            <p class="market-sub reveal" data-delay="2">Nálunk csak személyes vásárlásra van lehetőség – így biztosak lehetünk benne, hogy a növények teljesen épen és egészségesen kerülnek az új otthonukba.</p>
+            <div class="market-facts reveal" data-delay="3">
+              <div class="market-fact">
+                <div class="mf-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <span>Nyitvatartásunk <strong>hetente változik</strong> – az aktuális infó mindig a Facebook oldalunkon</span>
+              </div>
+              <div class="market-fact">
+                <div class="mf-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <span><strong>{{biz.address.full}}</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="market-btns reveal" data-delay="2">
+            <a href="{{biz.social.facebook}}" target="_blank" rel="noopener noreferrer" class="btn-white">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Aktuális nyitvatartás →
+            </a>
+            <a href="rolunk.html" class="btn-ghost-white">Ismerd meg Zsófit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+<!--SCRIPT-->

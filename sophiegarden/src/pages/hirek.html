@@ -1,0 +1,141 @@
+<!--SCHEMA-->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Főoldal","item":"{{biz.baseUrl}}"},
+      {"@type":"ListItem","position":2,"name":"Egyedi beszerzés","item":"https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"}
+    ]},
+    {
+      "@type":"Service",
+      "name":"Egyedi növénybeszerzés",
+      "provider":{"@type":"LocalBusiness","name":"{{biz.name}}","address":{"@type":"PostalAddress","addressLocality":"{{biz.address.city}}","postalCode":"{{biz.address.postalCode}}","addressCountry":"{{biz.address.country}}"}},
+      "areaServed":["Maglód","Gyömrő","Üllő","Monor","Vecsés"],
+      "description":"Ritka, különleges vagy egyedi növények felkutatása és beszerzése személyes kapcsolatokon és szakértelmen keresztül, megfizethető áron.",
+      "url":"https://dongokovacs.github.io/webpages/sophiegarden/hirek.html"
+    }
+  ]}
+  </script>
+<!--STYLE-->
+  <style>
+    /* ── Process ── */
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; margin-top: 48px; }
+    .process-step { position: relative; }
+    .process-num {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--green-bg); color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .process-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 8px; }
+    .process-text { font-size: .85rem; color: var(--mid); line-height: 1.65; }
+
+    /* ── Egyedi árajánlat ── */
+    .source-section { background: var(--cream); padding: 88px 0; }
+    [data-theme="dark"] .source-section { background: var(--surface2); }
+    .source-lead { font-size: 1.02rem; color: var(--mid); line-height: 1.85; margin-bottom: 22px; }
+
+    /* ── Kövess / nyitvatartás ── */
+    .follow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+    .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; }
+    .sidebar-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 10px; }
+    .sidebar-card p { font-size: .85rem; color: var(--mid); line-height: 1.65; margin-bottom: 14px; }
+    .social-btn-row { display: flex; flex-direction: column; gap: 10px; }
+    .social-btn-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--border); font-size: .88rem; font-weight: 600; transition: all .22s; color: var(--text); }
+    .social-btn-item svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+    .social-btn-item.fb { color: #1877f2; border-color: rgba(24,119,242,.2); background: rgba(24,119,242,.04); }
+    .social-btn-item.fb:hover { background: #1877f2; color: #fff; border-color: #1877f2; transform: translateY(-2px); }
+    .social-btn-item.ig { color: #e1306c; border-color: rgba(225,48,108,.2); background: rgba(225,48,108,.04); }
+    .social-btn-item.ig:hover { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; border-color: transparent; transform: translateY(-2px); }
+    .market-card { background: linear-gradient(135deg, #16222E, #00806F); border-radius: var(--r); padding: 24px; }
+    .market-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 500; color: #fff; margin-bottom: 8px; }
+    .market-card p { font-size: .84rem; color: rgba(255,255,255,.75); line-height: 1.6; margin-bottom: 14px; }
+    .market-card a { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 8px; padding: 9px 16px; font-size: .82rem; font-weight: 600; color: #fff; transition: background .2s; }
+    .market-card a:hover { background: rgba(255,255,255,.25); }
+
+    @media(max-width:900px) { .process-grid { grid-template-columns: 1fr 1fr; } .follow-grid { grid-template-columns: 1fr; } }
+    @media(max-width:600px) { .process-grid { grid-template-columns: 1fr; } }
+  </style>
+<!--MAIN-->
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-label reveal">Egyedi beszerzés</span>
+          <h1 class="page-hero-title reveal" data-delay="1">Nem találod az<br/><em>álomnövényed?</em></h1>
+          <p class="page-hero-sub reveal" data-delay="2">Kérj tőlünk egyedi árajánlatot! Személyes kapcsolataimon és szakértelmemen keresztül szívesen segítek a különleges, ritka vagy egyedi növények felkutatásában.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLYAMAT -->
+    <section style="padding:72px 0;background:var(--surface)">
+      <div class="container">
+        <span class="section-label reveal">Hogyan működik</span>
+        <h2 class="section-title reveal" data-delay="1">Üzenettől az<br/>átvételig.</h2>
+        <div class="process-grid">
+          <div class="process-step reveal" data-delay="1">
+            <div class="process-num" aria-hidden="true">1</div>
+            <div class="process-title">Írj üzenetet</div>
+            <div class="process-text">Írd meg privát üzenetben, milyen növényt keresel – fajta, méret, bármi, ami segít pontosan beazonosítani.</div>
+          </div>
+          <div class="process-step reveal" data-delay="2">
+            <div class="process-num" aria-hidden="true">2</div>
+            <div class="process-title">Utánajárás</div>
+            <div class="process-text">Személyes kapcsolataimon és szakértelmemen keresztül utánanézek, elérhető-e valahol a piacon.</div>
+          </div>
+          <div class="process-step reveal" data-delay="3">
+            <div class="process-num" aria-hidden="true">3</div>
+            <div class="process-title">Visszajelzés</div>
+            <div class="process-text">Őszintén jelzem, mit sikerült találni és mennyibe kerül. Garanciát a sikerre nem tudok vállalni, de mindent megteszek, ami tőlem telik.</div>
+          </div>
+          <div class="process-step reveal" data-delay="4">
+            <div class="process-num" aria-hidden="true">4</div>
+            <div class="process-title">Átvétel</div>
+            <div class="process-text">Ha megvan, nálunk Maglódon, a soron következő nyitvatartási időben, teljesen megfizethető áron átveheted.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EGYEDI ÁRAJÁNLAT -->
+    <section class="source-section" aria-labelledby="source-title">
+      <div class="container" style="max-width:760px;text-align:center">
+        <span class="section-label reveal">Mit jelent ez a gyakorlatban</span>
+        <h2 class="section-title reveal" id="source-title" data-delay="1">Megkeresem neked,<br/>amit máshol nem találsz.</h2>
+        <p class="source-lead reveal" data-delay="2">Nem találod az álomnövényed a környékbeli áruházakban? Kérj tőlünk egyedi árajánlatot! Személyes kapcsolataimon és szakértelmemen keresztül szívesen segítek a különleges, ritka vagy egyedi növények felkutatásában.</p>
+        <p class="source-lead reveal" data-delay="3">Bár a piacon nem minden fajta elérhető, így garanciát sajnos nem tudok vállalni a sikeres beszerzésre, de ígérem, hogy megteszek minden tőlem telhetőt, hogy felkutassam és beszerezzem neked – méghozzá teljesen megfizethető áron! 🍋🌸</p>
+        <a href="kapcsolat.html" class="btn-primary reveal" data-delay="4">Írj privát üzenetben →</a>
+      </div>
+    </section>
+
+    <!-- KÖVESS & PIACI NAP -->
+    <section style="padding:72px 0;background:var(--surface)">
+      <div class="container">
+        <span class="section-label reveal">Addig is</span>
+        <h2 class="section-title reveal" data-delay="1">Kövess, vagy gyere<br/>látogatóba.</h2>
+        <div class="follow-grid">
+          <div class="sidebar-card reveal" data-delay="1">
+            <h3>Kövess minket</h3>
+            <p>Ne maradj le a legfrissebb növényekről, a nyitvatartásról és a szezonális ajánlatokról!</p>
+            <div class="social-btn-row">
+              <a href="{{biz.social.facebook}}" target="_blank" rel="noopener noreferrer" class="social-btn-item fb" aria-label="Facebook (új lapon)">
+                {{> icons/icon-facebook}}
+                Facebook – Sophie's Garden
+              </a>
+              <a href="{{biz.social.instagram}}" target="_blank" rel="noopener noreferrer" class="social-btn-item ig" aria-label="Instagram (új lapon)">
+                {{> icons/icon-instagram}}
+                @sophiesgarden_maglod
+              </a>
+            </div>
+          </div>
+          <div class="market-card reveal" data-delay="2">
+            <h3>Nyitvatartás és átvétel</h3>
+            <p>A nyitvatartásunk hetente változik. Az aktuális infót mindig a Facebook oldalunkon, a legfrissebb posztok között találod.</p>
+            <a href="{{biz.social.facebook}}" target="_blank" rel="noopener noreferrer">Nyitvatartás Facebookon →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<!--SCRIPT-->

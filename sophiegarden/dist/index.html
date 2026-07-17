@@ -1,42 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hu" data-theme="light">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <!-- ══ PRIMARY META ══ -->
   <title>Sophie's Garden – Kertészet Maglódon | Válogatott Növények</title>
   <meta name="description" content="Sophie's Garden – kis kertészet Maglódon (2234, Határ utca 13). Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszfüvek, díszcserjék. Csak személyes vásárlás."/>
   <meta name="keywords" content="kertészet Maglód, növényvásár Maglód, évelő növények 2234, szárazságtűrő növények Pest megye, dísznövénykertész Maglód, Sophie's Garden"/>
   <link rel="canonical" href="https://dongokovacs.github.io/webpages/sophiegarden/"/>
-
-  <!-- ══ GEO / LOCAL ══ -->
-  <meta name="geo.region" content="HU-PE"/>
-  <meta name="geo.placename" content="Maglód"/>
-  <meta name="geo.position" content="47.4442;19.3534"/>
-  <meta name="ICBM" content="47.4442, 19.3534"/>
-  <meta name="language" content="Hungarian"/>
+  <meta name="geo.region" content="HU-PE"/><meta name="geo.placename" content="Maglód"/><meta name="geo.position" content="47.4442;19.3534"/><meta name="ICBM" content="47.4442, 19.3534"/>
   <link rel="alternate" hreflang="hu" href="https://dongokovacs.github.io/webpages/sophiegarden/"/>
-  <link rel="alternate" hreflang="x-default" href="https://dongokovacs.github.io/webpages/sophiegarden/"/>
-
-  <!-- ══ OPEN GRAPH ══ -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:locale" content="hu_HU"/>
-  <meta property="og:site_name" content="Sophie's Garden – Maglód"/>
+  <meta property="og:type" content="website"/><meta property="og:locale" content="hu_HU"/><meta property="og:site_name" content="Sophie's Garden – Maglód"/>
   <meta property="og:title" content="Sophie's Garden – Válogatott Növények Maglódon"/>
   <meta property="og:description" content="Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszfüvek és díszcserjék. Személyesen, Maglódon."/>
   <meta property="og:image" content="https://dongokovacs.github.io/webpages/sophiegarden/logo.png"/>
-  <meta property="og:image:alt" content="Sophie's Garden logója"/>
   <meta property="og:url" content="https://dongokovacs.github.io/webpages/sophiegarden/"/>
-
-  <!-- ══ TWITTER / X ══ -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Sophie's Garden – Kertészet Maglódon"/>
-  <meta name="twitter:description" content="Saját nevelésű évelők, szárazságtűrő növények, pálmák, díszcserjék. Maglód, 2234."/>
-  <meta name="twitter:image" content="https://dongokovacs.github.io/webpages/sophiegarden/logo.png"/>
-
-  <!-- ══ ROBOTS ══ -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
-
-  <!-- ══ SCHEMA.ORG – LocalBusiness ══ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -120,39 +97,40 @@
     ]
   }
   </script>
-
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ── HERO (Főoldal) ── */
+    /* ── HERO (Főoldal) – fotó slider ── */
     body { overflow-x: hidden; }
     .hero {
       min-height: 100dvh; display: flex; align-items: center;
       padding: 100px 0 72px; position: relative; overflow: hidden;
-      background: linear-gradient(160deg, #16222E 0%, #1F3B45 45%, #00806F 100%);
+      background: #16222E;
     }
-    [data-theme="dark"] .hero { background: linear-gradient(160deg, #0D1318 0%, #12232A 45%, #00695C 100%); }
+    .hero-slider { position: absolute; inset: 0; z-index: 0; }
+    .hero-slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      opacity: 0; transition: opacity 1.4s ease;
+    }
+    .hero-slide.active { opacity: 1; }
     .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 55% 60% at 88% 12%, rgba(79,216,196,.28), transparent 70%),
-        radial-gradient(ellipse 45% 50% at 8% 92%, rgba(199,21,133,.16), transparent 70%),
-        radial-gradient(rgba(255,255,255,.1) 1px, transparent 1px);
-      background-size: auto, auto, 28px 28px;
-      mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black, transparent);
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(160deg, rgba(13,19,24,.92) 0%, rgba(22,34,46,.72) 45%, rgba(0,128,111,.6) 100%);
     }
+    [data-theme="dark"] .hero::before { background: linear-gradient(160deg, rgba(9,13,17,.94) 0%, rgba(18,28,36,.8) 45%, rgba(0,105,92,.65) 100%); }
     .hero::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; }
     .hero-label { font-size: .72rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: 20px; display: block; }
     .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 400; color: #fff; line-height: 1.05; letter-spacing: -.5px; margin-bottom: 20px; text-wrap: balance; }
     .hero-title em { font-style: italic; color: #4FD8C4; }
-    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.78); line-height: 1.75; margin-bottom: 36px; max-width: 460px; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.85); line-height: 1.75; margin-bottom: 36px; max-width: 460px; }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
     .btn-hero-primary { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--green-d); padding: 14px 26px; border-radius: 11px; font-size: .95rem; font-weight: 700; box-shadow: 0 4px 20px rgba(6,20,26,.28); transition: transform .2s, box-shadow .2s; }
     .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(6,20,26,.32); }
@@ -161,25 +139,12 @@
     .btn-hero-ghost:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
     .btn-hero-ghost:active { transform: translateY(0) scale(.97); }
     .hero-trust { display: flex; gap: 10px; flex-wrap: wrap; }
-    .trust-pill { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 50px; padding: 7px 14px; font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.9); }
-    /* Growing flower */
-    .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-    .hero-logo { width: 180px; height: 180px; object-fit: contain; border-radius: 50%; box-shadow: var(--shadow-lg); border: 3px solid rgba(255,255,255,.8); background: #fff; }
-    .logo-tagline { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: rgba(255,255,255,.7); }
-    .flower-scene { width: 300px; height: 240px; }
-    .stem-path { stroke: #33807A; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-dasharray: 300; stroke-dashoffset: 300; }
-    @media(prefers-reduced-motion:no-preference) { .stem-path { animation: draw-stem 1.4s cubic-bezier(.16,1,.3,1) .3s forwards; } }
-    @keyframes draw-stem { to { stroke-dashoffset: 0; } }
-    .leaf-l, .leaf-r { fill: #4FA89C; opacity: 0; transform-origin: center bottom; }
-    @media(prefers-reduced-motion:no-preference) {
-      .leaf-l { animation: leaf-appear .6s cubic-bezier(.34,1.56,.64,1) 1.2s forwards; }
-      .leaf-r { animation: leaf-appear .6s cubic-bezier(.34,1.56,.64,1) 1.5s forwards; }
-    }
-    @keyframes leaf-appear { from { opacity:0; transform: scale(0) rotate(-20deg); } to { opacity:1; transform: scale(1) rotate(0deg); } }
-    .petal { fill: #C71585; opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; }
-    @keyframes petal-bloom { from { opacity:0; transform: scale(0); } to { opacity:1; transform: scale(1); } }
-    .flower-center { fill: #F2C744; opacity: 0; }
-    @media(prefers-reduced-motion:no-preference) { .flower-center { animation: petal-bloom .4s ease 2.5s forwards; } }
+    .trust-pill { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 50px; padding: 7px 14px; font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.92); }
+    /* Slider dots */
+    .hero-slider-dots { position: absolute; z-index: 2; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+    .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); transition: all .3s; padding: 0; }
+    .hero-dot:hover { background: rgba(255,255,255,.6); }
+    .hero-dot.active { background: #fff; width: 26px; border-radius: 5px; }
 
     /* ── Miért más a Sophie's Garden ── */
     #why-us {
@@ -245,43 +210,44 @@
     .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 400; color: var(--green); letter-spacing: -2px; line-height: 1; }
     .stat-label { font-size: .78rem; color: var(--mid); margin-top: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
 
-    @media(max-width:900px) { .hero-grid { grid-template-columns:1fr; gap:32px; } .hero-visual { order:-1; } .preview-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; } .market-grid { grid-template-columns:1fr; } }
+    @media(max-width:900px) { .preview-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; } .market-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .hero-content { max-width: 100%; } }
     @media(max-width:600px) { .preview-grid { grid-template-columns:1fr; } .stats-row { grid-template-columns:1fr; } .stat-box { border-right:none; border-bottom:1px solid var(--border); } .hero-btns { flex-direction:column; align-items:flex-start; } }
   </style>
 </head>
 <body class="hero-page">
   <a href="#main" class="skip-link">Ugrás a tartalomra</a>
 
-  <!-- NAVBAR -->
   <nav id="navbar" aria-label="Főnavigáció">
-    <div class="container">
-      <div class="nav-inner">
-        <div class="nav-side nav-side-left">
-          <div class="nav-links" role="list">
-            <a href="kinalet.html" role="listitem">Kínálatunk</a>
-            <a href="hirek.html" role="listitem">Egyedi beszerzés</a>
-          </div>
-        </div>
-        <a href="index.html" class="nav-logo" aria-label="Sophie's Garden – főoldal" aria-current="page">
-          <img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/>
-          <div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">Virágos világod · Maglód</span></div>
-        </a>
-        <div class="nav-side nav-side-right">
+    <div class="container"><div class="nav-inner">
+      <div class="nav-side nav-side-left">
         <div class="nav-links" role="list">
-          <a href="rolunk.html" role="listitem">Sophie's Garden Story</a>
-          <a href="kapcsolat.html" role="listitem">Kapcsolat</a>
+          <a href="kinalet.html" role="listitem">Kínálatunk</a>
+          <a href="hirek.html" role="listitem">Egyedi beszerzés</a>
         </div>
-        <div class="nav-right">
-          <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra">
-            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </button>
-          <div style="position:relative">
+      </div>
+      <a href="index.html" class="nav-logo" aria-label="Sophie's Garden – főoldal" aria-current="page">
+        <img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/>
+        <div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">Virágos világod · Maglód</span></div>
+      </a>
+      <div class="nav-side nav-side-right">
+      <div class="nav-links" role="list">
+        <a href="rolunk.html" role="listitem">Sophie's Garden Story</a>
+        <a href="kapcsolat.html" role="listitem">Kapcsolat</a>
+      </div>
+      <div class="nav-right">
+                <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+
+        
+                  <div style="position:relative">
             <button class="feat-btn" id="feat-btn" aria-label="Oldal funkciók" aria-expanded="false">✦</button>
             <div class="feat-popover" id="feat-popover" role="dialog" aria-label="Oldal funkciók">
               <div class="feat-popover-head">Mit tud ez az oldal?</div>
               <div class="feat-list">
-                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Virág-növekvő animáció</div><div class="feat-row-sub">SVG szár, levelek és szirmok betöltéskor – CSS only</div></div></div>
+                <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Fotó slider a főoldalon</div><div class="feat-row-sub">Valódi kertészeti fotók a Sophie's Garden mindennapjaiból</div></div></div>
                 <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">4 fő kategória, központi logóval</div><div class="feat-row-sub">Kínálatunk, Egyedi beszerzés, Sophie's Garden Story, Kapcsolat</div></div></div>
                 <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Sötét és világos mód</div><div class="feat-row-sub">Minden oldalon megmarad a választott téma</div></div></div>
                 <div class="feat-row"><div class="feat-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="feat-row-title">Scroll reveal animáció</div><div class="feat-row-sub">Elemek finoman úsznak be görgetéskor</div></div></div>
@@ -292,13 +258,16 @@
               </div>
             </div>
           </div>
-          <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
-          <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
-        </div>
-        </div>
+
+        
+        <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
+                <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
+
       </div>
-    </div>
+      </div>
+    </div></div>
   </nav>
+
 
   <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenü">
     <a href="kinalet.html">Kínálatunk</a>
@@ -308,55 +277,47 @@
     <a href="kapcsolat.html" class="m-cta">Rendelés leadása</a>
   </div>
 
+
   <main id="main">
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-slider" aria-hidden="true">
+        <img class="hero-slide active" src="images/sophies-garden-udvozles-kertesz-maglod.png" alt="Zsófi, a Sophie's Garden kertésze üdvözöl a maglódi kertészet virágos udvarán" loading="eager"/>
+        <img class="hero-slide" src="images/sophies-garden-kerteszet-maglod-napkelte.png" alt="Sophie's Garden kertészet Maglódon – évelő virágágyások és üvegházak napkeltekor" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-kertesz-portre-viragoskert-maglod.png" alt="Sophie's Garden kertésze locsolókannával a maglódi virágoskertben" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-hortenzia-gondozas-kerteszet-maglod.png" alt="Bugás hortenzia gondozása a Sophie's Garden maglódi kertészetében" loading="lazy"/>
+        <img class="hero-slide" src="images/sophies-garden-sajat-nevelesu-viragok-ultetes-maglod.png" alt="Saját nevelésű évelő növények ültetése a Sophie's Garden kertészetében, Maglódon" loading="lazy"/>
+      </div>
       <div class="container">
-        <div class="hero-grid">
-          <div class="hero-content">
-            <span class="hero-label reveal">Válogatott növények, szívből adva</span>
-            <h1 class="hero-title reveal" id="hero-title" data-delay="1">Zöld vagy színes?<br/><em>Bokros vagy futó?</em></h1>
-            <p class="hero-sub reveal" data-delay="2">Nem tömegáru, hanem válogatott kincsek. Saját nevelésű évelők, szárazságtűrő növények, pálmák és díszcserjék Maglódon – csak olyan növények, amikbe én magam is beleszerettem.</p>
-            <div class="hero-btns reveal" data-delay="3">
-              <a href="kinalet.html" class="btn-hero-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                Kínálatunk
-              </a>
-              <a href="kapcsolat.html" class="btn-hero-ghost">Vegyük fel a kapcsolatot</a>
-            </div>
-            <div class="hero-trust reveal" data-delay="4" role="list">
-              <div class="trust-pill" role="listitem">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Maglód, Határ utca 13
-              </div>
-              <div class="trust-pill" role="listitem">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                Saját nevelésű, válogatott
-              </div>
-            </div>
+        <div class="hero-content">
+          <span class="hero-label reveal">Válogatott növények, szívből adva</span>
+          <h1 class="hero-title reveal" id="hero-title" data-delay="1">Zöld vagy színes?<br/><em>Bokros vagy futó?</em></h1>
+          <p class="hero-sub reveal" data-delay="2">Nem tömegáru, hanem válogatott kincsek. Saját nevelésű évelők, szárazságtűrő növények, pálmák és díszcserjék Maglódon – csak olyan növények, amikbe én magam is beleszerettem.</p>
+          <div class="hero-btns reveal" data-delay="3">
+            <a href="kinalet.html" class="btn-hero-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              Kínálatunk
+            </a>
+            <a href="kapcsolat.html" class="btn-hero-ghost">Vegyük fel a kapcsolatot</a>
           </div>
-          <div class="hero-visual reveal" data-delay="2" aria-hidden="true">
-            <img src="./logo.png" alt="" class="hero-logo"/>
-            <p class="logo-tagline">„Virágos világod"</p>
-            <div class="flower-scene">
-              <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-                <path class="stem-path" d="M100 230 Q95 200 100 170 Q105 140 98 100"/>
-                <path class="stem-path" d="M99 185 Q80 175 70 162" style="stroke-dasharray:55;stroke-dashoffset:55;animation-delay:.7s;stroke-width:1.8"/>
-                <path class="stem-path" d="M100 158 Q118 148 128 134" style="stroke-dasharray:45;stroke-dashoffset:45;animation-delay:.9s;stroke-width:1.8"/>
-                <ellipse class="leaf-l" cx="62" cy="161" rx="17" ry="9" transform="rotate(-35 62 161)"/>
-                <ellipse class="leaf-r" cx="132" cy="134" rx="15" ry="8" transform="rotate(30 132 134)"/>
-                <g transform="translate(98,90)">
-                  <g transform="rotate(0)">  <ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 1.9s forwards"/></g>
-                  <g transform="rotate(72)"> <ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.05s forwards"/></g>
-                  <g transform="rotate(144)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.2s forwards"/></g>
-                  <g transform="rotate(216)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.35s forwards"/></g>
-                  <g transform="rotate(288)"><ellipse class="petal" cx="0" cy="-22" rx="8" ry="17" style="animation:petal-bloom .5s cubic-bezier(.34,1.56,.64,1) 2.5s forwards"/></g>
-                  <circle class="flower-center" cx="0" cy="0" r="10"/>
-                </g>
-              </svg>
+          <div class="hero-trust reveal" data-delay="4" role="list">
+            <div class="trust-pill" role="listitem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Maglód, Határ utca 13
+            </div>
+            <div class="trust-pill" role="listitem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Saját nevelésű, válogatott
             </div>
           </div>
         </div>
+      </div>
+      <div class="hero-slider-dots" role="tablist" aria-label="Galéria navigáció">
+        <button class="hero-dot active" role="tab" aria-selected="true" aria-label="1. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="2. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="3. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="4. kép"></button>
+        <button class="hero-dot" role="tab" aria-selected="false" aria-label="5. kép"></button>
       </div>
     </section>
 
@@ -480,7 +441,7 @@
     </div>
   </main>
 
-  <!-- STEELDECOR -->
+
   <aside class="sd-banner" aria-label="SteelDecor – webfejlesztő">
     <div class="container">
       <div class="sd-inner">
@@ -495,6 +456,8 @@
     </div>
   </aside>
 
+
+
   <footer role="contentinfo">
     <div class="container">
       <div class="footer-grid">
@@ -507,13 +470,18 @@
           </div>
         </div>
         <div class="footer-col"><h4>Oldalak</h4><ul><li><a href="index.html">Főoldal</a></li><li><a href="kinalet.html">Kínálatunk</a></li><li><a href="hirek.html">Egyedi beszerzés</a></li><li><a href="rolunk.html">Sophie's Garden Story</a></li><li><a href="kapcsolat.html">Kapcsolat</a></li><li><a href="egyuttmukodesek.html">Együttműködések</a></li></ul></div>
+        
         <div class="footer-col"><h4>Elérhetőség</h4><ul><li><a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><span>2234 Maglód, Határ utca 13</span></li></ul></div>
-        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kinalet.html">Mai kínálat →</a></li><li><a href="hirek.html">Egyedi beszerzés →</a></li><li><a href="kapcsolat.html">Rendelés leadása →</a></li></ul></div>
+        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kinalet.html">Kínálatunk →</a></li><li><a href="hirek.html">Egyedi beszerzés →</a></li><li><a href="kapcsolat.html">Rendelés leadása →</a></li></ul></div>
+        
+        
       </div>
       <div class="footer-bottom"><div class="footer-copy">© 2026 Sophie's Garden · Maglód</div></div>
     </div>
   </footer>
 
+
   <script src="main.js"></script>
+
 </body>
 </html>

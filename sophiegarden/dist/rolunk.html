@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sophie's Garden Story – Zsófi és a Sophie's Garden Maglódon</title>
+  <meta name="description" content="Ismerd meg Zsófit, a Sophie's Garden megálmodóját Maglódon. Személyes sztori: hogyan lett egy hobbiból szerelemprojekt, és mit tanulunk útközben."/>
+  <meta name="keywords" content="Sophie's Garden Maglód, Zsófi kertészet, kertésztechnikus képzés, dísznövénykertész Maglód, helyi kertészet Pest megye"/>
+  <link rel="canonical" href="https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html"/>
+  <meta name="geo.region" content="HU-PE"/><meta name="geo.placename" content="Maglód"/><meta name="geo.position" content="47.4442;19.3534"/><meta name="ICBM" content="47.4442, 19.3534"/>
+  <link rel="alternate" hreflang="hu" href="https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html"/>
+  <meta property="og:type" content="website"/><meta property="og:locale" content="hu_HU"/><meta property="og:site_name" content="Sophie's Garden – Maglód"/>
+  <meta property="og:title" content="Sophie's Garden Story – Zsófi sztorija"/>
+  <meta property="og:description" content="Egy szerelemprojekt születése: hogyan lett egy multis munka mellett hobbiból a Sophie's Garden."/>
+  <meta property="og:image" content="https://dongokovacs.github.io/webpages/sophiegarden/logo.png"/>
+  <meta property="og:url" content="https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html"/>
+  <meta name="robots" content="index, follow"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Főoldal","item":"https://dongokovacs.github.io/webpages/sophiegarden/"},{"@type":"ListItem","position":2,"name":"Sophie's Garden Story","item":"https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html"}]},{"@type":"AboutPage","url":"https://dongokovacs.github.io/webpages/sophiegarden/rolunk.html","name":"Sophie's Garden Story","inLanguage":"hu-HU","about":{"@type":"LocalBusiness","name":"Sophie's Garden","foundingDate":"2025-10","address":{"@type":"PostalAddress","streetAddress":"Határ utca 13","addressLocality":"Maglód","postalCode":"2234","addressCountry":"HU"}}}]}</script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Story section */
+    .story-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: center; padding: 88px 0; }
+    .story-img-col { position: relative; }
+    .story-img { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 3/4; background: linear-gradient(135deg, var(--green), var(--green-l)); display: flex; align-items: center; justify-content: center; font-size: 5rem; color: #fff; }
+    .story-img-accent { position: absolute; bottom: -20px; right: -20px; width: 55%; border-radius: 14px; border: 4px solid var(--surface); box-shadow: var(--shadow-md); background: var(--cream); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    [data-theme="dark"] .story-img-accent { background: var(--surface2); }
+    .story-text .section-title { margin-bottom: 20px; }
+    .story-para { font-size: .96rem; color: var(--mid); line-height: 1.8; margin-bottom: 18px; }
+    .story-para em { font-style: italic; color: var(--text); font-family: 'Playfair Display', serif; }
+
+    /* Values */
+    .values-section { background: var(--cream); padding: 88px 0; }
+    [data-theme="dark"] .values-section { background: var(--surface2); }
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+    .value-card { background: var(--surface); border-radius: var(--r); padding: 32px 28px; border: 1px solid var(--border); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .value-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--green-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--green); }
+    .value-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 10px; }
+    .value-text { font-size: .85rem; color: var(--mid); line-height: 1.7; }
+
+    /* Quote */
+    .quote-section { padding: 88px 0; }
+    .big-quote { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,4vw,3rem); font-weight: 400; font-style: italic; line-height: 1.4; color: var(--text); max-width: 800px; margin: 0 auto; text-align: center; }
+    .big-quote::before { content: '\201E'; font-size: 4rem; color: var(--green); line-height: 0; vertical-align: -.4em; display: block; margin-bottom: 8px; font-style: normal; }
+    .quote-attr { text-align: center; margin-top: 24px; font-size: .85rem; color: var(--mid); }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+    .timeline-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding-bottom: 36px; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: 40px; top: 32px; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-year { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; color: var(--green); padding-top: 4px; }
+    .timeline-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .timeline-content p { font-size: .85rem; color: var(--mid); line-height: 1.65; }
+
+
+    /* Stats */
+    .about-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
+    .about-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; text-align: center; }
+    .about-stat-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 400; color: var(--green); letter-spacing: -1px; line-height: 1; }
+    .about-stat-label { font-size: .75rem; color: var(--mid); margin-top: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+    @media(max-width:900px) { .story-grid { grid-template-columns:1fr; gap:40px; } .story-img-accent { display:none; } .values-grid { grid-template-columns:1fr 1fr; } .about-stats { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .values-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ugrás a tartalomra</a>
+
+  <nav id="navbar" aria-label="Főnavigáció">
+    <div class="container"><div class="nav-inner">
+      <div class="nav-side nav-side-left">
+        <div class="nav-links" role="list">
+          <a href="kinalet.html" role="listitem">Kínálatunk</a>
+          <a href="hirek.html" role="listitem">Egyedi beszerzés</a>
+        </div>
+      </div>
+      <a href="index.html" class="nav-logo" aria-label="Sophie's Garden – főoldal">
+        <img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/>
+        <div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">Virágos világod · Maglód</span></div>
+      </a>
+      <div class="nav-side nav-side-right">
+      <div class="nav-links" role="list">
+        <a href="rolunk.html" class="active" aria-current="page" role="listitem">Sophie's Garden Story</a>
+        <a href="kapcsolat.html" role="listitem">Kapcsolat</a>
+      </div>
+      <div class="nav-right">
+                <button class="theme-btn" id="theme-btn" aria-label="Váltás sötét módra">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+
+        
+        <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
+                <button class="hamburger" id="hamburger" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
+
+      </div>
+      </div>
+    </div></div>
+  </nav>
+
+
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobilmenü">
+    <a href="kinalet.html">Kínálatunk</a>
+    <a href="hirek.html">Egyedi beszerzés</a>
+    <a href="rolunk.html" class="active">Sophie's Garden Story</a>
+    <a href="kapcsolat.html">Kapcsolat</a>
+    <a href="kapcsolat.html" class="m-cta">Rendelés leadása</a>
+  </div>
+
+
+  <main id="main">
+    <div class="page-hero">
+      <div class="container">
+        <div class="page-hero-content">
+          <span class="page-hero-label reveal">Sophie's Garden Story</span>
+          <h1 class="page-hero-title reveal" data-delay="1">Szeretettel<br/><em>köszöntelek.</em></h1>
+          <p class="page-hero-sub reveal" data-delay="2">Zsófi vagyok, a Sophie's Garden megálmodója. Egy szerelemprojekt születésének története – hobbiból, egy multis munka mellett.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div style="background:var(--surface)">
+      <div class="container">
+        <div class="story-grid">
+          <div class="story-img-col reveal">
+            <div class="story-img" aria-label="Sophie portréfotó helye">🌿</div>
+            <div class="story-img-accent" aria-hidden="true">✂️</div>
+          </div>
+          <div>
+            <span class="section-label reveal">Bemutatkozás</span>
+            <h2 class="section-title reveal" data-delay="1">Szeretettel köszöntelek<br/>az oldalon!</h2>
+            <p class="story-para reveal" data-delay="2">Zsófi vagyok, a Sophie's Garden megálmodója. Számomra a kertészkedés az a hobbi, amivel bármennyi időt szívesen töltök. Napközben egy pörgős multinacionális környezetben dolgozom – amit egyébként imádok –, de a teljes kikapcsolódást és a kézzelfogható sikerélmény örömét a növényeim között találom meg. Imádom ezt az egyensúlyt a két világ között! ⚖️✨</p>
+            <p class="story-para reveal" data-delay="3">A Sophie's Garden az én <em>szerelemprojektem</em>, egy virágba borult álom és a bizonyíték arra, hogy a szívből jövő ötletekből születnek a leggyönyörűbb dolgok.</p>
+            <div class="about-stats reveal" data-delay="5">
+              <div class="about-stat"><div class="about-stat-num">2025</div><div class="about-stat-label">Október óta hivatalosan</div></div>
+              <div class="about-stat"><div class="about-stat-num">1,5</div><div class="about-stat-label">Év kertésztechnikus képzés</div></div>
+              <div class="about-stat"><div class="about-stat-num">100%</div><div class="about-stat-label">Válogatott, szívvel választott</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOGYAN KEZDŐDÖTT -->
+    <section style="padding:0 0 88px;background:var(--surface)" aria-labelledby="kezdet-title">
+      <div class="container" style="max-width:700px">
+        <span class="section-label reveal">A kezdetek</span>
+        <h2 class="section-title reveal" id="kezdet-title" data-delay="1">Hogyan kezdődött a<br/>növényfüggőségem?</h2>
+        <p class="story-para reveal" data-delay="2">Pár éve kezdődött nálam ez a szenvedély, és hamar ott találtam magam, hogy minden szabad percemben kertészetekben bolyongok, tervezek, ültetek, majd mindent újratervezek. (Ismeritek a „csak még egy növényt" érzést, ugye?)</p>
+        <p class="story-para reveal" data-delay="3">A hobbi végül 2025 októberében lépett szintet: egy hirtelen jött, mégis bátor ötlettől vezérelve elindítottam a Sophie's Gardent. Egy igazi kis oázist, tele színekkel, illatokkal és olyan növénykékkel, amik nemcsak a kertet, hanem a lelket is virágba borítják. Minden nagy kaland egy apró álommal indul…</p>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values-section" aria-labelledby="values-title">
+      <div class="container">
+        <span class="section-label reveal">Mitől más a Sophie's Garden</span>
+        <h2 class="section-title reveal" id="values-title" data-delay="1">Nem egy átlagos<br/>kertészet.</h2>
+        <p class="section-sub reveal" data-delay="2" style="max-width:700px">Nem vagyunk (és egyelőre nem is leszünk – bár ki tudja mit hoz a jövő 😉) óriási, többhektáros kertészet. Nem a tömegáruban hiszek, hanem a gondosan válogatott kincsekben – olyan karakteres, különleges növényeket hozok, amikbe én magam is beleszerettem. A múlt nosztalgikus, nagymama-féle klasszikusai és a mai modern trendek nálam tökéletesen kiegészítik egymást, úgy, hogy minden darab jól érezze magát a mi klímánkon is.</p>
+        <div class="values-grid" style="margin-top:32px">
+          <div class="value-card reveal" data-delay="1">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="value-title">Válogatott kincsek</div>
+            <div class="value-text">Nem a tömegáruban hiszek. Csak olyan növényeket kínálok, amikbe én magam is beleszerettem – karakteres, egészséges, a hazai klímához alkalmazkodott fajták.</div>
+          </div>
+          <div class="value-card reveal" data-delay="2">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <div class="value-title">Személyesség</div>
+            <div class="value-text">Minden megrendelés mögött egy ember és egy alkalom áll. Nem sablonokat gyártunk – meghallgatjuk, mi számít neked, és azt kötjük meg.</div>
+          </div>
+          <div class="value-card reveal" data-delay="3">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="value-title">Megbízhatóság</div>
+            <div class="value-text">Ha vállalom, akkor hozom. Ha valami nem megy, megmondom előre. Nem ígérek olyat, amit nem tudok teljesíteni – ez az alap.</div>
+          </div>
+          <div class="value-card reveal" data-delay="1">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            <div class="value-title">Szakmai háttér</div>
+            <div class="value-text">A lelkesedés mellé valódi tudást is akartam tenni: jelenleg egy 1,5 éves kertésztechnikus képzésen veszek részt, ahol dísznövénykertésznek és virágkötőnek tanulok – a tankönyvek mellett a saját nevelésű növényeimen is folyamatosan kísérletezve.</div>
+          </div>
+          <div class="value-card reveal" data-delay="2">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="value-title">Helyi jelenlét</div>
+            <div class="value-text">Maglód a mi városunk. Nálunk csak személyes vásárlásra van lehetőség – nincs szállítás, nincs webshop-távolság, csak te és a növények, amikbe beleszerettél.</div>
+          </div>
+          <div class="value-card reveal" data-delay="3">
+            <div class="value-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg></div>
+            <div class="value-title">Természet-közeliség</div>
+            <div class="value-text">Szezonális virágok, minimális hulladék, papír csomagolás – és a Cserépmentő Programunk: a visszahozott műanyag cserepeket körforgásban tartjuk, 30 darabtól meglepetés növény jár érte. Nem tökéletes fenntarthatóság, de tudatos odafigyelés, ami számít.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section style="padding:88px 0;background:var(--surface)" aria-labelledby="timeline-title">
+      <div class="container" style="max-width:700px">
+        <span class="section-label reveal">Történetünk</span>
+        <h2 class="section-title reveal" id="timeline-title" data-delay="1">Az út idáig.</h2>
+        <div class="timeline">
+          <div class="timeline-item reveal" data-delay="1">
+            <div class="timeline-year">Pár éve</div>
+            <div style="position:relative"><div class="timeline-content"><h4>A növényfüggőség kezdete</h4><p>Minden szabad percemben kertészetekben bolyongtam, terveztem, ültettem, majd mindent újraterveztem. A „csak még egy növényt" érzés lassan szenvedéllyé nőtte ki magát.</p></div></div>
+          </div>
+          <div class="timeline-item reveal" data-delay="2">
+            <div class="timeline-year">2025 okt.</div>
+            <div style="position:relative"><div class="timeline-content"><h4>Sophie's Garden megszületik</h4><p>Egy hirtelen jött, mégis bátor ötlettől vezérelve elindítottam a Sophie's Gardent – egy kis oázist, tele színekkel, illatokkal és a lelket is virágba borító növényekkel.</p></div></div>
+          </div>
+          <div class="timeline-item reveal" data-delay="3">
+            <div class="timeline-year">Ma</div>
+            <div style="position:relative"><div class="timeline-content"><h4>Tanulás és növekvés</h4><p>Kertésztechnikus képzésen tanulok dísznövénykertésznek és virágkötőnek, közben a saját nevelésű növényeimmel kísérletezem – és a háttérben már készül a következő meglepetés. 🤫</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KÜLDETÉS -->
+    <section class="quote-section" aria-label="Küldetésünk">
+      <div class="container">
+        <p class="big-quote reveal">Szeretném megmutatni, hogy a kertészkedés nem csupán nehéz fizikai munka, hanem elképesztő kreatív feltöltődés és azonnali sikerélmény.</p>
+        <p class="quote-attr reveal" data-delay="1">— Zsófi, Sophie's Garden · Maglód</p>
+      </div>
+    </section>
+
+    <!-- HOL TARTUNK MOST -->
+    <section style="padding:0 0 96px" aria-labelledby="jovo-title">
+      <div class="container" style="max-width:700px;text-align:center">
+        <span class="section-label reveal">Hol tartunk most</span>
+        <h2 class="section-title reveal" id="jovo-title" data-delay="1">Az út elején járunk,<br/>de tele tervekkel.</h2>
+        <p class="story-para reveal" data-delay="2">Még az út elején járunk, de a Tőletek kapott rengeteg szeretet, a visszajelzések és a bizalom az, ami minden nap hajt előre. Hihetetlen számomra, hogy amit megálmodtam, ilyen tempóval kel életre. ✨ Köszönöm a sok érdeklődést – végtelenül boldog vagyok, hogy ennyien szerettek, támogattok és ajánlotok minket!</p>
+        <p class="story-para reveal" data-delay="3">Az álmodozást nem hagytam abba, sőt... elképesztően csodálatos dolgok vannak most is készülőben a háttérben! 🤫</p>
+        <p class="story-para reveal" data-delay="4" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;color:var(--text)">Teremtsd meg saját virágos világod – teremtsük meg együtt! 😍🌿</p>
+        <a href="kapcsolat.html" class="btn-primary reveal" data-delay="5">Vegyük fel a kapcsolatot →</a>
+      </div>
+    </section>
+  </main>
+
+
+  <aside class="sd-banner" aria-label="SteelDecor – webfejlesztő">
+    <div class="container">
+      <div class="sd-inner">
+        <div class="sd-left">
+          <div class="sd-eyebrow">Weboldal készítette</div>
+          <div class="sd-logo"><div class="sd-logo-icon"><svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="9" fill="url(#sdg)"/><path d="M9 18h4l2-5 4 10 2-5 2 3h2" stroke="#F4EFE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="sdg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3f3f46"/><stop offset="100%" stop-color="#18181b"/></linearGradient></defs></svg></div><div><div class="sd-name">SteelDecor</div><span class="sd-url">steeldecor.hu</span></div></div>
+          <p class="sd-tagline">Kézzel hegesztett acél dekorációk, éremtartók és fali díszek.</p>
+        </div>
+        <div class="sd-div" aria-hidden="true"></div>
+        <div class="sd-right"><a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer" class="sd-cta" aria-label="SteelDecor (új lapon)">Megnézem<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      </div>
+    </div>
+  </aside>
+
+
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><img src="./logo.png" alt="Sophie's Garden logó" class="footer-logo-img"/><div class="footer-name">Sophie's Garden</div></div>
+          <p class="footer-tagline">Virágos világod – Maglódon és online.</p>
+          <div class="footer-socials" aria-label="Közösségi média">
+            <a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer" class="f-social" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Oldalak</h4><ul><li><a href="index.html">Főoldal</a></li><li><a href="kinalet.html">Kínálatunk</a></li><li><a href="hirek.html">Egyedi beszerzés</a></li><li><a href="rolunk.html">Sophie's Garden Story</a></li><li><a href="kapcsolat.html">Kapcsolat</a></li><li><a href="egyuttmukodesek.html">Együttműködések</a></li></ul></div>
+        
+        <div class="footer-col"><h4>Elérhetőség</h4><ul><li><a href="https://www.facebook.com/SophiesGardenMaglod" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/sophiesgarden_maglod" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><span>2234 Maglód, Határ utca 13</span></li></ul></div>
+        <div class="footer-col"><h4>Gyors linkek</h4><ul><li><a href="kinalet.html">Kínálatunk →</a></li><li><a href="hirek.html">Egyedi beszerzés →</a></li><li><a href="kapcsolat.html">Rendelés leadása →</a></li></ul></div>
+        
+        
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2026 Sophie's Garden · Maglód</div></div>
+    </div>
+  </footer>
+
+
+  <script src="main.js"></script>
+
+</body>
+</html>

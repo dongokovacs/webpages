@@ -1,0 +1,8 @@
+{
+  "name": "sophiegarden",
+  "private": true,
+  "description": "Static build for the Sophie's Garden site — no runtime dependencies.",
+  "scripts": {
+    "build": "node src/build.js"
+  }
+}

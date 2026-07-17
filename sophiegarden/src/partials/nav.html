@@ -1,0 +1,28 @@
+  <nav id="navbar" aria-label="Főnavigáció">
+    <div class="container"><div class="nav-inner">
+      <div class="nav-side nav-side-left">
+        <div class="nav-links" role="list">
+          <a href="kinalet.html"{{navKinaletAttrs}} role="listitem">Kínálatunk</a>
+          <a href="hirek.html"{{navHirekAttrs}} role="listitem">Egyedi beszerzés</a>
+        </div>
+      </div>
+      <a href="index.html" class="nav-logo" aria-label="Sophie's Garden – főoldal"{{navLogoAttrs}}>
+        <img src="./logo.png" alt="Sophie's Garden logó" class="nav-logo-img"/>
+        <div><div class="nav-logo-text">Sophie's Garden</div><span class="nav-logo-sub">{{biz.tagline}} · {{biz.address.city}}</span></div>
+      </a>
+      <div class="nav-side nav-side-right">
+      <div class="nav-links" role="list">
+        <a href="rolunk.html"{{navRolunkAttrs}} role="listitem">Sophie's Garden Story</a>
+        <a href="kapcsolat.html"{{navKapcsolatAttrs}} role="listitem">Kapcsolat</a>
+      </div>
+      <div class="nav-right">
+        {{> icons/icon-theme-toggle}}
+        {{#if showFeatSlot}}
+        {{> feat-popover}}
+        {{/if}}
+        <a href="kapcsolat.html" class="nav-cta">Rendelés</a>
+        {{> icons/icon-hamburger}}
+      </div>
+      </div>
+    </div></div>
+  </nav>
