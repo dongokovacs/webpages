@@ -12,14 +12,14 @@
     <p class="reveal">Pontos méretezéssel és szakszerű szereléssel olyan klímát kapsz, ami nem csak hűt, hanem évekig gond nélkül működik.</p>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="./index.html#foglalas">Foglalj időpontot</a>
-      <a class="btn btn-secondary" href="tel:+36201234567">Hívás most</a>
+      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
     </div>
   </div>
   <div class="container">
     <!-- TODO: valós fotó cserélendő (kültéri egység telepítése, konzolra szerelve) -->
     <img
       class="subpage-media reveal"
-      src="https://picsum.photos/seed/klima-telepites-konzol/1400/700"
+      src="{{IMG_TELEPITES}}"
       width="1400" height="700"
       alt="Klíma kültéri egységének telepítése falikonzolra egy siófoki családi háznál"
       loading="lazy" decoding="async"
@@ -54,7 +54,7 @@
       <p>Kérj ingyenes helyszíni felmérést, és pontos árajánlatot adok a telepítésre.</p>
       <div class="hero-actions" style="margin-top:0;">
         <a class="btn btn-primary" href="./index.html#foglalas">Foglalj időpontot</a>
-        <a class="btn btn-secondary" href="tel:+36201234567">Hívás most</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
       </div>
     </div>
   </div>
@@ -69,9 +69,9 @@
   "description": "Pontos méretezésű, szakszerű klíma telepítés lakóingatlanokba és üzlethelyiségekbe, garanciával.",
   "provider": {
     "@type": "HVACBusiness",
-    "name": "Kovács Kornél klímaszerelő",
-    "telephone": "+36201234567",
-    "url": "https://www.kovacskornelklima.hu"
+    "name": "{{SITE_NAME}}",
+    "telephone": "{{PHONE_TEL}}",
+    "url": "{{SITE_URL}}"
   },
   "areaServed": [
     "Siófok", "Balatonszárszó", "Zamárdi", "Balatonföldvár",

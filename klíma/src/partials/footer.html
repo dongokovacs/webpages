@@ -10,11 +10,10 @@
       </a>
       <p class="footer-meta">Klíma telepítés, tisztítás és karbantartás Siófokon és a Balaton déli partján.</p>
       <div class="footer-social" style="margin-top:1rem;">
-        <!-- TODO: valós Facebook / Instagram linkek behelyettesítése -->
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <a href="{{FACEBOOK_URL}}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <a href="{{INSTAGRAM_URL}}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
         </a>
       </div>
@@ -31,16 +30,18 @@
     <div>
       <h3 style="font-family:var(--font-display);font-weight:700;font-size:0.98rem;margin-bottom:0.9rem;">Elérhetőség</h3>
       <div class="footer-links" style="flex-direction:column;gap:0.6rem;">
-        <!-- TODO: valós telefonszám, email és cím behelyettesítése -->
-        <a href="tel:+36201234567">+36 20 123 4567</a>
-        <a href="mailto:info@kovacskornelklima.hu">info@kovacskornelklima.hu</a>
-        <span>Siófok, Placeholder utca 1.</span>
-        <span>H-P: 08:00-18:00, Szo: 09:00-13:00</span>
+        <a href="tel:{{PHONE_TEL}}">{{PHONE_DISPLAY}}</a>
+        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        <span>{{ADDRESS_CITY}}, {{ADDRESS_STREET}}</span>
+        <span>{{HOURS_WEEKDAY}}, {{HOURS_SATURDAY}}</span>
       </div>
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© 2026 Kovács Kornél, egyéni vállalkozó. Minden jog fenntartva.</span>
-    <span>Adatkezelési tájékoztató (hamarosan)</span>
+    <div>
+      <span style="display:block;">© 2026 Kovács Kornél, egyéni vállalkozó. Minden jog fenntartva.</span>
+      <span style="display:block;margin-top:0.35rem;font-size:0.78rem;opacity:0.75;">Designed &amp; Developed by <a href="https://steeldecor.hu" target="_blank" rel="noopener noreferrer">SteelDecor</a></span>
+    </div>
+    <a href="./adatkezeles.html">Adatkezelési tájékoztató</a>
   </div>
 </footer>

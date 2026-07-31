@@ -12,14 +12,14 @@
     <p class="reveal">Baktérium, penész és por eltávolítása a beltéri egységből, hogy a klíma ne a rossz levegőt keringesse a jó helyett.</p>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="./index.html#foglalas">Foglalj időpontot</a>
-      <a class="btn btn-secondary" href="tel:+36201234567">Hívás most</a>
+      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
     </div>
   </div>
   <div class="container">
     <!-- TODO: valós fotó cserélendő (beltéri egység tisztítása, párologtató) -->
     <img
       class="subpage-media reveal"
-      src="https://picsum.photos/seed/klima-tisztitas-parologtato/1400/700"
+      src="{{IMG_TISZTITAS}}"
       width="1400" height="700"
       alt="Klíma beltéri egységének párologtatója tisztítás közben"
       loading="lazy" decoding="async"
@@ -54,7 +54,7 @@
       <p>Foglalj tisztítási időpontot, mielőtt beindul a szezon.</p>
       <div class="hero-actions" style="margin-top:0;">
         <a class="btn btn-primary" href="./index.html#foglalas">Foglalj időpontot</a>
-        <a class="btn btn-secondary" href="tel:+36201234567">Hívás most</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
       </div>
     </div>
   </div>
@@ -69,9 +69,9 @@
   "description": "Klíma beltéri egységének alapos tisztítása: párologtató, szűrő és elvezető rendszer tisztítása a hatékony és egészséges működésért.",
   "provider": {
     "@type": "HVACBusiness",
-    "name": "Kovács Kornél klímaszerelő",
-    "telephone": "+36201234567",
-    "url": "https://www.kovacskornelklima.hu"
+    "name": "{{SITE_NAME}}",
+    "telephone": "{{PHONE_TEL}}",
+    "url": "{{SITE_URL}}"
   },
   "areaServed": [
     "Siófok", "Balatonszárszó", "Zamárdi", "Balatonföldvár",

@@ -1,0 +1,42 @@
+{
+  "_comment": "Egyetlen hely az éles adatok cseréjéhez. Ha ez megváltozik, futtasd újra: npm run build. A build.mjs ezeket az értékeket illeszti be a {{TOKEN}} helyekre minden oldalon.",
+  "siteName": "Kovács Kornél klímaszerelő",
+  "productionUrl": "https://www.kovacskornelklima.hu",
+  "phone": {
+    "tel": "+36201234567",
+    "display": "+36 20 123 4567"
+  },
+  "email": "info@kovacskornelklima.hu",
+  "address": {
+    "street": "Placeholder utca 1.",
+    "city": "Siófok",
+    "postalCode": "8600",
+    "region": "Somogy",
+    "country": "HU"
+  },
+  "hours": {
+    "weekday": "H-P: 08:00-18:00",
+    "saturday": "Szo: 09:00-13:00"
+  },
+  "social": {
+    "facebook": "https://facebook.com",
+    "instagram": "https://instagram.com"
+  },
+  "maps": {
+    "query": "Siófok"
+  },
+  "formspreeFormId": "your-form-id",
+  "areaServed": [
+    "Siófok", "Balatonszárszó", "Zamárdi", "Balatonföldvár",
+    "Balatonlelle", "Szántód", "Kőröshegy", "Ságvár", "Balatonőszöd"
+  ],
+  "images": {
+    "ogCover": "https://picsum.photos/seed/kovacs-kornel-klima-og/1200/630",
+    "hero": "https://picsum.photos/seed/siofok-klima-szereles/900/1125",
+    "trust": "https://picsum.photos/seed/klima-szerelo-eszkozok/720/580",
+    "area": "https://picsum.photos/seed/balaton-siofok-part/760/520",
+    "telepites": "https://picsum.photos/seed/klima-telepites-konzol/1400/700",
+    "tisztitas": "https://picsum.photos/seed/klima-tisztitas-parologtato/1400/700",
+    "karbantartas": "https://picsum.photos/seed/klima-karbantartas-ellenorzes/1400/700"
+  }
+}
