@@ -401,6 +401,24 @@ p { margin: 0; }
 .partner-banner .btn-primary { background: #fff; color: #0c211d; }
 .partner-banner .btn-primary:hover { background: #eef6f4; }
 
+/* WordPress-összehasonlítás */
+.compare-grid { display: grid; gap: 1.25rem; }
+.compare-panel { border-radius: var(--radius-card); padding: 1.75rem; border: 1px solid var(--line); }
+.compare-panel h3 { font-size: 1.05rem; margin-bottom: 1.1rem; }
+.compare-panel ul { display: grid; gap: 0.85rem; }
+.compare-panel li { display: grid; grid-template-columns: auto 1fr; gap: 0.65rem; align-items: start; font-size: 0.92rem; line-height: 1.45; }
+.compare-panel--good { background: var(--accent-soft); }
+.compare-panel--good h3 { color: var(--accent-strong); }
+.compare-panel--good li { color: var(--ink); }
+.compare-panel--good li svg { color: var(--accent-strong); flex-shrink: 0; margin-top: 0.15rem; }
+.compare-panel--typical { background: var(--bg-alt); }
+.compare-panel--typical h3 { color: var(--ink-faint); }
+.compare-panel--typical li { color: var(--ink-soft); }
+.compare-panel--typical li svg { color: #b91c1c; flex-shrink: 0; margin-top: 0.15rem; }
+@media (prefers-color-scheme: dark) {
+  .compare-panel--typical li svg { color: #f87171; }
+}
+
 /* Contact + footer */
 .contact-grid { display: grid; gap: 1.5rem; }
 .contact-card {
@@ -492,6 +510,7 @@ p { margin: 0; }
   .area-grid { grid-template-columns: 1fr 1fr; }
   .testimonial-grid { grid-template-columns: repeat(3, 1fr); }
   .contact-grid { grid-template-columns: 1.1fr 0.9fr; }
+  .compare-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
   .partner-banner { grid-template-columns: 1.3fr 0.7fr; }
 }
