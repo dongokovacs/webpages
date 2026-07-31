@@ -34,5 +34,17 @@
     "description": "Állatpatika landing page",
     "image": "https://pajtapharma.com/logo.jpg?w=1600&q=80&auto=format&fit=crop",
     "link": "allatpatika/"
+  },
+  {
+    "title": "Kovács Kornél Klímaszerelő",
+    "description": "Helyi SEO landing oldal klíma telepítés, tisztítás és karbantartás szolgáltatásokkal, Siófok és a Balaton déli partja.",
+    "image": "https://picsum.photos/seed/klima-siofok-card/1600/900",
+    "link": "klíma/dist/"
+  },
+  {
+    "title": "Sophie's Garden",
+    "description": "Kertészet Maglódon – válogatott növények, modern statikus weboldal fotós hero-sliderrel.",
+    "image": "https://picsum.photos/seed/sophiegarden-card/1600/900",
+    "link": "sophiegarden/dist/"
   }
 ]
