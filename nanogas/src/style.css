@@ -532,10 +532,14 @@ p { margin: 0; }
 @media (max-width: 767px) {
   .hero-stat { position: static; margin-top: -2rem; }
   .nav-actions .btn-secondary[href^="tel:"] {
-    background: transparent;
+    background: var(--accent);
     border-color: transparent;
-    color: var(--accent);
-    padding: 0.5rem;
+    color: var(--on-accent);
+    box-shadow: var(--shadow-soft);
+    padding: 0.7rem;
+    width: 2.6rem;
+    height: 2.6rem;
   }
+  .nav-actions .btn-secondary[href^="tel:"]:hover { background: var(--accent-strong); }
   .nav-actions .btn-secondary[href^="tel:"] span { display: none; }
 }
