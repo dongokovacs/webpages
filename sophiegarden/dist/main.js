@@ -76,8 +76,10 @@ const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.hero-slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dot'));
+  const pauseBtn = document.getElementById('hero-slider-pause');
   let current = 0;
   let timer = null;
+  let playing = true;
 
   function showSlide(i) {
     slides[current].classList.remove('active');
@@ -91,7 +93,18 @@ if (heroSlider) {
 
   function startAutoplay() {
     clearInterval(timer);
+    if (!playing) return;
     timer = setInterval(() => showSlide(current + 1), 6000);
+  }
+
+  function setPlaying(next) {
+    playing = next;
+    if (pauseBtn) {
+      pauseBtn.setAttribute('aria-pressed', String(playing));
+      pauseBtn.setAttribute('aria-label', playing ? 'Diavetítés szüneteltetése' : 'Diavetítés lejátszása');
+    }
+    if (playing) startAutoplay();
+    else clearInterval(timer);
   }
 
   slides[0].classList.add('active');
@@ -99,8 +112,9 @@ if (heroSlider) {
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => { showSlide(i); startAutoplay(); });
   });
+  pauseBtn?.addEventListener('click', () => setPlaying(!playing));
 
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) startAutoplay();
+  setPlaying(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 }
 
 /* ── Scroll reveal ── */

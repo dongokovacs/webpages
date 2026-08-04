@@ -122,10 +122,22 @@
     .hero-trust { display: flex; gap: 10px; flex-wrap: wrap; }
     .trust-pill { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 50px; padding: 7px 14px; font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.92); }
     /* Slider dots */
-    .hero-slider-dots { position: absolute; z-index: 2; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
-    .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); transition: all .3s; padding: 0; }
-    .hero-dot:hover { background: rgba(255,255,255,.6); }
-    .hero-dot.active { background: #fff; width: 26px; border-radius: 5px; }
+    .hero-slider-dots { position: absolute; z-index: 2; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 0; }
+    .hero-dot { width: 44px; height: 44px; padding: 0; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
+    .hero-dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.6); transition: all .3s; }
+    .hero-dot:hover::before { background: rgba(255,255,255,.6); }
+    .hero-dot.active::before { background: #fff; width: 26px; border-radius: 5px; }
+    .hero-slider-pause {
+      width: 44px; height: 44px; margin-left: 6px; border-radius: 50%;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .hero-slider-pause:hover { background: rgba(255,255,255,.22); }
+    .hero-slider-pause svg { width: 14px; height: 14px; }
+    .hero-slider-pause .icon-play { display: none; }
+    .hero-slider-pause[aria-pressed="false"] .icon-pause { display: none; }
+    .hero-slider-pause[aria-pressed="false"] .icon-play { display: block; }
 
     /* ── Miért más a Sophie's Garden ── */
     #why-us {
@@ -236,6 +248,10 @@
         <button class="hero-dot" role="tab" aria-selected="false" aria-label="3. kép"></button>
         <button class="hero-dot" role="tab" aria-selected="false" aria-label="4. kép"></button>
         <button class="hero-dot" role="tab" aria-selected="false" aria-label="5. kép"></button>
+        <button class="hero-slider-pause" id="hero-slider-pause" type="button" aria-pressed="true" aria-label="Diavetítés szüneteltetése">
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
       </div>
     </section>
 

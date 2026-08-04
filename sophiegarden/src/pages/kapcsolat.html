@@ -32,14 +32,14 @@
     .c-label { font-size: .67rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--faint); margin-bottom: 7px; }
     .c-value { font-size: .98rem; font-weight: 500; color: var(--text); line-height: 1.5; }
     .c-value a { color: var(--text); transition: color .15s; }
-    .c-value a:hover { color: var(--green); }
+    .c-value a:hover { color: var(--green-d); }
     .c-sub { font-size: .8rem; color: var(--mid); margin-top: 3px; }
-    .map-link { display: flex; align-items: center; gap: 8px; color: var(--green); font-size: .85rem; font-weight: 600; transition: opacity .15s; margin-top: 5px; }
+    .map-link { display: flex; align-items: center; gap: 8px; color: var(--green-d); font-size: .85rem; font-weight: 600; transition: opacity .15s; margin-top: 5px; }
     .map-link:hover { opacity: .75; text-decoration: underline; }
     .hours-grid { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; margin-top: 4px; }
     .h-day { font-size: .88rem; color: var(--mid); }
     .h-time { font-size: .88rem; font-weight: 600; text-align: right; }
-    .h-open { color: var(--green); }
+    .h-open { color: var(--green-d); }
     .h-closed { color: #ef4444; }
     .social-row { display: flex; gap: 14px; margin-top: 5px; flex-wrap: wrap; }
     .social-link { display: flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 500; color: var(--mid); transition: color .15s; }
@@ -57,21 +57,21 @@
     .field input, .field textarea, .field select {
       background: var(--surface); border: 1.5px solid var(--border);
       border-radius: 9px; padding: 12px 14px;
-      font-size: .9rem; font-family: 'Outfit', sans-serif;
+      font-size: 1rem; font-family: 'Outfit', sans-serif;
       color: var(--text); transition: border-color .2s, box-shadow .2s; outline: none; resize: none;
     }
-    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-bg); }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--green-d); box-shadow: 0 0 0 3px var(--green-bg); }
     .field textarea { height: 120px; }
     .form-submit {
-      width: 100%; background: var(--green); color: #fff;
+      width: 100%; background: var(--green-d); color: var(--on-accent);
       padding: 14px; border-radius: 10px; font-size: .95rem; font-weight: 700;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit', sans-serif; min-height: 44px;
       transition: background .2s, transform .15s;
       display: flex; align-items: center; justify-content: center; gap: 8px;
       margin-top: 4px; box-shadow: 0 4px 14px rgba(0,168,150,.28);
     }
-    .form-submit:hover { background: var(--green-d); transform: translateY(-1px); }
-    .form-success { display: none; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 10px; padding: 20px; text-align: center; color: var(--green); font-weight: 600; font-size: .9rem; }
+    .form-submit:hover { background: var(--green-dd); transform: translateY(-1px); }
+    .form-success { display: none; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 10px; padding: 20px; text-align: center; color: var(--green-d); font-weight: 600; font-size: .9rem; }
     .mailto-link { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: .82rem; font-weight: 600; margin-top: 12px; transition: opacity .15s; }
     .mailto-link:hover { opacity: .75; text-decoration: underline; }
 
