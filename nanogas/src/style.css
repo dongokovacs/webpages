@@ -213,12 +213,14 @@ p { margin: 0; }
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.service-card.reveal.visible:hover { transform: translateY(-4px); }
 .service-card h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
 .service-card p { color: inherit; opacity: 0.85; }
 .service-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; }
 .service-card--accent { background: var(--accent); color: var(--on-accent); border-color: transparent; }
 .service-card--accent p { color: var(--on-accent); }
 .service-card--ink { background: var(--ink); color: var(--bg); border-color: transparent; }
+.service-card--ink h3 { color: var(--bg); }
 .service-card--ink p { color: var(--bg); opacity: 0.72; }
 .service-card--surface { background: var(--surface); color: var(--ink); }
 .service-card--surface p { color: var(--ink-soft); }
@@ -403,7 +405,7 @@ p { margin: 0; }
   padding: 0.35rem 0.85rem;
   margin-bottom: 1rem;
 }
-.partner-banner h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.2; max-width: 26ch; }
+.partner-banner h2 { color: #f2f7ef; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.2; max-width: 26ch; }
 .partner-banner p { color: rgba(242, 247, 239, 0.75); margin-top: 1rem; max-width: 50ch; }
 .partner-banner .btn-primary { background: var(--accent); color: var(--on-accent); }
 .partner-banner .btn-primary:hover { background: #93e06a; }
@@ -529,4 +531,11 @@ p { margin: 0; }
 
 @media (max-width: 767px) {
   .hero-stat { position: static; margin-top: -2rem; }
+  .nav-actions .btn-secondary[href^="tel:"] {
+    background: transparent;
+    border-color: transparent;
+    color: var(--accent);
+    padding: 0.5rem;
+  }
+  .nav-actions .btn-secondary[href^="tel:"] span { display: none; }
 }
