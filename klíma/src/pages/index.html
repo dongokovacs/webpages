@@ -18,15 +18,19 @@
     </div>
     <div class="hero-media">
       <!-- TODO: valós fotó cserélendő (Kornél munka közben, felszerelt klíma). Az útvonal a site.config.json "images.hero" mezőjében cserélhető. -->
-      <img
-        src="{{IMG_HERO}}"
-        width="900" height="1125"
-        alt="Klíma kültéri egység szakszerű felszerelése egy siófoki családi ház falán"
-        loading="eager" fetchpriority="high" decoding="async"
-      />
-      <div class="hero-stat">
+      <div class="hero-media-frame">
+        <img
+          class="parallax-img"
+          data-parallax="0.34"
+          src="{{IMG_HERO}}"
+          width="900" height="1125"
+          alt="Klíma kültéri egység szakszerű felszerelése egy siófoki családi ház falán"
+          loading="eager" fetchpriority="high" decoding="async"
+        />
+      </div>
+      <div class="hero-stat reveal">
         <!-- TODO: valós tapasztalat/elégedett ügyfél szám behelyettesítése -->
-        <strong>10+ év</strong>
+        <strong><span class="count-num" data-count-to="10">0</span>+ év</strong>
         <span>tapasztalat klímaszerelésben a Balaton déli partján</span>
       </div>
     </div>
@@ -39,8 +43,8 @@
       <h2>Szolgáltatások</h2>
       <p>Három szolgáltatás, egy cél: hogy a klímád akkor és úgy működjön, ahogy kell, a fűtési szezonban is.</p>
     </div>
-    <div class="bento reveal">
-      <article class="service-card service-card--accent">
+    <div class="bento">
+      <article class="service-card service-card--accent reveal">
         <div>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           <h3>Klíma telepítés</h3>
@@ -48,7 +52,7 @@
         </div>
         <a class="card-link" href="./klima-telepites-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
-      <article class="service-card service-card--surface">
+      <article class="service-card service-card--surface reveal">
         <div>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;color:var(--accent);"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
           <h3>Klíma tisztítás</h3>
@@ -56,7 +60,7 @@
         </div>
         <a class="card-link" href="./klima-tisztitas-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
       </article>
-      <article class="service-card service-card--ink">
+      <article class="service-card service-card--ink reveal">
         <div>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
           <h3>Klíma karbantartás</h3>
@@ -73,30 +77,32 @@
     <div class="trust-media reveal">
       <!-- TODO: valós fotó cserélendő (szerszámok, szerelés közben, esetleg Kornélról). Útvonal: site.config.json "images.trust" -->
       <img
+        class="parallax-img"
+        data-parallax="0.26"
         src="{{IMG_TRUST}}"
         width="720" height="580"
         alt="Klímaszerelő szerszámai és mérőműszerei egy telepítés előkészítése közben"
         loading="lazy" decoding="async"
       />
     </div>
-    <div class="reveal">
-      <div class="section-head" style="margin-bottom:1.5rem;">
+    <div>
+      <div class="section-head reveal" style="margin-bottom:1.5rem;">
         <h2>Miért engem válassz?</h2>
       </div>
       <div class="trust-rows">
-        <div class="trust-row">
+        <div class="trust-row reveal">
           <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg></div>
           <div><h3>Garancia minden munkára</h3><p>A telepítést és a beépített anyagokat garancia fedi, írásos visszaigazolással.</p></div>
         </div>
-        <div class="trust-row">
+        <div class="trust-row reveal">
           <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
           <div><h3>Gyors kiszállás</h3><p>A legtöbb esetben 1-2 munkanapon belül a helyszínen vagyok, nyáron sürgős esetben aznap.</p></div>
         </div>
-        <div class="trust-row">
+        <div class="trust-row reveal">
           <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div><h3>Helyismeret</h3><p>Siófokot és a környező településeket évek óta ismerem, ez gyorsítja a felmérést és az árajánlatot.</p></div>
         </div>
-        <div class="trust-row">
+        <div class="trust-row reveal">
           <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
           <div><h3>Tapasztalat</h3><p>Több száz sikeres telepítés és karbantartás áll mögöttem lakossági és üzleti ügyfeleknél egyaránt.</p></div>
         </div>
@@ -125,6 +131,8 @@
     <div class="area-media reveal">
       <!-- TODO: valós fotó cserélendő (Balaton part, szolgáltatási terület illusztrálására). Útvonal: site.config.json "images.area" -->
       <img
+        class="parallax-img"
+        data-parallax="0.26"
         src="{{IMG_AREA}}"
         width="760" height="520"
         alt="A Balaton déli partja Siófok térségében, a szolgáltatási terület illusztrálásához"
@@ -141,22 +149,22 @@
       <h2>Amit az ügyfelek mondanak</h2>
       <p>Néhány visszajelzés korábbi munkáimról. A végleges verzióban valós vélemények és fotók kerülnek ide.</p>
     </div>
-    <div class="testimonial-grid reveal">
-      <article class="testimonial">
+    <div class="testimonial-grid">
+      <article class="testimonial reveal">
         <p>„A régi klímánk alig fújt hideget, Kornél a tisztítás után szinte újként működött. Gyorsan jött, pontosan dolgozott.”</p>
         <div class="testimonial-author">
           <span class="avatar-initials">NR</span>
           <div><strong>Nagy Réka</strong><span>Siófok</span></div>
         </div>
       </article>
-      <article class="testimonial">
+      <article class="testimonial reveal">
         <p>„Két klímát szereltetünk fel vele a panziónkban. Precíz volt a felmérés, és tartotta a vállalt határidőt.”</p>
         <div class="testimonial-author">
           <span class="avatar-initials">FT</span>
           <div><strong>Fábián Tamás</strong><span>Balatonföldvár</span></div>
         </div>
       </article>
-      <article class="testimonial">
+      <article class="testimonial reveal">
         <p>„Évente ő karbantartja a klímáinkat. Mindig előre szól, ha valamit cserélni kell, sosem éreztem, hogy túlárazna.”</p>
         <div class="testimonial-author">
           <span class="avatar-initials">HJ</span>
@@ -334,8 +342,8 @@
       <h2>Miért nem WordPress?</h2>
       <p>Ugyanazt a célt (foglalás, helyi SEO, bizalomépítés) éred el, de kevesebb kockázattal és kevesebb havi kiadással.</p>
     </div>
-    <div class="compare-grid reveal">
-      <div class="compare-panel compare-panel--good">
+    <div class="compare-grid">
+      <div class="compare-panel compare-panel--good reveal">
         <h3>Ez az oldal</h3>
         <ul>
           <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Villámgyors betöltés, nincs adatbázis-lekérdezés minden oldalnál</span></li>
@@ -346,7 +354,7 @@
           <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Teljesen egyedi design, nincs sablon- vagy page builder-korlát</span></li>
         </ul>
       </div>
-      <div class="compare-panel compare-panel--typical">
+      <div class="compare-panel compare-panel--typical reveal">
         <h3>Tipikus WordPress oldal</h3>
         <ul>
           <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Minden oldalbetöltés adatbázist kérdez le, lassabb Core Web Vitals</span></li>

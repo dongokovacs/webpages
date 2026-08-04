@@ -96,7 +96,9 @@ p { margin: 0; }
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   background: var(--surface-glass);
   border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.25s ease;
 }
+.site-header.scrolled { box-shadow: var(--shadow-soft); }
 .navbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
 .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .brand-mark { flex-shrink: 0; }
@@ -198,7 +200,7 @@ p { margin: 0; }
 .hero-copy p { font-size: 1.08rem; color: var(--ink-soft); max-width: 46ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
 .hero-media { position: relative; }
-.hero-media img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; box-shadow: var(--shadow); }
+.hero-media-frame { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 4 / 5; box-shadow: var(--shadow); }
 .hero-stat {
   position: absolute;
   bottom: -1.25rem;
@@ -237,16 +239,31 @@ p { margin: 0; }
 .service-card--ink p { color: var(--bg); opacity: 0.72; }
 .service-card--surface { background: var(--surface); color: var(--ink); }
 .service-card--surface p { color: var(--ink-soft); }
+.service-card svg { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.service-card:hover svg { transform: scale(1.08); }
+/* .service-card already owns a `transition` shorthand for its hover lift; combine it
+   explicitly with .reveal's here (higher specificity wins regardless of source order)
+   so hover stays snappy (.25s) while the initial reveal fade stays its own pace (.7s). */
+.service-card.reveal {
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.bento .service-card:nth-child(1) { transition-delay: 0ms, 0ms, 0ms; }
+.bento .service-card:nth-child(2) { transition-delay: 80ms, 80ms, 0ms; }
+.bento .service-card:nth-child(3) { transition-delay: 160ms, 160ms, 0ms; }
 
 /* Trust / why-choose split */
 .trust-grid { display: grid; gap: 2.5rem; align-items: center; }
-.trust-media img { aspect-ratio: 5 / 4; object-fit: cover; }
+.trust-media { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 5 / 4; }
 .trust-rows { display: grid; }
 .trust-row { display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; padding: 1.4rem 0; border-top: 1px solid var(--line); }
 .trust-row:last-child { border-bottom: 1px solid var(--line); }
 .trust-row .trust-mark { width: 2.6rem; height: 2.6rem; border-radius: var(--radius-input); background: var(--accent-soft); color: var(--accent-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .trust-row h3 { font-size: 1.12rem; margin-bottom: 0.35rem; }
 .trust-row p { color: var(--ink-soft); max-width: 48ch; }
+.trust-rows .trust-row:nth-child(1) { transition-delay: 0ms; }
+.trust-rows .trust-row:nth-child(2) { transition-delay: 70ms; }
+.trust-rows .trust-row:nth-child(3) { transition-delay: 140ms; }
+.trust-rows .trust-row:nth-child(4) { transition-delay: 210ms; }
 
 /* Service area */
 .area-grid { display: grid; gap: 2rem; align-items: start; }
@@ -268,8 +285,7 @@ p { margin: 0; }
   font-weight: 600;
 }
 .town-pill--home { background: var(--accent); color: var(--on-accent); border-color: transparent; }
-.area-media { position: relative; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); }
-.area-media img { aspect-ratio: 16 / 11; object-fit: cover; }
+.area-media { position: relative; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 16 / 11; }
 
 /* Testimonials */
 .testimonial-grid { display: grid; gap: 1.25rem; }
@@ -284,6 +300,9 @@ p { margin: 0; }
   box-shadow: var(--shadow-soft);
 }
 .testimonial p { color: var(--ink); font-size: 1.02rem; line-height: 1.5; }
+.testimonial-grid .testimonial:nth-child(1) { transition-delay: 0ms; }
+.testimonial-grid .testimonial:nth-child(2) { transition-delay: 80ms; }
+.testimonial-grid .testimonial:nth-child(3) { transition-delay: 160ms; }
 .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
 .avatar-initials {
   width: 2.6rem;
@@ -372,6 +391,11 @@ p { margin: 0; }
 .faq-item summary .faq-icon { flex-shrink: 0; transition: transform 0.2s ease; color: var(--accent); }
 .faq-item[open] summary .faq-icon { transform: rotate(45deg); }
 .faq-item p { color: var(--ink-soft); padding-bottom: 1.3rem; max-width: 62ch; }
+@keyframes faq-answer-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.faq-item[open] p { animation: faq-answer-in 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* Partner banner */
 .partner-banner {
@@ -404,6 +428,8 @@ p { margin: 0; }
 /* WordPress-összehasonlítás */
 .compare-grid { display: grid; gap: 1.25rem; }
 .compare-panel { border-radius: var(--radius-card); padding: 1.75rem; border: 1px solid var(--line); }
+.compare-grid .compare-panel:nth-child(1) { transition-delay: 0ms; }
+.compare-grid .compare-panel:nth-child(2) { transition-delay: 90ms; }
 .compare-panel h3 { font-size: 1.05rem; margin-bottom: 1.1rem; }
 .compare-panel ul { display: grid; gap: 0.85rem; }
 .compare-panel li { display: grid; grid-template-columns: auto 1fr; gap: 0.65rem; align-items: start; font-size: 0.92rem; line-height: 1.45; }
@@ -458,7 +484,12 @@ p { margin: 0; }
 .subpage-hero .eyebrow { background: var(--accent-soft); color: var(--accent-strong); display: inline-flex; padding: 0.4rem 0.85rem; border-radius: 999px; text-transform: none; letter-spacing: 0; }
 .subpage-hero h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; max-width: 20ch; margin: 1rem 0 1rem; }
 .subpage-hero p { color: var(--ink-soft); font-size: 1.05rem; max-width: 60ch; }
-.subpage-media img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; box-shadow: var(--shadow); margin-top: 2rem; }
+.subpage-media { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 16 / 8; box-shadow: var(--shadow); margin-top: 2rem; }
+
+/* Parallax images: intrinsically oversized + clipped by their wrapper, so a
+   vertical translate never exposes empty edges. Wrapper carries aspect-ratio/shadow. */
+.parallax-img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; }
+.parallax-img.parallax-active { will-change: transform; }
 
 .prose { max-width: 72ch; display: grid; gap: 1.3rem; font-size: 1.05rem; color: var(--ink-soft); }
 .prose h2 { color: var(--ink); font-size: 1.55rem; margin-top: 0.6rem; }
@@ -494,6 +525,9 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+  .faq-item[open] p { animation: none; }
+  .service-card svg { transition: none; }
+  .service-card.reveal { transition: none; }
 }
 
 /* Breakpoints */
