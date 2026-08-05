@@ -65,10 +65,10 @@ function buildTokens(config, siteUrl) {
     IMG_HERO: config.images.hero,
     IMG_TRUST: config.images.trust,
     IMG_AREA: config.images.area,
-    IMG_TELEPITES: config.images.telepites,
-    IMG_TISZTITAS: config.images.tisztitas,
     IMG_KARBANTARTAS: config.images.karbantartas,
     IMG_KAZAN_KARBANTARTAS: config.images.kazanKarbantartas,
+    IMG_GAZKAZAN_BEUZEMELES: config.images.gazkazanBeuzemeles,
+    IMG_GAZKAZAN_JAVITAS: config.images.gazkazanJavitas,
     ROBOTS_META: isProduction ? "" : '<meta name="robots" content="noindex, nofollow" />',
   };
 }

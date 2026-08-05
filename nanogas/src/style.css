@@ -88,9 +88,61 @@ p { margin: 0; }
 .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .brand-logo { height: 34px; width: auto; border-radius: 0; }
 
-.nav-links { display: none; gap: 1.6rem; color: var(--ink-soft); font-weight: 500; font-size: 0.95rem; }
+.nav-links { display: none; align-items: center; gap: 1.6rem; color: var(--ink-soft); font-weight: 500; font-size: 0.95rem; }
 .nav-links a:hover { color: var(--accent-strong); }
 .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+.nav-dropdown { position: relative; }
+.nav-dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(220px, 100%);
+  height: 0.9rem;
+}
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.nav-dropdown-trigger svg { transition: transform 0.2s ease; }
+.nav-dropdown:hover .nav-dropdown-trigger, .nav-dropdown:focus-within .nav-dropdown-trigger { color: var(--accent-strong); }
+.nav-dropdown:hover .nav-dropdown-trigger svg, .nav-dropdown:focus-within .nav-dropdown-trigger svg { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(220px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 0.6rem;
+  z-index: 110;
+}
+.nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 0.65rem 0.8rem; border-radius: var(--radius-input); font-size: 0.9rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.nav-dropdown-menu a:hover { background: var(--accent-soft); color: var(--accent-strong); }
+
+.mobile-nav-group summary { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 0.9rem; border-radius: var(--radius-input); font-weight: 600; cursor: pointer; list-style: none; }
+.mobile-nav-group summary::-webkit-details-marker { display: none; }
+.mobile-nav-group summary:hover { background: var(--accent-soft); }
+.mobile-nav-group summary .faq-icon { color: var(--accent); transition: transform 0.2s ease; }
+.mobile-nav-group[open] summary .faq-icon { transform: rotate(45deg); }
+.mobile-nav-group a { display: block; padding: 0.7rem 0.9rem 0.7rem 1.6rem; border-radius: var(--radius-input); font-weight: 600; font-size: 0.92rem; color: var(--ink-soft); }
+.mobile-nav-group a:hover { background: var(--accent-soft); }
 
 .btn {
   display: inline-flex;
@@ -411,21 +463,6 @@ p { margin: 0; }
 .partner-banner .btn-primary:hover { background: #93e06a; }
 
 /* WordPress-összehasonlítás */
-.compare-grid { display: grid; gap: 1.25rem; }
-.compare-panel { border-radius: var(--radius-card); padding: 1.75rem; border: 1px solid var(--line); }
-.compare-grid .compare-panel:nth-child(1) { transition-delay: 0ms; }
-.compare-grid .compare-panel:nth-child(2) { transition-delay: 90ms; }
-.compare-panel h3 { font-size: 1.05rem; margin-bottom: 1.1rem; }
-.compare-panel ul { display: grid; gap: 0.85rem; }
-.compare-panel li { display: grid; grid-template-columns: auto 1fr; gap: 0.65rem; align-items: start; font-size: 0.92rem; line-height: 1.45; }
-.compare-panel--good { background: var(--accent-soft); }
-.compare-panel--good h3 { color: var(--accent-strong); }
-.compare-panel--good li { color: var(--ink); }
-.compare-panel--good li svg { color: var(--accent-strong); flex-shrink: 0; margin-top: 0.15rem; }
-.compare-panel--typical { background: var(--bg-alt); }
-.compare-panel--typical h3 { color: var(--ink-faint); }
-.compare-panel--typical li { color: var(--ink-soft); }
-.compare-panel--typical li svg { color: #b91c1c; flex-shrink: 0; margin-top: 0.15rem; }
 
 /* Contact + footer */
 .contact-grid { display: grid; gap: 1.5rem; }
@@ -441,10 +478,11 @@ p { margin: 0; }
 .contact-line a:hover { color: var(--accent-strong); }
 
 .site-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; }
-.footer-grid { display: grid; gap: 1.5rem; }
+.footer-grid { display: grid; gap: 2rem; }
+.footer-links-grid { display: grid; gap: 1.75rem 1.25rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .footer-brand { display: flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-weight: 700; }
 .footer-brand span { color: var(--accent); }
-.footer-meta { color: var(--ink-faint); font-size: 0.88rem; margin-top: 0.6rem; }
+.footer-meta { color: var(--ink-faint); font-size: 0.88rem; margin-top: 0.6rem; max-width: 34ch; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 1.25rem; color: var(--ink-soft); font-size: 0.92rem; }
 .footer-links a:hover { color: var(--accent-strong); }
 .footer-social { display: flex; gap: 0.65rem; }
@@ -459,6 +497,20 @@ p { margin: 0; }
   color: var(--ink-soft);
 }
 .footer-social a:hover { color: var(--accent-strong); border-color: var(--accent); }
+
+.brand-chip-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.brand-chip svg { color: var(--accent); flex-shrink: 0; }
 .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 0.85rem; }
 
 /* Subpage hero (service pages) */
@@ -524,8 +576,7 @@ p { margin: 0; }
   .area-grid { grid-template-columns: 1fr 1fr; }
   .testimonial-grid { grid-template-columns: repeat(3, 1fr); }
   .contact-grid { grid-template-columns: 1.1fr 0.9fr; }
-  .compare-grid { grid-template-columns: 1fr 1fr; }
-  .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 2.4fr; }
   .partner-banner { grid-template-columns: 1.3fr 0.7fr; }
 }
 
