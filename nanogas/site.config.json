@@ -29,8 +29,9 @@
   },
   "formspreeFormId": "your-form-id",
   "areaServed": [
-    "Siófok", "Balatonszárszó", "Zamárdi", "Balatonföldvár",
-    "Balatonlelle", "Szántód", "Kőröshegy", "Ságvár", "Balatonőszöd","Miskolc","BAZ megye"
+    "Siófok", "Balatonszabadi", "Balatonszárszó", "Zamárdi", "Balatonföldvár",
+    "Balatonlelle", "Szántód", "Kőröshegy", "Ságvár", "Balatonőszöd",
+    "Fonyód", "Tab", "Balatonfűzfő", "Polgárdi", "Dég", "Tamási"
   ],
   "images": {
     "ogCover": "https://www.nanogas.hu/images/logo.png",
@@ -40,6 +41,11 @@
     "karbantartas": "https://picsum.photos/seed/klima-karbantartas-ellenorzes/1400/700",
     "kazanKarbantartas": "https://picsum.photos/seed/nanogas-kazan-karbantartas/1400/700",
     "gazkazanBeuzemeles": "https://picsum.photos/seed/nanogas-gazkazan-beuzemeles/1400/700",
-    "gazkazanJavitas": "https://picsum.photos/seed/nanogas-gazkazan-javitas/1400/700"
+    "gazkazanJavitas": "https://picsum.photos/seed/nanogas-gazkazan-javitas/1400/700",
+    "hoszivattyuBeuzemeles": "https://picsum.photos/seed/nanogas-hoszivattyu-beuzemeles/1400/700",
+    "hoszivattyuKarbantartas": "https://picsum.photos/seed/nanogas-hoszivattyu-karbantartas/1400/700",
+    "hoszivattyuJavitas": "https://picsum.photos/seed/nanogas-hoszivattyu-javitas/1400/700",
+    "tarsashazak": "https://picsum.photos/seed/nanogas-tarsashazak/1400/700",
+    "ipariHotermelok": "https://picsum.photos/seed/nanogas-ipari-hotermelok/1400/700"
   }
 }

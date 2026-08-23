@@ -39,8 +39,54 @@
     });
   }
 
+  const navDropdowns = Array.from(document.querySelectorAll(".nav-dropdown"));
+  if (navDropdowns.length) {
+    const closeNavDropdown = (dropdown) => {
+      const trigger = dropdown.querySelector(".nav-dropdown-trigger");
+      const menu = dropdown.querySelector(".nav-dropdown-menu");
+      menu.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    };
+    navDropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector(".nav-dropdown-trigger");
+      const menu = dropdown.querySelector(".nav-dropdown-menu");
+      trigger.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = menu.classList.contains("open");
+        navDropdowns.forEach(closeNavDropdown);
+        if (!isOpen) {
+          menu.classList.add("open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+    document.addEventListener("click", (event) => {
+      navDropdowns.forEach((dropdown) => {
+        if (!dropdown.contains(event.target)) closeNavDropdown(dropdown);
+      });
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") navDropdowns.forEach(closeNavDropdown);
+    });
+  }
+
   const bookingForm = document.getElementById("booking-form");
   const bookingStatus = document.getElementById("booking-form-status");
+
+  const inquiryType = document.getElementById("inquiry-type");
+  if (inquiryType) {
+    const conditionalFields = document.querySelectorAll("[data-show-for]");
+    const syncConditionalFields = () => {
+      conditionalFields.forEach((field) => {
+        const matches = field.dataset.showFor === inquiryType.value;
+        field.hidden = !matches;
+        const input = field.querySelector("input, textarea, select");
+        if (input) input.required = matches;
+      });
+    };
+    inquiryType.addEventListener("change", syncConditionalFields);
+    syncConditionalFields();
+  }
 
   if (bookingForm && bookingStatus) {
     bookingForm.addEventListener("submit", async (event) => {
