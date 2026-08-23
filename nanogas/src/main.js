@@ -76,10 +76,17 @@
   const inquiryType = document.getElementById("inquiry-type");
   if (inquiryType) {
     const conditionalFields = document.querySelectorAll("[data-show-for]");
+    const requireFields = document.querySelectorAll("[data-require-for]");
     const syncConditionalFields = () => {
       conditionalFields.forEach((field) => {
         const matches = field.dataset.showFor === inquiryType.value;
         field.hidden = !matches;
+        field.querySelectorAll("input, textarea, select").forEach((input) => {
+          input.required = matches;
+        });
+      });
+      requireFields.forEach((field) => {
+        const matches = field.dataset.requireFor === inquiryType.value;
         const input = field.querySelector("input, textarea, select");
         if (input) input.required = matches;
       });

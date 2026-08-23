@@ -229,57 +229,15 @@
   <div class="container">
     <div class="section-head reveal">
       <h2>Foglalj időpontot</h2>
-      <p>Válaszd ki az időpontot online, vagy hívj, ha gyorsabb lenne telefonon egyeztetni.</p>
+      <p>Írj emailt, és 1 munkanapon belül visszajelzünk egy időponttal, vagy hívj, ha gyorsabb lenne telefonon egyeztetni.</p>
     </div>
-    <div class="booking-frame reveal">
-      <div class="booking-embed" id="cal-booking-embed">
-        <div id="my-cal-inline-18-perc" style="width:100%;height:100%;min-height:100%;overflow:auto;"></div>
-        <script type="text/javascript">
-          (function (C, A, L) {
-            let p = function (a, ar) { a.q.push(ar); };
-            let d = C.document;
-            C.Cal = C.Cal || function () {
-              let cal = C.Cal;
-              let ar = arguments;
-              if (!cal.loaded) {
-                cal.ns = {};
-                cal.q = cal.q || [];
-                d.head.appendChild(d.createElement("script")).src = A;
-                cal.loaded = true;
-              }
-              if (ar[0] === L) {
-                const api = function () { p(api, arguments); };
-                const namespace = ar[1];
-                api.q = api.q || [];
-                if (typeof namespace === "string") {
-                  cal.ns[namespace] = cal.ns[namespace] || api;
-                  p(cal.ns[namespace], ar);
-                  p(cal, ["initNamespace", namespace]);
-                } else p(cal, ar);
-                return;
-              }
-              p(cal, ar);
-            };
-          })(window, "https://app.cal.com/embed/embed.js", "init");
-          Cal("init", "18-perc", { origin: "https://app.cal.com" });
-          Cal.config = Cal.config || {};
-          Cal.config.forwardQueryParams = true;
-
-          Cal.ns["18-perc"]("inline", {
-            elementOrSelector: "#my-cal-inline-18-perc",
-            config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-            calLink: "istvan-kovacs-npztml",
-          });
-
-          Cal.ns["18-perc"]("ui", {
-            cssVarsPerTheme: {
-              light: { "cal-brand": "#08930a" },
-              dark: { "cal-brand": "#7cd955" },
-            },
-            hideEventTypeDetails: false,
-            layout: "month_view",
-          });
-        </script>
+    <div class="booking-frame reveal" style="text-align:center;">
+      <p style="font-size:1.3rem;margin-bottom:1.5rem;">
+        <a href="mailto:{{EMAIL}}" style="color:var(--accent-strong);font-weight:700;">{{EMAIL}}</a>
+      </p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a class="btn btn-primary" href="mailto:{{EMAIL}}">Írj emailt</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
       </div>
     </div>
   </div>
@@ -337,7 +295,8 @@
 <section id="kapcsolat" class="section">
   <div class="container contact-grid">
     <div class="contact-card reveal">
-      <h3>Elérhetőség</h3>
+      <h2>Elérhetőség</h2>
+      <p>Írj emailt, és 1 munkanapon belül visszajelzünk egy időponttal, vagy hívj, ha gyorsabb lenne telefonon egyeztetni.</p>
       <!-- Valós telefon/email/cím a site.config.json fájlban cserélhető, egy helyen -->
       <div class="contact-line">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -369,22 +328,108 @@
             <option value="ipari">Ipari</option>
           </select>
         </div>
-        <div class="field">
-          <label for="name">Név</label>
-          <input type="text" id="name" name="name" autocomplete="name" required />
+        <div class="field-row">
+          <div class="field">
+            <label for="last-name">Vezetéknév</label>
+            <input type="text" id="last-name" name="last-name" autocomplete="family-name" required />
+          </div>
+          <div class="field">
+            <label for="first-name">Keresztnév</label>
+            <input type="text" id="first-name" name="first-name" autocomplete="given-name" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="phone">Telefonszám</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" pattern="^[0-9+\s()/-]{6,20}$" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="work-address">Lakcím / munkavégzés helye</label>
+            <input type="text" id="work-address" name="work-address" autocomplete="street-address" />
+          </div>
+          <div class="field">
+            <label for="billing-address">Számlázási cím</label>
+            <input type="text" id="billing-address" name="billing-address" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field" data-require-for="ipari">
+            <label for="company-name">Cégnév <span class="field-optional">(ha cégként számlázol)</span></label>
+            <input type="text" id="company-name" name="company-name" />
+          </div>
+          <div class="field" data-require-for="ipari">
+            <label for="tax-number">Adószám <span class="field-optional">(ha cégként számlázol)</span></label>
+            <input type="text" id="tax-number" name="tax-number" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="device-brand">Készülék gyártója</label>
+            <input type="text" id="device-brand" name="device-brand" />
+          </div>
+          <div class="field">
+            <label for="device-model">Készülék típusa</label>
+            <input type="text" id="device-model" name="device-model" />
+          </div>
+        </div>
+
+        <div class="field" data-show-for="tarsashaz" hidden>
+          <label for="contact-role">Kapcsolattartó beosztása</label>
+          <input type="text" id="contact-role" name="contact-role" />
         </div>
         <div class="field" data-show-for="tarsashaz" hidden>
-          <label for="property-name">Ingatlan / lépcsőház neve vagy címe</label>
-          <input type="text" id="property-name" name="property-name" />
+          <label for="hoa-name">Társasház neve / kezelője</label>
+          <input type="text" id="hoa-name" name="hoa-name" />
         </div>
+        <div class="field-row" data-show-for="tarsashaz" hidden>
+          <div class="field">
+            <label for="unit-count">Lépcsőházak / lakások száma</label>
+            <input type="text" id="unit-count" name="unit-count" />
+          </div>
+          <div class="field">
+            <label for="boiler-count">Üzemelő kazánok száma</label>
+            <input type="text" id="boiler-count" name="boiler-count" />
+          </div>
+        </div>
+        <div class="field" data-show-for="tarsashaz" hidden>
+          <label for="heating-center-type">Hőközpont jellege</label>
+          <input type="text" id="heating-center-type" name="heating-center-type" placeholder="Pl. gázkazános, távhős, egyedi fűtésű" />
+        </div>
+        <div class="field" data-show-for="tarsashaz" hidden>
+          <label for="safety-review">Van érvényes műszaki-biztonsági felülvizsgálat?</label>
+          <select id="safety-review" name="safety-review">
+            <option value="igen">Igen</option>
+            <option value="nem">Nem</option>
+            <option value="nem-tudom">Nem tudom</option>
+          </select>
+        </div>
+
         <div class="field" data-show-for="ipari" hidden>
-          <label for="company-name">Cégnév</label>
-          <input type="text" id="company-name" name="company-name" />
+          <label for="job-title">Beosztás</label>
+          <input type="text" id="job-title" name="job-title" />
         </div>
-        <div class="field">
-          <label for="phone">Telefonszám</label>
-          <input type="tel" id="phone" name="phone" autocomplete="tel" pattern="^[0-9+\s()/-]{6,20}$" required />
+        <div class="field-row" data-show-for="ipari" hidden>
+          <div class="field">
+            <label for="device-power">Készülék teljesítménye (kW)</label>
+            <input type="text" id="device-power" name="device-power" />
+          </div>
+          <div class="field">
+            <label for="request-type">Igény típusa</label>
+            <select id="request-type" name="request-type">
+              <option value="karbantartasi-szerzodes">Karbantartási szerződés kötése</option>
+              <option value="egyszeri-javitas">Egyszeri javítás</option>
+              <option value="beuzemeles">Beüzemelés</option>
+              <option value="egyeb">Egyéb</option>
+            </select>
+          </div>
         </div>
+
         <div class="field">
           <label for="message">Mire lenne szükséged?</label>
           <textarea id="message" name="message" rows="3"></textarea>

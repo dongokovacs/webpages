@@ -399,16 +399,15 @@ p { margin: 0; }
   display: grid;
   gap: 2rem;
 }
-.booking-embed {
-  min-height: 620px;
-  height: 100%;
-  border-radius: var(--radius-input);
-  border: 1px solid var(--line);
-  background: var(--bg-alt);
-  overflow: hidden;
-}
 .booking-fallback { display: grid; gap: 1rem; }
 .booking-fallback .field { display: grid; gap: 0.4rem; }
+.booking-fallback .field-row { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+.booking-fallback .field-optional { font-weight: 400; color: var(--ink-faint); font-size: 0.82rem; }
+.booking-fallback .field[hidden],
+.booking-fallback .field-row[hidden] { display: none; }
+@media (min-width: 480px) {
+  .booking-fallback .field-row { grid-template-columns: 1fr 1fr; }
+}
 .booking-fallback label { font-weight: 600; font-size: 0.92rem; }
 .booking-fallback input,
 .booking-fallback textarea,
@@ -513,7 +512,8 @@ p { margin: 0; }
   border-radius: var(--radius-card);
   padding: 1.9rem;
 }
-.contact-card h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+.contact-card h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.contact-card > p { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.1rem; }
 .contact-line { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; color: var(--ink-soft); }
 .contact-line svg { flex-shrink: 0; color: var(--accent); }
 .contact-line a:hover { color: var(--accent-strong); }
