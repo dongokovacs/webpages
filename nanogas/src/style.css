@@ -13,7 +13,7 @@
   --surface-glass: rgba(255, 255, 255, 0.78);
   --ink: #000200;
   --ink-soft: #3c463f;
-  --ink-faint: #7c8c81;
+  --ink-faint: #6b7a70;
   --accent: #7ed857;
   --accent-strong: #3f7a1f;
   --accent-soft: #e6f7da;
@@ -177,38 +177,6 @@ p { margin: 0; }
 .btn-secondary:hover { border-color: var(--accent); color: var(--accent-strong); }
 .btn-sm { padding: 0.6rem 1.05rem; font-size: 0.88rem; }
 
-.feature-menu { position: relative; display: none; }
-.feature-btn {
-  animation: feature-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-.feature-btn:hover { animation-play-state: paused; }
-@keyframes feature-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(126, 216, 87, 0.5); }
-  70% { box-shadow: 0 0 0 9px rgba(126, 216, 87, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(126, 216, 87, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .feature-btn { animation: none; }
-}
-.feature-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 0.7rem);
-  right: 0;
-  width: min(360px, 88vw);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow);
-  padding: 1.25rem;
-  z-index: 110;
-}
-.feature-dropdown.open { display: block; }
-.feature-dropdown-title { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; margin-bottom: 0.85rem; }
-.feature-dropdown ul { display: grid; gap: 0.7rem; }
-.feature-dropdown li { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: start; font-size: 0.86rem; color: var(--ink-soft); line-height: 1.45; }
-.feature-dropdown li svg { color: var(--accent); flex-shrink: 0; margin-top: 0.15rem; }
-
 .mobile-menu-btn {
   display: inline-flex;
   align-items: center;
@@ -264,6 +232,8 @@ p { margin: 0; }
 
 /* Bento services */
 .bento { display: grid; gap: 1.1rem; }
+.bento.bento--sm { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.bento.bento--md { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .service-card {
   border-radius: var(--radius-card);
   padding: 2rem;
@@ -302,19 +272,31 @@ p { margin: 0; }
 .bento .service-card:nth-child(3) { transition-delay: 160ms, 160ms, 0ms; }
 .bento .service-card:nth-child(4) { transition-delay: 240ms, 240ms, 0ms; }
 
-/* Trust / why-choose split */
-.trust-grid { display: grid; gap: 2.5rem; align-items: center; }
-.trust-media { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 5 / 4; }
-.trust-rows { display: grid; }
-.trust-row { display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; padding: 1.4rem 0; border-top: 1px solid var(--line); }
-.trust-row:last-child { border-bottom: 1px solid var(--line); }
-.trust-row .trust-mark { width: 2.6rem; height: 2.6rem; border-radius: var(--radius-input); background: var(--accent-soft); color: var(--accent-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.trust-row h3 { font-size: 1.12rem; margin-bottom: 0.35rem; }
-.trust-row p { color: var(--ink-soft); max-width: 48ch; }
-.trust-rows .trust-row:nth-child(1) { transition-delay: 0ms; }
-.trust-rows .trust-row:nth-child(2) { transition-delay: 70ms; }
-.trust-rows .trust-row:nth-child(3) { transition-delay: 140ms; }
-.trust-rows .trust-row:nth-child(4) { transition-delay: 210ms; }
+/* Trust / why-choose: full image, cards below */
+.trust-media { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 2.5rem; }
+.trust-media img { width: 100%; height: auto; }
+.trust-cards { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.trust-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.trust-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.trust-card.reveal {
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.trust-card .trust-mark { width: 2.6rem; height: 2.6rem; border-radius: var(--radius-input); background: var(--accent-soft); color: var(--accent-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.trust-card h3 { font-size: 1.12rem; }
+.trust-card p { color: var(--ink-soft); }
+.trust-cards .trust-card:nth-child(1) { transition-delay: 0ms; }
+.trust-cards .trust-card:nth-child(2) { transition-delay: 70ms; }
+.trust-cards .trust-card:nth-child(3) { transition-delay: 140ms; }
+.trust-cards .trust-card:nth-child(4) { transition-delay: 210ms; }
 
 /* Service area */
 .area-grid { display: grid; gap: 2rem; align-items: start; }
@@ -371,7 +353,7 @@ p { margin: 0; }
 .blog-card h2 a { color: var(--ink); }
 .blog-card h2 a:hover { color: var(--accent-strong); }
 .blog-card p { color: var(--ink-soft); font-size: 0.95rem; }
-.blog-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; margin-top: auto; }
+.blog-card .card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; margin-top: auto; color: var(--accent-strong); }
 .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
 .avatar-initials {
   width: 2.6rem;
@@ -390,15 +372,6 @@ p { margin: 0; }
 .testimonial-author span { color: var(--ink-faint); font-size: 0.85rem; }
 
 /* Booking */
-.booking-frame {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  padding: clamp(1.75rem, 4vw, 3rem);
-  box-shadow: var(--shadow);
-  display: grid;
-  gap: 2rem;
-}
 .booking-fallback { display: grid; gap: 1rem; }
 .booking-fallback .field { display: grid; gap: 0.4rem; }
 .booking-fallback .field-row { display: grid; gap: 1rem; grid-template-columns: 1fr; }
@@ -521,6 +494,7 @@ p { margin: 0; }
 .site-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; }
 .footer-grid { display: grid; gap: 2rem; }
 .footer-links-grid { display: grid; gap: 1.75rem 1.25rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.footer-links-grid h3 { font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; margin-bottom: 0.9rem; }
 .footer-brand { display: flex; align-items: center; gap: 0.55rem; font-family: var(--font-display); font-weight: 700; }
 .footer-brand span { color: var(--accent); }
 .footer-meta { color: var(--ink-faint); font-size: 0.88rem; margin-top: 0.6rem; max-width: 34ch; }
@@ -551,7 +525,39 @@ p { margin: 0; }
   font-size: 0.8rem;
   font-weight: 600;
 }
-.brand-chip svg { color: var(--accent); flex-shrink: 0; }
+.chip-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  background: var(--accent-strong);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.62rem;
+  flex-shrink: 0;
+}
+.footer-links-grid h3 a:hover { color: var(--accent-strong); }
+
+/* Brand monogram badge: replaces a repeated generic icon on brand cards
+   so each card reads as its own brand, not a copy-pasted placeholder. */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--accent-strong);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.8rem;
+}
 .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 0.85rem; }
 
 /* Subpage hero (service pages) */
@@ -593,6 +599,14 @@ p { margin: 0; }
   justify-content: space-between;
 }
 .subpage-cta p { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); max-width: 32ch; }
+.subpage-cta .hero-actions { margin-top: 0; }
+
+/* Non-accent card variants keep their CTA link legible on a white/dark/soft
+   surface; the accent variant already sets on-accent text via inheritance. */
+.service-card:not(.service-card--accent) .card-link { color: var(--accent-strong); }
+
+.back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; color: var(--accent-strong); }
+.back-link-wrap { margin-top: 2.5rem; }
 
 /* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -603,13 +617,13 @@ p { margin: 0; }
   .faq-item[open] p { animation: none; }
   .service-card svg { transition: none; }
   .service-card.reveal { transition: none; }
+  .trust-card.reveal { transition: none; }
 }
 
 /* Breakpoints */
 @media (min-width: 768px) {
   .nav-links { display: flex; }
   .mobile-menu-btn, .mobile-nav { display: none !important; }
-  .feature-menu { display: block; }
   .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
   .bento { grid-template-columns: repeat(2, 1fr); }
   .service-card p { max-width: 34ch; }

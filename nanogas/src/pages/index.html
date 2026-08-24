@@ -12,7 +12,7 @@
       <h1>Gázkazán, amire fűtési szezonban mindig számíthatsz</h1>
       <p>Gázkazán beüzemelés, karbantartás és javítás, valamint klíma karbantartás a Balaton déli partján, gyors kiszállással és garanciával minden elvégzett munkára.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#foglalas">Foglalj időpontot</a>
+        <a class="btn btn-primary" href="#kapcsolat">Foglalj időpontot</a>
         <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
       </div>
     </div>
@@ -58,7 +58,7 @@
           <h3>Gázkazán karbantartás</h3>
           <p>Éves gázbiztonsági ellenőrzés és tisztítás, hogy a fűtési szezonban se érjen meglepetés.</p>
         </div>
-        <a class="card-link" href="./gazkazan-karbantartas-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./gazkazan-karbantartas-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
       <article class="service-card service-card--ink reveal">
         <div>
@@ -66,7 +66,7 @@
           <h3>Gázkazán javítás</h3>
           <p>Gyors kiszállás, helyszíni hibafeltárás és alkatrészcsere, ha váratlanul leáll a kazán.</p>
         </div>
-        <a class="card-link" href="./gazkazan-javitas-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./gazkazan-javitas-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
       <article class="service-card service-card--soft reveal">
         <div>
@@ -74,7 +74,7 @@
           <h3>Klíma karbantartás</h3>
           <p>Éves ellenőrzés és tisztítás, hogy elkerüld a szezon közepén jövő meghibásodást.</p>
         </div>
-        <a class="card-link" href="./klima-karbantartas-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./klima-karbantartas-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
     </div>
   </div>
@@ -86,14 +86,14 @@
       <h2>Hőszivattyú és ipari ügyfeleknek</h2>
       <p>Hőszivattyús rendszerek, valamint társasházi és ipari hőtermelő berendezések teljes körű felügyelete.</p>
     </div>
-    <div class="bento" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+    <div class="bento bento--md">
       <article class="service-card service-card--surface reveal">
         <div>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:1rem;color:var(--accent);"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
           <h3>Hőszivattyú</h3>
           <p>Beüzemelés, karbantartás és javítás, gyártói előírás szerint, garanciával.</p>
         </div>
-        <a class="card-link" href="./hoszivattyu-karbantartas-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./hoszivattyu-karbantartas-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
       <article class="service-card service-card--soft reveal">
         <div>
@@ -101,7 +101,7 @@
           <h3>Társasházak</h3>
           <p>Központi rendszerek és hőközpontok rendszeres felügyelete, a közös képviselővel egyeztetve.</p>
         </div>
-        <a class="card-link" href="./tarsashazak-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./tarsashazak-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
       <article class="service-card service-card--ink reveal">
         <div>
@@ -109,47 +109,46 @@
           <h3>Ipari hőtermelők</h3>
           <p>Nagy teljesítményű berendezések és technológiai kazánok tervezett karbantartása.</p>
         </div>
-        <a class="card-link" href="./ipari-hotermelok-siofok.html" style="color:var(--accent-strong);">Részletek <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="./ipari-hotermelok-siofok.html">Részletek <span aria-hidden="true">→</span></a>
       </article>
     </div>
   </div>
 </section>
 
 <section id="miert" class="section">
-  <div class="container trust-grid">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Miért minket válassz?</h2>
+    </div>
     <div class="trust-media reveal">
-      <!-- TODO: valós fotó cserélendő (szerszámok, szerelés közben, esetleg Karádi Kornélról). Útvonal: site.config.json "images.trust" -->
       <img
-        class="parallax-img"
-        data-parallax="0.26"
         src="{{IMG_TRUST}}"
         width="720" height="580"
-        alt="Klíma- és kazánszerelő szerszámai egy telepítés előkészítése közben"
+        alt="A Nanogas Hőtechnika Kft. csapata"
         loading="lazy" decoding="async"
       />
     </div>
-    <div>
-      <div class="section-head reveal" style="margin-bottom:1.5rem;">
-        <h2>Miért minket válassz?</h2>
-      </div>
-      <div class="trust-rows">
-        <div class="trust-row reveal">
-          <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg></div>
-          <div><h3>Garancia minden munkára</h3><p>A telepítést és a beépített anyagokat garancia fedi, írásos visszaigazolással.</p></div>
-        </div>
-        <div class="trust-row reveal">
-          <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
-          <div><h3>Gyors kiszállás</h3><p>A legtöbb esetben 1-2 munkanapon belül a helyszínen vagyunk, sürgős esetben aznap.</p></div>
-        </div>
-        <div class="trust-row reveal">
-          <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><h3>Helyismeret</h3><p>Siófokot és a környező településeket évek óta ismerjük, ez gyorsítja a felmérést és az árajánlatot.</p></div>
-        </div>
-        <div class="trust-row reveal">
-          <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <div><h3>Tapasztalat</h3><p>A Nanogas Hőtechnika Kft.-t Karádi Kornél és Papp Tamás vezeti, akik együtt több száz sikeres gázkazán- és klímamunka mögött állnak.</p></div>
-        </div>
-      </div>
+    <div class="trust-cards">
+      <article class="trust-card reveal">
+        <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg></div>
+        <h3>Garancia minden munkára</h3>
+        <p>A telepítést és a beépített anyagokat garancia fedi, írásos visszaigazolással.</p>
+      </article>
+      <article class="trust-card reveal">
+        <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3>Gyors kiszállás</h3>
+        <p>A legtöbb esetben 1-2 munkanapon belül a helyszínen vagyunk, sürgős esetben aznap.</p>
+      </article>
+      <article class="trust-card reveal">
+        <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Helyismeret</h3>
+        <p>Siófokot és a környező településeket évek óta ismerjük, ez gyorsítja a felmérést és az árajánlatot.</p>
+      </article>
+      <article class="trust-card reveal">
+        <div class="trust-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>Tapasztalat</h3>
+        <p>A Nanogas Hőtechnika Kft.-t Karádi Kornél és Papp Tamás vezeti, akik együtt több száz sikeres gázkazán- és klímamunka mögött állnak.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -158,7 +157,7 @@
   <div class="container area-grid">
     <div class="area-panel reveal">
       <h2 style="font-size:clamp(1.7rem,2.6vw,2.2rem);margin-bottom:0.9rem;">Szolgáltatási terület</h2>
-      <p style="color:var(--ink-soft);max-width:48ch;">Siófok és Balatonszabadi központtal egy jóval nagyobb zónát fedünk le: nagyjából a Fonyód (M7) – Polgárdi – Balatonfűzfő – Dég – Tamási – Tab által határolt területen belül dolgozunk. Ha nem látod a településed, hívj bátran, valószínűleg akkor is tudunk segíteni.</p>
+      <p style="color:var(--ink-soft);max-width:48ch;"><strong>Központ:</strong> Siófok és Balatonszabadi. <strong>Zóna:</strong> Fonyód (M7 vonalán) – Polgárdi – Balatonfűzfő – Dég – Tamási – Tab által határolt terület. Ha nem látod a településed, hívj bátran, valószínűleg akkor is tudunk segíteni.</p>
       <div class="town-pills">
         <span class="town-pill town-pill--home">Siófok</span>
         <span class="town-pill town-pill--home">Balatonszabadi</span>
@@ -225,25 +224,7 @@
   </div>
 </section>
 
-<section id="foglalas" class="section section-alt">
-  <div class="container">
-    <div class="section-head reveal">
-      <h2>Foglalj időpontot</h2>
-      <p>Írj emailt, és 1 munkanapon belül visszajelzünk egy időponttal, vagy hívj, ha gyorsabb lenne telefonon egyeztetni.</p>
-    </div>
-    <div class="booking-frame reveal" style="text-align:center;">
-      <p style="font-size:1.3rem;margin-bottom:1.5rem;">
-        <a href="mailto:{{EMAIL}}" style="color:var(--accent-strong);font-weight:700;">{{EMAIL}}</a>
-      </p>
-      <div class="hero-actions" style="justify-content:center;">
-        <a class="btn btn-primary" href="mailto:{{EMAIL}}">Írj emailt</a>
-        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="gyik" class="section">
+<section id="gyik" class="section section-alt">
   <div class="container">
     <div class="section-head reveal">
       <h2>Gyakori kérdések</h2>
@@ -259,7 +240,7 @@
       </details>
       <details class="faq-item" name="faq-group">
         <summary>Milyen klíma- és kazánmárkákkal dolgoztok?<span class="faq-icon" aria-hidden="true">+</span></summary>
-        <p>A piacon elérhető, megbízhatónak számító márkákkal dolgozunk, és a döntésnél mindig figyelembe vesszük az igényeidet és a költségvetésedet. A javított és szervizelt márkákat a lábléc "Javított készülékek" és "Szervízpartnereink" listájában is összegyűjtöttük.</p>
+        <p>A piacon elérhető, megbízhatónak számító márkákkal dolgozunk, és a döntésnél mindig figyelembe vesszük az igényeidet és a költségvetésedet. A hivatalos márkaszervizként és a karbantartásra/javításra vállalt márkákat a <a href="./markaszerviz.html">Márkaszerviz</a> oldalon gyűjtöttük össze.</p>
       </details>
       <details class="faq-item" name="faq-group">
         <summary>Van garancia a munkára?<span class="faq-icon" aria-hidden="true">+</span></summary>
@@ -271,13 +252,13 @@
       </details>
       <details class="faq-item" name="faq-group">
         <summary>Csak Siófokon vállaltok munkát?<span class="faq-icon" aria-hidden="true">+</span></summary>
-        <p>Nem, a Balaton déli partjának nagy részén dolgozunk, Balatonszárszótól Balatonőszödig. Ha bizonytalan vagy, írj vagy hívj, és megmondjuk, hogy tudunk-e segíteni.</p>
+        <p>Nem, ennél jóval nagyobb területen: Siófok és Balatonszabadi központtal, a Fonyód (M7 vonalán) – Polgárdi – Balatonfűzfő – Dég – Tamási – Tab által határolt zónában dolgozunk. Ha bizonytalan vagy, írj vagy hívj, és megmondjuk, hogy tudunk-e segíteni.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
   <div class="container">
     <div class="partner-banner reveal">
       <div>
@@ -292,7 +273,7 @@
   </div>
 </section>
 
-<section id="kapcsolat" class="section">
+<section id="kapcsolat" class="section section-alt">
   <div class="container contact-grid">
     <div class="contact-card reveal">
       <h2>Elérhetőség</h2>
@@ -519,7 +500,7 @@
     {
       "@type": "Question",
       "name": "Csak Siófokon vállaltok munkát?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Nem, a Balaton déli partjának nagy részén dolgozunk, Balatonszárszótól Balatonőszödig. Ha bizonytalan vagy, írj vagy hívj, és megmondjuk, hogy tudunk-e segíteni." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Nem, ennél jóval nagyobb területen: Siófok és Balatonszabadi központtal, a Fonyód (M7 vonalán) – Polgárdi – Balatonfűzfő – Dég – Tamási – Tab által határolt zónában dolgozunk. Ha bizonytalan vagy, írj vagy hívj, és megmondjuk, hogy tudunk-e segíteni." }
     }
   ]
 }

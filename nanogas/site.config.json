@@ -36,8 +36,8 @@
   "images": {
     "ogCover": "https://www.nanogas.hu/images/logo.png",
     "hero": "https://picsum.photos/seed/nanogas-kazan-szereles/900/1125",
-    "trust": "https://picsum.photos/seed/nanogas-szerszamok/720/580",
-    "area": "https://picsum.photos/seed/balaton-siofok-part/760/520",
+    "trust": "./images/kapcsolat.webp",
+    "area": "./images/telepulesek.webp",
     "karbantartas": "https://picsum.photos/seed/klima-karbantartas-ellenorzes/1400/700",
     "kazanKarbantartas": "https://picsum.photos/seed/nanogas-kazan-karbantartas/1400/700",
     "gazkazanBeuzemeles": "https://picsum.photos/seed/nanogas-gazkazan-beuzemeles/1400/700",

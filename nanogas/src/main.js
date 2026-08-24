@@ -16,29 +16,6 @@
     });
   }
 
-  const featureBtn = document.getElementById("feature-menu-btn");
-  const featureDropdown = document.getElementById("feature-dropdown");
-
-  if (featureBtn && featureDropdown) {
-    const closeFeatureDropdown = () => {
-      featureDropdown.classList.remove("open");
-      featureBtn.setAttribute("aria-expanded", "false");
-    };
-    featureBtn.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const isOpen = featureDropdown.classList.toggle("open");
-      featureBtn.setAttribute("aria-expanded", String(isOpen));
-    });
-    document.addEventListener("click", (event) => {
-      if (!featureDropdown.contains(event.target) && event.target !== featureBtn) {
-        closeFeatureDropdown();
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeFeatureDropdown();
-    });
-  }
-
   const navDropdowns = Array.from(document.querySelectorAll(".nav-dropdown"));
   if (navDropdowns.length) {
     const closeNavDropdown = (dropdown) => {
