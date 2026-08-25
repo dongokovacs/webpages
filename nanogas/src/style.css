@@ -523,33 +523,6 @@ p { margin: 0; }
 }
 .footer-social a:hover { color: var(--accent-strong); border-color: var(--accent); }
 
-.brand-chip-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.brand-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-.chip-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 999px;
-  background: var(--accent-strong);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.62rem;
-  flex-shrink: 0;
-}
-.footer-links-grid h3 a:hover { color: var(--accent-strong); }
 
 /* Brand monogram badge: replaces a repeated generic icon on brand cards
    so each card reads as its own brand, not a copy-pasted placeholder. */
