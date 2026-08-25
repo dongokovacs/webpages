@@ -382,6 +382,16 @@ p { margin: 0; }
   .booking-fallback .field-row { grid-template-columns: 1fr 1fr; }
 }
 .booking-fallback label { font-weight: 600; font-size: 0.92rem; }
+.booking-fallback .required-note { color: var(--ink-faint); font-size: 0.82rem; margin-top: -0.3rem; }
+.booking-fallback .required-mark { color: var(--accent-strong); font-weight: 700; }
+/* :has() re-evaluates live, so this also tracks the JS-toggled `required`
+   on the conditional (data-require-for) fields — no extra markup needed. */
+.booking-fallback .field > label:has(+ input:required)::after,
+.booking-fallback .field > label:has(+ select:required)::after,
+.booking-fallback .field > label:has(+ textarea:required)::after {
+  content: " *";
+  color: var(--accent-strong);
+}
 .booking-fallback input,
 .booking-fallback textarea,
 .booking-fallback select {
@@ -544,20 +554,30 @@ p { margin: 0; }
 /* Brand monogram badge: replaces a repeated generic icon on brand cards
    so each card reads as its own brand, not a copy-pasted placeholder. */
 .brand-mark {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 999px;
   background: var(--accent-strong);
   color: #fff;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.98rem;
+  font-size: 1.15rem;
   letter-spacing: -0.01em;
-  margin-bottom: 0.8rem;
+  margin: 0 auto 0.8rem;
 }
+/* Real brand logo variant: light badge so the logo's own colors read cleanly. */
+.brand-mark--logo {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.7rem;
+}
+.brand-mark--logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+a.brand-mark--logo { transition: border-color 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
+a.brand-mark--logo:hover { border-color: var(--accent); transform: translateY(-2px); }
+.service-card:has(.brand-mark) h3 { text-align: center; }
 .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 0.85rem; }
 
 /* Subpage hero (service pages) */
