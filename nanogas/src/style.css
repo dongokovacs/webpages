@@ -318,7 +318,8 @@ p { margin: 0; }
   font-weight: 600;
 }
 .town-pill--home { background: var(--accent); color: var(--on-accent); border-color: transparent; }
-.area-media { position: relative; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 16 / 11; }
+.area-media { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); }
+.area-media img { width: 100%; height: auto; }
 
 /* Testimonials */
 .testimonial-grid { display: grid; gap: 1.25rem; }

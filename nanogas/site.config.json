@@ -45,7 +45,7 @@
     "hoszivattyuBeuzemeles": "https://picsum.photos/seed/nanogas-hoszivattyu-beuzemeles/1400/700",
     "hoszivattyuKarbantartas": "https://picsum.photos/seed/nanogas-hoszivattyu-karbantartas/1400/700",
     "hoszivattyuJavitas": "https://picsum.photos/seed/nanogas-hoszivattyu-javitas/1400/700",
-    "tarsashazak": "https://picsum.photos/seed/nanogas-tarsashazak/1400/700",
+    "tarsashazak": "./images/ugyelet.png",
     "ipariHotermelok": "https://picsum.photos/seed/nanogas-ipari-hotermelok/1400/700"
   }
 }
