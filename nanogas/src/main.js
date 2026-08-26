@@ -50,7 +50,7 @@
   const bookingForm = document.getElementById("booking-form");
   const bookingStatus = document.getElementById("booking-form-status");
 
-  const inquiryType = document.getElementById("erdeklodes-tipusa");
+  const inquiryType = document.getElementById("inquiry-type");
   if (inquiryType) {
     const conditionalFields = document.querySelectorAll("[data-show-for]");
     const requireFields = document.querySelectorAll("[data-require-for]");
