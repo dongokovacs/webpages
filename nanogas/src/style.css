@@ -666,10 +666,6 @@ a.brand-mark--logo:hover { border-color: var(--accent); transform: translateY(-2
   .mobile-menu-btn, .mobile-nav { display: none !important; }
   .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
   .bento { grid-template-columns: repeat(2, 1fr); }
-  /* Break the identical-card-grid look: the accent (featured) card
-     takes the full top row instead of sitting in the uniform 2x2 grid. */
-  .bento .service-card--accent { grid-column: span 2; flex-direction: row; align-items: center; gap: 2.5rem; }
-  .bento .service-card--accent > div:first-child { flex: 1; }
   .service-card p { max-width: 34ch; }
   .trust-grid { grid-template-columns: 0.85fr 1.15fr; }
   .area-grid { grid-template-columns: 1fr 1fr; }
