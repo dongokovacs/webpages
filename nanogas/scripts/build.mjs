@@ -97,7 +97,7 @@ function layout({ meta, content, header, footer, siteUrl }) {
 <meta name="description" content="${meta.description}" />
 <link rel="canonical" href="${canonical}" />
 {{ROBOTS_META}}
-<meta name="theme-color" content="#000200" />
+<meta name="theme-color" content="#0a0f0c" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="${meta.title}" />
 <meta property="og:description" content="${meta.description}" />
@@ -110,8 +110,9 @@ function layout({ meta, content, header, footer, siteUrl }) {
 <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+<a class="skip-link" href="#tartalom">Ugrás a tartalomra</a>
 ${header}
-<main>
+<main id="tartalom">
 ${content}
 </main>
 ${footer}

@@ -35,7 +35,7 @@
   ],
   "images": {
     "ogCover": "https://www.nanogas.hu/images/logo.png",
-    "hero": "https://picsum.photos/seed/nanogas-kazan-szereles/900/1125",
+    "hero": "./images/heroszerelo.webp",
     "trust": "./images/kapcsolat.webp",
     "area": "./images/telepulesek.webp",
     "karbantartas": "https://picsum.photos/seed/klima-karbantartas-ellenorzes/1400/700",

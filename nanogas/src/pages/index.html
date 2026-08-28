@@ -15,6 +15,16 @@
         <a class="btn btn-primary" href="#kapcsolat">Foglalj időpontot</a>
         <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
       </div>
+      <div class="hero-stats">
+        <a class="hero-stat-card reveal" href="./gazkazan-karbantartas-siofok.html">
+          <strong>Karbantartás, beüzemelés</strong>
+          <span>Gázkazán, hőszivattyú, klíma</span>
+        </a>
+        <div class="hero-stat-card reveal">
+          <strong>Kiknek</strong>
+          <span>Lakossági, társasház, ipari hőtermelők</span>
+        </div>
+      </div>
     </div>
     <div class="hero-media">
       <!-- TODO: valós fotó cserélendő (szerelés közben, felszerelt klíma vagy kazán). Az útvonal a site.config.json "images.hero" mezőjében cserélhető. -->
@@ -27,11 +37,6 @@
           alt="Kazán szakszerű felszerelése egy siófoki családi háznál"
           loading="eager" fetchpriority="high" decoding="async"
         />
-      </div>
-      <div class="hero-stat reveal">
-        <!-- TODO: valós tapasztalat/elégedett ügyfél szám behelyettesítése -->
-        <strong><span class="count-num" data-count-to="10">0</span>+ év</strong>
-        <span>tapasztalat klíma- és kazánszerelésben a Balaton déli partján</span>
       </div>
     </div>
   </div>
@@ -298,10 +303,11 @@
       </div>
       <form class="booking-fallback" id="booking-form" action="{{FORMSPREE_ACTION}}" method="POST" style="margin-top:1.5rem;">
         <!-- TODO: a Formspree form ID a site.config.json "formspreeFormId" mezőjében cserélhető éles adatra -->
+        <input type="hidden" name="_subject" value="Új megkeresés – {{SITE_NAME}} weboldal" />
         <p class="required-note">A <span class="required-mark">*</span>-gal jelölt mezők kitöltése kötelező.</p>
         <div class="field">
-          <label for="inquiry-type">Milyen ügyben keresel?</label>
-          <select id="inquiry-type" name="inquiry-type">
+          <label for="erdeklodes-tipusa">Milyen ügyben keresel?</label>
+          <select id="erdeklodes-tipusa" name="erdeklodes-tipusa">
             <option value="lakossagi">Lakossági</option>
             <option value="tarsashaz">Társasház</option>
             <option value="ipari">Ipari</option>
@@ -309,12 +315,12 @@
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="last-name">Vezetéknév</label>
-            <input type="text" id="last-name" name="last-name" autocomplete="family-name" required />
+            <label for="vezeteknev">Vezetéknév</label>
+            <input type="text" id="vezeteknev" name="vezeteknev" autocomplete="family-name" required />
           </div>
           <div class="field">
-            <label for="first-name">Keresztnév</label>
-            <input type="text" id="first-name" name="first-name" autocomplete="given-name" required />
+            <label for="keresztnev">Keresztnév</label>
+            <input type="text" id="keresztnev" name="keresztnev" autocomplete="given-name" required />
           </div>
         </div>
         <div class="field-row">
@@ -323,66 +329,66 @@
             <input type="email" id="email" name="email" autocomplete="email" required />
           </div>
           <div class="field">
-            <label for="phone">Telefonszám</label>
-            <input type="tel" id="phone" name="phone" autocomplete="tel" pattern="^[0-9+\s()/-]{6,20}$" required />
+            <label for="telefon">Telefonszám</label>
+            <input type="tel" id="telefon" name="telefon" autocomplete="tel" pattern="^[0-9+\s\(\)\/-]{6,20}$" required />
           </div>
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="work-address">Lakcím / munkavégzés helye</label>
-            <input type="text" id="work-address" name="work-address" autocomplete="street-address" />
+            <label for="munkavegzesi-cim">Lakcím / munkavégzés helye</label>
+            <input type="text" id="munkavegzesi-cim" name="munkavegzesi-cim" autocomplete="street-address" />
           </div>
           <div class="field">
-            <label for="billing-address">Számlázási cím</label>
-            <input type="text" id="billing-address" name="billing-address" />
+            <label for="szamlazasi-cim">Számlázási cím</label>
+            <input type="text" id="szamlazasi-cim" name="szamlazasi-cim" />
           </div>
         </div>
         <div class="field-row">
           <div class="field" data-require-for="ipari">
-            <label for="company-name">Cégnév <span class="field-optional">(ha cégként számlázol)</span></label>
-            <input type="text" id="company-name" name="company-name" />
+            <label for="cegnev">Cégnév <span class="field-optional">(ha cégként számlázol)</span></label>
+            <input type="text" id="cegnev" name="cegnev" />
           </div>
           <div class="field" data-require-for="ipari">
-            <label for="tax-number">Adószám <span class="field-optional">(ha cégként számlázol)</span></label>
-            <input type="text" id="tax-number" name="tax-number" />
+            <label for="adoszam">Adószám <span class="field-optional">(ha cégként számlázol)</span></label>
+            <input type="text" id="adoszam" name="adoszam" />
           </div>
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="device-brand">Készülék gyártója</label>
-            <input type="text" id="device-brand" name="device-brand" />
+            <label for="berendezes-gyartoja">Készülék gyártója</label>
+            <input type="text" id="berendezes-gyartoja" name="berendezes-gyartoja" />
           </div>
           <div class="field">
-            <label for="device-model">Készülék típusa</label>
-            <input type="text" id="device-model" name="device-model" />
+            <label for="berendezes-modellje">Készülék típusa</label>
+            <input type="text" id="berendezes-modellje" name="berendezes-modellje" />
           </div>
         </div>
 
         <div class="field" data-show-for="tarsashaz" hidden>
-          <label for="contact-role">Kapcsolattartó beosztása</label>
-          <input type="text" id="contact-role" name="contact-role" />
+          <label for="kapcsolattarto-szerepe">Kapcsolattartó beosztása</label>
+          <input type="text" id="kapcsolattarto-szerepe" name="kapcsolattarto-szerepe" />
         </div>
         <div class="field" data-show-for="tarsashaz" hidden>
-          <label for="hoa-name">Társasház neve / kezelője</label>
-          <input type="text" id="hoa-name" name="hoa-name" />
+          <label for="tarsashaz-neve">Társasház neve / kezelője</label>
+          <input type="text" id="tarsashaz-neve" name="tarsashaz-neve" />
         </div>
         <div class="field-row" data-show-for="tarsashaz" hidden>
           <div class="field">
-            <label for="unit-count">Lépcsőházak / lakások száma</label>
-            <input type="text" id="unit-count" name="unit-count" />
+            <label for="egysegek-szama">Lépcsőházak / lakások száma</label>
+            <input type="text" id="egysegek-szama" name="egysegek-szama" />
           </div>
           <div class="field">
-            <label for="boiler-count">Üzemelő kazánok száma</label>
-            <input type="text" id="boiler-count" name="boiler-count" />
+            <label for="kazanok-szama">Üzemelő kazánok száma</label>
+            <input type="text" id="kazanok-szama" name="kazanok-szama" />
           </div>
         </div>
         <div class="field" data-show-for="tarsashaz" hidden>
-          <label for="heating-center-type">Hőközpont jellege</label>
-          <input type="text" id="heating-center-type" name="heating-center-type" placeholder="Pl. gázkazános, távhős, egyedi fűtésű" />
+          <label for="hokozpont-tipusa">Hőközpont jellege</label>
+          <input type="text" id="hokozpont-tipusa" name="hokozpont-tipusa" placeholder="Pl. gázkazános, távhős, egyedi fűtésű" />
         </div>
         <div class="field" data-show-for="tarsashaz" hidden>
-          <label for="safety-review">Van érvényes műszaki-biztonsági felülvizsgálat?</label>
-          <select id="safety-review" name="safety-review">
+          <label for="biztonsagi-felulvizsgalat">Van érvényes műszaki-biztonsági felülvizsgálat?</label>
+          <select id="biztonsagi-felulvizsgalat" name="biztonsagi-felulvizsgalat">
             <option value="igen">Igen</option>
             <option value="nem">Nem</option>
             <option value="nem-tudom">Nem tudom</option>
@@ -390,17 +396,17 @@
         </div>
 
         <div class="field" data-show-for="ipari" hidden>
-          <label for="job-title">Beosztás</label>
-          <input type="text" id="job-title" name="job-title" />
+          <label for="beosztas">Beosztás</label>
+          <input type="text" id="beosztas" name="beosztas" />
         </div>
         <div class="field-row" data-show-for="ipari" hidden>
           <div class="field">
-            <label for="device-power">Készülék teljesítménye (kW)</label>
-            <input type="text" id="device-power" name="device-power" />
+            <label for="berendezes-teljesitmenye">Készülék teljesítménye (kW)</label>
+            <input type="text" id="berendezes-teljesitmenye" name="berendezes-teljesitmenye" />
           </div>
           <div class="field">
-            <label for="request-type">Igény típusa</label>
-            <select id="request-type" name="request-type">
+            <label for="keres-tipusa">Igény típusa</label>
+            <select id="keres-tipusa" name="keres-tipusa">
               <option value="karbantartasi-szerzodes">Karbantartási szerződés kötése</option>
               <option value="egyszeri-javitas">Egyszeri javítás</option>
               <option value="beuzemeles">Beüzemelés</option>
@@ -410,12 +416,12 @@
         </div>
 
         <div class="field">
-          <label for="message">Mire lenne szükséged?</label>
-          <textarea id="message" name="message" rows="3"></textarea>
+          <label for="uzenet">Mire lenne szükséged?</label>
+          <textarea id="uzenet" name="uzenet" rows="3"></textarea>
         </div>
         <div class="field field-checkbox">
-          <label for="privacy-consent">
-            <input type="checkbox" id="privacy-consent" name="privacy-consent" required />
+          <label for="adatvedelmi-hozzajarulas">
+            <input type="checkbox" id="adatvedelmi-hozzajarulas" name="adatvedelmi-hozzajarulas" required />
             <span>Elolvastam és elfogadom az <a href="./adatkezeles.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>.</span>
           </label>
         </div>

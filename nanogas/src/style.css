@@ -1,26 +1,24 @@
 /* Nanogas Hőtechnika Kft. — design system
-   Accent: márka-zöld (#7ed857). Ink: márka-fekete (#000200), a logó saját színei.
-   Egyetlen, rögzített világos alap (nincs automatikus sötét mód): a fejléc/lábléc
-   logója fekete szövegű, átlátszó hátterű PNG, ezért a felület nem válthat sötétre
-   mögötte. A "modern, stílusos" márkahangulatot a visszatérő sötét blokkok adják
-   (partner-banner, service-card--ink, lábléc), nem egy globális dark-mode toggle.
+   Accent: márka-zöld (#7ed857), most sötét alapon "izzó" neon-szerepben.
+   Egyetlen, rögzített SÖTÉT alap (nincs light/dark toggle) — mély fekete-zöld
+   háttér, zöld szegélyek/izzás adja a "modern, high-tech" hangulatot.
    Radius lock: gombok = pill (999px), kártyák = 20px, inputok = 12px. */
 
 :root {
-  --bg: #f6faf3;
-  --bg-alt: #eaf5e2;
-  --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.78);
-  --ink: #000200;
-  --ink-soft: #3c463f;
-  --ink-faint: #6b7a70;
+  --bg: #0a0f0c;
+  --bg-alt: #0f1712;
+  --surface: #131a15;
+  --surface-glass: rgba(10, 15, 12, 0.75);
+  --ink: #eef7ee;
+  --ink-soft: #aebcb2;
+  --ink-faint: #8a9c90;
   --accent: #7ed857;
-  --accent-strong: #3f7a1f;
-  --accent-soft: #e6f7da;
+  --accent-strong: #8ef264;
+  --accent-soft: #16261a;
   --on-accent: #04120a;
-  --line: rgba(0, 2, 0, 0.12);
-  --shadow: 0 24px 60px -20px rgba(0, 2, 0, 0.28);
-  --shadow-soft: 0 10px 30px -14px rgba(0, 2, 0, 0.22);
+  --line: rgba(126, 216, 87, 0.28);
+  --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.65), 0 0 32px -4px rgba(126, 216, 87, 0.28);
+  --shadow-soft: 0 10px 30px -14px rgba(0, 0, 0, 0.55), 0 0 18px -4px rgba(126, 216, 87, 0.22);
   --radius-card: 20px;
   --radius-input: 12px;
   --max: 1240px;
@@ -54,8 +52,33 @@ p { margin: 0; }
 
 .container { width: min(var(--max), calc(100% - 2.5rem)); margin-inline: auto; }
 
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  z-index: 200;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-input);
+  transition: top 0.18s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .section { padding: clamp(3.5rem, 7vw, 6.5rem) 0; }
-.section-alt { background: var(--bg-alt); }
+.section-alt {
+  background-color: var(--bg-alt);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='49'%20viewBox='0%200%2028%2049'%3E%3Cg%20fill-rule='evenodd'%3E%3Cg%20fill='%237ed857'%20fill-opacity='0.035'%3E%3Cpath%20d='M13.99%209.25l13%207.5v15l-13%207.5L1%2031.75v-15l12.99-7.5zM3%2017.9v12.7l10.99%206.34%2011-6.35V17.9l-11-6.34L3%2017.9zM0%2015l12.98-7.5V0h-2v6.35L0%2012.69v2.3zm0%2018.5L12.98%2041v8h-2v-6.85L0%2035.81v-2.3zM15%200v7.5L27.99%2015H28v-2.31h-.01L17%206.35V0h-2zm0%2049v-8l12.99-7.5H28v2.31h-.01L17%2042.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
 
 .eyebrow {
   display: inline-block;
@@ -181,8 +204,8 @@ p { margin: 0; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-input);
   border: 1px solid var(--line);
   background: var(--surface);
@@ -207,28 +230,48 @@ p { margin: 0; }
 .mobile-nav a:hover { background: var(--accent-soft); }
 
 /* Hero */
+.hero,
+.subpage-hero {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='49'%20viewBox='0%200%2028%2049'%3E%3Cg%20fill-rule='evenodd'%3E%3Cg%20fill='%237ed857'%20fill-opacity='0.07'%3E%3Cpath%20d='M13.99%209.25l13%207.5v15l-13%207.5L1%2031.75v-15l12.99-7.5zM3%2017.9v12.7l10.99%206.34%2011-6.35V17.9l-11-6.34L3%2017.9zM0%2015l12.98-7.5V0h-2v6.35L0%2012.69v2.3zm0%2018.5L12.98%2041v8h-2v-6.85L0%2035.81v-2.3zM15%200v7.5L27.99%2015H28v-2.31h-.01L17%206.35V0h-2zm0%2049v-8l12.99-7.5H28v2.31h-.01L17%2042.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-position: center top;
+}
 .hero { padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 6vw, 5rem); }
 .hero-grid { display: grid; gap: 2.5rem; align-items: center; }
 .hero-copy .eyebrow { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent-soft); color: var(--accent-strong); padding: 0.4rem 0.85rem; border-radius: 999px; text-transform: none; letter-spacing: 0; font-size: 0.88rem; }
 .hero-copy h1 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); line-height: 1.12; margin: 1rem 0 1rem; max-width: 16ch; }
 .hero-copy p { font-size: 1.08rem; color: var(--ink-soft); max-width: 46ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
-.hero-media { position: relative; }
-.hero-media-frame { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 4 / 5; box-shadow: var(--shadow); }
-.hero-stat {
-  position: absolute;
-  bottom: -1.25rem;
-  left: -1.25rem;
+.hero-stats { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.75rem; }
+.hero-stat-card {
+  flex: 1 1 200px;
   background: var(--surface-glass);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   padding: 1.1rem 1.3rem;
   box-shadow: var(--shadow-soft);
-  max-width: 220px;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s ease;
 }
-.hero-stat strong { font-family: var(--font-display); font-size: 1.6rem; color: var(--accent-strong); display: block; }
-.hero-stat span { color: var(--ink-soft); font-size: 0.85rem; }
+a.hero-stat-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.hero-stat-card strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--accent-strong); display: block; margin-bottom: 0.3rem; }
+.hero-stat-card span { color: var(--ink-soft); font-size: 0.85rem; }
+.hero-media { position: relative; }
+.hero-media-frame { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 4 / 5; box-shadow: var(--shadow); }
+/* Subtle photo treatment for the dark theme: bottom fade + green glow,
+   applied to the existing image wrappers (no new markup). */
+.hero-media-frame::after,
+.subpage-media::after,
+.trust-media::after,
+.area-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 15, 12, 0) 45%, rgba(10, 15, 12, 0.6) 100%),
+    radial-gradient(120% 60% at 25% 100%, rgba(126, 216, 87, 0.22), transparent 70%);
+  pointer-events: none;
+}
 
 /* Bento services */
 .bento { display: grid; gap: 1.1rem; }
@@ -273,7 +316,7 @@ p { margin: 0; }
 .bento .service-card:nth-child(4) { transition-delay: 240ms, 240ms, 0ms; }
 
 /* Trust / why-choose: full image, cards below */
-.trust-media { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 2.5rem; }
+.trust-media { position: relative; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 2.5rem; }
 .trust-media img { width: 100%; height: auto; }
 .trust-cards { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .trust-card {
@@ -302,7 +345,7 @@ p { margin: 0; }
 .area-grid { display: grid; gap: 2rem; align-items: start; }
 .area-panel {
   background: var(--surface-glass);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   padding: 2rem;
@@ -318,7 +361,7 @@ p { margin: 0; }
   font-weight: 600;
 }
 .town-pill--home { background: var(--accent); color: var(--on-accent); border-color: transparent; }
-.area-media { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); }
+.area-media { position: relative; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow); }
 .area-media img { width: 100%; height: auto; }
 
 /* Testimonials */
@@ -426,7 +469,7 @@ p { margin: 0; }
 .field-checkbox a { color: var(--accent-strong); font-weight: 600; }
 .form-status { border-radius: var(--radius-input); padding: 0.75rem 1rem; font-size: 0.92rem; font-weight: 600; }
 .form-status[data-state="success"] { background: var(--accent-soft); color: var(--accent-strong); }
-.form-status[data-state="error"] { background: rgba(220, 38, 38, 0.12); color: #b91c1c; }
+.form-status[data-state="error"] { background: rgba(220, 38, 38, 0.16); color: #f87171; }
 
 /* FAQ */
 .faq-list { display: grid; gap: 0.75rem; }
@@ -462,9 +505,10 @@ p { margin: 0; }
 .partner-banner {
   border-radius: var(--radius-card);
   padding: clamp(2rem, 5vw, 3.5rem);
-  background: linear-gradient(135deg, #0b1a0e, #000200);
-  color: #f2f7ef;
-  border: 1px solid rgba(242, 247, 239, 0.1);
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg));
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
   display: grid;
   gap: 2rem;
   align-items: center;
@@ -475,16 +519,16 @@ p { margin: 0; }
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #a8e888;
-  border: 1px solid rgba(168, 232, 136, 0.35);
+  color: var(--accent-strong);
+  border: 1px solid var(--line);
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
   margin-bottom: 1rem;
 }
-.partner-banner h2 { color: #f2f7ef; font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.2; max-width: 26ch; }
-.partner-banner p { color: rgba(242, 247, 239, 0.75); margin-top: 1rem; max-width: 50ch; }
+.partner-banner h2 { color: var(--ink); font-size: clamp(1.6rem, 2.6vw, 2.2rem); line-height: 1.2; max-width: 26ch; }
+.partner-banner p { color: var(--ink-soft); margin-top: 1rem; max-width: 50ch; }
 .partner-banner .btn-primary { background: var(--accent); color: var(--on-accent); }
-.partner-banner .btn-primary:hover { background: #93e06a; }
+.partner-banner .btn-primary:hover { background: var(--accent-strong); }
 
 /* WordPress-összehasonlítás */
 
@@ -513,8 +557,8 @@ p { margin: 0; }
 .footer-links a:hover { color: var(--accent-strong); }
 .footer-social { display: flex; gap: 0.65rem; }
 .footer-social a {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 999px;
   border: 1px solid var(--line);
   display: flex;
@@ -534,7 +578,9 @@ p { margin: 0; }
   width: 4rem;
   height: 4rem;
   border-radius: 999px;
-  background: var(--accent-strong);
+  /* Fixed dark green, not var(--accent-strong): that token is tuned bright
+     for text-on-dark-bg legibility, which would wash out white text here. */
+  background: #3f7a1f;
   color: #fff;
   font-family: var(--font-display);
   font-weight: 700;
@@ -620,6 +666,10 @@ a.brand-mark--logo:hover { border-color: var(--accent); transform: translateY(-2
   .mobile-menu-btn, .mobile-nav { display: none !important; }
   .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
   .bento { grid-template-columns: repeat(2, 1fr); }
+  /* Break the identical-card-grid look: the accent (featured) card
+     takes the full top row instead of sitting in the uniform 2x2 grid. */
+  .bento .service-card--accent { grid-column: span 2; flex-direction: row; align-items: center; gap: 2.5rem; }
+  .bento .service-card--accent > div:first-child { flex: 1; }
   .service-card p { max-width: 34ch; }
   .trust-grid { grid-template-columns: 0.85fr 1.15fr; }
   .area-grid { grid-template-columns: 1fr 1fr; }
@@ -630,15 +680,14 @@ a.brand-mark--logo:hover { border-color: var(--accent); transform: translateY(-2
 }
 
 @media (max-width: 767px) {
-  .hero-stat { position: static; margin-top: -2rem; }
   .nav-actions .btn-secondary[href^="tel:"] {
     background: var(--accent);
     border-color: transparent;
     color: var(--on-accent);
     box-shadow: var(--shadow-soft);
     padding: 0.7rem;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
   .nav-actions .btn-secondary[href^="tel:"]:hover { background: var(--accent-strong); }
   .nav-actions .btn-secondary[href^="tel:"] span { display: none; }
