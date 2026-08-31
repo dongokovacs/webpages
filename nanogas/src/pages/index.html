@@ -191,33 +191,43 @@
   </div>
 </section>
 
-<!-- Placeholder vélemények: az ügyfél valós referenciákat és fotókat ad majd hozzá -->
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
       <h2>Amit az ügyfelek mondanak</h2>
-      <p>Néhány visszajelzés korábbi munkáinkról. A végleges verzióban valós vélemények és fotók kerülnek ide.</p>
+      <p>Valós Google-értékelések korábbi ügyfeleinktől.</p>
     </div>
     <div class="testimonial-grid">
       <article class="testimonial reveal">
-        <p>„A régi klímánk alig fújt hideget, a tisztítás után szinte újként működött. Gyorsan jöttek, pontosan dolgoztak.”</p>
+        <div class="stars" aria-label="5/5 csillag">★★★★★</div>
+        <p>„Minden a megbeszéltek alapján történt. Pontos időre érkezett. Mindent elmondott, mit és miért csinál, alapos munkavégzés, tökéletes tisztítás, és ami plusz pont: mindent tisztán hagyott maga után!”</p>
         <div class="testimonial-author">
-          <span class="avatar-initials">NR</span>
-          <div><strong>Nagy Réka</strong><span>Siófok</span></div>
+          <span class="avatar-initials">ZT</span>
+          <div><strong>Zakariás Tamás</strong><span>Google-értékelés</span></div>
         </div>
       </article>
       <article class="testimonial reveal">
-        <p>„A kazánunkat évente ők karbantartják. Mindig előre szólnak, ha valamit cserélni kell, sosem éreztem, hogy túlárazna.”</p>
+        <div class="stars" aria-label="5/5 csillag">★★★★★</div>
+        <p>„I would like to leave a positive feedback to the team at NanoGas Hőtechnika Kft. I called them regarding boiler installation and I am fully satisfied with their work. They arrived on time, worked quickly and professionally, and answered all my questions clearly. Such a correct and customer-friendly attitude is rare these days. I recommend them to everyone with a clear heart.”</p>
         <div class="testimonial-author">
-          <span class="avatar-initials">FT</span>
-          <div><strong>Fábián Tamás</strong><span>Balatonföldvár</span></div>
+          <span class="avatar-initials">TM</span>
+          <div><strong>Timi Masszázs Siófok</strong><span>Siófok</span></div>
         </div>
       </article>
       <article class="testimonial reveal">
-        <p>„Két klímát szereltettünk fel velük a panziónkban. Precíz volt a felmérés, és tartották a vállalt határidőt.”</p>
+        <div class="stars" aria-label="5/5 csillag">★★★★★</div>
+        <p>„Jó szívvel ajánlom. Megbízható, korrekt. Könnyű volt időpontot egyeztetni, Tamás a megbeszélt időben pontosan érkezett, teljesen átvizsgálta, beüzemelte a kazánt, és érthetően elmagyarázta a működését. A későbbiekben is őket fogom hívni.”</p>
         <div class="testimonial-author">
-          <span class="avatar-initials">HJ</span>
-          <div><strong>Halász Judit</strong><span>Zamárdi</span></div>
+          <span class="avatar-initials">ZS</span>
+          <div><strong>Zsófia Székely-Szabó</strong><span>Google-értékelés</span></div>
+        </div>
+      </article>
+      <article class="testimonial reveal">
+        <div class="stars" aria-label="5/5 csillag">★★★★★</div>
+        <p>„Gyorsak, pontosak voltak, fűtési szezonban is rövid határidővel, korrekt, precíz munka. Az éves karbantartást és az esetleges meghibásodás javítását is rájuk bíztam, régebbi Buderus kazán javítás, szenzorhiba.”</p>
+        <div class="testimonial-author">
+          <span class="avatar-initials">JF</span>
+          <div><strong>Jacint Finta</strong><span>Google-értékelés</span></div>
         </div>
       </article>
     </div>
@@ -354,7 +364,16 @@
         <div class="field-row">
           <div class="field">
             <label for="berendezes-gyartoja">Készülék gyártója</label>
-            <input type="text" id="berendezes-gyartoja" name="berendezes-gyartoja" />
+            <select id="berendezes-gyartoja" name="berendezes-gyartoja">
+              <option value="" selected disabled>Válassz gyártót</option>
+              <option value="bosch">Bosch</option>
+              <option value="junkers">Junkers</option>
+              <option value="buderus">Buderus</option>
+              <option value="ariston">Ariston</option>
+              <option value="viessmann">Viessmann</option>
+              <option value="baxi">Baxi</option>
+              <option value="egyeb">Egyéb</option>
+            </select>
           </div>
           <div class="field">
             <label for="berendezes-modellje">Készülék típusa</label>

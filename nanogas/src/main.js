@@ -1,24 +1,28 @@
 // Nanogas Hőtechnika Kft. — megosztott kliensoldali viselkedés
 (function () {
   const THEME_STORAGE_KEY = "nanogas-theme";
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  if (themeToggle) {
+  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
+  if (themeToggles.length) {
     const syncThemeToggleLabel = (theme) => {
-      themeToggle.setAttribute(
-        "aria-label",
-        theme === "ejszakai" ? "Nappali nézet bekapcsolása" : "Sötét nézet bekapcsolása"
-      );
+      themeToggles.forEach((toggle) => {
+        toggle.setAttribute(
+          "aria-label",
+          theme === "ejszakai" ? "Nappali nézet bekapcsolása" : "Sötét nézet bekapcsolása"
+        );
+      });
     };
     syncThemeToggleLabel(document.documentElement.dataset.theme);
-    themeToggle.addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "ejszakai" ? "nappali" : "ejszakai";
-      document.documentElement.dataset.theme = next;
-      syncThemeToggleLabel(next);
-      try {
-        localStorage.setItem(THEME_STORAGE_KEY, next);
-      } catch (error) {
-        /* privát böngészés / letiltott tárolás esetén a váltás akkor is működik, csak nem perzisztál */
-      }
+    themeToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "ejszakai" ? "nappali" : "ejszakai";
+        document.documentElement.dataset.theme = next;
+        syncThemeToggleLabel(next);
+        try {
+          localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch (error) {
+          /* privát böngészés / letiltott tárolás esetén a váltás akkor is működik, csak nem perzisztál */
+        }
+      });
     });
   }
 
