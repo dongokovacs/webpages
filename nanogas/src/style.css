@@ -1,10 +1,32 @@
 /* Nanogas Hőtechnika Kft. — design system
-   Accent: márka-zöld (#7ed857), most sötét alapon "izzó" neon-szerepben.
-   Egyetlen, rögzített SÖTÉT alap (nincs light/dark toggle) — mély fekete-zöld
-   háttér, zöld szegélyek/izzás adja a "modern, high-tech" hangulatot.
+   Két téma: NAPPALI (alap, fehér + márka-zöld #87d533) és ÉJSZAKAI
+   (a korábbi rögzített sötét alap, [data-theme="ejszakai"] alatt).
+   A <html data-theme="..."> attribútum vezérli, gombbal váltható, alapértelmezett a nappali.
    Radius lock: gombok = pill (999px), kártyák = 20px, inputok = 12px. */
 
 :root {
+  --bg: #ffffff;
+  --bg-alt: #f5faef;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.85);
+  --ink: #16220e;
+  --ink-soft: #45573a;
+  --ink-faint: #6f8264;
+  --accent: #87d533;
+  --accent-strong: #4f8a1b;
+  --accent-soft: #eef8e0;
+  --on-accent: #14210a;
+  --line: rgba(135, 213, 51, 0.35);
+  --shadow: 0 24px 60px -20px rgba(22, 34, 14, 0.18), 0 0 32px -4px rgba(135, 213, 51, 0.18);
+  --shadow-soft: 0 10px 30px -14px rgba(22, 34, 14, 0.14), 0 0 18px -4px rgba(135, 213, 51, 0.14);
+  --radius-card: 20px;
+  --radius-input: 12px;
+  --max: 1240px;
+  --font-display: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+
+[data-theme="ejszakai"] {
   --bg: #0a0f0c;
   --bg-alt: #0f1712;
   --surface: #131a15;
@@ -19,11 +41,6 @@
   --line: rgba(126, 216, 87, 0.28);
   --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.65), 0 0 32px -4px rgba(126, 216, 87, 0.28);
   --shadow-soft: 0 10px 30px -14px rgba(0, 0, 0, 0.55), 0 0 18px -4px rgba(126, 216, 87, 0.22);
-  --radius-card: 20px;
-  --radius-input: 12px;
-  --max: 1240px;
-  --font-display: "Outfit", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -109,7 +126,14 @@ p { margin: 0; }
 .site-header.scrolled { box-shadow: var(--shadow-soft); }
 .navbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
 .brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
-.brand-logo { height: 70px; width: auto; border-radius: 0; }
+.brand-logo {
+  /* height: 70px; */
+  width: auto;
+  /* border-radius: 0; */
+}
+.brand-logo-dark { display: none; }
+[data-theme="ejszakai"] .brand-logo-light { display: none; }
+[data-theme="ejszakai"] .brand-logo-dark { display: block; }
 
 .nav-links { display: none; align-items: center; gap: 1.25rem; color: var(--ink-soft); font-weight: 500; font-size: 0.92rem; }
 .nav-links a:hover { color: var(--accent-strong); }
@@ -214,6 +238,26 @@ p { margin: 0; }
 }
 .mobile-menu-btn svg { width: 20px; height: 20px; }
 
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent-strong); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-icon-moon { display: none; }
+[data-theme="ejszakai"] .theme-icon-sun { display: none; }
+[data-theme="ejszakai"] .theme-icon-moon { display: block; }
+
 .mobile-nav {
   display: none;
   flex-direction: column;
@@ -256,6 +300,27 @@ p { margin: 0; }
 a.hero-stat-card:hover { transform: translateY(-2px); border-color: var(--accent); }
 .hero-stat-card strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--accent-strong); display: block; margin-bottom: 0.3rem; }
 .hero-stat-card span { color: var(--ink-soft); font-size: 0.85rem; }
+.hero-brands-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+.hero-stats--brands { gap: 0.75rem; margin-top: 0; }
+.hero-brand-card {
+  flex: 0 1 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+.hero-brand-card img { max-width: 100%; max-height: 28px; width: auto; height: auto; object-fit: contain; border-radius: 0; }
 .hero-media { position: relative; }
 .hero-media-frame { position: relative; overflow: hidden; border-radius: var(--radius-card); aspect-ratio: 4 / 5; box-shadow: var(--shadow); }
 /* Subtle photo treatment for the dark theme: bottom fade + green glow,
@@ -529,6 +594,7 @@ a.hero-stat-card:hover { transform: translateY(-2px); border-color: var(--accent
 .partner-banner p { color: var(--ink-soft); margin-top: 1rem; max-width: 50ch; }
 .partner-banner .btn-primary { background: var(--accent); color: var(--on-accent); }
 .partner-banner .btn-primary:hover { background: var(--accent-strong); }
+[data-theme="nappali"] .partner-banner .btn-primary:hover { color: #fff; }
 
 /* WordPress-összehasonlítás */
 

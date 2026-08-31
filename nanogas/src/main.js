@@ -1,5 +1,27 @@
 // Nanogas Hőtechnika Kft. — megosztott kliensoldali viselkedés
 (function () {
+  const THEME_STORAGE_KEY = "nanogas-theme";
+  const themeToggle = document.querySelector("[data-theme-toggle]");
+  if (themeToggle) {
+    const syncThemeToggleLabel = (theme) => {
+      themeToggle.setAttribute(
+        "aria-label",
+        theme === "ejszakai" ? "Nappali nézet bekapcsolása" : "Sötét nézet bekapcsolása"
+      );
+    };
+    syncThemeToggleLabel(document.documentElement.dataset.theme);
+    themeToggle.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "ejszakai" ? "nappali" : "ejszakai";
+      document.documentElement.dataset.theme = next;
+      syncThemeToggleLabel(next);
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch (error) {
+        /* privát böngészés / letiltott tárolás esetén a váltás akkor is működik, csak nem perzisztál */
+      }
+    });
+  }
+
   const menuButton = document.querySelector(".mobile-menu-btn");
   const mobileNav = document.querySelector(".mobile-nav");
 

@@ -97,7 +97,8 @@ function layout({ meta, content, header, footer, siteUrl }) {
 <meta name="description" content="${meta.description}" />
 <link rel="canonical" href="${canonical}" />
 {{ROBOTS_META}}
-<meta name="theme-color" content="#0a0f0c" />
+<meta name="theme-color" content="#ffffff" />
+<script>(function(){try{var t=localStorage.getItem("nanogas-theme");document.documentElement.dataset.theme=(t==="ejszakai")?"ejszakai":"nappali";}catch(e){document.documentElement.dataset.theme="nappali";}})();</script>
 <meta property="og:type" content="website" />
 <meta property="og:title" content="${meta.title}" />
 <meta property="og:description" content="${meta.description}" />
