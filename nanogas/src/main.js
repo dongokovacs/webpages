@@ -116,11 +116,11 @@
           bookingStatus.dataset.state = "success";
           bookingForm.reset();
         } else {
-          bookingStatus.textContent = "Az üzenet küldése nem sikerült. Kérlek, hívj minket telefonon.";
+          bookingStatus.textContent = "Az üzenet küldése nem sikerült. Kérjük, hívjon minket telefonon.";
           bookingStatus.dataset.state = "error";
         }
       } catch (error) {
-        bookingStatus.textContent = "Az üzenet küldése nem sikerült, ellenőrizd az internetkapcsolatot, vagy hívj minket telefonon.";
+        bookingStatus.textContent = "Az üzenet küldése nem sikerült, ellenőrizze az internetkapcsolatot, vagy hívjon minket telefonon.";
         bookingStatus.dataset.state = "error";
       } finally {
         bookingStatus.hidden = false;
