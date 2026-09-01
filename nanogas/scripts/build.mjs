@@ -69,6 +69,7 @@ function buildTokens(config, siteUrl) {
     IMG_KAZAN_KARBANTARTAS: config.images.kazanKarbantartas,
     IMG_GAZKAZAN_BEUZEMELES: config.images.gazkazanBeuzemeles,
     IMG_GAZKAZAN_JAVITAS: config.images.gazkazanJavitas,
+    IMG_GAZKAZAN_HIBAKODOK: config.images.gazkazanHibakodok,
     IMG_HOSZIVATTYU_BEUZEMELES: config.images.hoszivattyuBeuzemeles,
     IMG_HOSZIVATTYU_KARBANTARTAS: config.images.hoszivattyuKarbantartas,
     IMG_HOSZIVATTYU_JAVITAS: config.images.hoszivattyuJavitas,

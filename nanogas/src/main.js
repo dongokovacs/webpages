@@ -134,6 +134,52 @@
     });
   }
 
+  const hibakodFinder = document.querySelector(".hibakod-finder");
+  if (hibakodFinder) {
+    const brandSelect = hibakodFinder.querySelector("[data-hibakod-brand]");
+    const searchInput = hibakodFinder.querySelector("[data-hibakod-search]");
+    const countEl = hibakodFinder.querySelector("[data-hibakod-count]");
+    const emptyState = hibakodFinder.querySelector("[data-hibakod-empty]");
+    const table = hibakodFinder.querySelector("[data-hibakod-table]");
+    const brandInfo = hibakodFinder.querySelector("[data-hibakod-brand-info]");
+    const brandTitleEl = hibakodFinder.querySelector("[data-hibakod-brand-title]");
+    const rows = Array.from(hibakodFinder.querySelectorAll("[data-hibakod-row]"));
+
+    const normalize = (value) =>
+      value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(new RegExp("[" + String.fromCharCode(0x0300) + "-" + String.fromCharCode(0x036f) + "]", "g"), "")
+        .replace(/[^a-z0-9]/g, "");
+
+    const applyHibakodFilter = () => {
+      const brand = brandSelect ? brandSelect.value : "all";
+      const query = normalize((searchInput && searchInput.value.trim()) || "");
+      let visibleCount = 0;
+      rows.forEach((row) => {
+        const matchesBrand = brand === "all" || row.dataset.hibakodCard === brand;
+        const matchesQuery = !query || normalize(row.textContent).includes(query);
+        const show = matchesBrand && matchesQuery;
+        row.hidden = !show;
+        if (show) visibleCount += 1;
+      });
+      if (countEl) countEl.textContent = String(visibleCount);
+      if (emptyState) emptyState.hidden = visibleCount !== 0;
+
+      const isSingleBrand = brand !== "all";
+      if (table) table.toggleAttribute("data-brand-locked", isSingleBrand);
+      if (brandInfo) brandInfo.hidden = !isSingleBrand;
+      if (isSingleBrand && brandTitleEl && brandSelect) {
+        const selectedOption = brandSelect.options[brandSelect.selectedIndex];
+        brandTitleEl.textContent = selectedOption ? selectedOption.textContent : "";
+      }
+    };
+
+    if (brandSelect) brandSelect.addEventListener("change", applyHibakodFilter);
+    if (searchInput) searchInput.addEventListener("input", applyHibakodFilter);
+    applyHibakodFilter();
+  }
+
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // One-time count-up for the hero stat number ("10+ év"), triggered the first time

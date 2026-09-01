@@ -1,0 +1,449 @@
+<!--PAGE
+{
+  "slug": "gazkazan-hibakodok-siofok",
+  "title": "Gázkazán hibakódok jelentése Siófok | Nanogas Hőtechnika Kft.",
+  "description": "Mit jelentenek a gázkazán hibakódjai? Áttekintjük a leggyakoribb hibaüzeneteket, és elmondjuk, mikor elég egy reset, és mikor kell szakembert hívni."
+}
+-->
+<section class="subpage-hero">
+  <div class="container">
+    <span class="eyebrow reveal">Gázkazán hibakódok</span>
+    <h1 class="reveal">Gázkazán hibakódok – kereshető lista márka szerint</h1>
+    <p class="reveal">A kijelzőn megjelenő hibakód sokat elárul a probléma okáról. Válassza ki a kazánja márkáját, vagy írja be a hibakódot alább, és megmutatjuk, mit jelenthet, és mikor van szükség szakemberre.</p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
+      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="subpage-media reveal">
+      <img
+        class="parallax-img"
+        data-parallax="0.26"
+        src="{{IMG_GAZKAZAN_HIBAKODOK}}"
+        width="1400" height="700"
+        alt="Gázkazán kijelzőjén megjelenő hibakód ellenőrzése"
+        loading="lazy" decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Hibakódkereső</span>
+      <h2>Keressen rá a kazánja márkájára vagy a hibakódra</h2>
+      <p>A lenti listát márka szerint szűrheti, vagy közvetlenül rákereshet a kijelzőn látott hibakódra, illetve kulcsszóra (pl. "vízhiány", "gyújtás").</p>
+    </div>
+
+    <div class="hibakod-finder">
+      <div class="hibakod-controls">
+        <div class="field">
+          <label for="hibakod-brand">Márka</label>
+          <select id="hibakod-brand" data-hibakod-brand>
+            <option value="all">Összes márka</option>
+            <option value="vaillant">Vaillant</option>
+            <option value="viessmann">Viessmann</option>
+            <option value="bosch">Bosch</option>
+            <option value="junkers">Junkers</option>
+            <option value="ariston">Ariston</option>
+            <option value="baxi">Baxi</option>
+            <option value="immergas">Immergas</option>
+            <option value="saunierduval">Saunier Duval</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="hibakod-search">Hibakód vagy kulcsszó</label>
+          <input type="search" id="hibakod-search" data-hibakod-search placeholder="pl. F.28, gyújtási hiba, vízhiány" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="hibakod-brand-info" data-hibakod-brand-info hidden>
+        <h3><span data-hibakod-brand-title>Bosch</span> hibakódok</h3>
+        <p>A jelentés csak a táblázatban megadott készülékcsaládra alkalmazható. Ha a típustábla eltérő családot mutat, a készülék saját kézikönyve az irányadó. <a href="./markaszerviz.html">Márkaoldal</a></p>
+      </div>
+
+      <p class="hibakod-count-label"><span data-hibakod-count>40</span> találat</p>
+
+      <div class="hibakod-table-wrap">
+        <table class="hibakod-table" data-hibakod-table>
+          <thead>
+            <tr>
+              <th>Kód</th>
+              <th data-hibakod-col-brand>Márka</th>
+              <th>Mit jelent?</th>
+              <th>Következő lépés</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-hibakod-row data-hibakod-card="vaillant">
+              <td data-label="Kód"><span class="hibakod-code">F.28</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Vaillant</span></td>
+              <td data-label="Mit jelent?">Ismételt gyújtási hiba, a kazán nem tud begyújtani.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázellátást és a gázcsapot, próbálja újraindítani. Ha visszatér, hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="vaillant">
+              <td data-label="Kód"><span class="hibakod-code">F.29</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Vaillant</span></td>
+              <td data-label="Mit jelent?">Lángvesztés üzem közben, a láng menet közben kialszik.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gáznyomást. Visszatérő hibánál gyújtóelektróda-tisztítás szükséges lehet.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="vaillant">
+              <td data-label="Kód"><span class="hibakod-code">F.22 / F.75</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Vaillant</span></td>
+              <td data-label="Mit jelent?">Alacsony víznyomás vagy szivattyú-/keringtetési hiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a rendszer nyomását a manométeren, szükség esetén töltse fel.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="vaillant">
+              <td data-label="Kód"><span class="hibakod-code">F.32</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Vaillant</span></td>
+              <td data-label="Mit jelent?">Ventilátor fordulatszám-hiba.</td>
+              <td data-label="Következő lépés">Ne indítsa újra ismételten, kérjen szakszervizt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="vaillant">
+              <td data-label="Kód"><span class="hibakod-code">F.61</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Vaillant</span></td>
+              <td data-label="Mit jelent?">Gázszelep vezérlési hiba.</td>
+              <td data-label="Következő lépés">Elektronikai jellegű hiba, szakember szükséges.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="viessmann">
+              <td data-label="Kód"><span class="hibakod-code">F1</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Viessmann</span></td>
+              <td data-label="Mit jelent?">Nincs lángjel, gyújtási hiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázcsapot, indítsa újra a kazánt. Ismétlődésnél hívjon szerelőt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="viessmann">
+              <td data-label="Kód"><span class="hibakod-code">F4</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Viessmann</span></td>
+              <td data-label="Mit jelent?">Előremenő hőmérséklet-érzékelő hibás jelet ad.</td>
+              <td data-label="Következő lépés">Érzékelőcsere szükséges lehet, hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="viessmann">
+              <td data-label="Kód"><span class="hibakod-code">F5</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Viessmann</span></td>
+              <td data-label="Mit jelent?">Lángjel-vesztés égés közben.</td>
+              <td data-label="Következő lépés">Gyújtóelektróda vagy gázszelep hiba is állhat mögötte, szakember szükséges.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="viessmann">
+              <td data-label="Kód"><span class="hibakod-code">A1</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Viessmann</span></td>
+              <td data-label="Mit jelent?">Vízhiány vagy nyomáshiba a rendszerben.</td>
+              <td data-label="Következő lépés">Ellenőrizze és töltse fel a rendszert az előírt nyomásra.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="viessmann">
+              <td data-label="Kód"><span class="hibakod-code">FD</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Viessmann</span></td>
+              <td data-label="Mit jelent?">Kommunikációs hiba a kezelőegység és a vezérlés között.</td>
+              <td data-label="Következő lépés">Áramtalanítás után újraindítás. Ha nem szűnik, szerviz szükséges.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="bosch">
+              <td data-label="Kód"><span class="hibakod-code">A6</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Bosch</span></td>
+              <td data-label="Mit jelent?">Alacsony rendszernyomás, vízhiány.</td>
+              <td data-label="Következő lépés">Töltse fel a fűtési rendszert az előírt nyomásig.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="bosch">
+              <td data-label="Kód"><span class="hibakod-code">EA</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Bosch</span></td>
+              <td data-label="Mit jelent?">Gyújtási vagy lánghiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázellátást, majd indítsa újra a kazánt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="bosch">
+              <td data-label="Kód"><span class="hibakod-code">E9</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Bosch</span></td>
+              <td data-label="Mit jelent?">Füstgázszenzor vagy égéstermék-elvezetési hiba.</td>
+              <td data-label="Következő lépés">Biztonsági okból ne halogassa, hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="bosch">
+              <td data-label="Kód"><span class="hibakod-code">C6</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Bosch</span></td>
+              <td data-label="Mit jelent?">Kommunikációs hiba a szabályzó és a kazán között.</td>
+              <td data-label="Következő lépés">Ellenőrizze a vezérlő csatlakozását, szükség esetén szerviz.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="bosch">
+              <td data-label="Kód"><span class="hibakod-code">H07</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Bosch</span></td>
+              <td data-label="Mit jelent?">Levegő a rendszerben, légtelenítés szükséges.</td>
+              <td data-label="Következő lépés">Légtelenítse a radiátorokat és a szivattyút.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="junkers">
+              <td data-label="Kód"><span class="hibakod-code">A6</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Junkers</span></td>
+              <td data-label="Mit jelent?">Vízhiány, alacsony nyomás a rendszerben.</td>
+              <td data-label="Következő lépés">Töltse fel a rendszert az előírt nyomásig.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="junkers">
+              <td data-label="Kód"><span class="hibakod-code">EA</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Junkers</span></td>
+              <td data-label="Mit jelent?">Gyújtási hiba, a kazán nem indul be.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázcsapot, próbálja újraindítani.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="junkers">
+              <td data-label="Kód"><span class="hibakod-code">C6</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Junkers</span></td>
+              <td data-label="Mit jelent?">Elektronikai / kommunikációs hiba a kezelőegységgel.</td>
+              <td data-label="Következő lépés">Áramtalanítás után újraindítás, ismétlődésnél szerviz.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="junkers">
+              <td data-label="Kód"><span class="hibakod-code">E9</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Junkers</span></td>
+              <td data-label="Mit jelent?">Füstgáz-elvezetési hiba.</td>
+              <td data-label="Következő lépés">Azonnal hívjon szakembert, biztonsági kockázat lehet.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="junkers">
+              <td data-label="Kód"><span class="hibakod-code">A7</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Junkers</span></td>
+              <td data-label="Mit jelent?">Hőmérséklet-érzékelő (NTC) hiba.</td>
+              <td data-label="Következő lépés">Érzékelőcsere, szakember szükséges.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="ariston">
+              <td data-label="Kód"><span class="hibakod-code">501</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Ariston</span></td>
+              <td data-label="Mit jelent?">Gyújtási hiba, a kazán nem gyullad be.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázellátást, indítsa újra a kazánt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="ariston">
+              <td data-label="Kód"><span class="hibakod-code">605</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Ariston</span></td>
+              <td data-label="Mit jelent?">Füstgáz-elvezetési rendellenesség.</td>
+              <td data-label="Következő lépés">Ne halogassa, hívjon szervizt biztonsági okból.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="ariston">
+              <td data-label="Kód"><span class="hibakod-code">108</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Ariston</span></td>
+              <td data-label="Mit jelent?">Alacsony víznyomás a fűtési körben.</td>
+              <td data-label="Következő lépés">Töltse fel a rendszert az előírt nyomásra.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="ariston">
+              <td data-label="Kód"><span class="hibakod-code">512</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Ariston</span></td>
+              <td data-label="Mit jelent?">Lángőrzési hiba égés közben.</td>
+              <td data-label="Következő lépés">Gyújtóelektróda-tisztítás vagy -csere lehet szükséges.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="ariston">
+              <td data-label="Kód"><span class="hibakod-code">109</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Ariston</span></td>
+              <td data-label="Mit jelent?">NTC hőmérséklet-érzékelő hiba.</td>
+              <td data-label="Következő lépés">Szakember által elvégzendő érzékelő-ellenőrzés.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="baxi">
+              <td data-label="Kód"><span class="hibakod-code">E01</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Baxi</span></td>
+              <td data-label="Mit jelent?">Gyújtási hiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázcsapot, indítsa újra a kazánt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="baxi">
+              <td data-label="Kód"><span class="hibakod-code">E02</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Baxi</span></td>
+              <td data-label="Mit jelent?">Lángvesztés, biztonsági leállás.</td>
+              <td data-label="Következő lépés">Visszatérő hibánál kérjen szakszervizt.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="baxi">
+              <td data-label="Kód"><span class="hibakod-code">E03</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Baxi</span></td>
+              <td data-label="Mit jelent?">Füstgáz-túlmelegedés vagy elvezetési hiba.</td>
+              <td data-label="Következő lépés">Azonnal hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="baxi">
+              <td data-label="Kód"><span class="hibakod-code">E10</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Baxi</span></td>
+              <td data-label="Mit jelent?">Alacsony víznyomás.</td>
+              <td data-label="Következő lépés">Töltse fel a rendszert az előírt nyomásra.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="baxi">
+              <td data-label="Kód"><span class="hibakod-code">E25</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Baxi</span></td>
+              <td data-label="Mit jelent?">NTC érzékelő hőmérséklet-hiba.</td>
+              <td data-label="Következő lépés">Érzékelő-ellenőrzés, csere szükséges lehet.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="immergas">
+              <td data-label="Kód"><span class="hibakod-code">01</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Immergas</span></td>
+              <td data-label="Mit jelent?">Gyújtási hiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázellátást, próbálja újraindítani.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="immergas">
+              <td data-label="Kód"><span class="hibakod-code">04</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Immergas</span></td>
+              <td data-label="Mit jelent?">Füstgáz-túlmelegedés.</td>
+              <td data-label="Következő lépés">Biztonsági okból hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="immergas">
+              <td data-label="Kód"><span class="hibakod-code">08</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Immergas</span></td>
+              <td data-label="Mit jelent?">Vízhiány vagy nyomáshiba.</td>
+              <td data-label="Következő lépés">Töltse fel a rendszert az előírt nyomásra.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="immergas">
+              <td data-label="Kód"><span class="hibakod-code">09</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Immergas</span></td>
+              <td data-label="Mit jelent?">Ventilátorhiba.</td>
+              <td data-label="Következő lépés">Elektronikai vagy mechanikai hiba, szerviz szükséges.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="immergas">
+              <td data-label="Kód"><span class="hibakod-code">30</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Immergas</span></td>
+              <td data-label="Mit jelent?">NTC hőmérséklet-érzékelő hiba.</td>
+              <td data-label="Következő lépés">Érzékelő ellenőrzése, csere szükséges lehet.</td>
+            </tr>
+
+            <tr data-hibakod-row data-hibakod-card="saunierduval">
+              <td data-label="Kód"><span class="hibakod-code">F02</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Saunier Duval</span></td>
+              <td data-label="Mit jelent?">Gyújtási hiba.</td>
+              <td data-label="Következő lépés">Ellenőrizze a gázcsapot, indítsa újra a készüléket.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="saunierduval">
+              <td data-label="Kód"><span class="hibakod-code">F03</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Saunier Duval</span></td>
+              <td data-label="Mit jelent?">Túlmelegedési termosztát kioldott.</td>
+              <td data-label="Következő lépés">Ne indítsa újra ismételten, hívjon szakembert.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="saunierduval">
+              <td data-label="Kód"><span class="hibakod-code">F11</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Saunier Duval</span></td>
+              <td data-label="Mit jelent?">Vízhiány a rendszerben.</td>
+              <td data-label="Következő lépés">Töltse fel az előírt nyomásra.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="saunierduval">
+              <td data-label="Kód"><span class="hibakod-code">F28</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Saunier Duval</span></td>
+              <td data-label="Mit jelent?">Ismételt gyújtási hiba.</td>
+              <td data-label="Következő lépés">Gyújtóelektróda-tisztítás vagy gáznyomás-ellenőrzés szükséges.</td>
+            </tr>
+            <tr data-hibakod-row data-hibakod-card="saunierduval">
+              <td data-label="Kód"><span class="hibakod-code">F61</span></td>
+              <td data-label="Márka" data-hibakod-col-brand><span class="hibakod-brand-tag">Saunier Duval</span></td>
+              <td data-label="Mit jelent?">Gázszelep-vezérlési hiba.</td>
+              <td data-label="Következő lépés">Elektronikai hiba, szakember szükséges.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hibakod-empty" data-hibakod-empty hidden>Nincs a keresésnek megfelelő hibakód. Hívjon minket, telefonon is segítünk beazonosítani a hibát.</p>
+      </div>
+    </div>
+
+    <p class="hibakod-disclaimer reveal">A fenti kódok tájékoztató jellegűek, típusonként és firmware-verziónként eltérhetnek. A pontos diagnózishoz mindig érdemes megadni a kazán teljes típusjelét is, amikor hív minket.</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container prose reveal">
+    <h2>A hibakódok gyártónként eltérnek</h2>
+    <p>Minden kazángyártó (Vaillant, Viessmann, Bosch/Junkers, Baxi, Ariston, Immergas és a többiek) saját hibakód-rendszert használ, ezért ugyanaz a betű-szám kombináció más márkánál mást jelenthet. Az alábbi táblázat a leggyakoribb hibatípusokat és a mögöttük álló tipikus okokat foglalja össze, tájékozódásképpen. A pontos diagnózishoz mindig érdemes megadni a kazán márkáját és típusát is, amikor hív minket.</p>
+
+    <h3>Leggyakoribb hibatípusok és jelentésük</h3>
+    <ul>
+      <li><strong>Gyújtási / lángőrzési hiba</strong> — a kazán nem tud begyújtani, vagy a láng menet közben kialszik. Oka lehet légtelenítetlen gázvezeték, elszennyeződött gyújtóelektróda vagy hibás lángőr szenzor.</li>
+      <li><strong>Vízhiány / nyomáshiba</strong> — a rendszerben túl alacsony a víznyomás. Sok esetben elég a rendszer utántöltése, de gyakori nyomásesés mögött szivárgás is állhat.</li>
+      <li><strong>Keringtetési / szivattyú hiba</strong> — a keringtető szivattyú beragadt vagy meghibásodott, emiatt a kazán nem tudja megfelelően keringetni a fűtővizet.</li>
+      <li><strong>Füstgáz / égéstermék-elvezetési hiba</strong> — a füstgázelvezetés akadályozott, vagy a füstgázszenzor jelez rendellenességet. Ezt biztonsági okból soha ne hagyja figyelmen kívül.</li>
+      <li><strong>Elektronikai / szenzorhiba</strong> — a vezérlőpanel vagy valamelyik hőmérséklet-érzékelő hibás jelet ad, ilyenkor jellemzően szakember beavatkozására van szükség.</li>
+    </ul>
+
+    <h2>Mikor elég egy reset, és mikor nem?</h2>
+    <p>Egyszeri, ritkán jelentkező hibakódnál sok kazán megoldható egy óvatos újraindítással a gyári útmutató szerint. Ha a hiba visszatér, ismétlődik, vagy a kazán egyáltalán nem indul újra, ne kísérletezzen tovább: a gyújtási, füstgáz- és elektronikai hibák mögött olyan meghibásodás is állhat, amit csak szakszerű <a href="./gazkazan-javitas-siofok.html">gázkazán javítással</a> lehet biztonságosan elhárítani.</p>
+
+    <h3>Mit érdemes előkészítenie, mielőtt hív minket?</h3>
+    <ul>
+      <li>A kazán márkája és típusa (jellemzően a berendezés adattábláján vagy a kijelzőn található)</li>
+      <li>A kijelzőn megjelenő pontos hibakód</li>
+      <li>Mikor jelentkezett a hiba, és visszatérő-e</li>
+      <li>Van-e fűtés vagy melegvíz-ellátás, vagy teljesen leállt a kazán</li>
+    </ul>
+
+    <h2>Gázkazán hibakódok Siófokon és a Balaton déli partján</h2>
+    <p>A hibakód-diagnosztikát és a gázkazán javítást Siófok mellett rendszeresen végezzük a teljes Fonyód (M7) – Polgárdi – Balatonfűzfő – Dég – Tamási – Tab által határolt zónában, Balatonszabadi központtal együtt. Ha rendszeresen visszatérő hibákat tapasztal, egy <a href="./gazkazan-karbantartas-siofok.html">gázkazán karbantartás</a> sokat segíthet a megelőzésben.</p>
+
+    <div class="subpage-cta reveal">
+      <p>Mondja el, milyen hibakódot lát, és megmondjuk telefonon is, mire számíthat.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gyik" class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Gyakori kérdések</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item" name="faq-group">
+        <summary>Minden kazánmárkánál ugyanazt jelentik a hibakódok?<span class="faq-icon" aria-hidden="true">+</span></summary>
+        <p>Nem, gyártónként eltérő a kódrendszer. Ugyanaz a betű-szám kombináció más márkánál mást jelenthet, ezért mindig érdemes megadni a kazán típusát is.</p>
+      </details>
+      <details class="faq-item" name="faq-group">
+        <summary>Biztonságos újraindítani a kazánt hiba esetén?<span class="faq-icon" aria-hidden="true">+</span></summary>
+        <p>Egyszeri hibánál a gyári útmutató szerinti újraindítás jellemzően biztonságos. Ha a hiba visszatér, vagy füstgáz-, gyújtási hibáról van szó, inkább hívjon szakembert.</p>
+      </details>
+      <details class="faq-item" name="faq-group">
+        <summary>Telefonon meg tudják mondani, mi a baj a hibakód alapján?<span class="faq-icon" aria-hidden="true">+</span></summary>
+        <p>Sok esetben a hibakód és a tünetek alapján telefonon is tudunk tájékoztatást adni, de a pontos ok megállapításához helyszíni hibafeltárásra van szükség.</p>
+      </details>
+      <details class="faq-item" name="faq-group">
+        <summary>Mennyi idő alatt érkeznek egy hibakódos kazánhoz?<span class="faq-icon" aria-hidden="true">+</span></summary>
+        <p>A legtöbb esetben 1-2 munkanapon belül a helyszínen vagyunk, fűtés vagy melegvíz nélküli, sürgős esetben jellemzően aznap.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Gázkazán hibakód-diagnosztika",
+  "name": "Gázkazán hibakódok és hibafeltárás Siófokon és környékén",
+  "description": "Gázkazán hibakódok értelmezése, hibafeltárás és javítás, garanciával.",
+  "provider": {
+    "@type": "HVACBusiness",
+    "name": "{{SITE_NAME}}",
+    "telephone": "{{PHONE_TEL}}",
+    "url": "{{SITE_URL}}"
+  },
+  "areaServed": [
+    "Siófok", "Balatonszabadi", "Balatonszárszó", "Zamárdi", "Balatonföldvár",
+    "Balatonlelle", "Szántód", "Kőröshegy", "Ságvár", "Balatonőszöd",
+    "Fonyód", "Tab", "Balatonfűzfő", "Polgárdi", "Dég", "Tamási"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Minden kazánmárkánál ugyanazt jelentik a hibakódok?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nem, gyártónként eltérő a kódrendszer. Ugyanaz a betű-szám kombináció más márkánál mást jelenthet, ezért mindig érdemes megadni a kazán típusát is." }
+    },
+    {
+      "@type": "Question",
+      "name": "Biztonságos újraindítani a kazánt hiba esetén?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Egyszeri hibánál a gyári útmutató szerinti újraindítás jellemzően biztonságos. Ha a hiba visszatér, vagy füstgáz-, gyújtási hibáról van szó, inkább hívjon szakembert." }
+    },
+    {
+      "@type": "Question",
+      "name": "Telefonon meg tudják mondani, mi a baj a hibakód alapján?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sok esetben a hibakód és a tünetek alapján telefonon is tudunk tájékoztatást adni, de a pontos ok megállapításához helyszíni hibafeltárásra van szükség." }
+    },
+    {
+      "@type": "Question",
+      "name": "Mennyi idő alatt érkeznek egy hibakódos kazánhoz?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A legtöbb esetben 1-2 munkanapon belül a helyszínen vagyunk, fűtés vagy melegvíz nélküli, sürgős esetben jellemzően aznap." }
+    }
+  ]
+}
+</script>

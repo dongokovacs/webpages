@@ -557,6 +557,142 @@ a.hero-stat-card:hover { transform: translateY(-2px); border-color: var(--accent
 .form-status[data-state="success"] { background: var(--accent-soft); color: var(--accent-strong); }
 .form-status[data-state="error"] { background: rgba(220, 38, 38, 0.16); color: #f87171; }
 
+/* Hibakódkereső */
+.hibakod-finder { display: grid; gap: 1.25rem; }
+.hibakod-controls {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.3rem;
+}
+@media (min-width: 600px) {
+  .hibakod-controls { grid-template-columns: 1fr 1fr; }
+}
+.hibakod-controls .field { display: grid; gap: 0.4rem; }
+.hibakod-controls label { font-weight: 600; font-size: 0.92rem; }
+.hibakod-controls select,
+.hibakod-controls input {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-input);
+  padding: 0.8rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  background: var(--bg);
+  color: var(--ink);
+}
+.hibakod-controls select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23767b6f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 18px;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+.hibakod-controls select:focus,
+.hibakod-controls input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.hibakod-brand-info {
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.3rem;
+  display: grid;
+  gap: 0.35rem;
+  animation: hibakod-brand-in 0.25s ease;
+}
+.hibakod-brand-info h3 { font-size: 1.1rem; color: var(--accent-strong); }
+.hibakod-brand-info p { color: var(--ink-soft); font-size: 0.9rem; }
+.hibakod-brand-info p a { color: var(--accent-strong); font-weight: 700; }
+@keyframes hibakod-brand-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hibakod-brand-info { animation: none; }
+}
+.hibakod-count-label { color: var(--ink-faint); font-size: 0.88rem; font-weight: 600; }
+.hibakod-count-label span { color: var(--accent-strong); }
+
+.hibakod-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+  padding: 0.4rem;
+}
+.hibakod-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 0.9rem; }
+.hibakod-table thead th {
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+}
+.hibakod-table tbody td { padding: 0.85rem 1.1rem; border-top: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+.hibakod-table tbody tr:nth-child(even) { background: var(--bg-alt); }
+.hibakod-table tbody tr:hover { background: var(--accent-soft); }
+.hibakod-code { font-family: var(--font-display); font-weight: 800; color: var(--accent-strong); white-space: nowrap; }
+.hibakod-brand-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  background: var(--accent-soft);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.hibakod-table[data-brand-locked] th[data-hibakod-col-brand],
+.hibakod-table[data-brand-locked] td[data-hibakod-col-brand] { display: none; }
+.hibakod-empty { text-align: center; color: var(--ink-faint); padding: 1.5rem; }
+.hibakod-disclaimer { color: var(--ink-faint); font-size: 0.85rem; margin-top: 1.25rem; }
+
+@media (max-width: 640px) {
+  .hibakod-table-wrap { overflow-x: visible; border: none; box-shadow: none; background: transparent; padding: 0; }
+  .hibakod-table, .hibakod-table tbody, .hibakod-table tr, .hibakod-table td { display: block; width: 100%; min-width: 0; }
+  .hibakod-table thead { display: none; }
+  .hibakod-table tbody tr[hidden] { display: none; }
+  .hibakod-table tbody tr {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 0.75rem;
+    display: grid;
+    gap: 0.5rem;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .hibakod-table tbody tr:nth-child(even) { background: var(--surface); }
+  .hibakod-table tbody tr:last-child { margin-bottom: 0; }
+  .hibakod-table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--accent);
+  }
+  .hibakod-table tbody td { padding: 0; border-top: none; }
+  .hibakod-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-strong);
+    margin-bottom: 0.2rem;
+  }
+}
+
 /* FAQ */
 .faq-list { display: grid; gap: 0.75rem; }
 .faq-item {

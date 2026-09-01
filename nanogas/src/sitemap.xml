@@ -21,6 +21,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>{{SITE_URL}}/gazkazan-hibakodok-siofok.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>{{SITE_URL}}/klima-karbantartas-siofok.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -41,12 +46,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>{{SITE_URL}}/tarsashazak-siofok.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>{{SITE_URL}}/ipari-hotermelok-siofok.html</loc>
+    <loc>{{SITE_URL}}/ipari-siofok.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
