@@ -64,16 +64,17 @@
         <p>A jelentés csak a táblázatban megadott készülékcsaládra alkalmazható. Ha a típustábla eltérő családot mutat, a készülék saját kézikönyve az irányadó. <a href="./markaszerviz.html">Márkaoldal</a></p>
       </div>
 
-      <p class="hibakod-count-label"><span data-hibakod-count>40</span> találat</p>
+      <p class="hibakod-count-label" role="status" aria-live="polite"><span data-hibakod-count>40</span> találat</p>
 
       <div class="hibakod-table-wrap">
         <table class="hibakod-table" data-hibakod-table>
+          <caption class="sr-only">Gázkazán hibakódok márka, kód és jelentés szerint kereshető listája</caption>
           <thead>
             <tr>
-              <th>Kód</th>
-              <th data-hibakod-col-brand>Márka</th>
-              <th>Mit jelent?</th>
-              <th>Következő lépés</th>
+              <th scope="col">Kód</th>
+              <th scope="col" data-hibakod-col-brand>Márka</th>
+              <th scope="col">Mit jelent?</th>
+              <th scope="col">Következő lépés</th>
             </tr>
           </thead>
           <tbody>
@@ -326,7 +327,7 @@
             </tr>
           </tbody>
         </table>
-        <p class="hibakod-empty" data-hibakod-empty hidden>Nincs a keresésnek megfelelő hibakód. Hívjon minket, telefonon is segítünk beazonosítani a hibát.</p>
+        <p class="hibakod-empty" data-hibakod-empty role="status" aria-live="polite" hidden>Nincs a keresésnek megfelelő hibakód. Hívjon minket, telefonon is segítünk beazonosítani a hibát.</p>
       </div>
     </div>
 

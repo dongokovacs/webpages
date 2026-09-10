@@ -44,11 +44,16 @@
 
   const navDropdowns = Array.from(document.querySelectorAll(".nav-dropdown"));
   if (navDropdowns.length) {
-    const closeNavDropdown = (dropdown) => {
+    // restoreFocus: when the menu is closed while focus is inside it (e.g. Escape
+    // pressed while tabbed into a menu link), move focus back to the trigger button
+    // instead of letting the browser drop it once the menu becomes display:none.
+    const closeNavDropdown = (dropdown, { restoreFocus = false } = {}) => {
       const trigger = dropdown.querySelector(".nav-dropdown-trigger");
       const menu = dropdown.querySelector(".nav-dropdown-menu");
+      const focusWasInside = menu.contains(document.activeElement);
       menu.classList.remove("open");
       trigger.setAttribute("aria-expanded", "false");
+      if (restoreFocus && focusWasInside) trigger.focus();
     };
     navDropdowns.forEach((dropdown) => {
       const trigger = dropdown.querySelector(".nav-dropdown-trigger");
@@ -56,7 +61,7 @@
       trigger.addEventListener("click", (event) => {
         event.stopPropagation();
         const isOpen = menu.classList.contains("open");
-        navDropdowns.forEach(closeNavDropdown);
+        navDropdowns.forEach((d) => closeNavDropdown(d));
         if (!isOpen) {
           menu.classList.add("open");
           trigger.setAttribute("aria-expanded", "true");
@@ -69,7 +74,7 @@
       });
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") navDropdowns.forEach(closeNavDropdown);
+      if (event.key === "Escape") navDropdowns.forEach((d) => closeNavDropdown(d, { restoreFocus: true }));
     });
   }
 
