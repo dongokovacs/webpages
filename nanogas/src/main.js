@@ -55,22 +55,26 @@
       trigger.setAttribute("aria-expanded", "false");
       if (restoreFocus && focusWasInside) trigger.focus();
     };
-    navDropdowns.forEach((dropdown) => {
+    const openNavDropdown = (dropdown) => {
       const trigger = dropdown.querySelector(".nav-dropdown-trigger");
       const menu = dropdown.querySelector(".nav-dropdown-menu");
-      trigger.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const isOpen = menu.classList.contains("open");
-        navDropdowns.forEach((d) => closeNavDropdown(d));
-        if (!isOpen) {
-          menu.classList.add("open");
-          trigger.setAttribute("aria-expanded", "true");
-        }
+      navDropdowns.forEach((d) => {
+        if (d !== dropdown) closeNavDropdown(d);
       });
-    });
-    document.addEventListener("click", (event) => {
-      navDropdowns.forEach((dropdown) => {
-        if (!dropdown.contains(event.target)) closeNavDropdown(dropdown);
+      menu.classList.add("open");
+      trigger.setAttribute("aria-expanded", "true");
+    };
+
+    navDropdowns.forEach((dropdown) => {
+      // Egérrel: hoverre nyit, elhagyáskor (mouseleave a teljes dropdown
+      // konténerről, nem csak a triggerről) automatikusan bezáródik.
+      dropdown.addEventListener("mouseenter", () => openNavDropdown(dropdown));
+      dropdown.addEventListener("mouseleave", () => closeNavDropdown(dropdown));
+      // Billentyűzettel: Tab-bal a triggerre/menübe fókuszálva nyit, a
+      // dropdown elhagyásakor (focusout, ha az új fókusz már kívül van) zár.
+      dropdown.addEventListener("focusin", () => openNavDropdown(dropdown));
+      dropdown.addEventListener("focusout", (event) => {
+        if (!dropdown.contains(event.relatedTarget)) closeNavDropdown(dropdown);
       });
     });
     document.addEventListener("keydown", (event) => {

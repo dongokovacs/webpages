@@ -75,6 +75,10 @@ function buildTokens(config, siteUrl) {
     IMG_HOSZIVATTYU_JAVITAS: config.images.hoszivattyuJavitas,
     IMG_TARSASHAZAK: config.images.tarsashazak,
     IMG_IPARI_HOTERMELOK: config.images.ipariHotermelok,
+    // A JSON-LD "areaServed" tömbök minden oldalon ezt a tokent használják,
+    // hogy a település-lista egyetlen helyről (site.config.json) frissüljön,
+    // ne kelljen minden oldalon külön-külön szinkronban tartani.
+    AREA_SERVED_JSON: JSON.stringify(config.areaServed),
     ROBOTS_META: isProduction ? "" : '<meta name="robots" content="noindex, nofollow" />',
   };
 }

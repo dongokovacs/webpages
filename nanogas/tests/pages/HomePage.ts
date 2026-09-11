@@ -50,7 +50,8 @@ export class HomePage {
   }
 
   async openDesktopDropdown() {
-    await this.desktopDropdownTrigger.click();
+    // Hoverre nyílik (nem kattintásra) — ld. src/main.js nav-dropdown logika.
+    await this.desktopDropdownTrigger.hover();
   }
 
   async openMobileMenu() {
