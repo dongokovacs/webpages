@@ -5,3 +5,9 @@ data/
 playwright-report/
 test-results/
 blob-report/
+tests-py/.venv/
+tests-py/.pytest_cache/
+tests-py/__pycache__/
+tests-py/**/__pycache__/
+tests-py/allure-results/
+tests-py/allure-report/
