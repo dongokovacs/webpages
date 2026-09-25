@@ -65,11 +65,34 @@
       trigger.setAttribute("aria-expanded", "true");
     };
 
+    // Rövid türelmi idő zárás előtt, hogy egy átlós / pontatlan egérmozdulat
+    // a trigger és a menü között ne csukja be azonnal a menüt.
+    const CLOSE_DELAY_MS = 200;
+    const closeTimers = new Map();
+    const cancelScheduledClose = (dropdown) => {
+      window.clearTimeout(closeTimers.get(dropdown));
+      closeTimers.delete(dropdown);
+    };
+
     navDropdowns.forEach((dropdown) => {
       // Egérrel: hoverre nyit, elhagyáskor (mouseleave a teljes dropdown
-      // konténerről, nem csak a triggerről) automatikusan bezáródik.
-      dropdown.addEventListener("mouseenter", () => openNavDropdown(dropdown));
-      dropdown.addEventListener("mouseleave", () => closeNavDropdown(dropdown));
+      // konténerről, nem csak a triggerről) rövid késleltetéssel bezáródik.
+      // A trigger és a menü közti rést a CSS ::before híd fedi (style.css).
+      dropdown.addEventListener("mouseenter", () => {
+        cancelScheduledClose(dropdown);
+        openNavDropdown(dropdown);
+      });
+      dropdown.addEventListener("mouseleave", () => {
+        cancelScheduledClose(dropdown);
+        closeTimers.set(
+          dropdown,
+          window.setTimeout(() => {
+            closeTimers.delete(dropdown);
+            // Ha közben billentyűzettel bent van a fókusz, maradjon nyitva.
+            if (!dropdown.contains(document.activeElement)) closeNavDropdown(dropdown);
+          }, CLOSE_DELAY_MS)
+        );
+      });
       // Billentyűzettel: Tab-bal a triggerre/menübe fókuszálva nyit, a
       // dropdown elhagyásakor (focusout, ha az új fókusz már kívül van) zár.
       dropdown.addEventListener("focusin", () => openNavDropdown(dropdown));

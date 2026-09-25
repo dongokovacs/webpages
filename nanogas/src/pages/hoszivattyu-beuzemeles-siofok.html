@@ -6,16 +6,16 @@
 }
 -->
 <section class="subpage-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Hőszivattyú beüzemelés</span>
-    <h1 class="reveal">Új hőszivattyú szakszerű beüzemelése Siófokon</h1>
-    <p class="reveal">Egy hőszivattyú csak akkor hozza a várt hatásfokot és a gyártói garanciát, ha a beüzemelést szakember végzi, a rendszer méretezéséhez és a helyszíni adottságokhoz igazítva.</p>
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
-      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+  <div class="container subpage-hero-grid">
+    <div class="subpage-hero-copy">
+      <span class="eyebrow reveal">Hőszivattyú beüzemelés</span>
+      <h1 class="reveal">Új hőszivattyú szakszerű beüzemelése Siófokon</h1>
+      <p class="reveal">Egy hőszivattyú csak akkor hozza a várt hatásfokot és a gyártói garanciát, ha a beüzemelést szakember végzi, a rendszer méretezéséhez és a helyszíni adottságokhoz igazítva.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+      </div>
     </div>
-  </div>
-  <div class="container">
     <div class="subpage-media reveal">
       <img
         class="parallax-img"
@@ -23,7 +23,7 @@
         src="{{IMG_HOSZIVATTYU_BEUZEMELES}}"
         width="1400" height="700"
         alt="Új hőszivattyú beüzemelése egy siófoki családi háznál"
-        loading="lazy" decoding="async"
+        loading="eager" fetchpriority="high" decoding="async"
       />
     </div>
   </div>

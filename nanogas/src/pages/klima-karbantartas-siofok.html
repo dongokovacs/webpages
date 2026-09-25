@@ -6,16 +6,16 @@
 }
 -->
 <section class="subpage-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Klíma karbantartás</span>
-    <h1 class="reveal">Rendszeres klíma karbantartás Siófokon</h1>
-    <p class="reveal">Éves ellenőrzéssel elkerülheti a szezon közepén jövő meghibásodást, és hosszabb élettartamot ad a berendezésnek.</p>
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
-      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+  <div class="container subpage-hero-grid">
+    <div class="subpage-hero-copy">
+      <span class="eyebrow reveal">Klíma karbantartás</span>
+      <h1 class="reveal">Rendszeres klíma karbantartás Siófokon</h1>
+      <p class="reveal">Éves ellenőrzéssel elkerülheti a szezon közepén jövő meghibásodást, és hosszabb élettartamot ad a berendezésnek.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+      </div>
     </div>
-  </div>
-  <div class="container">
     <div class="subpage-media reveal">
       <img
         class="parallax-img"
@@ -23,7 +23,7 @@
         src="{{IMG_KARBANTARTAS}}"
         width="1400" height="700"
         alt="Klíma kültéri egységének éves karbantartás közbeni ellenőrzése"
-        loading="lazy" decoding="async"
+        loading="eager" fetchpriority="high" decoding="async"
       />
     </div>
   </div>

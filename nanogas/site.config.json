@@ -43,8 +43,8 @@
     "gazkazanBeuzemeles": "./images/gazkazan-beuzemeles.webp",
     "gazkazanJavitas": "https://picsum.photos/seed/nanogas-gazkazan-javitas/1400/700",
     "gazkazanHibakodok": "./images/hibakodok.webp",
-    "hoszivattyuBeuzemeles": "./images/hoszivattyu-karbantartas.webp",
-    "hoszivattyuKarbantartas": "https://picsum.photos/seed/nanogas-hoszivattyu-karbantartas/1400/700",
+    "hoszivattyuBeuzemeles": "./images/hoszivattyu-beuzemeles.webp",
+    "hoszivattyuKarbantartas": "./images/hoszivattyu-karbantartas.webp",
     "hoszivattyuJavitas": "https://picsum.photos/seed/nanogas-hoszivattyu-javitas/1400/700",
     "tarsashazak": "./images/ugyelet.png",
     "ipariHotermelok": "https://picsum.photos/seed/nanogas-ipari-hotermelok/1400/700"
