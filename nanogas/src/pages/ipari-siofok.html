@@ -6,16 +6,16 @@
 }
 -->
 <section class="subpage-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Ipari és társasházi ügyfelek</span>
-    <h1 class="reveal">Ipari hőtermelők és társasházi hőközpontok karbantartása</h1>
-    <p class="reveal">Egy ipari hőtermelő leállása üzemszünetet okoz, egy társasházi hőközpont hibája pedig egyszerre sok lakást érint. Mindkét esetben tervezett karbantartással és gyors hibaelhárítással minimalizáljuk a kiesést.</p>
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="./index.html#kapcsolat">Kérjen ajánlatot</a>
-      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+  <div class="container subpage-hero-grid">
+    <div class="subpage-hero-copy">
+      <span class="eyebrow reveal">Ipari és társasházi ügyfelek</span>
+      <h1 class="reveal">Ipari hőtermelők és társasházi hőközpontok karbantartása</h1>
+      <p class="reveal">Egy ipari hőtermelő leállása üzemszünetet okoz, egy társasházi hőközpont hibája pedig egyszerre sok lakást érint. Mindkét esetben tervezett karbantartással és gyors hibaelhárítással minimalizáljuk a kiesést.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="./index.html#kapcsolat">Kérjen ajánlatot</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+      </div>
     </div>
-  </div>
-  <div class="container">
     <!-- TODO: valós fotó cserélendő (ipari kazánház / társasházi hőközpont). Útvonal: site.config.json "images.ipariHotermelok" -->
     <div class="subpage-media reveal">
       <img
@@ -24,7 +24,7 @@
         src="{{IMG_IPARI_HOTERMELOK}}"
         width="1400" height="700"
         alt="Ipari hőtermelő berendezés ellenőrzése egy technológiai kazánházban"
-        loading="lazy" decoding="async"
+        loading="eager" fetchpriority="high" decoding="async"
       />
     </div>
   </div>

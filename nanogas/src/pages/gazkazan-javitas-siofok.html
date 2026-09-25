@@ -6,16 +6,16 @@
 }
 -->
 <section class="subpage-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Gázkazán javítás</span>
-    <h1 class="reveal">Gázkazán javítás, mielőtt teljesen leállna a fűtés</h1>
-    <p class="reveal">A hirtelen leálló fűtés vagy a kimaradó meleg víz komoly kellemetlenséget jelent, különösen a téli időszakban. Gyors hibaelhárítással, szakszerű hibafeltárással és gyári alkatrészekkel állunk rendelkezésére.</p>
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
-      <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+  <div class="container subpage-hero-grid">
+    <div class="subpage-hero-copy">
+      <span class="eyebrow reveal">Gázkazán javítás</span>
+      <h1 class="reveal">Gázkazán javítás, mielőtt teljesen leállna a fűtés</h1>
+      <p class="reveal">A hirtelen leálló fűtés vagy a kimaradó meleg víz komoly kellemetlenséget jelent, különösen a téli időszakban. Gyors hibaelhárítással, szakszerű hibafeltárással és gyári alkatrészekkel állunk rendelkezésére.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="./index.html#kapcsolat">Foglaljon időpontot</a>
+        <a class="btn btn-secondary" href="tel:{{PHONE_TEL}}">Hívás most</a>
+      </div>
     </div>
-  </div>
-  <div class="container">
     <!-- TODO: valós fotó cserélendő (gázkazán javítás, hibafeltárás közben). Útvonal: site.config.json "images.gazkazanJavitas" -->
     <div class="subpage-media reveal">
       <img
@@ -24,7 +24,7 @@
         src="{{IMG_GAZKAZAN_JAVITAS}}"
         width="1400" height="700"
         alt="Meghibásodott gázkazán javítása és hibafeltárása egy siófoki családi háznál"
-        loading="lazy" decoding="async"
+        loading="eager" fetchpriority="high" decoding="async"
       />
     </div>
   </div>

@@ -21,6 +21,15 @@ test("desktop nav dropdown nyit", async ({ page, homePage }) => {
   await expect(homePage.desktopDropdownTrigger).toHaveAttribute("aria-expanded", "true");
 });
 
+// Regresszió: a trigger és a menü közti résen áthaladva a menü bezárult,
+// így az almenü linkjei egérrel elérhetetlenek voltak.
+test("desktop nav dropdown: almenü link egérrel elérhető és kattintható", async ({ page, homePage }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await homePage.goto();
+  await homePage.clickDesktopDropdownLink("./gazkazan-beuzemeles-siofok.html");
+  await expect(page).toHaveURL(/gazkazan-beuzemeles-siofok\.html$/);
+});
+
 test("mobil menü nyit", async ({ page, homePage }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await homePage.goto();

@@ -26,6 +26,15 @@ def test_desktop_nav_dropdown_nyit(page: Page, home_page):
     expect(home_page.desktop_dropdown_trigger).to_have_attribute("aria-expanded", "true")
 
 
+# Regresszió: a trigger és a menü közti résen áthaladva a menü bezárult,
+# így az almenü linkjei egérrel elérhetetlenek voltak.
+def test_desktop_nav_dropdown_almenu_link_egerrel_elerheto_es_kattinthato(page: Page, home_page):
+    page.set_viewport_size({"width": 1280, "height": 800})
+    home_page.goto()
+    home_page.click_desktop_dropdown_link("./gazkazan-beuzemeles-siofok.html")
+    expect(page).to_have_url(re.compile(r"gazkazan-beuzemeles-siofok\.html$"))
+
+
 def test_mobil_menu_nyit(page: Page, home_page):
     page.set_viewport_size({"width": 375, "height": 812})
     home_page.goto()

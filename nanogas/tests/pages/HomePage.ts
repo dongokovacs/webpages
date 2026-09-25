@@ -54,6 +54,19 @@ export class HomePage {
     await this.desktopDropdownTrigger.hover();
   }
 
+  // Valódi egérpályát szimulál a triggertől a menülinkig (köztes mousemove
+  // eseményekkel), így átmegy a trigger és a menü közti résen is — a sima
+  // locator.hover() "teleportálna", és nem fogná meg a rés miatti bezáródást.
+  async clickDesktopDropdownLink(href: string) {
+    await this.openDesktopDropdown();
+    const link = this.page.locator(`.nav-dropdown-menu a[href="${href}"]`);
+    const box = await link.boundingBox();
+    if (!box) throw new Error(`Dropdown link nem látható: ${href}`);
+    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 20 });
+    await this.page.mouse.down();
+    await this.page.mouse.up();
+  }
+
   async openMobileMenu() {
     await this.mobileMenuButton.click();
   }

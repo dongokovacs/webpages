@@ -39,7 +39,21 @@ class HomePage:
         self.page.goto(path)
 
     def open_desktop_dropdown(self) -> None:
-        self.desktop_dropdown_trigger.click()
+        # Hoverre nyílik (nem kattintásra) — ld. src/main.js nav-dropdown logika.
+        self.desktop_dropdown_trigger.hover()
+
+    # Valódi egérpályát szimulál a triggertől a menülinkig (köztes mousemove
+    # eseményekkel), így átmegy a trigger és a menü közti résen is — a sima
+    # locator.hover() "teleportálna", és nem fogná meg a rés miatti bezáródást.
+    def click_desktop_dropdown_link(self, href: str) -> None:
+        self.open_desktop_dropdown()
+        link = self.page.locator(f'.nav-dropdown-menu a[href="{href}"]')
+        box = link.bounding_box()
+        if box is None:
+            raise RuntimeError(f"Dropdown link nem látható: {href}")
+        self.page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2, steps=20)
+        self.page.mouse.down()
+        self.page.mouse.up()
 
     def open_mobile_menu(self) -> None:
         self.mobile_menu_button.click()
