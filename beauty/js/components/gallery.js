@@ -22,6 +22,7 @@ export class Gallery extends Component {
       .filter((item) => tag === 'all' || item.tag === tag)
       .map((item) => `
         <div class="ph gallery__tile" style="grid-row:span ${Number(item.rows) || 1}">
+          <img class="image-fill" src="${esc(item.image)}" alt="${esc(item.alt)}" loading="lazy" decoding="async">
           <span class="ph__label">${esc(item.label)}</span>
         </div>`).join('');
   }

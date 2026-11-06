@@ -52,7 +52,10 @@ export class PriceList extends Component {
     }).join('');
 
     this.root.innerHTML = `
-      <div class="ph ph--sticky" style="aspect-ratio:4/3"><span class="ph__label">fotó: ${esc(this.category.photo)}</span></div>
+      <div class="ph ph--sticky price-list__photo">
+        <img class="image-fill" src="${esc(this.category.photo)}" alt="${esc(this.category.photoAlt)}" loading="lazy" decoding="async">
+        <span class="ph__label">${esc(this.category.photoLabel)}</span>
+      </div>
       <div>
         <p class="services__intro">${esc(this.category.intro)}</p>
         ${lengthPicker}

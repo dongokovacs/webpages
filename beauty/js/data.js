@@ -11,7 +11,9 @@ export const CATEGORIES = [
   {
     id: 'fodraszat',
     label: 'Fodrászat',
-    photo: 'hajvágás / festett haj',
+    photo: 'assets/instagram-hair-10.jpg',
+    photoAlt: 'Rózsaszín árnyalatú, hosszú frizura több nézetből',
+    photoLabel: 'Hajszín és forma',
     intro: 'Válaszd ki a hajhosszad, és megmutatjuk az aktuális árakat.',
     byLength: true,
   },
@@ -54,19 +56,18 @@ export const REVIEWS = [
 export const GALLERY_TAGS = [
   { id: 'all', label: 'Összes' },
   { id: 'haj', label: 'Frizurák' },
-  { id: 'szalon', label: 'Szalon' },
 ];
 
 /** rows: hány sor magas a csempe a rácsban (1 vagy 2). */
 export const GALLERY = [
-  { tag: 'szalon', label: 'szalon – recepció', rows: 2 },
-  { tag: 'haj', label: 'balayage – előtte/utána', rows: 1 },
-  { tag: 'haj', label: 'szőkítés', rows: 1 },
-  { tag: 'haj', label: 'alkalmi frizura', rows: 2 },
-  { tag: 'haj', label: 'keratinos kezelés – utána', rows: 1 },
-  { tag: 'haj', label: 'konty', rows: 2 },
-  { tag: 'szalon', label: 'kezelőszék', rows: 1 },
-  { tag: 'haj', label: 'rövid női vágás', rows: 1 },
+  { tag: 'haj', image: 'assets/instagram-hair-02.jpg', alt: 'Hosszú, egyenes szőke haj', label: 'Hosszú szőke frizura', rows: 2 },
+  { tag: 'haj', image: 'assets/instagram-hair-03.jpg', alt: 'Vállig érő balayage frizura előtte és utána', label: 'Balayage', rows: 1 },
+  { tag: 'haj', image: 'assets/instagram-hair-04.jpg', alt: 'Szőke melír eredménye két nézetből', label: 'Szőke melír', rows: 2 },
+  { tag: 'haj', image: 'assets/instagram-hair-05.jpg', alt: 'Hosszú, világos szőke haj oldalnézetből', label: 'Világos szőke haj', rows: 1 },
+  { tag: 'haj', image: 'assets/instagram-hair-06.jpg', alt: 'Vállig érő melírozott frizura több nézetből', label: 'Melírozott frizura', rows: 2 },
+  { tag: 'haj', image: 'assets/instagram-hair-07.jpg', alt: 'Réteges barna hajvágás előtte és utána', label: 'Réteges hajvágás', rows: 1 },
+  { tag: 'haj', image: 'assets/instagram-hair-08.jpg', alt: 'Balayage frizura előtte és utána', label: 'Balayage előtte és utána', rows: 1 },
+  { tag: 'haj', image: 'assets/instagram-hair-09.jpg', alt: 'Hosszú, hamvas szőke haj hátulról', label: 'Hamvas szőke haj', rows: 1 },
 ];
 
 /** Hétfőtől vasárnapig. open: null = zárva. */
