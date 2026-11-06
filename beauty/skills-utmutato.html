@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code skillek – vizuális útmutató</title>
+<style>
+  :root {
+    --bg: oklch(0.17 0.02 280);
+    --panel: oklch(0.22 0.025 280);
+    --line: oklch(0.32 0.03 280);
+    --text: oklch(0.94 0.01 280);
+    --muted: oklch(0.74 0.02 280);
+    --sp: oklch(0.78 0.16 75);    /* superpowers */
+    --ka: oklch(0.76 0.14 160);   /* karpathy */
+    --cr: oklch(0.72 0.17 25);    /* code-review */
+    --im: oklch(0.74 0.15 320);   /* impeccable */
+    --an: oklch(0.78 0.10 230);   /* anthropic */
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 system-ui, "Segoe UI", sans-serif; }
+  code, kbd { font-family: ui-monospace, Consolas, monospace; font-size: .9em;
+    background: oklch(0.28 0.03 280); padding: .1em .4em; border-radius: 4px; }
+  h1, h2, h3 { text-wrap: balance; line-height: 1.2; }
+  a { color: inherit; }
+
+  /* Hero + 3D */
+  .hero { position: relative; height: 100vh; min-height: 560px; overflow: hidden; }
+  #scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero-text { position: absolute; left: clamp(1rem, 5vw, 4rem); top: clamp(1.5rem, 6vh, 4rem);
+    max-width: 30rem; pointer-events: none; }
+  .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.6rem); margin: 0 0 .5rem; letter-spacing: -0.02em; }
+  .hero-text p { color: var(--muted); margin: 0; }
+  .labels { position: absolute; inset: 0; pointer-events: none; }
+  .node-label { position: absolute; transform: translate(-50%, -50%); pointer-events: auto;
+    background: oklch(0.2 0.02 280 / .8); border: 1px solid var(--c); color: var(--text);
+    padding: .3rem .7rem; border-radius: 999px; font-size: .85rem; cursor: pointer;
+    white-space: nowrap; backdrop-filter: blur(6px); transition: background .2s; }
+  .node-label:hover, .node-label:focus-visible { background: var(--c); color: var(--bg); outline: none; }
+  .node-label.center { font-weight: 700; font-size: 1rem; cursor: default; }
+  .hint { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    color: var(--muted); font-size: .85rem; }
+
+  main { max-width: 72rem; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem) 6rem; }
+  section { padding-top: 4rem; }
+  section > h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 .5rem; }
+  .lead { color: var(--muted); max-width: 65ch; margin-top: 0; }
+
+  /* Folyamat */
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: .75rem; counter-reset: step; margin-top: 1.5rem; }
+  .step { position: relative; padding: 1rem; background: var(--panel); }
+  .step::before { counter-increment: step; content: counter(step);
+    font-weight: 700; color: var(--c); font-size: 1.4rem; display: block; }
+  .step b { display: block; }
+  .step span { color: var(--muted); font-size: .88rem; }
+
+  /* Skill blokkok */
+  .skill { margin-top: 2.5rem; padding: 1.5rem clamp(1rem, 3vw, 2rem);
+    border-top: 2px solid var(--c); background: var(--panel); }
+  .skill h3 { font-size: 1.5rem; margin: 0; color: var(--c); }
+  .skill .what { color: var(--muted); max-width: 65ch; }
+  .tag { display: inline-block; font-size: .75rem; padding: .1rem .5rem; border-radius: 999px;
+    border: 1px solid var(--c); color: var(--c); margin-left: .5rem; vertical-align: middle; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .93rem; }
+  th, td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+  td:first-child { white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+  .chips code { border: 1px solid var(--line); }
+  .example { margin-top: 1rem; padding: .8rem 1rem; border-radius: 8px;
+    background: oklch(0.19 0.02 280); border: 1px dashed var(--line); }
+  .example::before { content: "Így kérd: "; color: var(--c); font-weight: 600; }
+
+  .note { margin-top: 2rem; padding: 1rem 1.25rem; border-radius: 8px;
+    background: oklch(0.25 0.04 75 / .35); border: 1px solid oklch(0.5 0.08 75); }
+  footer { color: var(--muted); font-size: .85rem; text-align: center; padding: 2rem; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="labels" id="labels"></div>
+  <div class="hero-text">
+    <h1>Claude Code skillek</h1>
+    <p>Ezek a skillek vannak feltelepítve, és ebből látod, mikor melyiket érdemes használni. Kattints egy bolygóra, és odaugrik a leírásához.</p>
+  </div>
+  <div class="hint">↓ görgess a részletekért</div>
+</header>
+
+<main>
+
+  <section id="flow">
+    <h2>Egy feladat menete</h2>
+    <p class="lead">Ilyen sorrendben lépnek be a skillek egy tipikus feladatnál, például ha új szekciót kérsz a Beauty Room oldalra. A <code>karpathy-guidelines</code> szabályai végig érvényesek, ezt a projekt <code>CLAUDE.md</code> fájlja írja elő.</p>
+    <div class="flow">
+      <div class="step" style="--c:var(--sp)"><b>Ötlet tisztázása</b><span>superpowers: brainstorming</span></div>
+      <div class="step" style="--c:var(--sp)"><b>Terv</b><span>superpowers: writing-plans</span></div>
+      <div class="step" style="--c:var(--im)"><b>UI megtervezése</b><span>/impeccable shape / craft</span></div>
+      <div class="step" style="--c:var(--ka)"><b>Kódolás</b><span>karpathy: egyszerű, sebészi változtatás</span></div>
+      <div class="step" style="--c:var(--sp)"><b>Ellenőrzés</b><span>verification-before-completion</span></div>
+      <div class="step" style="--c:var(--cr)"><b>Review</b><span>/code-review, /simplify</span></div>
+      <div class="step" style="--c:var(--im)"><b>Csiszolás</b><span>/impeccable polish / audit</span></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>A négy fő skill</h2>
+
+    <article class="skill" id="superpowers" style="--c:var(--sp)">
+      <h3>superpowers <span class="tag">folyamat · automatikus</span></h3>
+      <p class="what">Munkafolyamat-skillek gyűjteménye: <em>hogyan</em> álljon neki Claude egy feladatnak. A session indulásakor egy hook betölti, és ha egy skill illik a helyzethez, magától meghívja. A nevük elé írt <code>superpowers:</code> előtaggal te is elindíthatod bármelyiket.</p>
+      <table>
+        <tr><th>Skill</th><th>Mikor lép be</th></tr>
+        <tr><td><code>brainstorming</code></td><td>Új funkció vagy oldal előtt: kérdez, tisztázza az igényt, és csak utána kódol</td></tr>
+        <tr><td><code>writing-plans</code> → <code>executing-plans</code></td><td>Többlépéses munka: előbb lépésenkénti tervet ír, aztán végrehajtja</td></tr>
+        <tr><td><code>systematic-debugging</code></td><td>Hibánál: gyökérokot keres, nem találgat</td></tr>
+        <tr><td><code>test-driven-development</code></td><td>Előbb megírja a tesztet, aztán a kódot</td></tr>
+        <tr><td><code>verification-before-completion</code></td><td>Mielőtt „kész”-t mond, ellenőriz (futtat, böngészőben megnézi)</td></tr>
+        <tr><td><code>requesting-</code> / <code>receiving-code-review</code></td><td>Review kérése, illetve a kapott review-megjegyzések feldolgozása</td></tr>
+        <tr><td><code>using-git-worktrees</code>, <code>finishing-a-development-branch</code></td><td>Elkülönített munkaág, majd merge vagy PR a végén</td></tr>
+        <tr><td><code>subagent-driven-development</code>, <code>dispatching-parallel-agents</code></td><td>Nagy, párhuzamosítható feladatok szétosztása</td></tr>
+        <tr><td><code>writing-skills</code></td><td>Saját skill írása</td></tr>
+      </table>
+      <p class="example">„Szeretnék egy árlista szekciót, először brainstormoljunk.”</p>
+    </article>
+
+    <article class="skill" id="karpathy" style="--c:var(--ka)">
+      <h3>karpathy-guidelines <span class="tag">szabályrendszer · ebben a projektben kötelező</span></h3>
+      <p class="what">Négy viselkedési szabály, amely a tipikus LLM-kódolási hibák ellen véd. Nem csinál semmit önmagában, hanem azt határozza meg, <em>milyen</em> kódot ír Claude. A Beauty Room <code>CLAUDE.md</code> fájlja minden kódolás előtt előírja.</p>
+      <table>
+        <tr><th>Elv</th><th>A gyakorlatban</th></tr>
+        <tr><td>1. Gondolkodj kódolás előtt</td><td>Kimondja a feltételezéseit, és kérdez, ha valami nem egyértelmű</td></tr>
+        <tr><td>2. Egyszerűség</td><td>Csak azt írja meg, amit kértél: nincs kéretlen extra vagy „jövőbiztos” absztrakció</td></tr>
+        <tr><td>3. Sebészi változtatás</td><td>Csak a kért sorokhoz nyúl, és a meglévő stílushoz igazodik</td></tr>
+        <tr><td>4. Ellenőrizhető cél</td><td>Sikerfeltételt határoz meg, és addig dolgozik, amíg az nem teljesül</td></tr>
+      </table>
+      <p class="example">Külön nem kell kérned, a CLAUDE.md miatt automatikus. Kézzel így indítod: <code>/karpathy-guidelines</code></p>
+    </article>
+
+    <article class="skill" id="codereview" style="--c:var(--cr)">
+      <h3>code-review <span class="tag">beépített · kézi</span></h3>
+      <p class="what">A Claude Code beépített review-parancsa. Átnézi a módosításaidat (diffet, branchet vagy PR-t), és <em>hibákat</em> keres. Az első paraméter adja meg, milyen alapos legyen.</p>
+      <table>
+        <tr><th>Parancs</th><th>Mit csinál</th></tr>
+        <tr><td><code>/code-review</code></td><td>Az aktuális diffet nézi át az utoljára használt szinten</td></tr>
+        <tr><td><code>/code-review high</code></td><td>Alaposabb review: több találat, köztük bizonytalanabbak is</td></tr>
+        <tr><td><code>/code-review medium --fix</code></td><td>A review után a javításokat is alkalmazza</td></tr>
+        <tr><td><code>/code-review 12 --comment</code></td><td>A 12-es PR-t nézi át, és inline kommenteket tesz rá</td></tr>
+        <tr><td><code>/code-review ultra</code></td><td>Többágenses felhős review. <strong>Fizetős</strong>, csak tudatosan használd</td></tr>
+        <tr><td><code>/simplify</code></td><td>Testvérparancs: hibát nem keres, csak egyszerűsít és tisztít, majd alkalmazza is</td></tr>
+        <tr><td><code>/security-review</code></td><td>Biztonsági átnézés a branch változásain</td></tr>
+      </table>
+      <p class="example"><code>/code-review medium</code> commit előtt, a hero módosítása után</p>
+    </article>
+
+    <article class="skill" id="impeccable" style="--c:var(--im)">
+      <h3>impeccable <span class="tag">frontend design · kézi vagy automatikus</span></h3>
+      <p class="what">Frontend design-skill: tervez, auditál és csiszol. A <code>/impeccable &lt;parancs&gt; [cél]</code> formában hívod. Az első lépés az <code>init</code>: ez <code>PRODUCT.md</code>-t (márka, közönség) és opcionálisan <code>DESIGN.md</code>-t hoz létre, a többi parancs ezekből dolgozik.</p>
+      <table>
+        <tr><th>Csoport</th><th>Parancsok</th></tr>
+        <tr><td>Alapozás</td><td><div class="chips"><code>init</code><code>document</code><code>extract</code><code>live</code></div></td></tr>
+        <tr><td>Tervezés, építés</td><td><div class="chips"><code>shape</code><code>craft</code></div></td></tr>
+        <tr><td>Értékelés</td><td><div class="chips"><code>audit</code><code>critique</code></div></td></tr>
+        <tr><td>Stílus-hangolás</td><td><div class="chips"><code>bolder</code><code>quieter</code><code>colorize</code><code>typeset</code><code>layout</code><code>animate</code><code>delight</code><code>overdrive</code></div></td></tr>
+        <tr><td>Tartalom, UX</td><td><div class="chips"><code>clarify</code><code>distill</code><code>adapt</code><code>onboard</code></div></td></tr>
+        <tr><td>Minőség</td><td><div class="chips"><code>polish</code><code>harden</code><code>optimize</code></div></td></tr>
+      </table>
+      <p class="example"><code>/impeccable audit index.html</code>, aztán <code>/impeccable polish</code> a kiemelt hibákra</p>
+    </article>
+  </section>
+
+  <section id="anthropic" style="--c:var(--an)">
+    <h2>Az Anthropic saját skilljei</h2>
+    <p class="lead">Ezek is fel vannak telepítve. Kétféle van: <strong>beépített parancsok</strong>, amelyek a Claude Code részei, és <strong>anthropic-skills</strong>, amelyek dokumentumokhoz, böngészőhöz és skill-íráshoz valók. A gstack helyett ezek elég jó alapot adnak.</p>
+    <article class="skill" style="--c:var(--an)">
+      <h3>Beépített parancsok</h3>
+      <table>
+        <tr><th>Parancs</th><th>Mire jó</th></tr>
+        <tr><td><code>/init</code></td><td>CLAUDE.md-t ír egy projekthez</td></tr>
+        <tr><td><code>/run</code></td><td>Elindítja az appot, és megnézi, működik-e a változtatás</td></tr>
+        <tr><td><code>/code-review</code>, <code>/simplify</code>, <code>/security-review</code></td><td>Review, takarítás, biztonság (lásd fent)</td></tr>
+        <tr><td><code>/loop</code>, <code>/schedule</code></td><td>Ismétlődő, illetve ütemezett feladatok</td></tr>
+        <tr><td><code>/fewer-permission-prompts</code></td><td>Kevesebb engedélykérő ablak a gyakori, csak olvasó parancsoknál</td></tr>
+        <tr><td><code>/claude-api</code></td><td>Referencia, ha Claude API-ra építesz</td></tr>
+      </table>
+    </article>
+    <article class="skill" style="--c:var(--an)">
+      <h3>anthropic-skills</h3>
+      <table>
+        <tr><th>Skill</th><th>Mire jó</th></tr>
+        <tr><td><code>docx</code>, <code>pdf</code>, <code>pptx</code>, <code>xlsx</code></td><td>Word-, PDF-, prezentáció- és Excel-fájlok olvasása és készítése (pl. árlista PDF)</td></tr>
+        <tr><td><code>chrome-browser</code>, <code>built-in-browser</code></td><td>Böngésző vezérlése: egy oldal kipróbálása, képernyőképek</td></tr>
+        <tr><td><code>computer-use</code></td><td>Asztali alkalmazások vezérlése</td></tr>
+        <tr><td><code>deep-research</code></td><td>Több forrásból dolgozó webes kutatás</td></tr>
+        <tr><td><code>skill-creator</code></td><td>Saját skill írása, tesztelése és finomítása</td></tr>
+        <tr><td><code>mcp-builder</code></td><td>Saját MCP-szerver írása</td></tr>
+      </table>
+      <p class="example">„A chrome-browser skillel nézd meg az index.html-t mobil nézetben.”</p>
+    </article>
+    <p class="note"><strong>A gstack miért maradt ki:</strong> szinte mindenben átfed azzal, ami már megvan. A tervezést a superpowers, a review-t a <code>/code-review</code>, a design-részt az impeccable, a böngészős tesztet a chrome-browser fedi le. Windowson ráadásul csak minimális a támogatása.</p>
+  </section>
+
+</main>
+
+<footer>Csak helyi segédoldal, nem része a Beauty Room weboldalnak.</footer>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('scene');
+const labelsEl = document.getElementById('labels');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+// Az oklch színeket egy 1 pixeles vásznon alakítjuk sRGB-re, mert a THREE.Color nem érti őket.
+const px = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+function toColor(v) {
+  px.clearRect(0, 0, 1, 1); px.fillStyle = v; px.fillRect(0, 0, 1, 1);
+  const [r, g, b] = px.getImageData(0, 0, 1, 1).data;
+  return new THREE.Color().setRGB(r / 255, g / 255, b / 255, THREE.SRGBColorSpace);
+}
+
+const nodes = [
+  { name: 'superpowers', target: '#superpowers', color: '--sp', r: 3.2, speed: 0.22, size: 0.42, tilt: 0.25 },
+  { name: 'karpathy-guidelines', target: '#karpathy', color: '--ka', r: 4.4, speed: 0.16, size: 0.34, tilt: -0.35 },
+  { name: 'code-review', target: '#codereview', color: '--cr', r: 5.5, speed: 0.12, size: 0.36, tilt: 0.15 },
+  { name: 'impeccable', target: '#impeccable', color: '--im', r: 6.6, speed: 0.09, size: 0.40, tilt: -0.2 },
+  { name: 'Anthropic skillek', target: '#anthropic', color: '--an', r: 8.0, speed: 0.06, size: 0.30, tilt: 0.4 },
+];
+
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); }
+catch { canvas.remove(); }
+
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 7, 15);
+  camera.lookAt(0, 0, 0);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+  const light = new THREE.PointLight(0xffffff, 60, 0, 1.6);
+  scene.add(light);
+
+  // Középen a Claude Code „nap”
+  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.1, 2),
+    new THREE.MeshStandardMaterial({ color: 0xd97757, emissive: 0xd97757, emissiveIntensity: 0.6, flatShading: true }));
+  scene.add(core);
+
+  // Csillagos háttér
+  const starGeo = new THREE.BufferGeometry();
+  const pts = new Float32Array(900 * 3);
+  for (let i = 0; i < pts.length; i++) pts[i] = (Math.random() - 0.5) * 60;
+  starGeo.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+  scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x8888aa, size: 0.05 })));
+
+  const makeLabel = (text, cls, color) => {
+    const el = document.createElement(cls === 'center' ? 'div' : 'button');
+    el.className = 'node-label ' + cls; el.textContent = text;
+    el.style.setProperty('--c', color);
+    labelsEl.appendChild(el); return el;
+  };
+  const coreLabel = makeLabel('Claude Code', 'center', '#d97757');
+
+  for (const n of nodes) {
+    const col = toColor(css(n.color));
+    n.group = new THREE.Group(); n.group.rotation.x = n.tilt; scene.add(n.group);
+    const orbit = new THREE.Mesh(new THREE.TorusGeometry(n.r, 0.01, 6, 160),
+      new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.35 }));
+    orbit.rotation.x = Math.PI / 2; n.group.add(orbit);
+    n.mesh = new THREE.Mesh(new THREE.SphereGeometry(n.size, 32, 16),
+      new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: 0.35, roughness: 0.4 }));
+    n.group.add(n.mesh);
+    n.phase = Math.random() * Math.PI * 2;
+    n.label = makeLabel(n.name, '', css(n.color));
+    n.label.addEventListener('click', () => document.querySelector(n.target).scrollIntoView());
+  }
+
+  const v = new THREE.Vector3();
+  const place = (el, obj, dy) => {
+    obj.getWorldPosition(v); v.y += dy; v.project(camera);
+    el.style.left = (v.x * 0.5 + 0.5) * canvas.clientWidth + 'px';
+    el.style.top = (-v.y * 0.5 + 0.5) * canvas.clientHeight + 'px';
+    el.style.zIndex = Math.round((1 - v.z) * 1000);
+  };
+
+  function resize() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    // Keskeny képernyőn hátrébb visszük a kamerát, hogy a külső pálya is beférjen.
+    camera.position.setLength(w < 700 ? 34 : 18);
+    camera.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize); resize();
+
+  const clock = new THREE.Clock();
+  function frame() {
+    const t = reduced ? 0 : clock.getElapsedTime();
+    core.rotation.y = t * 0.2;
+    for (const n of nodes) {
+      const a = n.phase + t * n.speed;
+      n.mesh.position.set(Math.cos(a) * n.r, 0, Math.sin(a) * n.r);
+      n.mesh.rotation.y = t;
+    }
+    renderer.render(scene, camera);
+    place(coreLabel, core, -1.7);
+    for (const n of nodes) place(n.label, n.mesh, n.size + 0.5);
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  frame();
+}
+</script>
+</body>
+</html>

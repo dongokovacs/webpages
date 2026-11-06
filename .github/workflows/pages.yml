@@ -105,6 +105,13 @@ jobs:
           cp -r steeldecor-story/dist/. _site/steeldecor-story/
           cp -r sophiegarden/dist/. _site/sophiegarden/
           cp -r nanogas/tests-py/allure-report/. _site/nanogas-allure-report/
+          cp beauty/index.html _site/
+          cp -r beauty/assets beauty/css _site/
+          mkdir -p _site/js/components _site/js/domain _site/js/lib
+          cp beauty/js/*.js _site/js/
+          cp beauty/js/components/*.js _site/js/components/
+          cp beauty/js/domain/*.js _site/js/domain/
+          cp beauty/js/lib/*.js _site/js/lib/
 
       - uses: actions/configure-pages@v5
 

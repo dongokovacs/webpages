@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#FCFAF7;color:#393234;font-family:'Jost',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#805966;text-decoration:none}
+a:hover{color:#5f3f4a}
+*{box-sizing:border-box}
+input,select,textarea,button{font-family:inherit}
+@keyframes brFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#FCFAF7">
+
+<sc-if value="{{ showBar }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#805966;color:#FCFAF7;font-size:13px;letter-spacing:.04em;padding:9px 20px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;text-align:center">
+    <span>Maglód, Móricz Zsigmond u. 12. · Ingyenes utcai parkolás</span>
+    <a href="tel:+36307135867" style="color:#FCFAF7;text-decoration:underline;text-underline-offset:3px">+36 30 713 5867</a>
+  </div>
+</sc-if>
+
+<header style="position:sticky;top:0;z-index:20;background:rgba(252,250,247,.94);backdrop-filter:blur(10px);border-bottom:1px solid #EDE2E1">
+  <div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#top" style="display:flex;flex-direction:column;line-height:1;color:#805966">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px">Beauty Room</span>
+      <span style="font-size:10px;letter-spacing:.32em;margin-top:4px;color:#393234">BY · PETRA</span>
+    </a>
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:32px;font-size:14px;letter-spacing:.06em">
+        <a href="#szolgaltatasok" style="color:#393234">Szolgáltatások</a>
+        <a href="#galeria" style="color:#393234">Galéria</a>
+        <a href="#velemenyek" style="color:#393234">Vélemények</a>
+        <a href="#kapcsolat" style="color:#393234">Kapcsolat</a>
+        <a href="#idopont" style="background:#805966;color:#FCFAF7;padding:12px 22px;border-radius:999px;letter-spacing:.08em" style-hover="background:#6b4955">Időpontot kérek</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:10px;align-items:center">
+        <a href="#idopont" style="background:#805966;color:#FCFAF7;padding:11px 16px;border-radius:999px;font-size:13px">Időpont</a>
+        <button onClick="{{ toggleMenu }}" aria-label="Menü" style="width:44px;height:44px;border:1px solid #E3D3D3;background:transparent;border-radius:999px;color:#393234;font-size:18px;cursor:pointer">≡</button>
+      </div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="display:flex;flex-direction:column;padding:8px 20px 20px;gap:4px;font-size:17px">
+      <a href="#szolgaltatasok" onClick="{{ closeMenu }}" style="color:#393234;padding:12px 0;border-bottom:1px solid #EDE2E1">Szolgáltatások</a>
+      <a href="#galeria" onClick="{{ closeMenu }}" style="color:#393234;padding:12px 0;border-bottom:1px solid #EDE2E1">Galéria</a>
+      <a href="#velemenyek" onClick="{{ closeMenu }}" style="color:#393234;padding:12px 0;border-bottom:1px solid #EDE2E1">Vélemények</a>
+      <a href="#kapcsolat" onClick="{{ closeMenu }}" style="color:#393234;padding:12px 0">Kapcsolat</a>
+    </nav>
+  </sc-if>
+</header>
+
+<main id="top">
+
+<sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(36px,6vw,80px) clamp(20px,4vw,48px) clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(36px,5vw,72px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px;animation:brFade .9s ease both">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">FODRÁSZAT · MAGLÓD</span>
+      <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(46px,6.4vw,84px);line-height:1;color:#393234;text-wrap:balance">Szépség, ami <em style="color:#805966">rólad</em> szól.</h1>
+      <p style="margin:0;font-size:18px;line-height:1.65;font-weight:300;max-width:460px;text-wrap:pretty">Vágás, festés, melír, balayage és alkalmi frizura Maglódon – mindig a te elképzelésedből és a hajad adottságaiból kiindulva.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#idopont" style="background:#805966;color:#FCFAF7;padding:17px 30px;border-radius:999px;white-space:nowrap;font-size:15px;letter-spacing:.06em" style-hover="background:#6b4955">Időpontot kérek</a>
+        <a href="#szolgaltatasok" style="border:1px solid #CDB5B9;color:#393234;padding:16px 28px;border-radius:999px;white-space:nowrap;font-size:15px;letter-spacing:.06em" style-hover="border-color:#805966">Árak és szolgáltatások</a>
+      </div>
+      <a href="#velemenyek" style="display:flex;align-items:center;gap:14px;color:#393234;padding-top:8px">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:40px;line-height:1;color:#805966">5,0</span>
+        <span style="display:flex;flex-direction:column;gap:2px;font-size:13px"><span style="color:#B07A88;letter-spacing:3px;font-size:15px">★★★★★</span><span style="color:#6c6265">{{ reviewCount }} vendégvélemény alapján</span></span>
+      </a>
+    </div>
+    <div style="position:relative;animation:brFade 1.1s .15s ease both">
+      <div style="aspect-ratio:4/5;border-radius:240px 240px 24px 24px;background:repeating-linear-gradient(135deg,#EFE2E1 0 10px,#F6EEED 10px 20px);display:flex;align-items:flex-end;justify-content:center;padding:28px;overflow:hidden">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#8d7b7f;background:#FCFAF7;padding:6px 10px;border-radius:6px">fotó: Petra munka közben</span>
+      </div>
+      <div style="position:absolute;left:-18px;bottom:40px;background:#FCFAF7;border:1px solid #EDE2E1;border-radius:18px;padding:16px 20px;display:flex;flex-direction:column;gap:4px;box-shadow:0 20px 40px -24px rgba(57,50,52,.35)">
+        <span style="font-size:11px;letter-spacing:.2em;color:#805966">MA NYITVA</span>
+        <span style="font-size:15px">{{ todayHours }}</span>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ heroFull }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:clamp(12px,2vw,24px)">
+    <div style="position:relative;min-height:min(86vh,760px);border-radius:28px;background:repeating-linear-gradient(135deg,#EADBDA 0 10px,#F3E9E8 10px 20px);display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);overflow:hidden">
+      <span style="position:absolute;top:24px;right:24px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#8d7b7f;background:#FCFAF7;padding:6px 10px;border-radius:6px">teljes szélességű fotó: szalon</span>
+      <div style="background:#FCFAF7;border-radius:22px;padding:clamp(24px,4vw,48px);max-width:620px;display:flex;flex-direction:column;gap:22px;animation:brFade .9s ease both">
+        <span style="font-size:12px;letter-spacing:.3em;color:#805966">FODRÁSZAT · MAGLÓD</span>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(42px,5.6vw,72px);line-height:1;text-wrap:balance">Szépség, ami <em style="color:#805966">rólad</em> szól.</h1>
+        <p style="margin:0;font-size:17px;line-height:1.65;font-weight:300">Fodrászat Maglódon – a te elképzelésedből és a hajad adottságaiból kiindulva.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#idopont" style="background:#805966;color:#FCFAF7;padding:16px 28px;border-radius:999px;white-space:nowrap;font-size:15px">Időpontot kérek</a>
+          <a href="#szolgaltatasok" style="border:1px solid #CDB5B9;color:#393234;padding:15px 26px;border-radius:999px;font-size:15px">Árak</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<section style="background:#F7F0EF">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(36px,6vw,96px);align-items:center">
+    <img src="assets/logo.png" alt="Beauty Room by Petra logó" style="width:100%;max-width:520px;border-radius:20px;mix-blend-mode:multiply;justify-self:center">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">RÓLUNK</span>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08;text-wrap:balance">Szia, Petra vagyok.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.75;font-weight:300;text-wrap:pretty">Szépségszalonomat Maglódon, Beauty Room néven nyitottam meg. Fodrászként a legnagyobb célomnak azt tűztem ki, hogy ne csak néhány frizura elkészítését sajátítsam el, hanem addig bővítsem a készségeimet és a szakmai hozzáértésemet, amíg a legkülönfélébb stílusokat is magabiztosan el tudom készíteni – bármi is legyen a vendég kívánsága.</p>
+      <p style="margin:0;font-size:17px;line-height:1.75;font-weight:300;text-wrap:pretty">Akár színről, akár fazonról van szó, sosem sajnálom az időt és az energiát arra, hogy alaposan megértsem az elképzeléseidet, és felmérjem az egyéni adottságaidat – hogy biztosan jól passzoló, az előnyös vonásaidat kiemelő frizura készüljön.</p>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:#805966">Petra</span>
+    </div>
+  </div>
+</section>
+
+<section id="szolgaltatasok" style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);scroll-margin-top:80px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">ÁRLISTA</span>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08">Szolgáltatások és árak</h2>
+    </div>
+    
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(28px,4vw,56px);align-items:start">
+    <div style="aspect-ratio:4/3;border-radius:22px;background:repeating-linear-gradient(135deg,#EFE2E1 0 10px,#F6EEED 10px 20px);display:flex;align-items:flex-end;padding:20px;position:sticky;top:110px">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#8d7b7f;background:#FCFAF7;padding:6px 10px;border-radius:6px">fotó: {{ activeCat.photo }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:300;color:#5a5054">{{ activeCat.intro }}</p>
+      <sc-if value="{{ showLength }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:14px 0 8px">
+          <span style="font-size:12px;letter-spacing:.2em;color:#6c6265">HAJHOSSZ</span>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:#F7F0EF;padding:4px;border-radius:16px">
+            <sc-for list="{{ lengths }}" as="l" hint-placeholder-count="4">
+              <sc-if value="{{ l.active }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ l.select }}" style="border:0;background:#FCFAF7;color:#805966;border-radius:12px;min-height:44px;padding:0 4px;font-size:13px;line-height:1.2;cursor:pointer;box-shadow:0 2px 8px -4px rgba(128,89,102,.4)">{{ l.label }}</button>
+              </sc-if>
+              <sc-if value="{{ l.inactive }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ l.select }}" style="border:0;background:transparent;color:#393234;border-radius:12px;min-height:44px;padding:0 4px;font-size:13px;line-height:1.2;cursor:pointer" style-hover="color:#805966">{{ l.label }}</button>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-for list="{{ activeServices }}" as="s" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;padding:22px 0;border-bottom:1px solid #EDE2E1;align-items:baseline">
+          <span style="font-size:18px">{{ s.name }}</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#805966;white-space:nowrap">{{ s.price }}</span>
+          <span style="font-size:14px;line-height:1.55;color:#6c6265;font-weight:300">{{ s.desc }}</span>
+          <span style="font-size:13px;color:#6c6265;white-space:nowrap">{{ s.dur }}</span>
+          <a href="#idopont" onClick="{{ s.book }}" style="font-size:13px;letter-spacing:.08em;color:#805966;grid-column:1/-1;padding-top:4px" style-hover="color:#5f3f4a">IDŐPONTOT KÉREK →</a>
+        </div>
+      </sc-for>
+      <p style="margin:18px 0 0;font-size:13px;color:#6c6265">Az árak tájékoztató jellegűek, a végleges ár a hajhossztól és a kezelés részleteitől függ.</p>
+    </div>
+  </div>
+</section>
+
+<section id="velemenyek" style="background:#393234;color:#FCFAF7;scroll-margin-top:80px">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:48px">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;letter-spacing:.3em;color:#D9BEC5">VENDÉGEINK MONDTÁK</span>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08">Ezért jönnek vissza.</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:72px;line-height:.9">5,0</span>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px">
+          <span style="color:#E3B9C4;letter-spacing:3px;font-size:17px">★★★★★</span>
+          <span style="color:#D6CBCD">{{ reviewCount }} vendégvélemény</span>
+          <a href="https://www.notino.hu/szalonok/beauty-room-by-petra-maglod/" target="_blank" rel="noopener" style="color:#FCFAF7;text-decoration:underline;text-underline-offset:4px">Összes értékelés →</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+    <div ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;margin:0 calc(-1 * clamp(20px,4vw,48px));padding:0 clamp(20px,4vw,48px);scroll-padding:0 clamp(20px,4vw,48px)">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+        <figure style="margin:0;flex:0 0 min(380px,84%);scroll-snap-align:start;background:#463D40;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:18px;min-height:250px">
+          <figcaption style="display:flex;align-items:center;gap:12px">
+            <span style="width:44px;height:44px;border-radius:999px;background:#805966;color:#FCFAF7;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none">{{ r.initial }}</span>
+            <span style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1">
+              <span style="font-size:16px;color:#FCFAF7">{{ r.name }}</span>
+              <span style="font-size:12px;color:#D6CBCD">{{ r.date }}</span>
+            </span>
+            <sc-if value="{{ r.verified }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;letter-spacing:.1em;color:#D6CBCD;border:1px solid #6a5d61;border-radius:999px;padding:5px 10px;white-space:nowrap">✓ ELLENŐRZÖTT</span></sc-if>
+          </figcaption>
+          <span style="color:#E3B9C4;letter-spacing:3px">★★★★★</span>
+          <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.35;color:#F2EAEA;text-wrap:pretty">„{{ r.text }}”</blockquote>
+        </figure>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div style="flex:1;max-width:280px;height:2px;background:#5a4f52;border-radius:2px;overflow:hidden"><div style="height:100%;width:{{ progress }};background:#E3B9C4;transition:width .3s ease"></div></div>
+      <div style="display:flex;gap:10px">
+        <button onClick="{{ prevReview }}" aria-label="Előző vélemény" style="width:48px;height:48px;border-radius:999px;border:1px solid #6a5d61;background:transparent;color:#FCFAF7;font-size:18px;cursor:pointer" style-hover="border-color:#E3B9C4;color:#E3B9C4">←</button>
+        <button onClick="{{ nextReview }}" aria-label="Következő vélemény" style="width:48px;height:48px;border-radius:999px;border:1px solid #6a5d61;background:transparent;color:#FCFAF7;font-size:18px;cursor:pointer" style-hover="border-color:#E3B9C4;color:#E3B9C4">→</button>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);scroll-margin-top:80px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">GALÉRIA</span>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08">Munkáink és a szalon</h2>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <sc-for list="{{ gTags }}" as="t" hint-placeholder-count="5">
+        <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ t.select }}" style="border:1px solid #805966;background:#805966;color:#FCFAF7;padding:10px 18px;border-radius:999px;font-size:14px;cursor:pointer;min-height:44px">{{ t.label }}</button>
+        </sc-if>
+        <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ t.select }}" style="border:1px solid #E3D3D3;background:transparent;color:#393234;padding:10px 18px;border-radius:999px;font-size:14px;cursor:pointer;min-height:44px" style-hover="border-color:#805966">{{ t.label }}</button>
+        </sc-if>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));grid-auto-rows:220px;grid-auto-flow:dense;gap:14px">
+    <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
+      <div style="grid-row:span {{ g.rows }};border-radius:18px;background:repeating-linear-gradient(135deg,#EFE2E1 0 10px,#F6EEED 10px 20px);display:flex;align-items:flex-end;padding:14px;animation:brFade .5s ease both">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#8d7b7f;background:#FCFAF7;padding:5px 9px;border-radius:6px">{{ g.label }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="idopont" style="background:#F7F0EF;scroll-margin-top:80px">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(36px,5vw,80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:440px">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">ONLINE IDŐPONTKÉRÉS</span>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08;text-wrap:balance">Mikor jönnél szívesen?</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;font-weight:300">Add meg, mikor lenne jó neked – Petra hamarosan visszajelez telefonon vagy e-mailben, és egyeztetitek a pontos időpontot.</p>
+      <ol style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;font-size:15px">
+        <li style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#805966">1</span>Kitöltöd az űrlapot</li>
+        <li style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#805966">2</span>E-mailben visszaigazoljuk a kérés beérkezését</li>
+        <li style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#805966">3</span>Petra személyesen véglegesíti az időpontot</li>
+      </ol>
+      <p style="margin:8px 0 0;font-size:15px">Inkább telefonálnál? <a href="tel:+36307135867" style="text-decoration:underline;text-underline-offset:3px">+36 30 713 5867</a></p>
+    </div>
+
+    <div style="background:#FCFAF7;border-radius:26px;padding:clamp(24px,4vw,44px);box-shadow:0 30px 60px -40px rgba(128,89,102,.45)">
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submit }}" noValidate="{{ true }}" style="display:flex;flex-direction:column;gap:22px">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.06em;color:#6c6265">SZOLGÁLTATÁS
+            <select value="{{ form.service }}" onChange="{{ onService }}" style="height:52px;border:1px solid #E3D3D3;border-radius:14px;padding:0 14px;font-size:16px;background:#FCFAF7;color:#393234">
+              <option value="">Válassz szolgáltatást…</option>
+              <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="6">
+                <option value="{{ o.name }}">{{ o.label }}</option>
+              </sc-for>
+            </select>
+          </label>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="font-size:13px;letter-spacing:.06em;color:#6c6265">IDŐPONT</span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:16px;color:#393234;margin-right:6px">{{ monthLabel }}</span>
+                <button type="button" onClick="{{ prevWeek }}" disabled="{{ prevDisabled }}" aria-label="Előző hét" style="width:40px;height:40px;border-radius:999px;border:1px solid #E3D3D3;background:transparent;color:#393234;font-size:16px;cursor:pointer" style-hover="border-color:#805966">‹</button>
+                <button type="button" onClick="{{ nextWeek }}" disabled="{{ nextDisabled }}" aria-label="Következő hét" style="width:40px;height:40px;border-radius:999px;border:1px solid #E3D3D3;background:transparent;color:#393234;font-size:16px;cursor:pointer" style-hover="border-color:#805966">›</button>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center;padding-bottom:14px;border-bottom:1px solid #EDE2E1">
+              <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <span style="font-size:12px;letter-spacing:.04em;color:#8d7b7f">{{ d.wd }}</span>
+                  <sc-if value="{{ d.isSel }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ d.select }}" aria-pressed="true" style="width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto;border:0;background:#805966;color:#FCFAF7;cursor:pointer">{{ d.num }}</button></sc-if>
+                  <sc-if value="{{ d.isAv }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ d.select }}" style="width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto;border:0;background:transparent;color:#393234;cursor:pointer" style-hover="background:#F7F0EF">{{ d.num }}</button></sc-if>
+                  <sc-if value="{{ d.isOff }}" hint-placeholder-val="{{ false }}"><span aria-disabled="true" style="width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:16px;margin:0 auto;color:#B9ADB0;text-decoration:line-through">{{ d.num }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ noSlots }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:14px;color:#6c6265;padding:8px 0">Ezen a héten nincs szabad nap – lapozz tovább.</span>
+            </sc-if>
+            <sc-for list="{{ slotGroups }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <button type="button" onClick="{{ g.toggle }}" aria-expanded="{{ g.open }}" style="align-self:flex-start;border:0;background:transparent;padding:4px 0;font-size:15px;color:#393234;cursor:pointer;display:flex;align-items:center;gap:8px">{{ g.label }} <span style="font-size:11px;color:#805966">{{ g.chev }}</span></button>
+                <sc-if value="{{ g.open }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px">
+                    <sc-for list="{{ g.slots }}" as="t" hint-placeholder-count="8">
+                      <sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}">
+                        <button type="button" onClick="{{ t.select }}" aria-pressed="true" style="height:44px;border:1px solid #805966;background:#805966;color:#FCFAF7;border-radius:999px;font-size:15px;font-variant-numeric:tabular-nums;cursor:pointer">{{ t.label }}</button>
+                      </sc-if>
+                      <sc-if value="{{ t.inactive }}" hint-placeholder-val="{{ true }}">
+                        <button type="button" onClick="{{ t.select }}" style="height:44px;border:1px solid #E3D3D3;background:transparent;color:#393234;border-radius:999px;font-size:15px;font-variant-numeric:tabular-nums;cursor:pointer" style-hover="border-color:#805966">{{ t.label }}</button>
+                      </sc-if>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#F7F0EF;border-radius:16px;padding:14px 18px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:16px;color:#393234">{{ pickDate }}</span>
+                <span style="font-size:14px;color:#6c6265">{{ pickTime }}</span>
+              </div>
+              <sc-if value="{{ errors.slot }}" hint-placeholder-val="{{ false }}"><span style="color:#A23B52;font-size:13px;text-align:right">{{ errors.slot }}</span></sc-if>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px">
+            <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.06em;color:#6c6265">NÉV *
+              <input value="{{ form.name }}" onChange="{{ onName }}" autoComplete="name" style="height:52px;border:1px solid #E3D3D3;border-radius:14px;padding:0 14px;font-size:16px;background:#FCFAF7;color:#393234" style-focus="outline:2px solid #805966;outline-offset:1px">
+              <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><span style="color:#A23B52;font-size:13px;letter-spacing:0">{{ errors.name }}</span></sc-if>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.06em;color:#6c6265">TELEFONSZÁM *
+              <input type="tel" value="{{ form.phone }}" onChange="{{ onPhone }}" autoComplete="tel" placeholder="+36 …" style="height:52px;border:1px solid #E3D3D3;border-radius:14px;padding:0 14px;font-size:16px;background:#FCFAF7;color:#393234" style-focus="outline:2px solid #805966;outline-offset:1px">
+              <sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><span style="color:#A23B52;font-size:13px;letter-spacing:0">{{ errors.phone }}</span></sc-if>
+            </label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.06em;color:#6c6265">E-MAIL *
+            <input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" autoComplete="email" style="height:52px;border:1px solid #E3D3D3;border-radius:14px;padding:0 14px;font-size:16px;background:#FCFAF7;color:#393234" style-focus="outline:2px solid #805966;outline-offset:1px">
+            <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><span style="color:#A23B52;font-size:13px;letter-spacing:0">{{ errors.email }}</span></sc-if>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;letter-spacing:.06em;color:#6c6265">MEGJEGYZÉS
+            <textarea value="{{ form.note }}" onChange="{{ onNote }}" rows="3" placeholder="Pl. hajhossz, korábbi festés, inspirációs kép…" style="border:1px solid #E3D3D3;border-radius:14px;padding:14px;font-size:16px;background:#FCFAF7;color:#393234;resize:vertical" style-focus="outline:2px solid #805966;outline-offset:1px"></textarea>
+          </label>
+          <input type="text" tabIndex="-1" autoComplete="off" aria-hidden="true" name="website" style="position:absolute;left:-9999px;width:1px;height:1px">
+          <label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:#5a5054;cursor:pointer">
+            <input type="checkbox" checked="{{ form.gdpr }}" onChange="{{ onGdpr }}" style="width:20px;height:20px;margin:1px 0 0;accent-color:#805966;flex:none">
+            <span>Elfogadom az <a href="#adatkezeles" style="text-decoration:underline;text-underline-offset:3px">adatkezelési tájékoztatót</a>. Adataimat kizárólag az időpont egyeztetésére használjátok.</span>
+          </label>
+          <sc-if value="{{ errors.gdpr }}" hint-placeholder-val="{{ false }}"><span style="color:#A23B52;font-size:13px;margin-top:-12px">{{ errors.gdpr }}</span></sc-if>
+          <button type="submit" style="height:58px;border:0;border-radius:999px;background:#805966;color:#FCFAF7;font-size:16px;letter-spacing:.06em;cursor:pointer" style-hover="background:#6b4955">Időpontkérés elküldése</button>
+          <span style="font-size:13px;color:#6c6265;text-align:center;margin-top:-8px">Ez időpontkérés, nem végleges foglalás.</span>
+        </form>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:12px 0;animation:brFade .6s ease both">
+          <span style="width:56px;height:56px;border-radius:999px;background:#F7F0EF;color:#805966;display:flex;align-items:center;justify-content:center;font-size:24px">✓</span>
+          <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:38px;line-height:1.1">Köszönjük, {{ firstName }}!</h3>
+          <p style="margin:0;font-size:16px;line-height:1.7;font-weight:300">Megkaptuk az időpontkérésedet<sc-if value="{{ summary }}" hint-placeholder-val="{{ false }}"> ({{ summary }})</sc-if>. Visszaigazoló e-mailt küldtünk a(z) <strong style="font-weight:500">{{ form.email }}</strong> címre, Petra pedig hamarosan jelentkezik a pontos időponttal.</p>
+          <button onClick="{{ reset }}" style="border:1px solid #E3D3D3;background:transparent;color:#393234;border-radius:999px;padding:0 22px;height:46px;font-size:14px;cursor:pointer">Új kérés</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="kapcsolat" style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);scroll-margin-top:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(36px,5vw,72px)">
+  <div style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:12px;letter-spacing:.3em;color:#805966">KAPCSOLAT</span>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1.08">Várunk Maglódon.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:28px;font-size:16px;line-height:1.6">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:12px;letter-spacing:.2em;color:#6c6265">CÍM</span>
+        <span>2234 Maglód,<br>Móricz Zsigmond u. 12.</span>
+        <span style="font-size:14px;color:#6c6265">Ingyenes utcai parkolás</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:12px;letter-spacing:.2em;color:#6c6265">TELEFON</span>
+        <a href="tel:+36307135867" style="color:#393234">+36 30 713 5867</a>
+        <div style="display:flex;gap:16px;font-size:14px"><a href="#">Instagram</a><a href="#">Facebook</a></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <span style="font-size:12px;letter-spacing:.2em;color:#6c6265;margin-bottom:8px">NYITVATARTÁS</span>
+      <sc-for list="{{ hours }}" as="h" hint-placeholder-count="7">
+        <sc-if value="{{ h.isToday }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #EDE2E1;font-size:15px;font-weight:500;color:#805966">
+            <span>{{ h.day }} · ma</span><span style="font-variant-numeric:tabular-nums">{{ h.time }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ h.isOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #EDE2E1;font-size:15px">
+            <span>{{ h.day }}</span><span style="color:#393234;font-variant-numeric:tabular-nums">{{ h.time }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ h.isClosed }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #EDE2E1;font-size:15px;color:#8d7b7f">
+            <span>{{ h.day }}</span><span>Zárva</span>
+          </div>
+        </sc-if>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="flex:1;min-height:360px;border-radius:24px;background:repeating-linear-gradient(135deg,#EFE2E1 0 10px,#F6EEED 10px 20px);display:flex;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#8d7b7f;background:#FCFAF7;padding:6px 10px;border-radius:6px">Google Maps beágyazás</span>
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Maglód+Móricz+Zsigmond+utca+12" target="_blank" rel="noopener" style="align-self:flex-start;border:1px solid #CDB5B9;color:#393234;padding:14px 24px;border-radius:999px;font-size:15px" style-hover="border-color:#805966">Útvonaltervezés →</a>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#F7F0EF;border-top:1px solid #EDE2E1">
+  <div style="max-width:1240px;margin:0 auto;padding:40px clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:#6c6265">
+    <span style="display:flex;flex-direction:column;line-height:1;color:#805966"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px">Beauty Room</span><span style="font-size:10px;letter-spacing:.32em;margin-top:4px;color:#393234">BY · PETRA</span></span>
+    <span>Fodrászat Maglódon</span>
+    <div style="display:flex;gap:20px"><a href="#adatkezeles" id="adatkezeles">Adatkezelési tájékoztató</a><span>© 2026 Beauty Room by Petra</span></div>
+  </div>
+</footer>
+
+<sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}">
+  <a href="#idopont" style="position:fixed;left:16px;right:16px;bottom:16px;z-index:30;background:#805966;color:#FCFAF7;text-align:center;padding:17px;border-radius:999px;font-size:15px;letter-spacing:.06em;box-shadow:0 14px 30px -12px rgba(57,50,52,.5)">Időpontot kérek</a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;split&quot;,&quot;fullbleed&quot;],&quot;default&quot;:&quot;split&quot;,&quot;tsType&quot;:&quot;'split'|'fullbleed'&quot;},&quot;showBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;mobileStickyCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const CONFIG = {
+  categories: [
+    { id: 'fodraszat', label: 'Fodrászat', photo: 'hajvágás / festett haj', intro: 'Válaszd ki a hajhosszad, és megmutatjuk az aktuális árakat.' }
+  ],
+  services: [
+    { cat: 'fodraszat', name: 'Mosás – szárítás', prices: [4000, 4500, 5000, 5500] },
+    { cat: 'fodraszat', name: 'Mosás – vágás – szárítás', prices: [7500, 8000, 8500, 9500] },
+    { cat: 'fodraszat', name: 'Frufru vágás', price: 1500 },
+    { cat: 'fodraszat', name: 'Férfi vágás', price: 4000, desc: 'Mosással +1 000 Ft' },
+    { cat: 'fodraszat', name: 'Gyerek hajvágás', prices: [4500, 4500, 4500, 6000], desc: 'Mosás-szárítással +1 500 Ft' },
+    { cat: 'fodraszat', name: 'Fonás', price: 1000, unit: ' / tincs' },
+    { cat: 'fodraszat', name: 'Vasalás', prices: [1800, 2300, 3000, 3500] },
+    { cat: 'fodraszat', name: 'Göndörítés', prices: [1800, 2300, 3000, 3500] },
+    { cat: 'fodraszat', name: 'Tőfestés – mosás – szárítás', prices: [10500, 11000, 12000, 14000] },
+    { cat: 'fodraszat', name: 'Teljes festés – mosás – szárítás', prices: [13000, 15000, 17000, 20000], addon: ['Vágással', [3500, 4000, 4500, 5000]] },
+    { cat: 'fodraszat', name: 'Melírozás – mosás – szárítás', prices: [12000, 14000, 16000, 19000], addon: ['Árnyalással', [3000, 4000, 5000, 6000]] },
+    { cat: 'fodraszat', name: 'Tőszőkítés', prices: [9000, 9500, 10000, 10500] },
+    { cat: 'fodraszat', name: 'Teljes szőkítés', prices: [9500, 10000, 10500, 11500] },
+    { cat: 'fodraszat', name: 'Ombre / Balayage', prices: [18000, 21000, 23500, 26000], desc: 'Tőfestéssel +5 000 Ft' },
+    { cat: 'fodraszat', name: 'Cocochoco keratinos hajkezelés', prices: [21000, 24000, 26000, 28000] },
+    { cat: 'fodraszat', name: 'Alkalmi frizura / konty', prices: [null, 9000, 10000, 12000], desc: 'Esküvői frizura esetén kérlek, külön érdeklődj!' }
+  ],
+  reviews: [
+    { name: 'Réka Hargitai', date: '2026. szept. 14.', verified: true, text: 'Gyönyörű szép szőke szín frissítést kaptam Petrától🥰' },
+    { name: 'Molnár Nikolett', date: '2026. júl. 26.', verified: true, text: 'Nagyon kellemes a hely hangulata. Petra szuper hajat varázsolt nekem, gyorsan és szépen dolgozik. Csak ajánlani tudom. 😊' },
+    { name: 'Réka Hargitai', date: '2026. júl. 19.', verified: false, text: 'Petrához már lassan 10 éve járok, sosem csalódtam, mindig gyönyörű balayaget készít 🤗' },
+    { name: 'Lillus', date: '2026. máj. 2.', verified: true, text: 'Petra nagyon jó szakember, szívből ajánlom! Vágás, festés, egyedi alapanyag beszerzés rövid időn belül.' },
+    { name: 'Veronika', date: '2026. ápr. 8.', verified: true, text: 'Petra nagyon ügyes, én biztosan visszatérek :)' },
+    { name: 'Maria Haluska', date: '2026. febr. 27.', verified: true, text: 'Petra nagyon kedves. Gyönyörű lett a hajam.' },
+    { name: 'Gréta Bencze', date: '2025. dec. 24.', verified: true, text: 'Minden úgy történt, ahogy megbeszéltük!😄' }
+  ].map(r => ({ ...r, initial: r.name.trim()[0] })),
+  gallery: [
+    { tag: 'szalon', label: 'szalon – recepció', rows: 2 },
+    { tag: 'haj', label: 'balayage – előtte/utána', rows: 1 },
+    { tag: 'haj', label: 'szőkítés', rows: 1 },
+    { tag: 'haj', label: 'alkalmi frizura', rows: 2 },
+    { tag: 'haj', label: 'keratinos kezelés – utána', rows: 1 },
+    { tag: 'haj', label: 'konty', rows: 2 },
+    { tag: 'szalon', label: 'kezelőszék', rows: 1 },
+    { tag: 'haj', label: 'rövid női vágás', rows: 1 }
+  ],
+  galleryTags: [['all','Összes'],['haj','Frizurák'],['szalon','Szalon']],
+  // nyitvatartás hétfőtől vasárnapig; null = zárva
+  hours: [['Hétfő', '09:00', '20:00'], ['Kedd', '09:00', '20:00'], ['Szerda', '09:00', '20:00'], ['Csütörtök', '09:00', '20:00'], ['Péntek', null], ['Szombat', null], ['Vasárnap', null]],
+  booking: {
+    slotStep: 15,        // percben
+    daysAhead: 42,       // ennyi napra előre lehet kérni
+    minLeadMinutes: 120, // mai napon legalább ennyivel előre
+    groups: [['Délelőtt', 0, 12], ['Délután', 12, 24]]
+  }
+};
+const WD = ['V','H','K','Sze','Cs','P','Szo'];
+const WD_LONG = ['Vasárnap','Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat'];
+const MONTHS = ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
+const toMin = t => { const [a, b] = t.split(':').map(Number); return a * 60 + b; };
+const hhmm = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+const dayKey = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const slotsFor = (d) => {
+  const hrs = CONFIG.hours[(d.getDay() + 6) % 7]; if (!hrs[1]) return [];
+  const B = CONFIG.booking, now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diff = Math.round((d - today) / 864e5); if (diff < 0 || diff > B.daysAhead) return [];
+  const minStart = diff === 0 ? now.getHours() * 60 + now.getMinutes() + B.minLeadMinutes : 0;
+  const out = []; for (let m = toMin(hrs[1]); m <= toMin(hrs[2]) - B.slotStep; m += B.slotStep) if (m >= minStart) out.push(m);
+  return out;
+};
+const LENGTHS = ['Rövid', 'Félhosszú', 'Hosszú', 'Extra hosszú'];
+const ft = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0Ft';
+const fmtService = (x, li) => {
+  let price = x.price;
+  if (x.prices) { const v = x.prices[li]; price = v == null ? '–' : ft(v); }
+  else if (typeof price === 'number') price = ft(price) + (x.unit || '');
+  const desc = x.addon ? `${x.addon[0]} +${ft(x.addon[1][li])}` : (x.desc || '');
+  return { name: x.name, price, desc, dur: x.dur || '' };
+};
+const EMPTY = { service: '', name: '', phone: '', email: '', note: '', gdpr: false };
+
+class Component extends DCLogic {
+  trackRef = React.createRef();
+  scrollReviews = (dir) => { const t = this.trackRef.current; if (!t) return; const card = t.firstElementChild; const step = card ? card.getBoundingClientRect().width + 20 : t.clientWidth; const max = t.scrollWidth - t.clientWidth; let x = t.scrollLeft + dir * step; if (dir > 0 && t.scrollLeft >= max - 4) x = 0; if (dir < 0 && t.scrollLeft <= 4) x = max; t.scrollTo({ left: x }); };
+  onTrackScroll = () => { const t = this.trackRef.current; if (!t) return; const max = t.scrollWidth - t.clientWidth; const p = max > 0 ? t.scrollLeft / max : 1; if (Math.abs(p - (this.state.rp ?? 0)) > 0.02 || p === 0 || p === 1) this.setState({ rp: p }); };
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1200, menu: false, cat: 'fodraszat', gTag: 'all', day: null, slot: null, week: 0, closedGroups: {}, form: { ...EMPTY }, errors: {}, sent: false };
+  componentDidMount() { this.onResize = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this.onResize); this.onScroll = () => { const y = window.scrollY > 640; if (y !== this.state.scrolled) this.setState({ scrolled: y }); }; window.addEventListener('scroll', this.onScroll, { passive: true }); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('scroll', this.onScroll); }
+  setField = (k) => (e) => { const v = k === 'gdpr' ? e.target.checked : e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v }, errors: { ...s.errors, [k]: null } })); };
+  validate(f) {
+    const e = {};
+    if (f.name.trim().length < 2) e.name = 'Kérjük, add meg a neved.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'Érvényes e-mail-címet adj meg.';
+    if (f.phone.replace(/\D/g, '').length < 9) e.phone = 'Érvényes telefonszámot adj meg.';
+    if (!f.gdpr) e.gdpr = 'A beküldéshez el kell fogadnod a tájékoztatót.';
+    return e;
+  }
+  submit = (ev) => { ev.preventDefault(); const e = this.validate(this.state.form); if (!this._pick) e.slot = 'Válassz időpontot.'; if (Object.keys(e).length) return this.setState({ errors: e }); this.setState({ sent: true, errors: {}, sentPick: this._pick }); };
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = s.w < 820;
+    const heroFull = (p.heroVariant ?? 'split') === 'fullbleed';
+    const now = new Date(), mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (now.getDay() + 6) % 7 + s.week * 7);
+    const weekDates = [...Array(7)].map((_, i) => new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + i));
+    const avail = weekDates.map(slotsFor);
+    const firstAv = weekDates.find((_, i) => avail[i].length);
+    const selKey = s.day && weekDates.some(d => dayKey(d) === s.day) ? s.day : (firstAv ? dayKey(firstAv) : null);
+    const selIdx = weekDates.findIndex(d => dayKey(d) === selKey);
+    const selDate = selIdx >= 0 ? weekDates[selIdx] : null;
+    const selSlots = selIdx >= 0 ? avail[selIdx] : [];
+    const week = weekDates.map((d, i) => { const k = dayKey(d), ok = avail[i].length > 0, sel = k === selKey; return { wd: WD[d.getDay()], num: d.getDate(), isSel: sel, isAv: ok && !sel, isOff: !ok, select: () => this.setState({ day: k, slot: null }) }; });
+    const slotGroups = CONFIG.booking.groups.map(([label, from, to]) => {
+      const list = selSlots.filter(m => m >= from * 60 && m < to * 60); const open = !s.closedGroups[label];
+      return { label, open, chev: open ? '▲' : '▼', toggle: () => this.setState(st => ({ closedGroups: { ...st.closedGroups, [label]: open } })), slots: list.map(m => ({ label: hhmm(m), active: s.slot === m && s.day === selKey, inactive: !(s.slot === m && s.day === selKey), select: () => this.setState(st => ({ day: selKey, slot: m, errors: { ...st.errors, slot: null } })) })), n: list.length };
+    }).filter(g => g.n);
+    const maxWeek = Math.ceil((CONFIG.booking.daysAhead + 7) / 7) - 1;
+    const pickDate = selDate ? `${String(selDate.getMonth() + 1).padStart(2, '0')}. ${String(selDate.getDate()).padStart(2, '0')}., ${WD_LONG[selDate.getDay()]}` : 'Válassz napot';
+    const hasSlot = s.slot != null && s.day === selKey;
+    this._pick = hasSlot ? `${pickDate}, ${hhmm(s.slot)}` : null;
+    const todayIdx = (new Date().getDay() + 6) % 7;
+    return {
+      showBar: p.showBar ?? true,
+      desktop: !mobile, mobile, menuOpen: mobile && s.menu,
+      toggleMenu: () => this.setState({ menu: !s.menu }), closeMenu: () => this.setState({ menu: false }),
+      heroSplit: !heroFull, heroFull,
+      todayHours: CONFIG.hours[todayIdx][1] ? CONFIG.hours[todayIdx][1] + ' – ' + CONFIG.hours[todayIdx][2] : 'Ma zárva',
+      cats: CONFIG.categories.map(c => ({ label: c.label, active: c.id === s.cat, inactive: c.id !== s.cat, select: () => this.setState({ cat: c.id }) })),
+      activeCat: CONFIG.categories.find(c => c.id === s.cat),
+      showLength: s.cat === 'fodraszat',
+      lengths: LENGTHS.map((l, i) => ({ label: l, active: i === (s.len ?? 1), inactive: i !== (s.len ?? 1), select: () => this.setState({ len: i }) })),
+      activeServices: CONFIG.services.filter(x => x.cat === s.cat).map(x => ({ ...fmtService(x, s.len ?? 1), book: () => this.setState(st => ({ form: { ...st.form, service: x.name }, sent: false })) })),
+      serviceOptions: CONFIG.services.map(x => ({ name: x.name, label: x.name })),
+      reviews: CONFIG.reviews,
+      reviewCount: CONFIG.reviews.length,
+      trackRef: this.trackRef, onTrackScroll: this.onTrackScroll,
+      prevReview: () => this.scrollReviews(-1), nextReview: () => this.scrollReviews(1),
+      progress: Math.round(18 + (s.rp ?? 0) * 82) + '%',
+      gTags: CONFIG.galleryTags.map(([id, label]) => ({ label, active: id === s.gTag, inactive: id !== s.gTag, select: () => this.setState({ gTag: id }) })),
+      gallery: CONFIG.gallery.filter(g => s.gTag === 'all' || g.tag === s.gTag),
+      hours: CONFIG.hours.map(([day, o, c], i) => ({ day, time: o ? o + ' – ' + c : 'Zárva', isToday: i === todayIdx, isOpen: !!o && i !== todayIdx, isClosed: !o && i !== todayIdx })),
+      monthLabel: `${MONTHS[weekDates[3].getMonth()]} ${weekDates[3].getFullYear()}`,
+      week, slotGroups, noSlots: !firstAv,
+      prevWeek: () => this.setState({ week: Math.max(0, s.week - 1), slot: null }), nextWeek: () => this.setState({ week: Math.min(maxWeek, s.week + 1), slot: null }),
+      prevDisabled: s.week === 0, nextDisabled: s.week >= maxWeek,
+      pickDate, pickTime: hasSlot ? hhmm(s.slot) + '-tól' : 'Válassz időpontot',
+      form: s.form, errors: s.errors,
+      onService: this.setField('service'), onName: this.setField('name'), onPhone: this.setField('phone'), onEmail: this.setField('email'), onNote: this.setField('note'), onGdpr: this.setField('gdpr'),
+      submit: this.submit, notSent: !s.sent, sent: s.sent,
+      firstName: s.form.name.trim().split(' ').slice(-1)[0],
+      summary: [s.form.service, s.sentPick].filter(Boolean).join(', '),
+      reset: () => this.setState({ sent: false, form: { ...EMPTY }, day: null, slot: null, week: 0 }),
+      showSticky: mobile && s.scrolled && !s.sent && (p.mobileStickyCta ?? true)
+    };
+  }
+}
+</script>
+</body>
+</html>

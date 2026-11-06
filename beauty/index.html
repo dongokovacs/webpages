@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beauty Room by Petra – Fodrászat Maglódon</title>
+  <meta name="description" content="Vágás, festés, melír, balayage és alkalmi frizura Maglódon. Online időpontkérés, árak és vendégvélemények.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Maglód, Móricz Zsigmond u. 12. · Ingyenes utcai parkolás</span>
+  <a href="tel:+36307135867">+36 30 713 5867</a>
+</div>
+
+<header class="site-header" data-site-header>
+  <div class="container site-header__bar">
+    <a href="#top" class="brand">
+      <span class="brand__name">Beauty Room</span>
+      <span class="brand__by">BY · PETRA</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Fő navigáció">
+      <a href="#szolgaltatasok">Szolgáltatások</a>
+      <a href="#galeria">Galéria</a>
+      <a href="#velemenyek">Vélemények</a>
+      <a href="#kapcsolat">Kapcsolat</a>
+    </nav>
+    <div class="site-header__actions">
+      <a href="#idopont" class="btn btn--primary btn--sm">Időpont<span class="hide-mobile">ot kérek</span></a>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-label="Menü" aria-controls="site-nav" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="container hero">
+    <div class="hero__copy fade-in">
+      <span class="eyebrow">FODRÁSZAT · MAGLÓD</span>
+      <h1 class="hero__title">Szépség, ami <em>rólad</em> szól.</h1>
+      <p class="lead">Vágás, festés, melír, balayage és alkalmi frizura Maglódon – mindig a te elképzelésedből és a hajad adottságaiból kiindulva.</p>
+      <div class="btn-row">
+        <a href="#idopont" class="btn btn--primary">Időpontot kérek</a>
+        <a href="#szolgaltatasok" class="btn btn--outline">Árak és szolgáltatások</a>
+      </div>
+      <a href="#velemenyek" class="rating">
+        <span class="rating__score">5,0</span>
+        <span class="rating__meta">
+          <span class="stars stars--muted" aria-label="5 csillag">★★★★★</span>
+          <span><span data-review-count></span> vendégvélemény alapján</span>
+        </span>
+      </a>
+    </div>
+    <div class="hero__media fade-in fade-in--late">
+      <div class="ph hero__photo"><span class="ph__label">fotó: Petra munka közben</span></div>
+      <div class="hero__badge">
+        <span class="hero__badge-label">MA NYITVA</span>
+        <span data-today-hours></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container section split split--about">
+      <img src="assets/logo.png" alt="Beauty Room by Petra logó" class="about__logo" width="520" height="520" loading="lazy">
+      <div class="stack">
+        <span class="eyebrow">RÓLUNK</span>
+        <h2 class="h2">Szia, Petra vagyok.</h2>
+        <p class="body-text">Szépségszalonomat Maglódon, Beauty Room néven nyitottam meg. Fodrászként a legnagyobb célomnak azt tűztem ki, hogy ne csak néhány frizura elkészítését sajátítsam el, hanem addig bővítsem a készségeimet és a szakmai hozzáértésemet, amíg a legkülönfélébb stílusokat is magabiztosan el tudom készíteni – bármi is legyen a vendég kívánsága.</p>
+        <p class="body-text">Akár színről, akár fazonról van szó, sosem sajnálom az időt és az energiát arra, hogy alaposan megértsem az elképzeléseidet, és felmérjem az egyéni adottságaidat – hogy biztosan jól passzoló, az előnyös vonásaidat kiemelő frizura készüljön.</p>
+        <span class="signature">Petra</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="szolgaltatasok" class="container section anchor">
+    <div class="section-head">
+      <span class="eyebrow">ÁRLISTA</span>
+      <h2 class="h2">Szolgáltatások és árak</h2>
+    </div>
+    <div class="split split--services" data-price-list></div>
+  </section>
+
+  <section id="velemenyek" class="band band--dark anchor" data-reviews>
+    <div class="container section stack stack--xl">
+      <div class="section-head section-head--row">
+        <div class="stack stack--sm">
+          <span class="eyebrow">VENDÉGEINK MONDTÁK</span>
+          <h2 class="h2">Ezért jönnek vissza.</h2>
+        </div>
+        <div class="score">
+          <span class="score__value">5,0</span>
+          <div class="score__meta">
+            <span class="stars" aria-label="5 csillag">★★★★★</span>
+            <span class="muted"><span data-review-count></span> vendégvélemény</span>
+            <a href="https://www.notino.hu/szalonok/beauty-room-by-petra-maglod/" target="_blank" rel="noopener" class="link-underline">Összes értékelés →</a>
+          </div>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="reviews__track" data-track></div>
+        <div class="reviews__controls">
+          <div class="progress"><div class="progress__bar" data-progress></div></div>
+          <div class="btn-row btn-row--tight">
+            <button type="button" class="icon-btn icon-btn--dark" data-prev aria-label="Előző vélemény">←</button>
+            <button type="button" class="icon-btn icon-btn--dark" data-next aria-label="Következő vélemény">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria" class="container section anchor" data-gallery>
+    <div class="section-head section-head--row">
+      <div class="stack stack--sm">
+        <span class="eyebrow">GALÉRIA</span>
+        <h2 class="h2">Munkáink és a szalon</h2>
+      </div>
+      <div class="btn-row btn-row--tight" data-filters></div>
+    </div>
+    <div class="gallery__grid" data-grid></div>
+  </section>
+
+  <section id="idopont" class="band anchor">
+    <div class="container section split split--booking">
+      <div class="stack booking__intro">
+        <span class="eyebrow">ONLINE IDŐPONTKÉRÉS</span>
+        <h2 class="h2">Mikor jönnél szívesen?</h2>
+        <p class="body-text">Add meg, mikor lenne jó neked – Petra hamarosan visszajelez telefonon vagy e-mailben, és egyeztetitek a pontos időpontot.</p>
+        <ol class="steps">
+          <li><span class="steps__num">1</span>Kitöltöd az űrlapot</li>
+          <li><span class="steps__num">2</span>E-mailben visszaigazoljuk a kérés beérkezését</li>
+          <li><span class="steps__num">3</span>Petra személyesen véglegesíti az időpontot</li>
+        </ol>
+        <p>Inkább telefonálnál? <a href="tel:+36307135867" class="link-underline">+36 30 713 5867</a></p>
+      </div>
+
+      <div class="card" data-booking>
+        <form class="form" novalidate>
+          <label class="field">SZOLGÁLTATÁS
+            <select name="service" class="input">
+              <option value="">Válassz szolgáltatást…</option>
+            </select>
+          </label>
+
+          <div class="calendar" data-slot-picker></div>
+
+          <div class="form__row">
+            <label class="field">NÉV *
+              <input name="name" class="input" autocomplete="name">
+              <span class="error" data-error="name" hidden></span>
+            </label>
+            <label class="field">TELEFONSZÁM *
+              <input name="phone" type="tel" class="input" autocomplete="tel" placeholder="+36 …">
+              <span class="error" data-error="phone" hidden></span>
+            </label>
+          </div>
+          <label class="field">E-MAIL *
+            <input name="email" type="email" class="input" autocomplete="email">
+            <span class="error" data-error="email" hidden></span>
+          </label>
+          <label class="field">MEGJEGYZÉS
+            <textarea name="note" class="input input--area" rows="3" placeholder="Pl. hajhossz, korábbi festés, inspirációs kép…"></textarea>
+          </label>
+          <input name="website" type="text" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="checkbox">
+            <input name="gdpr" type="checkbox">
+            <span>Elfogadom az <a href="#adatkezeles" class="link-underline">adatkezelési tájékoztatót</a>. Adataimat kizárólag az időpont egyeztetésére használjátok.</span>
+          </label>
+          <span class="error error--tight" data-error="gdpr" hidden></span>
+          <button type="submit" class="btn btn--primary btn--block">Időpontkérés elküldése</button>
+          <span class="note note--center">Ez időpontkérés, nem végleges foglalás.</span>
+        </form>
+
+        <div class="success fade-in" data-success hidden>
+          <span class="success__icon" aria-hidden="true">✓</span>
+          <h3 class="success__title">Köszönjük, <span data-first-name></span>!</h3>
+          <p class="body-text">Megkaptuk az időpontkérésedet<span data-summary></span>. Visszaigazoló e-mailt küldtünk a(z) <strong data-email></strong> címre, Petra pedig hamarosan jelentkezik a pontos időponttal.</p>
+          <button type="button" class="btn btn--ghost" data-reset>Új kérés</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kapcsolat" class="container section anchor split split--contact">
+    <div class="stack stack--lg">
+      <div class="stack stack--sm">
+        <span class="eyebrow">KAPCSOLAT</span>
+        <h2 class="h2">Várunk Maglódon.</h2>
+      </div>
+      <div class="contact__grid">
+        <div class="contact__item">
+          <span class="label">CÍM</span>
+          <span>2234 Maglód,<br>Móricz Zsigmond u. 12.</span>
+          <span class="note">Ingyenes utcai parkolás</span>
+        </div>
+        <div class="contact__item">
+          <span class="label">TELEFON</span>
+          <a href="tel:+36307135867" class="link-ink">+36 30 713 5867</a>
+          <div class="contact__social"><a href="#">Instagram</a><a href="#">Facebook</a></div>
+        </div>
+      </div>
+      <div class="hours">
+        <span class="label">NYITVATARTÁS</span>
+        <div data-hours></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="ph contact__map"><span class="ph__label">Google Maps beágyazás</span></div>
+      <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Maglód+Móricz+Zsigmond+utca+12" target="_blank" rel="noopener" class="btn btn--outline btn--start">Útvonaltervezés →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__bar">
+    <span class="brand brand--sm">
+      <span class="brand__name">Beauty Room</span>
+      <span class="brand__by">BY · PETRA</span>
+    </span>
+    <span>Fodrászat Maglódon</span>
+    <div class="site-footer__links"><a href="#adatkezeles" id="adatkezeles">Adatkezelési tájékoztató</a><span>© 2026 Beauty Room by Petra</span></div>
+  </div>
+</footer>
+
+<a href="#idopont" class="sticky-cta" data-sticky-cta>Időpontot kérek</a>
+
+</body>
+</html>
