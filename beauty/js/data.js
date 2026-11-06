@@ -1,8 +1,8 @@
 import { IMG_CONFIG } from './imgconfig.js';
 
 /**
- * Szolgáltatások, vélemények, nyitvatartás és foglalás. A képek beállítása
- * külön, a `imgconfig.js` fájlban található.
+ * Szolgáltatások, vélemények és foglalási beállítások.
+ * A szalon adatai a `site-config.js`, a képek az `imgconfig.js` fájlban vannak.
  */
 
 /** Hajhossz-kategóriák; a `prices` tömbök indexei ezekhez igazodnak. */
@@ -64,17 +64,6 @@ export const GALLERY_TAGS = [
 export const GALLERY = IMG_CONFIG.gallery.flatMap(({ id, images }) =>
   images.map((image) => ({ ...image, tag: id, image: image.src })),
 );
-
-/** Hétfőtől vasárnapig. open: null = zárva. */
-export const HOURS = [
-  { day: 'Hétfő', open: '09:00', close: '20:00' },
-  { day: 'Kedd', open: '09:00', close: '20:00' },
-  { day: 'Szerda', open: '09:00', close: '20:00' },
-  { day: 'Csütörtök', open: '09:00', close: '20:00' },
-  { day: 'Péntek', open: null },
-  { day: 'Szombat', open: null },
-  { day: 'Vasárnap', open: null },
-];
 
 export const BOOKING = {
   slotStep: 15,        // percben

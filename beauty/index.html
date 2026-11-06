@@ -14,8 +14,8 @@
 <body>
 
 <div class="topbar">
-  <span>Maglód, Móricz Zsigmond u. 12. · Ingyenes utcai parkolás</span>
-  <a href="tel:+36307135867">+36 30 713 5867</a>
+  <span data-business-location></span>
+  <a data-business-phone></a>
 </div>
 
 <header class="site-header" data-site-header>
@@ -136,7 +136,7 @@
           <li><span class="steps__num">2</span>E-mailben visszaigazoljuk a kérés beérkezését</li>
           <li><span class="steps__num">3</span>Petra személyesen véglegesíti az időpontot</li>
         </ol>
-        <p>Inkább telefonálnál? <a href="tel:+36307135867" class="link-underline">+36 30 713 5867</a></p>
+        <p>Inkább telefonálnál? <a data-business-phone class="link-underline"></a></p>
       </div>
 
       <div class="card" data-booking>
@@ -194,13 +194,16 @@
       <div class="contact__grid">
         <div class="contact__item">
           <span class="label">CÍM</span>
-          <span>2234 Maglód,<br>Móricz Zsigmond u. 12.</span>
-          <span class="note">Ingyenes utcai parkolás</span>
+          <span><span data-business-address></span><br><span data-business-street></span></span>
+          <span class="note" data-business-parking></span>
         </div>
         <div class="contact__item">
           <span class="label">TELEFON</span>
-          <a href="tel:+36307135867" class="link-ink">+36 30 713 5867</a>
-          <div class="contact__social"><a href="#">Instagram</a><a href="#">Facebook</a></div>
+          <a data-business-phone class="link-ink"></a>
+          <div class="contact__social">
+            <a data-social-link="instagram" target="_blank" rel="noopener">Instagram</a>
+            <a data-social-link="facebook" target="_blank" rel="noopener" hidden>Facebook</a>
+          </div>
         </div>
       </div>
       <div class="hours">
@@ -211,15 +214,14 @@
     <div class="stack">
       <div class="contact__map">
         <iframe
-          src="https://maps.google.com/maps?q=Beauty%20Room%20by%20Petra%2C%20M%C3%B3ricz%20Zsigmond%20utca%2012%2C%202234%20Magl%C3%B3d&amp;output=embed"
+          data-map-embed
           title="Beauty Room by Petra helye a Google Térképen"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen>
         </iframe>
       </div>
-      <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Beauty+Room+by+Petra%2C+M%C3%B3ricz+Zsigmond+utca+12%2C+2234+Magl%C3%B3d"
-         target="_blank" rel="noopener" class="btn btn--outline btn--start">Útvonaltervezés →</a>
+      <a data-map-directions target="_blank" rel="noopener" class="btn btn--outline btn--start">Útvonaltervezés →</a>
     </div>
   </section>
 

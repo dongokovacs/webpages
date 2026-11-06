@@ -1,5 +1,6 @@
-import { BOOKING, CATEGORIES, DEFAULT_LENGTH, GALLERY, GALLERY_TAGS, HOURS, LENGTHS, REVIEWS, SERVICES } from './data.js';
+import { BOOKING, CATEGORIES, DEFAULT_LENGTH, GALLERY, GALLERY_TAGS, LENGTHS, REVIEWS, SERVICES } from './data.js';
 import { IMG_CONFIG } from './imgconfig.js';
+import { SITE_CONFIG } from './site-config.js';
 import { BookingSchedule, OpeningHours } from './domain/schedule.js';
 import { SiteHeader } from './components/site-header.js';
 import { PriceList } from './components/price-list.js';
@@ -12,7 +13,41 @@ import { StickyCta } from './components/sticky-cta.js';
 
 const $ = (selector) => document.querySelector(selector);
 
-const hours = new OpeningHours(HOURS);
+const { address, name, openingHours, phone, social } = SITE_CONFIG;
+const mapSearch = `${name}, ${address.street}, ${address.postalCode} ${address.city}`;
+
+document.querySelectorAll('[data-business-location]').forEach((el) => {
+  el.textContent = `${address.city}, ${address.street} · ${address.parking}`;
+});
+document.querySelectorAll('[data-business-phone]').forEach((el) => {
+  el.href = phone.href;
+  el.textContent = phone.display;
+});
+
+const addressLine = $('[data-business-address]');
+addressLine.textContent = `${address.postalCode} ${address.city},`;
+$('[data-business-street]').textContent = address.street;
+$('[data-business-parking]').textContent = address.parking;
+
+document.querySelectorAll('[data-social-link]').forEach((link) => {
+  const url = social[link.dataset.socialLink];
+  if (url) {
+    link.href = url;
+  } else {
+    link.hidden = true;
+  }
+});
+
+const mapFrame = $('[data-map-embed]');
+mapFrame.src = `https://maps.google.com/maps?q=${encodeURIComponent(mapSearch)}&output=embed`;
+
+const directionsLink = $('[data-map-directions]');
+const directionsUrl = new URL('https://www.google.com/maps/dir/');
+directionsUrl.searchParams.set('api', '1');
+directionsUrl.searchParams.set('destination', mapSearch);
+directionsLink.href = directionsUrl;
+
+const hours = new OpeningHours(openingHours);
 
 const heroImage = $('[data-image="hero"]');
 heroImage.src = IMG_CONFIG.hero.src;
