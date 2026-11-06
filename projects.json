@@ -46,5 +46,11 @@
     "description": "Kertészet Maglódon – válogatott növények, modern statikus weboldal fotós hero-sliderrel.",
     "image": "https://picsum.photos/seed/sophiegarden-card/1600/900",
     "link": "sophiegarden/dist/"
+  },
+  {
+    "title": "Beauty Room by Petra",
+    "description": "Fodrászat Maglódon – szolgáltatások, árak, galéria és online időpontkérés.",
+    "image": "beauty/assets/logo.png",
+    "link": "beauty/"
   }
 ]
