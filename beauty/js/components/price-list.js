@@ -18,7 +18,7 @@ export class PriceList extends Component {
     let price;
     if (service.prices) {
       const value = service.prices[length];
-      price = value == null ? '–' : formatPrice(value);
+      price = value == null ? 'Nem elérhető' : formatPrice(value);
     } else {
       price = formatPrice(service.price) + (service.unit ?? '');
     }
@@ -52,10 +52,12 @@ export class PriceList extends Component {
     }).join('');
 
     this.root.innerHTML = `
-      <div class="ph ph--sticky price-list__photo">
-        <img class="image-fill" src="${esc(this.category.photo)}" alt="${esc(this.category.photoAlt)}" loading="lazy" decoding="async">
-        <span class="ph__label">${esc(this.category.photoLabel)}</span>
-      </div>
+      <figure class="price-list__visual">
+        <div class="price-list__photo">
+          <img class="image-fill" src="${esc(this.category.photo)}" alt="${esc(this.category.photoAlt)}" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="price-list__caption">${esc(this.category.photoLabel)}</figcaption>
+      </figure>
       <div>
         <p class="services__intro">${esc(this.category.intro)}</p>
         ${lengthPicker}

@@ -27,17 +27,17 @@ export const CATEGORIES = [
  * addon:  [címke, árak hajhosszanként] – pl. „Vágással +3 500 Ft”
  */
 export const SERVICES = [
-  { cat: 'fodraszat', name: 'Mosás – szárítás', prices: [4000, 4500, 5000, 5500] },
-  { cat: 'fodraszat', name: 'Mosás – vágás – szárítás', prices: [7500, 8000, 8500, 9500] },
+  { cat: 'fodraszat', name: 'Mosás, szárítás', prices: [4000, 4500, 5000, 5500] },
+  { cat: 'fodraszat', name: 'Mosás, vágás, szárítás', prices: [7500, 8000, 8500, 9500] },
   { cat: 'fodraszat', name: 'Frufru vágás', price: 1500 },
   { cat: 'fodraszat', name: 'Férfi vágás', price: 4000, desc: 'Mosással +1 000 Ft' },
   { cat: 'fodraszat', name: 'Gyerek hajvágás', prices: [4500, 4500, 4500, 6000], desc: 'Mosás-szárítással +1 500 Ft' },
   { cat: 'fodraszat', name: 'Fonás', price: 1000, unit: ' / tincs' },
   { cat: 'fodraszat', name: 'Vasalás', prices: [1800, 2300, 3000, 3500] },
   { cat: 'fodraszat', name: 'Göndörítés', prices: [1800, 2300, 3000, 3500] },
-  { cat: 'fodraszat', name: 'Tőfestés – mosás – szárítás', prices: [10500, 11000, 12000, 14000] },
-  { cat: 'fodraszat', name: 'Teljes festés – mosás – szárítás', prices: [13000, 15000, 17000, 20000], addon: ['Vágással', [3500, 4000, 4500, 5000]] },
-  { cat: 'fodraszat', name: 'Melírozás – mosás – szárítás', prices: [12000, 14000, 16000, 19000], addon: ['Árnyalással', [3000, 4000, 5000, 6000]] },
+  { cat: 'fodraszat', name: 'Tőfestés, mosás, szárítás', prices: [10500, 11000, 12000, 14000] },
+  { cat: 'fodraszat', name: 'Teljes festés, mosás, szárítás', prices: [13000, 15000, 17000, 20000], addon: ['Vágással', [3500, 4000, 4500, 5000]] },
+  { cat: 'fodraszat', name: 'Melírozás, mosás, szárítás', prices: [12000, 14000, 16000, 19000], addon: ['Árnyalással', [3000, 4000, 5000, 6000]] },
   { cat: 'fodraszat', name: 'Tőszőkítés', prices: [9000, 9500, 10000, 10500] },
   { cat: 'fodraszat', name: 'Teljes szőkítés', prices: [9500, 10000, 10500, 11500] },
   { cat: 'fodraszat', name: 'Ombre / Balayage', prices: [18000, 21000, 23500, 26000], desc: 'Tőfestéssel +5 000 Ft' },

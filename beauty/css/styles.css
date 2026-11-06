@@ -2,30 +2,29 @@
    Design tokens – színek, betűk, ritmus. Arculatváltásnál csak ezt kell módosítani.
    ========================================================================== */
 :root {
-  --c-bg: #FCFAF7;
-  --c-surface: #F7F0EF;
-  --c-ink: #393234;
-  --c-ink-soft: #5a5054;
-  --c-muted: #6c6265;
-  --c-faint: #8d7b7f;
+  --c-bg: #FCFAFA;
+  --c-surface: #F6ECEE;
+  --c-ink: #342E30;
+  --c-ink-soft: #51474A;
+  --c-muted: #62585B;
+  --c-faint: #776B6F;
   --c-disabled: #B9ADB0;
   --c-brand: #805966;
-  --c-brand-hover: #6b4955;
+  --c-brand-hover: #694753;
   --c-brand-deep: #5f3f4a;
-  --c-star: #B07A88;
-  --c-line: #EDE2E1;
-  --c-line-strong: #E3D3D3;
-  --c-outline: #CDB5B9;
+  --c-star: #805966;
+  --c-line: #E9DEDF;
+  --c-line-strong: #DCCBCD;
+  --c-outline: #B99CA2;
   --c-error: #A23B52;
 
-  /* sötét (vélemények) szekció */
-  --c-dark-card: #463D40;
-  --c-dark-accent: #E3B9C4;
-  --c-dark-eyebrow: #D9BEC5;
-  --c-dark-muted: #D6CBCD;
-  --c-dark-line: #6a5d61;
-  --c-dark-track: #5a4f52;
-  --c-dark-quote: #F2EAEA;
+  --c-dark-card: #FFFFFF;
+  --c-dark-accent: var(--c-brand);
+  --c-dark-eyebrow: var(--c-brand);
+  --c-dark-muted: var(--c-muted);
+  --c-dark-line: var(--c-line-strong);
+  --c-dark-track: var(--c-line-strong);
+  --c-dark-quote: var(--c-ink);
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Jost', system-ui, sans-serif;
@@ -57,6 +56,7 @@ a:hover { color: var(--c-brand-deep); }
 input, select, textarea, button { font-family: inherit; }
 button { cursor: pointer; }
 [hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--c-brand); outline-offset: 3px; }
 
 @keyframes fade-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .fade-in { animation: fade-in .9s ease both; }
@@ -73,7 +73,7 @@ button { cursor: pointer; }
 .section { padding-block: var(--section-y); }
 .anchor { scroll-margin-top: var(--header-offset); }
 .band { background: var(--c-surface); }
-.band--dark { background: var(--c-ink); color: var(--c-bg); }
+.band--dark { background: var(--c-surface); color: var(--c-ink); }
 
 .stack { display: flex; flex-direction: column; gap: 20px; }
 .stack--sm { gap: 14px; }
@@ -96,21 +96,21 @@ button { cursor: pointer; }
 /* ==========================================================================
    Tipográfia
    ========================================================================== */
-.eyebrow { font-size: 12px; letter-spacing: .3em; color: var(--c-brand); }
+.eyebrow { font-size: 11px; letter-spacing: .2em; color: var(--c-brand); }
 .band--dark .eyebrow { color: var(--c-dark-eyebrow); }
-.label { font-size: 12px; letter-spacing: .2em; color: var(--c-muted); }
+.label { font-size: 12px; letter-spacing: .14em; color: var(--c-muted); }
 .h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 4vw, 52px); line-height: 1.08; text-wrap: balance; }
 .lead { margin: 0; font-size: 18px; line-height: 1.65; font-weight: 300; max-width: 460px; text-wrap: pretty; }
 .body-text { margin: 0; font-size: 17px; line-height: 1.75; font-weight: 300; text-wrap: pretty; }
 .note { margin: 0; font-size: 13px; color: var(--c-muted); }
 .note--center { text-align: center; margin-top: -8px; }
-.muted { color: var(--c-dark-muted); }
+.muted { color: var(--c-muted); }
 .tabular { font-variant-numeric: tabular-nums; }
 .signature { font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--c-brand); }
 .stars { color: var(--c-dark-accent); letter-spacing: 3px; }
 .stars--muted { color: var(--c-star); font-size: 15px; }
 .link-underline { text-decoration: underline; text-underline-offset: 3px; }
-.band--dark .link-underline { color: var(--c-bg); text-underline-offset: 4px; }
+.band--dark .link-underline { color: var(--c-brand); text-underline-offset: 4px; }
 .link-ink { color: var(--c-ink); }
 
 /* ==========================================================================
@@ -121,7 +121,7 @@ button { cursor: pointer; }
   padding: 17px 30px; border-radius: var(--radius-pill);
   font-size: 15px; letter-spacing: .06em; white-space: nowrap;
   border: 1px solid transparent; background: transparent; color: var(--c-ink);
-  transition: background-color .2s, border-color .2s;
+  transition: background-color .2s, border-color .2s, color .2s, transform .2s;
 }
 .btn--primary { background: var(--c-brand); color: var(--c-bg); }
 .btn--primary:hover { background: var(--c-brand-hover); color: var(--c-bg); }
@@ -131,6 +131,7 @@ button { cursor: pointer; }
 .btn--sm { padding: 12px 22px; font-size: 14px; letter-spacing: .08em; }
 .btn--block { width: 100%; height: 58px; font-size: 16px; }
 .btn--start { align-self: flex-start; padding: 14px 24px; }
+.btn:active { transform: translateY(1px); }
 
 .icon-btn {
   width: 48px; height: 48px; border-radius: var(--radius-pill);
@@ -141,7 +142,7 @@ button { cursor: pointer; }
 .icon-btn:hover:not(:disabled) { border-color: var(--c-brand); }
 .icon-btn:disabled { opacity: .35; cursor: default; }
 .icon-btn--sm { width: 40px; height: 40px; font-size: 16px; }
-.icon-btn--dark { border-color: var(--c-dark-line); color: var(--c-bg); }
+.icon-btn--dark { border-color: var(--c-dark-line); color: var(--c-ink); }
 .icon-btn--dark:hover:not(:disabled) { border-color: var(--c-dark-accent); color: var(--c-dark-accent); }
 
 .chip {
@@ -161,17 +162,17 @@ button { cursor: pointer; }
    Fejléc
    ========================================================================== */
 .topbar {
-  background: var(--c-brand); color: var(--c-bg); font-size: 13px; letter-spacing: .04em;
-  padding: 9px 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; text-align: center;
+  background: var(--c-surface); color: var(--c-ink-soft); font-size: 12px; letter-spacing: .02em;
+  padding: 8px var(--gutter); display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; text-align: center;
 }
-.topbar a { color: var(--c-bg); text-decoration: underline; text-underline-offset: 3px; }
+.topbar a { color: var(--c-brand); text-decoration: underline; text-underline-offset: 3px; }
 
 .site-header {
   position: sticky; top: 0; z-index: 20;
-  background: rgba(252, 250, 247, .94); backdrop-filter: blur(10px);
+  background: rgba(252, 250, 250, .94); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--c-line);
 }
-.site-header__bar { display: flex; align-items: center; gap: 24px; padding-block: 14px; }
+.site-header__bar { display: flex; align-items: center; gap: 24px; padding-block: 12px; }
 .site-header__actions { display: flex; align-items: center; gap: 10px; }
 
 .brand { display: flex; flex-direction: column; line-height: 1; color: var(--c-brand); margin-right: auto; }
@@ -179,7 +180,7 @@ button { cursor: pointer; }
 .brand__by { font-size: 10px; letter-spacing: .32em; margin-top: 4px; color: var(--c-ink); }
 .brand--sm .brand__name { font-size: 26px; }
 
-.site-nav { display: flex; align-items: center; gap: 32px; font-size: 14px; letter-spacing: .06em; }
+.site-nav { display: flex; align-items: center; gap: 28px; font-size: 13px; letter-spacing: .04em; }
 .site-nav a { color: var(--c-ink); }
 .site-nav a:hover { color: var(--c-brand); }
 .menu-toggle { display: none; width: 44px; height: 44px; }
@@ -199,23 +200,23 @@ button { cursor: pointer; }
    Hero
    ========================================================================== */
 .hero {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  gap: clamp(36px, 5vw, 72px); align-items: center;
-  padding-block: clamp(36px, 6vw, 80px) clamp(56px, 7vw, 96px);
+  display: grid; grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+  gap: clamp(32px, 5vw, 68px); align-items: center;
+  padding-block: clamp(36px, 4.5vw, 64px) clamp(56px, 6vw, 80px);
 }
-.hero__copy { display: flex; flex-direction: column; gap: 28px; }
-.hero__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(46px, 6.4vw, 84px); line-height: 1; text-wrap: balance; }
+.hero__copy { display: flex; flex-direction: column; gap: 22px; }
+.hero__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(48px, 6vw, 76px); line-height: 1.03; text-wrap: balance; }
 .hero__title em { color: var(--c-brand); }
 .hero__media { position: relative; }
-.hero__photo { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 240px 240px 24px 24px; justify-content: center; padding: 28px; }
-.hero__photo .ph__label { position: relative; z-index: 1; color: var(--c-ink); }
+.hero__photo { position: relative; overflow: hidden; aspect-ratio: 1.04; border-radius: 18px; padding: 0; }
+.hero__photo .image-fill { object-position: center 42%; }
 .hero__badge {
-  position: absolute; left: -18px; bottom: 40px;
-  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 18px; padding: 16px 20px;
+  position: absolute; right: 16px; bottom: 16px;
+  background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 12px; padding: 12px 16px;
   display: flex; flex-direction: column; gap: 4px; font-size: 15px;
-  box-shadow: 0 20px 40px -24px rgba(57, 50, 52, .35);
+  box-shadow: 0 10px 24px -18px rgba(57, 50, 52, .32);
 }
-.hero__badge-label { font-size: 11px; letter-spacing: .2em; color: var(--c-brand); }
+.hero__badge-label { font-size: 10px; letter-spacing: .16em; color: var(--c-brand); }
 
 .rating { display: flex; align-items: center; gap: 14px; color: var(--c-ink); padding-top: 8px; }
 .rating:hover { color: var(--c-ink); }
@@ -246,8 +247,9 @@ button { cursor: pointer; }
 .service__desc:empty { display: none; }
 .service__book { grid-column: 1 / -1; padding-top: 4px; font-size: 13px; letter-spacing: .08em; }
 .split--services .note { margin-top: 18px; }
-.price-list__photo { position: relative; overflow: hidden; aspect-ratio: 4 / 3; }
-.price-list__photo .ph__label { position: relative; z-index: 1; color: var(--c-ink); }
+.price-list__visual { position: sticky; top: 110px; align-self: start; margin: 0; }
+.price-list__photo { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border-radius: 18px; }
+.price-list__caption { margin: 12px 2px 0; color: var(--c-muted); font-size: 13px; }
 
 /* ==========================================================================
    Vélemények
@@ -267,16 +269,15 @@ button { cursor: pointer; }
 
 .review {
   margin: 0; flex: 0 0 min(380px, 84%); scroll-snap-align: start; min-height: 250px;
-  background: var(--c-dark-card); border-radius: 20px; padding: 28px;
+  background: var(--c-dark-card); border: 1px solid var(--c-line); border-radius: 18px; padding: 28px;
   display: flex; flex-direction: column; gap: 18px;
 }
 .review__head { display: flex; align-items: center; gap: 12px; }
-.review__avatar { flex: none; width: 44px; height: 44px; border-radius: var(--radius-pill); background: var(--c-brand); color: var(--c-bg); display: flex; align-items: center; justify-content: center; font-size: 17px; }
 .review__who { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
 .review__name { font-size: 16px; }
 .review__date { font-size: 12px; color: var(--c-dark-muted); }
 .review__badge { font-size: 11px; letter-spacing: .1em; color: var(--c-dark-muted); border: 1px solid var(--c-dark-line); border-radius: var(--radius-pill); padding: 5px 10px; white-space: nowrap; }
-.review__text { margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 1.35; color: var(--c-dark-quote); text-wrap: pretty; }
+.review__text { margin: 0; display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; font-family: var(--font-display); font-size: 24px; line-height: 1.35; color: var(--c-dark-quote); text-wrap: pretty; }
 
 .progress { flex: 1; max-width: 280px; height: 2px; background: var(--c-dark-track); border-radius: 2px; overflow: hidden; }
 .progress__bar { height: 100%; background: var(--c-dark-accent); transform: scaleX(.18); transform-origin: left; transition: transform .3s ease; }
@@ -284,10 +285,10 @@ button { cursor: pointer; }
 /* ==========================================================================
    Galéria
    ========================================================================== */
-.gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); grid-auto-rows: 220px; grid-auto-flow: dense; gap: 14px; }
-.gallery__tile { position: relative; overflow: hidden; border-radius: 18px; padding: 14px; animation: fade-in .5s ease both; }
-.gallery__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.gallery__tile .ph__label { position: relative; z-index: 1; font-size: 11px; padding: 5px 9px; color: var(--c-ink); }
+.gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); grid-auto-rows: 210px; grid-auto-flow: dense; gap: 22px 16px; }
+.gallery__tile { min-width: 0; display: flex; flex-direction: column; gap: 9px; margin: 0; animation: fade-in .5s ease both; }
+.gallery__image { width: 100%; flex: 1; min-height: 0; object-fit: cover; border-radius: 16px; }
+.gallery__caption { margin: 0 2px; color: var(--c-muted); font-size: 13px; line-height: 1.3; }
 
 /* ==========================================================================
    Időpontkérés
@@ -298,7 +299,7 @@ button { cursor: pointer; }
 .steps li { display: flex; gap: 14px; align-items: baseline; }
 .steps__num { font-family: var(--font-display); font-size: 22px; color: var(--c-brand); }
 
-.card { background: var(--c-bg); border-radius: 26px; padding: clamp(24px, 4vw, 44px); box-shadow: 0 30px 60px -40px rgba(128, 89, 102, .45); }
+.card { background: var(--c-bg); border: 1px solid var(--c-line); border-radius: 18px; padding: clamp(24px, 4vw, 44px); box-shadow: 0 24px 56px -48px rgba(128, 89, 102, .5); }
 
 .form { display: flex; flex-direction: column; gap: 22px; }
 .form__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px; }
@@ -378,4 +379,21 @@ button { cursor: pointer; }
 .sticky-cta:hover { color: var(--c-bg); }
 @media (max-width: 819px) {
   .sticky-cta.is-visible { display: block; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 36px 56px; }
+  .hero__copy { gap: 20px; }
+  .hero__media { width: 100%; max-width: 640px; justify-self: center; }
+  .hero__photo { aspect-ratio: 1.08; }
+  .hero__title { font-size: clamp(48px, 10vw, 68px); }
+  .price-list__visual { position: relative; top: auto; }
+}
+@media (max-width: 520px) {
+  .topbar { gap: 4px 14px; font-size: 11px; }
+  .hero__title { font-size: clamp(44px, 13vw, 60px); }
+  .hero__photo { aspect-ratio: .94; }
+  .gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 18px 12px; }
+  .gallery__caption { font-size: 12px; }
+  .review { flex-basis: min(340px, 88%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

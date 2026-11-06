@@ -1,6 +1,6 @@
 import { esc } from '../lib/component.js';
 
-const timeRange = ({ open, close }) => (open ? `${open} – ${close}` : 'Zárva');
+const timeRange = ({ open, close }) => (open ? `${open}-${close}` : 'Zárva');
 
 /** Nyitvatartási táblázat (mai nap kiemelve) és a hero „ma nyitva” jelvénye. */
 export class OpeningHoursView {

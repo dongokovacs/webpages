@@ -94,7 +94,7 @@ export class SlotPicker extends Component {
         </div>
       </div>
       <div class="calendar__week">${dayCells}</div>
-      ${selected ? slotGroups : '<span class="note">Ezen a héten nincs szabad nap – lapozz tovább.</span>'}
+      ${selected ? slotGroups : '<span class="note">Ezen a héten nincs szabad nap. Lapozz tovább.</span>'}
       <div class="pick">
         <div class="pick__text">
           <span class="pick__date">${date ? formatDayLabel(date) : 'Válassz napot'}</span>

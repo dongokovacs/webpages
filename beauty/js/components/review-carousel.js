@@ -19,7 +19,6 @@ export class ReviewCarousel {
     return `
       <figure class="review">
         <figcaption class="review__head">
-          <span class="review__avatar" aria-hidden="true">${esc(r.name.trim()[0])}</span>
           <span class="review__who">
             <span class="review__name">${esc(r.name)}</span>
             <span class="review__date">${esc(r.date)}</span>

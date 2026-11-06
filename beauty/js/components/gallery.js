@@ -21,9 +21,9 @@ export class Gallery extends Component {
     this.grid.innerHTML = this.items
       .filter((item) => tag === 'all' || item.tag === tag)
       .map((item) => `
-        <div class="ph gallery__tile" style="grid-row:span ${Number(item.rows) || 1}">
-          <img class="image-fill" src="${esc(item.image)}" alt="${esc(item.alt)}" loading="lazy" decoding="async">
-          <span class="ph__label">${esc(item.label)}</span>
-        </div>`).join('');
+        <figure class="gallery__tile" style="grid-row:span ${Number(item.rows) || 1}">
+          <img class="gallery__image" src="${esc(item.image)}" alt="${esc(item.alt)}" loading="lazy" decoding="async">
+          <figcaption class="gallery__caption">${esc(item.label)}</figcaption>
+        </figure>`).join('');
   }
 }
