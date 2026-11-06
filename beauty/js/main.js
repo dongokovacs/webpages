@@ -1,4 +1,5 @@
 import { BOOKING, CATEGORIES, DEFAULT_LENGTH, GALLERY, GALLERY_TAGS, HOURS, LENGTHS, REVIEWS, SERVICES } from './data.js';
+import { IMG_CONFIG } from './imgconfig.js';
 import { BookingSchedule, OpeningHours } from './domain/schedule.js';
 import { SiteHeader } from './components/site-header.js';
 import { PriceList } from './components/price-list.js';
@@ -12,6 +13,10 @@ import { StickyCta } from './components/sticky-cta.js';
 const $ = (selector) => document.querySelector(selector);
 
 const hours = new OpeningHours(HOURS);
+
+const heroImage = $('[data-image="hero"]');
+heroImage.src = IMG_CONFIG.hero.src;
+heroImage.alt = IMG_CONFIG.hero.alt;
 
 document.querySelectorAll('[data-review-count]').forEach((el) => { el.textContent = REVIEWS.length; });
 
