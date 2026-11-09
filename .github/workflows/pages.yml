@@ -98,7 +98,10 @@ jobs:
           mkdir -p _site/steeldecor-story
           mkdir -p _site/sophiegarden
           mkdir -p _site/nanogas-allure-report
+          mkdir -p _site/aquatech
           cp index.html projects.json robots.txt sitemap.xml _site/
+          cp aquatech/*.html aquatech/favicon.svg _site/aquatech/
+          cp -r aquatech/css aquatech/images aquatech/js _site/aquatech/
           cp -r galiba Galiba2 serpa_sorfozde janoshalmi szamodra allatpatika templatesdemos eperdekor space _site/
           cp -r bube-viragbolt/dist/. _site/bube-viragbolt/
           cp -r v0-ai-chat/dist/. _site/v0-ai-chat/
