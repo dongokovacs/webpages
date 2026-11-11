@@ -1,3 +1,11 @@
 node_modules/
 .env
 .env.local
+
+# Local browser-test artifacts
+**/.playwright-mcp/
+**/playwright/
+
+# Beauty Room reference files and local uploads
+/beauty/legacy/
+/beauty/uploads/

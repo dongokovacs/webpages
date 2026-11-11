@@ -1,0 +1,7 @@
+{
+  "skillOverrides": {
+    "minimalist-ui": "user-invocable-only",
+    "industrial-brutalist-ui": "user-invocable-only",
+    "design-taste-frontend": "user-invocable-only"
+  }
+}
