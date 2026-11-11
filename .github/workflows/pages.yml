@@ -109,6 +109,7 @@ jobs:
           cp -r sophiegarden/dist/. _site/sophiegarden/
           cp -r nanogas/tests-py/allure-report/. _site/nanogas-allure-report/
           cp -r beauty _site/beauty
+          mkdir -p _site/vakolatbolt && cp vakolatbolt/index.html _site/vakolatbolt/
 
       - uses: actions/configure-pages@v5
 
