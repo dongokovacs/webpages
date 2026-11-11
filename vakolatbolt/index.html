@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vakolatbolt / Vakolat, hőszigetelés, gipszkarton</title>
+<meta name="description" content="Vakolatok, hőszigetelő rendszerek, gipszkarton rendszerek az utolsó csavarig. Raktáráruház Maglódon és Budapest XVII. kerületben. 1000+ szín keverése, házhozszállítás.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAE8E3; --paper-2:#F4F4F0; --ink:#0D0D0D; --ink-2:#55524C; --red:#E61919;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --macro:"Archivo Black","Arial Black",Impact,sans-serif;
+  --pad:clamp(16px,3vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0;min-width:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+::selection{background:var(--red);color:var(--paper-2)}
+
+.micro{font-size:11px;letter-spacing:.09em;text-transform:uppercase;line-height:1.3}
+.macro{font-family:var(--macro);text-transform:uppercase;letter-spacing:-.045em;line-height:.88;font-weight:400}
+.red{color:var(--red)}
+.wrap{padding-inline:var(--pad)}
+hr{border:0;border-top:2px solid var(--ink)}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------- ticker ---------- */
+.ticker{display:flex;gap:24px;align-items:center;justify-content:space-between;background:var(--ink);color:var(--paper);padding:8px var(--pad);flex-wrap:wrap}
+.ticker span{white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;background:var(--red);margin-right:8px;vertical-align:1px}
+.dot.on{background:#4AF626}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.hd{display:grid;grid-template-columns:auto 1fr auto;align-items:stretch}
+.logo{display:flex;align-items:center;gap:4px;padding:14px var(--pad);border-right:2px solid var(--ink);text-decoration:none;font-family:var(--macro);font-size:22px;letter-spacing:-.05em;text-transform:uppercase}
+.logo sup{font-family:var(--mono);font-size:12px;color:var(--red)}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 18px;text-decoration:none;border-right:1px solid var(--ink)}
+nav a:hover{background:var(--ink);color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border:2px solid var(--ink);background:var(--paper-2);text-decoration:none;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--red);border-color:var(--red);color:var(--paper-2)}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink)}
+.hd .btn{border:0;border-left:2px solid var(--ink)}
+.menu-t{display:none}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);border-bottom:2px solid var(--ink)}
+.hero-main{padding:clamp(32px,6vw,80px) var(--pad) clamp(28px,4vw,48px);position:relative;border-right:2px solid var(--ink);overflow:hidden}
+.hero-main::before{content:"";position:absolute;right:-60px;top:-60px;width:420px;height:420px;
+  background-image:radial-gradient(var(--ink) 1.3px,transparent 1.6px);background-size:9px 9px;opacity:.16;
+  -webkit-mask-image:radial-gradient(circle at 70% 30%,#000 0,transparent 68%);mask-image:radial-gradient(circle at 70% 30%,#000 0,transparent 68%)}
+.hero h1{font-size:clamp(2.2rem,7.4vw,9.5rem);position:relative}
+.hero h1 .ln{display:block}
+.hero h1 .strike{position:relative;color:var(--red)}
+.hero-sub{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between;margin-top:clamp(28px,4vw,48px);position:relative}
+.hero-sub p{max-width:46ch;font-size:15px}
+.hero-sub .cta{display:flex;gap:0;flex-wrap:wrap}
+.hero-sub .cta .btn+.btn{border-left:0}
+.spec{display:grid;grid-template-rows:repeat(4,1fr);gap:1px;background:var(--ink)}
+.spec>div{background:var(--paper-2);padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+.spec b{font-family:var(--macro);font-size:clamp(2.2rem,4vw,3.4rem);letter-spacing:-.05em;line-height:.9;font-weight:400}
+.spec .k{color:var(--ink-2)}
+
+/* ---------- hazard / barcode ---------- */
+.hazard{height:18px;background:repeating-linear-gradient(-45deg,var(--ink) 0 14px,var(--paper) 14px 28px);border-bottom:2px solid var(--ink)}
+.barcode{height:28px;width:140px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 9px,var(--ink) 9px 12px,transparent 12px 13px)}
+
+/* ---------- section head ---------- */
+.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--pad);border-bottom:1px solid var(--ink);flex-wrap:wrap}
+.sec-title{padding:clamp(32px,5vw,64px) var(--pad) clamp(24px,3vw,40px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+.sec-title h2{font-size:clamp(2.1rem,7vw,7rem);overflow-wrap:anywhere}
+.sec-title p{max-width:38ch;color:var(--ink-2)}
+section{border-bottom:2px solid var(--ink)}
+
+/* ---------- products ---------- */
+.grid{display:grid;gap:1px;background:var(--ink);border-top:1px solid var(--ink)}
+.prod{grid-template-columns:repeat(4,1fr)}
+.cell{background:var(--paper-2);padding:20px;position:relative;display:flex;flex-direction:column;gap:14px;min-height:280px;text-decoration:none;transition:background .15s}
+.cell .num{font-family:var(--macro);font-size:64px;line-height:.8;letter-spacing:-.06em;color:var(--paper);-webkit-text-stroke:1.5px var(--ink)}
+.cell h3{font-family:var(--macro);font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:-.03em;line-height:.95}
+.cell p{font-size:13px;color:var(--ink-2)}
+.cell ul{list-style:none;margin-top:auto;display:flex;flex-wrap:wrap;gap:4px}
+.cell li{border:1px solid var(--ink);padding:3px 6px}
+.cell .go{position:absolute;top:20px;right:20px}
+a.cell:hover{background:var(--ink);color:var(--paper)}
+a.cell:hover p{color:#b9b5ad}
+a.cell:hover .num{-webkit-text-stroke-color:var(--red);color:var(--ink)}
+a.cell:hover li{border-color:var(--paper)}
+a.cell:hover .go{color:var(--red)}
+
+/* ---------- colors ---------- */
+.colors{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.colors .big{padding:clamp(28px,4vw,56px) var(--pad);border-right:2px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.colors .big .n{font-family:var(--macro);font-size:clamp(6rem,17vw,16rem);letter-spacing:-.07em;line-height:.8}
+.colors .big .n sup{font-size:.35em;color:var(--red);vertical-align:.95em;letter-spacing:0}
+.brands{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.brands span{background:var(--paper-2);padding:12px;text-align:center;font-weight:700}
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--ink)}
+.sw{aspect-ratio:1/1.15;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:0;font-family:var(--mono);text-align:left;color:var(--ink)}
+.sw.dk{color:var(--paper-2)}
+.sw[aria-pressed="true"]{outline:3px solid var(--red);outline-offset:-3px;z-index:1}
+.picked{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:14px 20px;border-top:1px solid var(--ink);background:var(--paper-2)}
+.picked i{width:42px;height:42px;border:1px solid var(--ink);display:block}
+
+/* ---------- delap ---------- */
+.delap{grid-template-columns:repeat(5,1fr)}
+.delap .cell{min-height:200px}
+.tex{height:90px;border:1px solid var(--ink)}
+.t1{background:radial-gradient(ellipse 30px 18px at 20% 30%,var(--ink) 0 2px,transparent 2px),radial-gradient(ellipse 36px 20px at 65% 40%,transparent 0 16px,var(--ink) 16px 17px,transparent 17px),radial-gradient(ellipse 26px 18px at 35% 80%,transparent 0 12px,var(--ink) 12px 13px,transparent 13px);background-color:var(--paper)}
+.t2{background:repeating-linear-gradient(0deg,var(--ink) 0 2px,transparent 2px 22px),repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 48px);background-color:var(--paper)}
+.t3{background:linear-gradient(90deg,transparent 48%,var(--ink) 48% 51%,transparent 51%) 0 0/48px 22px,linear-gradient(90deg,transparent 48%,var(--ink) 48% 51%,transparent 51%) 24px 22px/48px 22px,repeating-linear-gradient(0deg,var(--ink) 0 2px,transparent 2px 22px);background-color:var(--paper);background-repeat:repeat-x,repeat-x,repeat}
+.t4{background:repeating-linear-gradient(0deg,var(--ink) 0 2px,transparent 2px 14px),repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 70px);background-color:var(--paper)}
+.t5{background:repeating-linear-gradient(0deg,var(--ink) 0 1px,transparent 1px 7px),repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 34px);background-color:var(--paper)}
+
+/* ---------- process ---------- */
+.steps{grid-template-columns:repeat(4,1fr)}
+.steps .cell{min-height:220px}
+.steps .cell .num{color:var(--red);-webkit-text-stroke:0;font-size:84px}
+
+/* ---------- stores ---------- */
+.stores{width:100%;border-collapse:collapse}
+.stores th,.stores td{text-align:left;padding:16px var(--pad);border-bottom:1px solid var(--ink);vertical-align:top}
+.stores th{font-weight:500;color:var(--ink-2)}
+.stores td.nm{font-family:var(--macro);font-size:clamp(1.3rem,2.4vw,2rem);text-transform:uppercase;letter-spacing:-.03em;line-height:.95}
+.stores tr.closed td{color:#8d8980}
+.stores tr.closed td.nm{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
+.stat{display:inline-flex;align-items:center;font-weight:700}
+.stat.on{color:var(--ink)}
+.stat.off{color:var(--red)}
+.stores a{text-decoration:none;border-bottom:1px solid currentColor}
+.stores a:hover{color:var(--red)}
+
+/* ---------- trust ---------- */
+.trust{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.trust .score{padding:clamp(28px,4vw,56px) var(--pad);border-right:2px solid var(--ink)}
+.trust .score b{font-family:var(--macro);font-size:clamp(6rem,14vw,13rem);letter-spacing:-.07em;line-height:.8;display:block;font-weight:400}
+.bars{display:grid;gap:1px;background:var(--ink);grid-template-columns:repeat(2,1fr)}
+.bars>div{background:var(--paper-2);padding:22px 20px}
+.bars h4{font-family:var(--macro);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:-.03em;margin:10px 0 6px}
+.bars p{color:var(--ink-2);font-size:13px}
+
+/* ---------- form ---------- */
+.quote{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.quote .side{padding:clamp(28px,4vw,56px) var(--pad);border-right:2px solid var(--ink);background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.quote .side h2{font-size:clamp(2.1rem,6vw,6rem)}
+.quote .side dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px}
+.quote .side dt{color:#8d8980}
+.quote .side a{text-decoration:none}
+.quote .side a:hover{color:var(--red)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink)}
+.f{background:var(--paper-2);padding:16px 20px 12px;display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f label{color:var(--ink-2)}
+.f input,.f select,.f textarea{font:inherit;font-size:15px;background:transparent;border:0;border-bottom:2px solid var(--ink);padding:6px 0;color:var(--ink);width:100%;appearance:none;-webkit-appearance:none}
+.f select{background:linear-gradient(45deg,transparent 50%,var(--ink) 50%) right 6px center/7px 7px no-repeat,linear-gradient(-45deg,transparent 50%,var(--ink) 50%) right 0 center/7px 7px no-repeat}
+.f textarea{min-height:96px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-bottom-color:var(--red)}
+.f.sub{flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:16px 20px}
+.f.sub .btn{border-width:2px}
+
+/* ---------- footer ---------- */
+footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:1px;background:var(--ink)}
+footer>div{background:var(--paper);padding:28px var(--pad) 32px;display:flex;flex-direction:column;gap:8px}
+footer .macro{font-size:clamp(2.4rem,5vw,4.5rem)}
+footer a{text-decoration:none}
+footer a:hover{color:var(--red)}
+.colophon{display:flex;justify-content:space-between;gap:16px;padding:12px var(--pad);flex-wrap:wrap;border-top:2px solid var(--ink)}
+.draft{position:fixed;left:12px;bottom:12px;z-index:60;background:var(--red);color:var(--paper-2);padding:6px 10px;font-weight:700}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .prod{grid-template-columns:repeat(2,1fr)}
+  .delap{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  footer{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:2px solid var(--ink)}
+  nav.open{display:flex}
+  nav a{padding:16px var(--pad);border-right:0;border-top:1px solid var(--ink)}
+  .hd{grid-template-columns:1fr auto auto}
+  .hd .btn.primary{display:none}
+  .menu-t{display:flex;border:0;border-left:2px solid var(--ink)}
+  .hero,.colors,.trust,.quote{grid-template-columns:minmax(0,1fr)}
+  .hero h1{font-size:9vw}
+  .hero-main,.colors .big,.trust .score,.quote .side{border-right:0;border-bottom:2px solid var(--ink)}
+  .spec{grid-template-rows:none;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sec-title{grid-template-columns:minmax(0,1fr)}
+  .swatches{grid-template-columns:repeat(4,1fr)}
+  .stores thead{display:none}
+  .stores tr{display:grid;grid-template-columns:1fr;padding:16px var(--pad);border-bottom:1px solid var(--ink)}
+  .stores td{border:0;padding:3px 0}
+  .stores td.nm{padding-bottom:8px}
+}
+@media (max-width:560px){
+  .prod,.delap,.steps,.bars,form,footer{grid-template-columns:1fr}
+  .cell{min-height:0}
+  .ticker .hide-s{display:none}
+  .logo{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="ticker micro" role="status">
+  <span><i class="dot" id="tk-dot"></i><span id="tk-status">MAGLÓD RAKTÁRÁRUHÁZ</span></span>
+  <span class="hide-s">/// HÁZHOZSZÁLLÍTÁS KÉSZLETRŐL</span>
+  <span class="hide-s">1000+ SZÍN KEVERÉSE HELYBEN</span>
+  <span><a href="tel:+36702527487" style="text-decoration:none">+36 70 252 7487</a></span>
+</div>
+
+<header>
+  <div class="hd">
+    <a href="#" class="logo">Vakolatbolt<sup>®</sup></a>
+    <nav id="nav" class="micro">
+      <a href="#termekek">[01] Termékek</a>
+      <a href="#szinek">[02] Színek</a>
+      <a href="#uzletek">[03] Üzletek</a>
+      <a href="#rolunk">[04] Rólunk</a>
+      <a href="#ajanlat">[05] Kapcsolat</a>
+    </nav>
+    <a href="#ajanlat" class="btn primary">Árajánlatkérés &gt;&gt;&gt;</a>
+    <button class="btn menu-t micro" aria-expanded="false" aria-controls="nav" id="menu-t">Menü</button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-main">
+      <p class="micro" style="margin-bottom:22px;position:relative">[ Építőanyag-kereskedés / Maglód + Budapest XVII. ]</p>
+      <h1 id="h1" class="macro">
+        <span class="ln">Vakolat.</span>
+        <span class="ln">Szigetelés.</span>
+        <span class="ln">Gipszkarton.</span>
+        <span class="ln strike">Az utolsó csavarig.</span>
+      </h1>
+      <div class="hero-sub">
+        <p>Komplett hőszigetelő és gipszkarton rendszerek, színezővakolatok egyedi színkeveréssel. Raktárkészletről, szakmai tanácsadással, házhoz szállítva.</p>
+        <div class="cta">
+          <a class="btn primary" href="#ajanlat">Árajánlatot kérek &gt;&gt;&gt;</a>
+          <a class="btn" href="#termekek">Termékek</a>
+        </div>
+      </div>
+    </div>
+    <dl class="spec">
+      <div><dt class="micro k">Keverhető szín</dt><dd><b>1000<span class="red">+</span></b></dd></div>
+      <div><dt class="micro k">Google értékelés / 177 vélemény</dt><dd><b>4,6<span class="red">/5</span></b></dd></div>
+      <div><dt class="micro k">Termékcsoport</dt><dd><b>08</b></dd></div>
+      <div><dt class="micro k">Nyitás hétköznap</dt><dd><b>06:00</b></dd></div>
+    </dl>
+  </section>
+
+  <div class="hazard" aria-hidden="true"></div>
+
+  <!-- PRODUCTS -->
+  <section id="termekek" aria-labelledby="t-prod">
+    <div class="sh micro"><span>[ 01 / Termékek ]</span><span>Index · 08 egység</span></div>
+    <div class="sec-title">
+      <h2 class="macro" id="t-prod">Katalógus</h2>
+      <p>A homlokzattól a belső falig. Egy helyen, egy árajánlatban, egy szállítással.</p>
+    </div>
+    <div class="grid prod">
+      <a class="cell" href="#ajanlat"><span class="num">01</span><span class="go micro">&gt;&gt;&gt;</span><h3>Hőszigetelő rendszerek</h3><p>Homlokzati és belső rendszerek, komplett vagy alap kiszerelésben.</p><ul class="micro"><li>EPS</li><li>XPS</li><li>Grafit</li><li>Kőzetgyapot</li></ul></a>
+      <a class="cell" href="#ajanlat"><span class="num">02</span><span class="go micro">&gt;&gt;&gt;</span><h3>Viablokk</h3><p>Pórusbeton falazóelemek könnyű, gyors falazáshoz.</p><ul class="micro"><li>Falazóblokk</li><li>Pórusbeton</li></ul></a>
+      <a class="cell" href="#ajanlat"><span class="num">03</span><span class="go micro">&gt;&gt;&gt;</span><h3>Üveggyapot / Kőzetgyapot</h3><p>Hő- és hangszigetelés tetőtérbe, válaszfalba, födémre.</p><ul class="micro"><li>Tekercs</li><li>Tábla</li></ul></a>
+      <a class="cell" href="#ajanlat"><span class="num">04</span><span class="go micro">&gt;&gt;&gt;</span><h3>Gipszkarton rendszerek</h3><p>Lapok, profilok és kiegészítők, az utolsó csavarig.</p><ul class="micro"><li>Normál</li><li>Impregnált</li><li>Tűzgátló</li><li>CD/UD/UW/CW</li><li>OSB</li></ul></a>
+      <a class="cell" href="#delap"><span class="num">05</span><span class="go micro">&gt;&gt;&gt;</span><h3>Delap burkolókő</h3><p>Márvány- és kőporból készült díszítőburkolat homlokzatra, lábazatra, kerítésre.</p><ul class="micro"><li>5 struktúra</li><li>Kül- és beltér</li></ul></a>
+      <a class="cell" href="#szinek"><span class="num">06</span><span class="go micro">&gt;&gt;&gt;</span><h3>Színezővakolatok</h3><p>Kül- és beltéri vakolatok és festékek, helyben keverve.</p><ul class="micro"><li>Baumit</li><li>Revco</li><li>Meton</li></ul></a>
+      <a class="cell" href="#ajanlat"><span class="num">07</span><span class="go micro">&gt;&gt;&gt;</span><h3>Vízszigetelő&shy;anyagok</h3><p>Lábazat, pince, fürdő: kenhető és lemezes megoldások.</p><ul class="micro"><li>Kenhető</li><li>Lemezes</li></ul></a>
+      <a class="cell" href="#ajanlat"><span class="num">08</span><span class="go micro">&gt;&gt;&gt;</span><h3>Barkácsáru</h3><p>Szerszámok és kiegészítők a kivitelezés mellé.</p><ul class="micro"><li>Szerszám</li><li>Kellék</li></ul></a>
+    </div>
+  </section>
+
+  <!-- COLORS -->
+  <section id="szinek" aria-labelledby="t-col">
+    <div class="sh micro"><span>[ 02 / Színek ]</span><span>Színkeverés · helyben</span></div>
+    <div class="colors">
+      <div class="big">
+        <div>
+          <p class="micro" style="margin-bottom:14px">Keverhető árnyalat</p>
+          <div class="n" id="t-col">1000<sup>+</sup></div>
+        </div>
+        <p style="max-width:40ch">Színezővakolatok és festékek kül- és beltérre. A katalógusban nem szereplő egyedi színt is bekeverjük.</p>
+        <div class="brands micro"><span>Baumit</span><span>Revco</span><span>Meton</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <div class="swatches" id="sw" role="group" aria-label="Színminták"></div>
+        <div class="picked micro" aria-live="polite"><i id="pk-c"></i><span id="pk-n">Válassz mintát a fenti rácsból</span><a class="btn" href="#ajanlat" id="pk-go" style="padding:10px 14px">Ezt kérem</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELAP -->
+  <section id="delap" aria-labelledby="t-delap">
+    <div class="sh micro"><span>[ 02.1 / Delap ]</span><span>Struktúrák · 05</span></div>
+    <div class="sec-title">
+      <h2 class="macro" id="t-delap">Kő, ami ragad.</h2>
+      <p>A Delap burkolókő hőszigetelő rendszerre is ragasztható. Homlokzat, lábazat, kerítés, beltér.</p>
+    </div>
+    <div class="grid delap">
+      <div class="cell"><div class="tex t1"></div><h3>Terméskő</h3><p class="micro">D-01</p></div>
+      <div class="cell"><div class="tex t2"></div><h3>Díszítő tégla</h3><p class="micro">D-02</p></div>
+      <div class="cell"><div class="tex t3"></div><h3>Bontott tégla</h3><p class="micro">D-03</p></div>
+      <div class="cell"><div class="tex t4"></div><h3>Hasított kő</h3><p class="micro">D-04</p></div>
+      <div class="cell"><div class="tex t5"></div><h3>Mini hasított kő</h3><p class="micro">D-05</p></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="rolunk" aria-labelledby="t-proc">
+    <div class="sh micro"><span>[ 03 / Folyamat ]</span><span>Ajánlattól a raklapig</span></div>
+    <div class="sec-title">
+      <h2 class="macro" id="t-proc">Így dolgozunk</h2>
+      <p>Nem kell tudnod a pontos rendszert. Elég a felület és a cél, a többit összerakjuk.</p>
+    </div>
+    <div class="grid steps">
+      <div class="cell"><span class="num">1</span><h3>Ajánlatkérés</h3><p>Online, e-mailben vagy telefonon. Felület, anyag, határidő.</p></div>
+      <div class="cell"><span class="num">2</span><h3>Tanácsadás</h3><p>Szakmai segítség a rendszer és a termékek kiválasztásában.</p></div>
+      <div class="cell"><span class="num">3</span><h3>Színkeverés</h3><p>A vakolatot és festéket a kiválasztott színre keverjük.</p></div>
+      <div class="cell"><span class="num">4</span><h3>Házhozszállítás</h3><p>Raktárkészletről, pontosan a megbeszélt időre.</p></div>
+    </div>
+  </section>
+
+  <!-- STORES -->
+  <section id="uzletek" aria-labelledby="t-st">
+    <div class="sh micro"><span>[ 04 / Üzletek ]</span><span id="st-clock">Europe/Budapest</span></div>
+    <div class="sec-title">
+      <h2 class="macro" id="t-st">Telephelyek</h2>
+      <div class="barcode" aria-hidden="true"></div>
+    </div>
+    <table class="stores">
+      <thead class="micro"><tr><th>Egység</th><th>Cím</th><th>Nyitvatartás</th><th>Telefon</th><th>Állapot</th></tr></thead>
+      <tbody>
+        <tr data-store="maglod">
+          <td class="nm">Maglód<br><span class="micro" style="font-family:var(--mono);letter-spacing:.09em">Központi raktáráruház</span></td>
+          <td>2234 Maglód,<br>Wodiáner ipari park 1.<br><span class="micro" style="color:var(--ink-2)">GPS: Majláth u. 1</span></td>
+          <td class="micro">H–P 06:00–17:00<br>Szo 07:00–12:00</td>
+          <td><a href="tel:+36204327170">+36 20 432 71 70</a></td>
+          <td class="micro"><span class="stat" data-status>—</span></td>
+        </tr>
+        <tr data-store="bp17">
+          <td class="nm">Budapest XVII.<br><span class="micro" style="font-family:var(--mono);letter-spacing:.09em">Üzlet</span></td>
+          <td>1173 Budapest,<br>Pesti út 13.</td>
+          <td class="micro">H–P 07:00–17:00<br>Szo 07:00–12:00</td>
+          <td><a href="tel:+36204486707">+36 20 448 67 07</a></td>
+          <td class="micro"><span class="stat" data-status>—</span></td>
+        </tr>
+        <tr class="closed">
+          <td class="nm">Berkenye</td>
+          <td>2641 Berkenye,<br>Ifjúság u. 2.</td>
+          <td class="micro">—</td><td>—</td>
+          <td class="micro"><span class="stat off">Ideiglenesen zárva</span></td>
+        </tr>
+        <tr class="closed">
+          <td class="nm">Keresztúri út</td>
+          <td>—</td><td class="micro">—</td><td>—</td>
+          <td class="micro"><span class="stat off">Ideiglenesen zárva</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- TRUST -->
+  <section aria-labelledby="t-tr">
+    <div class="sh micro"><span>[ 05 / Visszajelzés ]</span><span>Forrás: Google</span></div>
+    <div class="trust">
+      <div class="score">
+        <p class="micro" style="margin-bottom:14px" id="t-tr">Átlagos értékelés</p>
+        <b>4,6</b>
+        <p class="micro" style="margin-top:18px">177 vélemény alapján <span class="red">■■■■■</span></p>
+      </div>
+      <div class="bars">
+        <div><span class="micro red">[ A ]</span><h4>Segítőkész szakemberek</h4><p>A vásárlók leggyakrabban a hozzáértő, türelmes kiszolgálást emelik ki.</p></div>
+        <div><span class="micro red">[ B ]</span><h4>Széles választék</h4><p>Komplett rendszerek egy helyen, nem kell több boltot bejárni.</p></div>
+        <div><span class="micro red">[ C ]</span><h4>Gyors kiszolgálás</h4><p>Raktárkészletről, rövid várakozással.</p></div>
+        <div><span class="micro red">[ D ]</span><h4>Pontos szállítás</h4><p>A sofőrök a megbeszélt időben érkeznek.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="ajanlat" aria-labelledby="t-q">
+    <div class="sh micro"><span>[ 06 / Árajánlatkérés ]</span><span>Válasz munkanapokon</span></div>
+    <div class="quote">
+      <div class="side">
+        <h2 class="macro" id="t-q">Kérj ajánlatot.</h2>
+        <dl class="micro">
+          <dt>Telefon</dt><dd><a href="tel:+36702527487">+36 70 252 7487</a></dd>
+          <dt>Elérhető</dt><dd>H–P 08:00–17:00</dd>
+          <dt>E-mail</dt><dd><a href="mailto:vakolatbolt@gmail.com">vakolatbolt@gmail.com</a></dd>
+        </dl>
+      </div>
+      <form id="qf" novalidate>
+        <div class="f"><label class="micro" for="q-n">Név *</label><input id="q-n" name="nev" required autocomplete="name"></div>
+        <div class="f"><label class="micro" for="q-p">Telefon *</label><input id="q-p" name="telefon" type="tel" required autocomplete="tel"></div>
+        <div class="f"><label class="micro" for="q-e">E-mail</label><input id="q-e" name="email" type="email" autocomplete="email"></div>
+        <div class="f"><label class="micro" for="q-c">Termékcsoport</label>
+          <select id="q-c" name="kategoria">
+            <option>Hőszigetelő rendszer</option><option>Viablokk</option><option>Üveggyapot / Kőzetgyapot</option><option>Gipszkarton rendszer</option><option>Delap burkolókő</option><option>Színezővakolat / festék</option><option>Vízszigetelés</option><option>Barkácsáru</option><option>Egyéb / vegyes</option>
+          </select></div>
+        <div class="f"><label class="micro" for="q-m">Felület (m²)</label><input id="q-m" name="felulet" inputmode="decimal"></div>
+        <div class="f"><label class="micro" for="q-s">Átvétel</label>
+          <select id="q-s" name="atvetel"><option>Házhozszállítás</option><option>Maglód, raktáráruház</option><option>Budapest XVII.</option></select></div>
+        <div class="f full"><label class="micro" for="q-t">Részletek</label><textarea id="q-t" name="uzenet" placeholder="Pl. 140 m² homlokzat, 10 cm grafit EPS, kapart vakolat, szín: …"></textarea></div>
+        <div class="f full sub"><span class="micro" id="q-msg" style="color:var(--ink-2)">* kötelező mező</span><button class="btn primary" type="submit">Ajánlatkérés küldése &gt;&gt;&gt;</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div><span class="macro">Vakolat&shy;bolt<span class="red">®</span></span><p class="micro" style="color:var(--ink-2)">Vakolatok · Hőszigetelés · Gipszkarton</p></div>
+  <div class="micro"><b>Navigáció</b><a href="#termekek">Termékek</a><a href="#szinek">Színek</a><a href="#uzletek">Üzletek</a><a href="#ajanlat">Kapcsolat</a></div>
+  <div class="micro"><b>Kapcsolat</b><a href="tel:+36702527487">+36 70 252 7487</a><a href="mailto:vakolatbolt@gmail.com">vakolatbolt@gmail.com</a><span>2234 Maglód, Wodiáner ip. 1.</span></div>
+  <div class="micro"><b>Jogi</b><a href="#">ÁSZF</a><a href="#">Adatkezelés</a></div>
+</footer>
+<div class="colophon micro" style="background:var(--paper)"><span>© <span id="yr">2026</span> Vakolatbolt</span><span>/// Az utolsó csavarig</span></div>
+
+<div class="draft micro" aria-hidden="true">Designterv · REV 0.1</div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+
+  // mobile menu
+  const mt = $('#menu-t'), nav = $('#nav');
+  mt.addEventListener('click', () => {
+    const o = nav.classList.toggle('open');
+    mt.setAttribute('aria-expanded', o);
+  });
+  nav.addEventListener('click', e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); mt.setAttribute('aria-expanded', false); } });
+
+  // live open/closed status, Europe/Budapest
+  const HOURS = { // [weekday 1-5 open, close], [sat open, close]
+    maglod: { wk: [6, 17], sat: [7, 12] },
+    bp17:   { wk: [7, 17], sat: [7, 12] }
+  };
+  function bpNow() {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Budapest', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(new Date()).map(x => [x.type, x.value]));
+    const day = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday);
+    return { day, h: +p.hour + +p.minute / 60, label: `${p.hour}:${p.minute}` };
+  }
+  function isOpen(s, t) {
+    const r = t.day >= 1 && t.day <= 5 ? s.wk : t.day === 6 ? s.sat : null;
+    return !!r && t.h >= r[0] && t.h < r[1];
+  }
+  function tick() {
+    const t = bpNow();
+    document.querySelectorAll('[data-store]').forEach(row => {
+      const el = row.querySelector('[data-status]'), o = isOpen(HOURS[row.dataset.store], t);
+      el.textContent = o ? '■ Nyitva' : '■ Zárva';
+      el.className = 'stat ' + (o ? 'on' : 'off');
+    });
+    const o = isOpen(HOURS.maglod, t);
+    $('#tk-dot').classList.toggle('on', o);
+    $('#tk-status').textContent = `Maglód raktáráruház / ${o ? 'nyitva' : 'zárva'}`;
+    $('#st-clock').textContent = `Europe/Budapest · ${t.label}`;
+  }
+  tick(); setInterval(tick, 30000);
+
+  // swatches (illustrative plaster tones)
+  const SW = [
+    ['Mészfehér','#F2EFE6'],['Homok','#E4D6B8'],['Okker','#D2A85C'],['Terrakotta','#B5603E'],['Téglavörös','#8E3B2C'],['Umbra','#5E4A3A'],
+    ['Kőszürke','#B9B6AE'],['Grafit','#4A4A48'],['Zsálya','#A9B39A'],['Olíva','#6F7350'],['Galamb','#9AA6AE'],['Acél','#55626B']
+  ];
+  const lum = h => { const n = parseInt(h.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) / 255; };
+  const box = $('#sw');
+  SW.forEach(([n, c], i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'sw' + (lum(c) < .55 ? ' dk' : '');
+    b.style.background = c; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `<span>${String(i + 1).padStart(3, '0')}</span><span>${n}</span>`;
+    b.addEventListener('click', () => {
+      box.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      $('#pk-c').style.background = c;
+      $('#pk-n').textContent = `${n} · ${c} · minta, a pontos árnyalat a színkártyán`;
+      $('#q-t').value = `Szín: ${n} (${c})\n` + $('#q-t').value.replace(/^Szín: .*\n/, '');
+      $('#q-c').value = 'Színezővakolat / festék';
+    });
+    box.appendChild(b);
+  });
+
+  // quote form -> mailto (MVP)
+  $('#qf').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, msg = $('#q-msg');
+    const miss = [...f.querySelectorAll('[required]')].filter(x => !x.value.trim());
+    f.querySelectorAll('[required]').forEach(x => x.style.borderBottomColor = '');
+    if (miss.length) {
+      miss.forEach(x => x.style.borderBottomColor = 'var(--red)');
+      msg.textContent = '!! Töltsd ki a kötelező mezőket'; msg.style.color = 'var(--red)';
+      miss[0].focus(); return;
+    }
+    const d = new FormData(f);
+    const body = [...d.entries()].map(([k, v]) => `${k.toUpperCase()}: ${v}`).join('\n');
+    location.href = `mailto:vakolatbolt@gmail.com?subject=${encodeURIComponent('Árajánlatkérés: ' + d.get('kategoria'))}&body=${encodeURIComponent(body)}`;
+    msg.textContent = '>>> Levelezőprogram megnyitva'; msg.style.color = 'var(--ink)';
+  });
+
+  $('#yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
