@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pillás házirend: Kozma Vivien, Gyömrő</title>
+<meta name="description" content="Időpontok, lemondás, érkezés előtti teendők, 72 órás garancia és töltés: a pillás házirend Kozma Vivien vendégeinek.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f8f1ed">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..600&family=Jost:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #f8f1ed; --line: #e3d3cb; --ink: #34231f; --muted: #6e5e5a; --action: #9b5a52; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.65 "Jost", system-ui, sans-serif; }
+.wrap { width: min(100% - 48px, 720px); margin-inline: auto; padding-block: 48px 96px; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-color: color-mix(in oklab, var(--ink) 35%, transparent); }
+a:hover { color: var(--action); }
+a:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; border-radius: 2px; }
+.back { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
+h1, h2 { font-family: "EB Garamond", Georgia, serif; font-weight: 400; letter-spacing: -0.012em; }
+h1 { font-size: clamp(38px, 4vw + 20px, 60px); line-height: 1.05; margin: 32px 0 16px; }
+h2 { font-size: 28px; line-height: 1.2; margin: 0 0 12px; }
+.lead { font-size: 20px; line-height: 1.55; max-width: 56ch; margin: 0 0 48px; }
+.rule { padding-block: 32px; border-top: 1px solid var(--line); }
+.rule ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; max-width: 60ch; }
+.close { margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--line); font-size: 20px; }
+.sign { font-family: "EB Garamond", Georgia, serif; font-size: 28px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="index.html">Vissza a főoldalra</a>
+  <h1>Pillás házirend</h1>
+  <p class="lead" data-adat="hazirendBevezeto"></p>
+  <div data-hazirend></div>
+  <div class="close">
+    <p data-adat="hazirendZaras"></p>
+    <p class="sign">Szeretettel, Vivi</p>
+  </div>
+</main>
+<script src="adatok.js"></script>
+<script src="render.js"></script>
+</body>
+</html>

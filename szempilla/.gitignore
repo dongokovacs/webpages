@@ -1,0 +1,10 @@
+# fejlesztői segédfájlok, nem kellenek az élő oldalhoz
+.taste-skill/
+.impeccable/
+shots/
+# a kit demóképei és nem használt részei
+assets/photos/
+assets/layout/img/
+assets/objects/
+assets/scenes/
+assets/icons/
