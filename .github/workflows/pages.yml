@@ -126,7 +126,7 @@ jobs:
       # ---------- összerakás ----------
       - name: Assemble site
         run: |
-          mkdir -p _site/bube-viragbolt _site/v0-ai-chat _site/steeldecor-story _site/sophiegarden _site/nanogas-allure-report _site/aquatech _site/vakolatbolt
+          mkdir -p _site/bube-viragbolt _site/v0-ai-chat _site/steeldecor-story _site/sophiegarden _site/nanogas-allure-report _site/aquatech _site/vakolatbolt _site/burkolobiztonsag
           cp index.html projects.json robots.txt sitemap.xml _site/
           cp aquatech/*.html aquatech/favicon.svg _site/aquatech/
           cp -r aquatech/css aquatech/images aquatech/js _site/aquatech/
@@ -138,6 +138,7 @@ jobs:
           cp -r nanogas/tests-py/allure-report/. _site/nanogas-allure-report/ || true
           cp -r beauty _site/beauty
           cp vakolatbolt/index.html _site/vakolatbolt/
+          cp burkolobiztonsag/index.html _site/burkolobiztonsag/
           mkdir -p _site/kozmavivienmakeupartist
           cp -r szempilla/. _site/kozmavivienmakeupartist/
           rm -rf _site/kozmavivienmakeupartist/.taste-skill _site/kozmavivienmakeupartist/.impeccable _site/kozmavivienmakeupartist/shots _site/kozmavivienmakeupartist/.gitignore

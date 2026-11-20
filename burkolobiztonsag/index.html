@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biztonságos burkolás</title>
+<meta name="description" content="Interaktív munka- és környezetvédelmi oktatóanyag burkoló tanulóknak: tananyag, keresd a veszélyt játék, védőeszköz-párosító, jelzések, kvíz és tanulókártyák.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#DDE1E3;      /* fuga */
+  --grout-dark:#C3C9CC;
+  --tile:#FFFFFF;       /* mázas csempe */
+  --ink:#16232B;        /* szöveg */
+  --ink-soft:#4A5862;
+  --yellow:#F2C200;     /* figyelmeztető */
+  --red:#C8102E;        /* tiltó */
+  --blue:#005EB8;       /* rendelkező */
+  --green:#00843D;      /* elsősegély */
+  --gap:6px;
+  --radius:3px;
+  --display:"Archivo", "Arial Narrow", Arial, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  margin:0;font:1.0625rem/1.6 var(--body);color:var(--ink);
+  background-color:var(--grout);
+  /* fugaháló a háttérben */
+  background-image:
+    linear-gradient(var(--grout-dark) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grout-dark) 1px,transparent 1px);
+  background-size:96px 96px;
+}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;font-stretch:80%}
+h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:900;letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800}
+h3{font-size:1.3rem;font-weight:700;font-stretch:90%}
+p{margin:.6em 0}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+.measure{max-width:68ch}
+
+/* ---------- felső sáv ---------- */
+.bar{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.bar .wrap{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap}
+.bar strong{font-family:var(--display);font-stretch:80%;font-size:1.15rem;margin-right:auto}
+.bar strong span{font-weight:500;opacity:.75}
+@media (max-width:560px){.bar strong span{display:none}}
+/* munkaterület-szalag a fejléc alján */
+.bar::after{content:"";display:block;height:14px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
+.bar nav{display:flex;gap:4px;flex-wrap:wrap}
+.bar nav a{color:#fff;text-decoration:none;font-size:.9rem;padding:6px 10px;border-radius:var(--radius)}
+.bar nav a:hover{background:rgba(255,255,255,.12)}
+.mini{display:flex;gap:3px;align-items:center}
+.mini i{width:14px;height:14px;border:1.5px dashed rgba(255,255,255,.5);border-radius:2px;display:block}
+.mini i.on{background:var(--yellow);border:1.5px solid var(--yellow)}
+@media (max-width:860px){.bar nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding-block:56px 40px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+.hero-grid>*{min-width:0}
+@media (max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.floor a{padding:8px}.floor a b{font-size:.92rem}.floor .count span{font-size:2rem}}
+.kicker{font-weight:700;color:var(--ink-soft);margin:0 0 14px}
+.hero p.lead{font-size:1.2rem;max-width:46ch}
+.floor{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));hyphens:manual;gap:var(--gap);background:var(--grout-dark);padding:var(--gap);border-radius:4px}
+.floor a{aspect-ratio:1;display:flex;flex-direction:column;justify-content:space-between;padding:12px;text-decoration:none;color:var(--ink-soft);
+  border:2px dashed #9AA4AA;border-radius:var(--radius);background:rgba(255,255,255,.35);transition:background .5s,border-color .5s,transform .5s}
+.floor a b{font-family:var(--display);font-stretch:85%;font-size:1.05rem;color:var(--ink);line-height:1.15}
+.floor a small{font-size:.8rem}
+.floor a.done{border:2px solid transparent;background:var(--tile);box-shadow:inset 0 0 0 1px #E7EAEC}
+.floor a.done small::before{content:"✓ ";color:var(--green);font-weight:700}
+.floor a.laid{animation:lay .7s cubic-bezier(.16,1,.3,1)}
+@keyframes lay{from{transform:translateY(-18px) scale(1.08);opacity:.2;box-shadow:0 18px 24px rgba(22,35,43,.25)}to{transform:none;opacity:1}}
+.floor .count{grid-column:span 1;aspect-ratio:1;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--ink);color:#fff;border-radius:var(--radius)}
+.floor .count span{font-family:var(--display);font-size:2.6rem;font-weight:900;line-height:1}
+.floor .count small{font-size:.8rem;opacity:.8;text-align:center}
+.reset{background:none;border:0;color:var(--ink-soft);text-decoration:underline;font-size:.85rem;padding:6px 0;margin-top:8px}
+
+/* ---------- szekciók ---------- */
+section.part{padding-block:48px}
+.panel{background:var(--tile);border-radius:4px;padding:clamp(20px,4vw,44px);box-shadow:0 1px 0 var(--grout-dark)}
+.part-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+.badge{flex:none;width:52px;height:52px;border-radius:var(--radius);display:grid;place-items:center;color:#fff}
+.badge svg{width:28px;height:28px}
+.status{font-size:.9rem;color:var(--ink-soft);margin:4px 0 0}
+.status.ok{color:var(--green);font-weight:700}
+
+/* tananyag */
+.themes{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--gap);background:var(--grout);padding:var(--gap);border-radius:4px}
+details.theme{background:var(--tile);border-radius:var(--radius)}
+details.theme>summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;gap:14px;align-items:center}
+details.theme>summary::-webkit-details-marker{display:none}
+details.theme>summary .sw{width:12px;align-self:stretch;border-radius:2px;flex:none}
+details.theme>summary h3{flex:1}
+details.theme>summary .plus{font-family:var(--display);font-size:1.6rem;line-height:1;transition:transform .25s}
+details.theme[open]>summary .plus{transform:rotate(45deg)}
+details.theme>summary:hover{background:#F6F8F9}
+.theme-body{padding:0 20px 24px 46px}
+@media (max-width:600px){.theme-body{padding-left:20px}}
+.theme-body h4{font-family:var(--display);font-stretch:90%;font-size:1.1rem;margin:24px 0 6px}
+.theme-body ul,.theme-body ol{padding-left:1.3em;margin:.4em 0}
+.theme-body li{margin:.25em 0}
+.note{background:#FFF6CC;padding:12px 16px;margin:14px 0;border-radius:var(--radius)}
+.note.red{background:#FDE3E7}
+.tbl{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;min-width:440px;font-size:.98rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #E3E7EA;vertical-align:top}
+th{font-family:var(--display);font-stretch:90%;font-weight:700;background:#F3F5F6}
+
+/* veszélykereső */
+.hunt{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(260px,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.hunt{grid-template-columns:1fr}}
+.scene-box{border-radius:4px;overflow:hidden;background:#EEF1F2;border:1px solid var(--grout-dark)}
+.scene{display:block;width:100%;height:auto}
+.scene-hint{display:none;font-size:.88rem;color:var(--ink-soft);margin:6px 0 0}
+@media (max-width:700px){.scene-box{overflow-x:auto}.scene{width:680px;max-width:none}.scene-hint{display:block}}
+.hot{cursor:pointer}
+.hot .ring{fill:transparent;stroke:transparent;stroke-width:3}
+.hot:hover .ring,.hot:focus-visible .ring{stroke:var(--blue);stroke-dasharray:6 4}
+.hot:focus{outline:none}
+.hot.found .ring{stroke:var(--red);stroke-dasharray:none;fill:rgba(200,16,46,.08)}
+.hot.okay .ring{stroke:var(--green);stroke-dasharray:none;fill:rgba(0,132,61,.06)}
+.hot .mark{opacity:0;transition:opacity .3s}
+.hot.found .mark,.hot.okay .mark{opacity:1}
+.feedback{background:var(--tile);border-radius:4px;padding:20px;border:1px solid var(--grout-dark);min-height:200px}
+.feedback .tag{display:inline-block;font-weight:700;font-size:.85rem;padding:3px 9px;border-radius:2px;color:#fff;margin-bottom:8px}
+.meter{display:flex;gap:4px;margin:10px 0 4px;flex-wrap:wrap}
+.meter i{width:26px;height:26px;border-radius:2px;border:2px dashed #A9B2B7;display:block}
+.meter i.on{background:var(--red);border:2px solid var(--red)}
+.found-list{padding-left:1.2em;font-size:.95rem;color:var(--ink-soft)}
+
+/* párosító */
+.match{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--gap);background:var(--grout);padding:var(--gap);border-radius:4px}
+.match label{background:var(--tile);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:10px;border:2px solid transparent}
+.match label b{font-family:var(--display);font-stretch:90%;font-size:1.1rem}
+.match select{font:inherit;padding:10px;border:1.5px solid #AEB7BC;border-radius:var(--radius);background:#fff;width:100%}
+.match label.right{border-color:var(--green)}
+.match label.wrong{border-color:var(--red)}
+.match .hint{font-size:.88rem;margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--ink);color:#fff;padding:12px 20px;border-radius:var(--radius);font-weight:700}
+.btn:hover{background:#2A3A44}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}
+
+/* jelzések */
+.signs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--gap);background:var(--grout);padding:var(--gap);border-radius:4px}
+.sign{background:var(--tile);border-radius:var(--radius);padding:20px}
+.sign svg{width:84px;height:84px;display:block;margin-bottom:12px}
+.signtest{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+@media (max-width:600px){.signtest{grid-template-columns:1fr}}
+.signtest .big svg{width:150px;height:150px}
+.choices{display:grid;gap:8px}
+.choice{text-align:left;background:#fff;border:2px solid #C9D0D4;border-radius:var(--radius);padding:12px 14px}
+.choice:hover{border-color:var(--ink)}
+.choice.right{border-color:var(--green);background:#E8F5EE}
+.choice.wrong{border-color:var(--red);background:#FDECEF}
+.choice:disabled{cursor:default}
+
+/* kvíz */
+.quiz-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.track{display:flex;gap:3px;flex-wrap:wrap}
+.track i{width:18px;height:18px;border-radius:2px;background:#E3E7EA;display:block}
+.track i.r{background:var(--green)}.track i.w{background:var(--red)}.track i.c{box-shadow:inset 0 0 0 2px var(--ink)}
+.q{font-family:var(--display);font-stretch:90%;font-size:clamp(1.3rem,2.6vw,1.65rem);font-weight:700;margin:6px 0 16px;max-width:40ch}
+.explain{margin-top:14px;padding:14px 16px;border-radius:var(--radius);background:#F3F5F6;display:none}
+.explain.show{display:block}
+.result{font-size:1.1rem}
+
+/* kártyák */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--gap);background:var(--grout);padding:var(--gap);border-radius:4px}
+.card{perspective:900px;aspect-ratio:1;border:0;padding:0;background:none}
+.card .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.card.flip .in{transform:rotateY(180deg)}
+.card .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+.card .front{background:var(--tile)}
+.card .front b{font-family:var(--display);font-stretch:85%;font-size:1.3rem;line-height:1.2}
+.card .back{background:var(--ink);color:#fff;transform:rotateY(180deg);font-size:.98rem}
+.card small{font-size:.8rem;opacity:.7}
+.card.seen .front small::after{content:" (megnézted)"}
+@media (prefers-reduced-motion:reduce){.card .back{transform:none;display:none}.card.flip .back{display:flex}.card.flip .front{display:none}.card.flip .in{transform:none}}
+
+/* beadandó */
+.tasks{counter-reset:t;display:grid;gap:var(--gap);background:var(--grout);padding:var(--gap);border-radius:4px}
+.task{background:var(--tile);border-radius:var(--radius);padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:6px 14px}
+.task h3{font-size:1.1rem}
+.task .pts{font-family:var(--display);font-weight:800;white-space:nowrap}
+.task p,.task ol{grid-column:1/-1;margin:0;font-size:.98rem;color:var(--ink-soft)}
+.task ol{padding-left:1.3em}
+
+footer{padding-block:40px 60px;color:var(--ink-soft);font-size:.92rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <strong>Biztonságos burkolás<span> – tanulj, keress, gyakorolj</span></strong>
+    <nav aria-label="Részek">
+      <a href="#tananyag">Tananyag</a>
+      <a href="#veszely">Veszélykereső</a>
+      <a href="#vedoeszkoz">Védőeszközök</a>
+      <a href="#jelzesek">Jelzések</a>
+      <a href="#kviz">Kvíz</a>
+      <a href="#kartyak">Kártyák</a>
+    </nav>
+    <div class="mini" id="mini" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <p class="kicker">Burkoló szakma (4 0732 06 03), munka- és környezetvédelem</p>
+      <h1>Minden lap a helyére, mindenki épségben haza.</h1>
+      <p class="lead">Rövid tananyag és öt gyakorló rész egy valódi fürdőszoba-felújítás példáján. Minden elvégzett résszel lerakhatsz egy csempét a padlóra.</p>
+      <p><a class="btn" href="#tananyag">Kezdd a tananyaggal</a></p>
+    </div>
+    <div>
+      <div class="floor" id="floor">
+        <div class="count"><span id="doneNum">0</span><small>/ 5 rész kész</small></div>
+        <a href="#veszely" data-part="hunt"><small>Még üres</small><b>Keresd a veszélyt</b></a>
+        <a href="#vedoeszkoz" data-part="match"><small>Még üres</small><b>Védő&shy;eszköz-párosító</b></a>
+        <a href="#jelzesek" data-part="signs"><small>Még üres</small><b>Munka&shy;védelmi jelzések</b></a>
+        <a href="#kviz" data-part="quiz"><small>Még üres</small><b>Kvíz</b></a>
+        <a href="#kartyak" data-part="cards"><small>Még üres</small><b>Tanuló&shy;kártyák</b></a>
+      </div>
+      <button class="reset" id="reset" type="button">Haladás törlése</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TANANYAG ================= -->
+<section class="part" id="tananyag">
+<div class="wrap">
+  <div class="part-head">
+    <div class="badge" style="background:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h7v14H4zM13 5h7v14h-7z"/></svg></div>
+    <div><h2>A tananyag röviden</h2><p class="status">Négy téma. Nyisd ki, amelyiket olvasni szeretnéd.</p></div>
+  </div>
+
+  <div class="themes">
+    <details class="theme" open>
+      <summary><span class="sw" style="background:var(--blue)"></span><h3>Általános munkavédelem</h3><span class="plus" aria-hidden="true">+</span></summary>
+      <div class="theme-body measure">
+        <p>A munkavédelem a munkavállalók életét, egészségét és testi épségét védő szabályok és intézkedések összessége. Két területe van:</p>
+        <ul>
+          <li><b>Munkabiztonság:</b> a balesetek megelőzése, például a gépek biztonságos használatával.</li>
+          <li><b>Munkaegészségügy:</b> a munkából eredő egészségkárosodások megelőzése, például por, zaj és vegyi anyagok elleni védelemmel.</li>
+        </ul>
+        <p>A legfontosabb jogszabály az <b>1993. évi XCIII. törvény</b> a munkavédelemről.</p>
+
+        <h4>Ki miért felel?</h4>
+        <p><b>A munkáltató</b> biztosítja a biztonságos munkavégzés feltételeit: felméri a kockázatokat, oktat, megfelelő munkaeszközt és egyéni védőeszközt ad, és betartatja a szabályokat.</p>
+        <p><b>A burkoló</b> köteles:</p>
+        <ul>
+          <li>betartani a munkavédelmi oktatáson tanultakat,</li>
+          <li>rendeltetésszerűen használni a szerszámokat és a védőeszközöket,</li>
+          <li>rendben és biztonságosan tartani a munkaterületet,</li>
+          <li>haladéktalanul jelezni a veszélyeket és a baleseteket,</li>
+          <li>nem veszélyeztetni sem magát, sem másokat.</li>
+        </ul>
+        <div class="note"><b>Megtagadhatod a munkát,</b> ha az a saját életedet, egészségedet közvetlenül és súlyosan veszélyeztetné. Ha <b>másokat</b> veszélyeztetne közvetlenül és súlyosan, akkor <b>meg kell tagadnod</b>.</div>
+
+        <h4>Egyéni védőeszközök</h4>
+        <p>Hogy pontosan mi kell, azt mindig az adott munkafolyamat és a kockázatértékelés dönti el.</p>
+        <div class="tbl"><table>
+          <tr><th>Védőeszköz</th><th>Mi ellen véd?</th></tr>
+          <tr><td>Védőszemüveg</td><td>Repülő szilánkok, por, kifröccsenő anyag</td></tr>
+          <tr><td>Vágásálló kesztyű</td><td>Éles csempeszélek, vágási sérülések</td></tr>
+          <tr><td>Vegyszerálló kesztyű</td><td>Ragasztók, alapozók, tisztítószerek</td></tr>
+          <tr><td>Biztonsági lábbeli</td><td>Leeső tárgyak, csúszás, átszúrás</td></tr>
+          <tr><td>Légzésvédő</td><td>Belélegezhető porok, veszélyes aeroszolok</td></tr>
+          <tr><td>Hallásvédő</td><td>Vágógépek, csiszolók zaja</td></tr>
+          <tr><td>Térdvédő</td><td>Tartós térdelés terhelése</td></tr>
+          <tr><td>Védősisak</td><td>Fejsérülés, leeső tárgyak</td></tr>
+        </table></div>
+
+        <h4>A burkolás veszélyforrásai</h4>
+        <ul>
+          <li><b>Mechanikai:</b> csempevágó, sarokcsiszoló, törött lap, éles él, leeső szerszám. Vágás, zúzódás, szemsérülés.</li>
+          <li><b>Fizikai és ergonómiai:</b> nehéz lapok emelése, folyamatos térdelés, hajolás, zaj, rezgés, csúszós padló. Derék-, térd- és mozgásszervi károsodás.</li>
+          <li><b>Kémiai és por:</b> cementes ragasztó, fugázó, alapozó, oldószer, kristályos szilícium-dioxidot tartalmazó por. Bőrirritáció, marás, allergia, légzőszervi betegség.</li>
+          <li><b>Elektromos:</b> sérült kábel, vizes munkaterület, hibás keverőgép. Áramütés, égés, tűz.</li>
+        </ul>
+
+        <h4>Gépek biztonságos használata</h4>
+        <ol>
+          <li>Használat előtt ellenőrizd a gépet, a kábelt és a védőburkolatot.</li>
+          <li>Csak a munkához megfelelő, ép eszközt használj.</li>
+          <li>Mozgó, forgó részhez működés közben ne nyúlj.</li>
+          <li>A védőburkolatot eltávolítani tilos.</li>
+          <li>A munkadarabot stabilan rögzítsd.</li>
+          <li>Karbantartás és szerszámcsere előtt áramtalaníts.</li>
+          <li>A port vizes technológiával vagy elszívással csökkentsd.</li>
+        </ol>
+
+        <h4>Anyagmozgatás</h4>
+        <p>Állj közel a teherhez, vegyél fel stabil testhelyzetet, tartsd a terhet a testedhez közel, és emelés közben ne fordítsd el a törzsed. Nehéz vagy nagy tárgyhoz használj segédeszközt, vagy kérj segítséget.</p>
+        <div class="note">Nincs mindenkire érvényes, „biztonságos” kilogrammhatár. A teherbírást, a tárgyat és a körülményeket együtt kell mérlegelni.</div>
+      </div>
+    </details>
+
+    <details class="theme">
+      <summary><span class="sw" style="background:var(--red)"></span><h3>Tűzvédelem</h3><span class="plus" aria-hidden="true">+</span></summary>
+      <div class="theme-body measure">
+        <p>Tűzhöz három dolog kell egyszerre: <b>éghető anyag, oxigén és gyújtóforrás</b>. Ha egyet elveszel, nincs tűz.</p>
+        <h4>Tűzveszély burkoláskor</h4>
+        <ul>
+          <li>gyúlékony, oldószeres alapozók és tisztítószerek,</li>
+          <li>sérült elektromos vezeték, túlterhelt hálózat,</li>
+          <li>szikrát keltő munka éghető anyag közelében,</li>
+          <li>szabálytalan vegyszer- és anyagtárolás.</li>
+        </ul>
+        <h4>Ha tűz van, ebben a sorrendben</h4>
+        <ol>
+          <li>Figyelmeztesd a veszélyben lévőket.</li>
+          <li>Jelezd a tüzet, szükség esetén hívd a <b>112</b>-t.</li>
+          <li>Hagyd el biztonságosan a területet.</li>
+          <li>Áramtalaníts, ha biztonságosan megoldható.</li>
+          <li>Kezdeti tüzet csak akkor olts, ha magadat nem veszélyezteted, és megfelelő oltóeszközöd van.</li>
+        </ol>
+        <div class="note red"><b>Feszültség alatt álló berendezést vízzel oltani tilos.</b> Az oltóeszközt a tűz jellege és az eszköz használati előírása szerint válaszd.</div>
+      </div>
+    </details>
+
+    <details class="theme">
+      <summary><span class="sw" style="background:var(--green)"></span><h3>Környezetvédelem</h3><span class="plus" aria-hidden="true">+</span></summary>
+      <div class="theme-body measure">
+        <p>Cél: kímélni a természeti erőforrásokat, csökkenteni a szennyezést és a hulladékot.</p>
+        <h4>Hová kerül a hulladék?</h4>
+        <div class="tbl"><table>
+          <tr><th>Hulladék</th><th>Helyes kezelés</th></tr>
+          <tr><td>Törött, tiszta kerámialap</td><td>Elkülönítve, építési-bontási hulladékként</td></tr>
+          <tr><td>Tiszta kartondoboz</td><td>Szelektív papírgyűjtés, ha alkalmas rá</td></tr>
+          <tr><td>Műanyag csomagolás</td><td>Anyaga és szennyezettsége szerint elkülönítve</td></tr>
+          <tr><td>Maradék ragasztó, fugázó</td><td>A termék és a hulladék besorolása szerint</td></tr>
+          <tr><td>Oldószeres göngyöleg</td><td>Szükség esetén veszélyes hulladékként</td></tr>
+          <tr><td>Vágási iszap</td><td>Összegyűjtve, hulladékkezelőnek átadva</td></tr>
+        </table></div>
+        <p>A besorolás nem csak az anyag nevétől függ, hanem az összetételétől és a szennyezettségétől is.</p>
+        <h4>Környezettudatos munka</h4>
+        <ul>
+          <li>Számold ki pontosan az anyagszükségletet, így kevesebb marad.</li>
+          <li>A használható lapdarabokat építsd be újra.</li>
+          <li>Csökkentsd a por terjedését.</li>
+          <li>A veszélyes anyagot eredeti, felcímkézett csomagolásban tárold.</li>
+          <li>Ragasztó, festék, vegyszer, cementes iszap nem kerülhet talajba, csatornába, élővízbe.</li>
+          <li>A munkaterületet tisztán add át.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="theme">
+      <summary><span class="sw" style="background:var(--yellow)"></span><h3>Építőipari munkavédelem, balesetek</h3><span class="plus" aria-hidden="true">+</span></summary>
+      <div class="theme-body measure">
+        <p>A burkolás gyakran más szakmák munkájával egy időben zajlik, ezért a munkafolyamatokat össze kell hangolni. Kiemelten figyelni kell a leesés elleni védelemre, az állványokra és létrákra, a leeső tárgyakra, az elektromos berendezések állapotára, a munkagépek mozgására és az anyagmozgatásra.</p>
+        <p>Az építési munkahelyekre a <b>4/2002. (II. 20.) SzCsM–EüM együttes rendelet</b> vonatkozik.</p>
+        <h4>Munka előtti ellenőrzés</h4>
+        <ul>
+          <li>Szabadok a közlekedési utak?</li>
+          <li>Stabil és nem csúszós a padló?</li>
+          <li>Van elég fény és szellőzés?</li>
+          <li>Nincsenek szabadon hagyott kábelek?</li>
+          <li>Biztonságosan tárolod az anyagokat?</li>
+          <li>Magasban végzett munkához van megfelelő munkaszint és leesés elleni védelem?</li>
+          <li>Nem veszélyezteted a területen tartózkodó másokat?</li>
+        </ul>
+        <h4>Elsősegély burkoláskor</h4>
+        <div class="tbl"><table>
+          <tr><th>Baleset</th><th>Első teendő</th></tr>
+          <tr><td>Vágási sérülés</td><td>Vérzéscsillapítás, steril fedés; súlyos esetben mentő</td></tr>
+          <tr><td>Por a szemben</td><td>Óvatos öblítés tiszta vízzel, szükség szerint orvos</td></tr>
+          <tr><td>Vegyszer a szemben</td><td>Azonnali, bő vizes öblítés és sürgős orvosi segítség</td></tr>
+          <tr><td>Áramütés</td><td>Áramforrás biztonságos megszüntetése, segélyhívás, szükség esetén újraélesztés</td></tr>
+          <tr><td>Esés, súlyos sérülés</td><td>Helyszín biztosítása, 112, a sérültet feleslegesen ne mozgasd</td></tr>
+        </table></div>
+        <p>A munkabalesetet haladéktalanul jelenteni kell. A kivizsgálás és a dokumentálás a munkáltató feladata.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</section>
+
+<!-- ================= VESZÉLYKERESŐ ================= -->
+<section class="part" id="veszely">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div>
+    <div><h2>Keresd a veszélyt!</h2><p class="status" data-status="hunt">Nyolc veszély rejtőzik a képen.</p></div>
+  </div>
+  <p class="measure">Egy 12 m²-es fürdőszobán ketten dolgoznak egy tanulóval. A bontás kész, a padló egy része vizes. Kattints mindenre, ami gyanús. Vigyázz: nem minden hiba, ami a képen van.</p>
+
+  <div class="hunt">
+    <div style="min-width:0"><div class="scene-box">
+      <svg class="scene" id="scene" viewBox="0 0 800 480" role="group" aria-label="Fürdőszoba felújítás közben. Kattintható tárgyak és személyek.">
+        <defs>
+          <pattern id="wallTile" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#C9D0D4"/><rect x="1.5" y="1.5" width="37" height="37" fill="#F7F9FA"/></pattern>
+          <pattern id="floorTile" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#A7967F"/><rect x="1.5" y="1.5" width="57" height="27" fill="#CDBFAA"/></pattern>
+        </defs>
+        <!-- fal -->
+        <rect width="800" height="340" fill="#D8D3CA"/>
+        <rect x="0" y="180" width="800" height="160" fill="url(#wallTile)"/>
+        <!-- bontott rész -->
+        <path d="M120 180h120v40h-40v40h-80z" fill="#BDB4A6"/>
+        <path d="M520 180h80v40h-40v20h-40z" fill="#BDB4A6"/>
+        <!-- padló -->
+        <rect y="340" width="800" height="140" fill="url(#floorTile)"/>
+        <rect y="336" width="800" height="6" fill="#8E8270"/>
+        <!-- vizes folt -->
+        <ellipse cx="420" cy="420" rx="120" ry="26" fill="#7FB2D6" opacity=".55"/>
+        <ellipse cx="460" cy="414" rx="50" ry="9" fill="#fff" opacity=".35"/>
+
+        <!-- ablak (rendben) -->
+        <g class="hot" data-id="window" tabindex="0" role="button" aria-label="Nyitott ablak">
+          <rect x="330" y="40" width="120" height="100" fill="#AFCFE3" stroke="#8D9AA2" stroke-width="6"/>
+          <path d="M390 40v100M330 90h60" stroke="#8D9AA2" stroke-width="4"/>
+          <path d="M455 70q25 5 40 -5M455 95q30 6 50 -4" stroke="#7FA7C2" stroke-width="3" fill="none"/>
+          <rect class="ring" x="320" y="30" width="196" height="120" rx="8"/>
+          <g class="mark"><circle cx="500" cy="38" r="13" fill="var(--green)"/><path d="M494 38l4 4 8-8" stroke="#fff" stroke-width="3" fill="none"/></g>
+        </g>
+
+        <!-- poroltó (rendben) -->
+        <g class="hot" data-id="extinguisher" tabindex="0" role="button" aria-label="Poroltó a falon">
+          <rect x="22" y="70" width="44" height="44" fill="var(--red)"/>
+          <rect x="34" y="120" width="22" height="58" rx="8" fill="var(--red)"/>
+          <rect x="38" y="112" width="14" height="10" fill="#333"/>
+          <path d="M52 116q14 0 12 24" stroke="#333" stroke-width="3" fill="none"/>
+          <path d="M32 98l12-18 12 18z" fill="#fff"/>
+          <rect class="ring" x="12" y="60" width="66" height="128" rx="8"/>
+          <g class="mark"><circle cx="76" cy="62" r="13" fill="var(--green)"/><path d="M70 62l4 4 8-8" stroke="#fff" stroke-width="3" fill="none"/></g>
+        </g>
+
+        <!-- elsősegély doboz (rendben) -->
+        <g class="hot" data-id="firstaid" tabindex="0" role="button" aria-label="Elsősegélydoboz a falon">
+          <rect x="600" y="70" width="60" height="48" rx="4" fill="var(--green)"/>
+          <path d="M630 80v28M616 94h28" stroke="#fff" stroke-width="8"/>
+          <rect class="ring" x="590" y="60" width="80" height="68" rx="8"/>
+          <g class="mark"><circle cx="668" cy="60" r="13" fill="var(--green)"/><path d="M662 60l4 4 8-8" stroke="#fff" stroke-width="3" fill="none"/></g>
+        </g>
+
+        <!-- 8: veszélyjelző lap az ajtón, üres -->
+        <g class="hot" data-id="report" tabindex="0" role="button" aria-label="Ajtó, rajta üres veszélyjelző lap">
+          <rect x="700" y="150" width="100" height="190" fill="#9C7B5B"/>
+          <rect x="716" y="180" width="56" height="74" fill="#fff" stroke="#555" stroke-width="2"/>
+          <rect x="732" y="174" width="24" height="10" fill="#666"/>
+          <path d="M724 200h40M724 214h40M724 228h40M724 242h28" stroke="#C9D0D4" stroke-width="3"/>
+          <text x="744" y="270" font-size="11" text-anchor="middle" fill="#fff" font-family="Arial">Munkavezető</text>
+          <circle cx="788" cy="250" r="5" fill="#E7C66B"/>
+          <rect class="ring" x="704" y="164" width="84" height="116" rx="8"/>
+          <g class="mark"><circle cx="704" cy="164" r="13" fill="var(--red)"/><text x="704" y="169" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 1: száraz vágás sarokcsiszolóval -->
+        <g class="hot" data-id="grinder" tabindex="0" role="button" aria-label="Dolgozó sarokcsiszolóval vág">
+          <g opacity=".75" fill="#B9B1A5"><circle cx="190" cy="300" r="34"/><circle cx="225" cy="270" r="26"/><circle cx="160" cy="268" r="24"/><circle cx="210" cy="320" r="22"/></g>
+          <!-- dolgozó -->
+          <circle cx="110" cy="236" r="18" fill="#C68B65"/>
+          <path d="M94 230q16 -22 34 0z" fill="#2E3B44"/>
+          <rect x="88" y="256" width="46" height="62" rx="10" fill="#2F5D8A"/>
+          <path d="M134 276l38 18" stroke="#2F5D8A" stroke-width="13" stroke-linecap="round"/>
+          <rect x="94" y="318" width="16" height="44" fill="#3B3F44"/><rect x="114" y="318" width="16" height="44" fill="#3B3F44"/>
+          <!-- csiszoló -->
+          <rect x="166" y="286" width="40" height="14" rx="4" fill="#E2A320"/>
+          <circle cx="210" cy="306" r="14" fill="#9AA" stroke="#555" stroke-width="2"/>
+          <rect x="160" y="340" width="110" height="10" fill="#E8E1D4" stroke="#A39886"/>
+          <g fill="#F5C842"><circle cx="232" cy="300" r="2.5"/><circle cx="240" cy="292" r="2"/><circle cx="244" cy="305" r="2"/></g>
+          <rect class="ring" x="80" y="210" width="190" height="150" rx="10"/>
+          <g class="mark"><circle cx="82" cy="212" r="13" fill="var(--red)"/><text x="82" y="217" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 2: rossz emelés -->
+        <g class="hot" data-id="lifting" tabindex="0" role="button" aria-label="Dolgozó ragasztózsákot emel">
+          <circle cx="300" cy="300" r="17" fill="#B77A55"/>
+          <path d="M284 296q16 -20 32 0z" fill="#6A4B3A"/>
+          <path d="M318 296q34 -6 52 24" stroke="#4E7B4A" stroke-width="30" stroke-linecap="round" fill="none"/>
+          <path d="M362 330l6 32M376 330l12 32" stroke="#3B3F44" stroke-width="14" stroke-linecap="round"/>
+          <path d="M310 312l-6 34" stroke="#4E7B4A" stroke-width="11" stroke-linecap="round"/>
+          <rect x="280" y="340" width="48" height="30" rx="6" fill="#E6DCC6" stroke="#9A8C70" stroke-width="2"/>
+          <text x="304" y="360" font-size="11" text-anchor="middle" fill="#6D604B" font-family="Arial" font-weight="700">25 kg</text>
+          <path d="M340 274q8 -10 18 -4" stroke="var(--red)" stroke-width="3" fill="none" stroke-dasharray="3 3"/>
+          <rect class="ring" x="272" y="262" width="126" height="116" rx="10"/>
+          <g class="mark"><circle cx="396" cy="264" r="13" fill="var(--red)"/><text x="396" y="269" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 3: sérült kábelű keverőgép a vizes padlón -->
+        <g class="hot" data-id="mixer" tabindex="0" role="button" aria-label="Keverőgép kábellel a vizes padlón">
+          <rect x="436" y="300" width="20" height="56" fill="#E2A320"/>
+          <rect x="426" y="290" width="40" height="18" rx="5" fill="#2E3B44"/>
+          <path d="M446 356v40" stroke="#888" stroke-width="5"/>
+          <path d="M466 300q60 10 40 90t-150 30" stroke="#222" stroke-width="5" fill="none"/>
+          <path d="M486 404l10 -6M488 412l12 2M484 418l6 10" stroke="#E2A320" stroke-width="3"/>
+          <path d="M478 398l6 4-4 6 7 2" stroke="#F5C842" stroke-width="2.5" fill="none"/>
+          <rect class="ring" x="416" y="282" width="110" height="148" rx="10"/>
+          <g class="mark"><circle cx="526" cy="284" r="13" fill="var(--red)"/><text x="526" y="289" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 4: tanuló kesztyű nélkül keveri a ragasztót -->
+        <g class="hot" data-id="gloves" tabindex="0" role="button" aria-label="Tanuló puszta kézzel keveri a ragasztót">
+          <circle cx="590" cy="276" r="16" fill="#E0B08C"/>
+          <path d="M574 272q16 -20 32 0z" fill="#C5913C"/>
+          <rect x="570" y="292" width="40" height="52" rx="9" fill="#C84E3A"/>
+          <path d="M580 340l-8 26M600 340l8 26" stroke="#3B3F44" stroke-width="13" stroke-linecap="round"/>
+          <path d="M572 306l-18 30M608 306l-4 34" stroke="#C84E3A" stroke-width="11" stroke-linecap="round"/>
+          <circle cx="552" cy="340" r="7" fill="#E0B08C"/><circle cx="603" cy="344" r="7" fill="#E0B08C"/>
+          <circle cx="554" cy="342" r="4" fill="#9E9A92"/>
+          <path d="M534 346h40l-4 34h-32z" fill="#3E6FA6"/>
+          <ellipse cx="554" cy="347" rx="20" ry="5" fill="#9E9A92"/>
+          <rect class="ring" x="526" y="250" width="96" height="136" rx="10"/>
+          <g class="mark"><circle cx="620" cy="252" r="13" fill="var(--red)"/><text x="620" y="257" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 5: rendetlenség a padlón -->
+        <g class="hot" data-id="mess" tabindex="0" role="button" aria-label="Törött csempék, zsákok és szerszámok a padlón">
+          <path d="M70 440l30 -14 22 18 -30 10z" fill="#F2F4F5" stroke="#AAB" stroke-width="2"/>
+          <path d="M120 452l26 -18 12 22z" fill="#E9ECEE" stroke="#AAB" stroke-width="2"/>
+          <path d="M160 430l40 -6 -6 22 -30 4z" fill="#E6DCC6" stroke="#9A8C70" stroke-width="2"/>
+          <path d="M210 456l50 -14" stroke="#555" stroke-width="5" stroke-linecap="round"/><rect x="250" y="436" width="18" height="12" fill="#C23" transform="rotate(-16 259 442)"/>
+          <path d="M96 462l16 -24 8 14z" fill="#F2F4F5" stroke="#AAB" stroke-width="2"/>
+          <rect class="ring" x="60" y="414" width="216" height="58" rx="10"/>
+          <g class="mark"><circle cx="62" cy="416" r="13" fill="var(--red)"/><text x="62" y="421" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 6: ragasztó a lefolyóba -->
+        <g class="hot" data-id="drain" tabindex="0" role="button" aria-label="Vödör a lefolyó fölött">
+          <circle cx="330" cy="452" r="14" fill="#666"/><path d="M322 452h16M330 444v16" stroke="#999" stroke-width="2"/>
+          <path d="M340 404l40 -16 12 30 -36 14z" fill="#3E6FA6"/>
+          <path d="M344 412q-8 18 -12 32" stroke="#9E9A92" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <rect class="ring" x="308" y="380" width="94" height="90" rx="10"/>
+          <g class="mark"><circle cx="400" cy="382" r="13" fill="var(--red)"/><text x="400" y="387" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+
+        <!-- 7: oldószer a hősugárzó mellett -->
+        <g class="hot" data-id="solvent" tabindex="0" role="button" aria-label="Nyitott oldószeres edény a hősugárzó mellett">
+          <rect x="640" y="296" width="54" height="58" rx="6" fill="#4A4F55"/>
+          <path d="M648 308h38M648 320h38M648 332h38M648 344h38" stroke="#F06B2A" stroke-width="4"/>
+          <path d="M664 286q4 -10 0 -18M676 286q4 -10 0 -18" stroke="#F06B2A" stroke-width="2" fill="none" opacity=".7"/>
+          <rect x="604" y="328" width="28" height="30" fill="#D7E3EA" stroke="#788" stroke-width="2"/>
+          <ellipse cx="618" cy="328" rx="14" ry="4" fill="#9AB"/>
+          <path d="M610 316q4 -8 0 -14M622 314q4 -8 0 -14" stroke="#9AB" stroke-width="2" fill="none"/>
+          <path d="M604 340h28" stroke="var(--yellow)" stroke-width="5"/>
+          <rect class="ring" x="596" y="262" width="106" height="104" rx="10"/>
+          <g class="mark"><circle cx="598" cy="264" r="13" fill="var(--red)"/><text x="598" y="269" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">!</text></g>
+        </g>
+      </svg>
+    </div>
+    <p class="scene-hint">A kép oldalra húzható.</p></div>
+
+    <div class="feedback" aria-live="polite">
+      <p style="margin:0">Megtalált veszélyek: <b id="huntNum">0</b> / 8</p>
+      <div class="meter" id="huntMeter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div id="huntMsg"><p>Kattints egy tárgyra vagy személyre a képen. Billentyűzettel: Tab, majd Enter.</p></div>
+      <ul class="found-list" id="huntList"></ul>
+    </div>
+  </div>
+</div></div>
+</section>
+
+<!-- ================= PÁROSÍTÓ ================= -->
+<section class="part" id="vedoeszkoz">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14a8 8 0 0116 0v2H4z"/><path d="M12 6v4"/></svg></div>
+    <div><h2>Melyik védőeszköz mi ellen véd?</h2><p class="status" data-status="match">Válaszd ki mindegyikhez a legfontosabb veszélyt.</p></div>
+  </div>
+  <form id="matchForm" class="match"></form>
+  <div class="row">
+    <button class="btn" type="button" id="matchCheck">Ellenőrzés</button>
+    <span id="matchRes" aria-live="polite"></span>
+  </div>
+  <div class="note measure" style="margin-top:22px"><b>Ne feledd:</b> a pontos védőeszközt mindig az adott munka és a kockázatértékelés dönti el. Csempevágásnál például egyszerre kell szem-, hallás- és légzésvédelem.</div>
+</div></div>
+</section>
+
+<!-- ================= JELZÉSEK ================= -->
+<section class="part" id="jelzesek">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--yellow);color:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div>
+    <div><h2>Munkavédelmi jelzések</h2><p class="status" data-status="signs">Az alak és a szín már messziről elárulja, mit jelent a tábla.</p></div>
+  </div>
+  <div class="signs">
+    <div class="sign"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#fff" stroke="#C8102E" stroke-width="10"/><path d="M19 81L81 19" stroke="#C8102E" stroke-width="10"/></svg><h3>Tiltó</h3><p>Piros kör, átlós vonal. Valamilyen tevékenység tilos.</p></div>
+    <div class="sign"><svg viewBox="0 0 100 100"><path d="M50 8l44 80H6z" fill="#F2C200" stroke="#16232B" stroke-width="6" stroke-linejoin="round"/><path d="M50 36v26M50 70v6" stroke="#16232B" stroke-width="8" stroke-linecap="round"/></svg><h3>Figyelmeztető</h3><p>Sárga háromszög. Veszélyre figyelmeztet.</p></div>
+    <div class="sign"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#005EB8"/><path d="M26 60a24 24 0 0148 0v6H26z" fill="#fff"/><rect x="22" y="64" width="56" height="6" fill="#fff"/></svg><h3>Rendelkező</h3><p>Kék kör. Kötelező magatartás, például sisak viselése.</p></div>
+    <div class="sign"><svg viewBox="0 0 100 100"><rect x="4" y="14" width="92" height="72" rx="4" fill="#00843D"/><path d="M50 28v44M28 50h44" stroke="#fff" stroke-width="14"/></svg><h3>Elsősegély, menekülés</h3><p>Zöld jelzés. Elsősegélyhelyet vagy menekülési irányt mutat.</p></div>
+    <div class="sign"><svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="4" fill="#C8102E"/><rect x="40" y="38" width="22" height="44" rx="7" fill="#fff"/><rect x="44" y="28" width="10" height="12" fill="#fff"/><path d="M54 32h14v14" stroke="#fff" stroke-width="5" fill="none"/></svg><h3>Tűzvédelmi eszköz</h3><p>Piros téglalap vagy négyzet. A tűzoltó eszköz helyét mutatja.</p></div>
+  </div>
+
+  <h3 style="margin-top:34px">Mini-teszt: mit jelent?</h3>
+  <div class="signtest" aria-live="polite">
+    <div class="big" id="sigShow"></div>
+    <div>
+      <p class="status" id="sigStep" style="margin-top:0"></p>
+      <div class="choices" id="sigChoices"></div>
+      <div class="row"><button class="btn" type="button" id="sigNext" hidden>Következő tábla</button></div>
+    </div>
+  </div>
+</div></div>
+</section>
+
+<!-- ================= KVÍZ ================= -->
+<section class="part" id="kviz">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 9a3 3 0 115 2c-1 .7-2 1.3-2 3M12 18v.5"/><circle cx="12" cy="12" r="10"/></svg></div>
+    <div><h2>Kvíz</h2><p class="status" data-status="quiz">12 kérdés a teljes anyagból. Minden válasz után megkapod a magyarázatot.</p></div>
+  </div>
+  <div id="quiz" aria-live="polite"></div>
+</div></div>
+</section>
+
+<!-- ================= KÁRTYÁK ================= -->
+<section class="part" id="kartyak">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 012 2v12"/></svg></div>
+    <div><h2>Tanulókártyák</h2><p class="status" data-status="cards">Gondold végig a választ, aztán fordítsd meg a kártyát. Ha mindet megnézted, kész a rész.</p></div>
+  </div>
+  <div class="cards" id="cards"></div>
+</div></div>
+</section>
+
+<!-- ================= BEADANDÓ ================= -->
+<section class="part" id="beadando">
+<div class="wrap"><div class="panel">
+  <div class="part-head">
+    <div class="badge" style="background:var(--ink-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/></svg></div>
+    <div><h2>A beadandó feladat</h2><p class="status">Önálló esettanulmány, 50 pont, kb. 45–60 perc, írásban.</p></div>
+  </div>
+  <p class="measure">A fenti veszélykereső ugyanazt a fürdőszobát mutatja, mint a beadandó esettanulmány. Ha a játékban mind a nyolc veszélyt megtaláltad, a feladatok nagy részére már tudod a választ. Indokold meg mindig, miért veszélyes valami, és hogyan lehetne megelőzni. A saját szavaiddal fogalmazz.</p>
+  <div class="tasks">
+    <div class="task"><h3>1. Veszélyforrások felismerése</h3><span class="pts">10 pont</span><p>Nevezz meg legalább öt veszélyforrást az esetből, és írd le, milyen sérülést vagy egészségkárosodást okozhat mindegyik.</p></div>
+    <div class="task"><h3>2. Egyéni védőeszközök</h3><span class="pts">8 pont</span><p>Sorolj fel négy, a történet munkafolyamataihoz indokolt védőeszközt, és írd mellé, mi ellen védenek.</p></div>
+    <div class="task"><h3>3. Gépbiztonság és balesetmegelőzés</h3><span class="pts">8 pont</span><ol type="a"><li>Mit kell tenni a sérült keverőgéppel?</li><li>Miért veszélyes szárazon vágni a csempét védelem nélkül?</li><li>Hogyan lehetne biztonságosabban mozgatni a ragasztózsákokat?</li><li>Mit kell tenni a törött csempedarabokkal?</li></ol></div>
+    <div class="task"><h3>4. Környezetvédelem</h3><span class="pts">8 pont</span><ol type="a"><li>Miért nem szabad a maradék ragasztót a lefolyóba önteni?</li><li>Hogyan kell kezelni a törött csempéket?</li><li>Mit kell tenni a vegyszerrel szennyezett csomagolással?</li><li>Írj egy megoldást, amellyel csökkenthető az anyagveszteség.</li></ol></div>
+    <div class="task"><h3>5. Tűzvédelem</h3><span class="pts">6 pont</span><ol type="a"><li>Miért veszélyes az oldószeres tisztítószer a hősugárzó mellett?</li><li>Mit kell tenni, ha tűz keletkezik? Írj legalább négy intézkedést.</li></ol></div>
+    <div class="task"><h3>6. Munkavédelmi felelősség</h3><span class="pts">6 pont</span><ol type="a"><li>Miért köteles a munkavállaló jelezni a veszélyeket?</li><li>Mit tehet, ha a munka közvetlenül és súlyosan veszélyezteti az egészségét?</li><li>Ki felel a biztonságos munkafeltételekért?</li></ol></div>
+    <div class="task"><h3>7. Saját szakmai javaslat</h3><span class="pts">4 pont</span><p>Te vagy a munkavezető. Írj legalább öt mondatos intézkedési tervet arról, hogyan tennéd biztonságossá a fürdőszobát, mielőtt újraindul a munka.</p></div>
+  </div>
+  <p class="status" style="margin-top:14px">A beküldés módját és a határidőt az oktatód adja meg.</p>
+</div></div>
+</section>
+</main>
+
+<footer class="wrap">
+  <p class="measure">Oktatási célú összefoglaló a Munka- és környezetvédelem (burkoló) tananyag alapján. Fő jogszabályok: 1993. évi XCIII. törvény a munkavédelemről; 4/2002. (II. 20.) SzCsM–EüM együttes rendelet az építési munkahelyekről. Vészhelyzetben hívd a 112-t.</p>
+</footer>
+
+<script>
+(() => {
+  // ---------- haladás ----------
+  const PARTS = ["hunt","match","signs","quiz","cards"];
+  const KEY = "burkolo-progress-v1";
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { done = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} };
+
+  function renderProgress(justLaid) {
+    const n = PARTS.filter(p => done[p]).length;
+    document.getElementById("doneNum").textContent = n;
+    document.querySelectorAll("#floor a").forEach(a => {
+      const p = a.dataset.part, on = !!done[p];
+      a.classList.toggle("done", on);
+      a.querySelector("small").textContent = on ? "Lerakva" : "Még üres";
+      if (on && p === justLaid) { a.classList.remove("laid"); void a.offsetWidth; a.classList.add("laid"); }
+    });
+    document.querySelectorAll("#mini i").forEach((i, k) => i.classList.toggle("on", k < n));
+  }
+  function complete(part, text) {
+    const st = document.querySelector(`[data-status="${part}"]`);
+    if (st && text) { st.textContent = text; st.classList.add("ok"); }
+    if (done[part]) return;
+    done[part] = true; save(); renderProgress(part);
+  }
+  document.getElementById("reset").addEventListener("click", () => {
+    done = {}; save(); location.reload();
+  });
+
+  // ---------- veszélykereső ----------
+  const HAZ = {
+    grinder:{bad:true,t:"Száraz vágás védelem nélkül",d:"A sarokcsiszolós száraz vágás belélegezhető, kristályos szilícium-dioxidot tartalmazó port és repülő szilánkokat kelt. Kell: védőszemüveg, légzésvédő, hallásvédő, és ahol lehet, vizes vágás vagy porelszívás."},
+    lifting:{bad:true,t:"Rossz emelés",d:"A 25 kg-os zsákot erős előrehajolással és törzsfordítással emeli: derék- és gerincsérülés. Helyesen: közel áll, térdből emel, a terhet a testéhez közel tartja, nem fordul közben, nehéz terhet segédeszközzel vagy társsal mozgat."},
+    mixer:{bad:true,t:"Sérült kábel vizes padlón",d:"Áramütés- és tűzveszély. A gépet azonnal áramtalanítani kell, használatát le kell állítani, jelezni a munkavezetőnek, és csak szakember javíthatja vagy cserélheti. A vizes padlót fel kell itatni."},
+    gloves:{bad:true,t:"Ragasztó puszta kézzel",d:"A cementes ragasztó lúgos: bőrirritációt, marást, allergiát okozhat. Vegyszerálló kesztyű kell, és ha mégis a bőrre kerül, bő vízzel le kell mosni."},
+    mess:{bad:true,t:"Rendetlen munkaterület",d:"A törött csempe, a zsákok és a szerszámok botlást, esést, vágást okozhatnak. A közlekedési utakat szabadon kell tartani, a törött lapokat elkülönítve, építési-bontási hulladékként kell gyűjteni."},
+    drain:{bad:true,t:"Ragasztó a lefolyóba",d:"A cementes ragasztó a csőben megköt, eltömíti, és szennyezi a csatornát és az élővizet. A maradékot hagyni kell megkötni, és a besorolása szerint hulladékként leadni."},
+    solvent:{bad:true,t:"Oldószer a hősugárzó mellett",d:"A nyitott edényből gyúlékony gőz párolog, a hősugárzó pedig gyújtóforrás: robbanás- és tűzveszély. Az oldószert zárt, eredeti, címkézett edényben, hőforrástól távol kell tárolni."},
+    report:{bad:true,t:"Senki nem jelezte a veszélyeket",d:"A munkavállaló köteles haladéktalanul jelezni a veszélyeket. A sietség nem mentség: a munkavezető csak arról tud intézkedni, amiről tud. A biztonságos feltételekért a munkáltató felel."},
+    window:{bad:false,t:"Nyitott ablak",d:"Ez rendben van: a szellőzés csökkenti a por és a vegyszergőz koncentrációját."},
+    extinguisher:{bad:false,t:"Poroltó a falon",d:"Ez rendben van: látható, jelölt helyen van az oltóeszköz. Kezdeti tüzet csak akkor olts vele, ha magadat nem veszélyezteted."},
+    firstaid:{bad:false,t:"Elsősegélydoboz",d:"Ez rendben van: a zöld jelzés az elsősegélyhelyet mutatja, könnyen elérhető."}
+  };
+  const found = new Set();
+  const msg = document.getElementById("huntMsg"), list = document.getElementById("huntList");
+  function hit(el) {
+    const id = el.dataset.id, h = HAZ[id];
+    if (h.bad) {
+      el.classList.add("found");
+      if (!found.has(id)) {
+        found.add(id);
+        const li = document.createElement("li"); li.textContent = h.t; list.appendChild(li);
+      }
+    } else el.classList.add("okay");
+    msg.innerHTML = `<span class="tag" style="background:${h.bad ? "var(--red)" : "var(--green)"}">${h.bad ? "Veszély" : "Nem hiba"}</span><h3>${h.t}</h3><p>${h.d}</p>`;
+    document.getElementById("huntNum").textContent = found.size;
+    document.querySelectorAll("#huntMeter i").forEach((i, k) => i.classList.toggle("on", k < found.size));
+    if (found.size === 8) {
+      msg.insertAdjacentHTML("beforeend", `<div class="note" style="margin-bottom:0"><b>Mind a nyolcat megtaláltad.</b> Ugyanez a fürdőszoba szerepel a beadandó esettanulmányban.</div>`);
+      complete("hunt", "Kész: mind a nyolc veszélyt megtaláltad.");
+    }
+  }
+  document.querySelectorAll(".hot").forEach(el => {
+    el.addEventListener("click", () => hit(el));
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); hit(el); } });
+  });
+
+  // ---------- párosító ----------
+  const PPE = [
+    ["Védőszemüveg","Repülő szilánkok, por, kifröccsenő anyag"],
+    ["Vágásálló kesztyű","Éles csempeszélek, vágási sérülések"],
+    ["Vegyszerálló kesztyű","Ragasztók, alapozók, tisztítószerek"],
+    ["Biztonsági lábbeli","Leeső tárgyak, csúszás, átszúrás"],
+    ["Légzésvédő","Belélegezhető porok, veszélyes aeroszolok"],
+    ["Hallásvédő","Vágógépek, csiszolók zaja"],
+    ["Térdvédő","Tartós térdelés terhelése"],
+    ["Védősisak","Fejsérülés, leeső tárgyak"]
+  ];
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const form = document.getElementById("matchForm");
+  const opts = shuffle(PPE.map(p => p[1]));
+  PPE.forEach(([name], k) => {
+    const lab = document.createElement("label");
+    lab.innerHTML = `<b>${name}</b><select data-k="${k}"><option value="">Válassz veszélyt…</option>${opts.map(o => `<option>${o}</option>`).join("")}</select><p class="hint" hidden></p>`;
+    form.appendChild(lab);
+  });
+  form.addEventListener("change", e => { const l = e.target.closest("label"); l.classList.remove("right","wrong"); l.querySelector(".hint").hidden = true; });
+  document.getElementById("matchCheck").addEventListener("click", () => {
+    let ok = 0, empty = 0;
+    form.querySelectorAll("select").forEach(s => {
+      const l = s.closest("label"), right = PPE[s.dataset.k][1], hint = l.querySelector(".hint");
+      l.classList.remove("right","wrong");
+      if (!s.value) { empty++; return; }
+      if (s.value === right) { ok++; l.classList.add("right"); hint.hidden = true; }
+      else { l.classList.add("wrong"); hint.hidden = false; hint.textContent = "Nem ez. Gondold végig: mi éri azt a testrészt, amit véd?"; }
+    });
+    const res = document.getElementById("matchRes");
+    if (empty) res.textContent = `${empty} védőeszközhöz még nem választottál. ${ok} helyes eddig.`;
+    else if (ok === PPE.length) { res.textContent = "Mind a nyolc helyes."; complete("match", "Kész: mind a nyolc párosítás helyes."); }
+    else res.textContent = `${ok} / 8 helyes. A pirossal jelölteket javítsd, aztán ellenőrizd újra.`;
+  });
+
+  // ---------- jelzés mini-teszt ----------
+  const SIG = [
+    {svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#fff" stroke="#C8102E" stroke-width="10"/><rect x="24" y="46" width="44" height="9" fill="#16232B"/><rect x="68" y="46" width="8" height="9" fill="#F06B2A"/><path d="M19 81L81 19" stroke="#C8102E" stroke-width="10"/></svg>`, a:"Dohányozni tilos", w:["Dohányzóhely","Kötelező légzésvédő"]},
+    {svg:`<svg viewBox="0 0 100 100"><path d="M50 8l44 80H6z" fill="#F2C200" stroke="#16232B" stroke-width="6" stroke-linejoin="round"/><path d="M54 30L38 60h14L44 80l20-34H50z" fill="#16232B"/></svg>`, a:"Vigyázz, áramütés veszélye", w:["Áramtalanítani tilos","Villámhárító helye"]},
+    {svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#005EB8"/><path d="M26 60a24 24 0 0148 0v6H26z" fill="#fff"/><rect x="22" y="64" width="56" height="6" fill="#fff"/></svg>`, a:"Védősisak viselése kötelező", w:["Leeső tárgy veszélye","Sisak tárolóhelye"]},
+    {svg:`<svg viewBox="0 0 100 100"><rect x="4" y="14" width="92" height="72" rx="4" fill="#00843D"/><path d="M50 28v44M28 50h44" stroke="#fff" stroke-width="14"/></svg>`, a:"Elsősegélyhely", w:["Kórházi bejárat","Gyógyszer szedése tilos"]},
+    {svg:`<svg viewBox="0 0 100 100"><rect x="8" y="8" width="84" height="84" rx="4" fill="#C8102E"/><rect x="40" y="38" width="22" height="44" rx="7" fill="#fff"/><rect x="44" y="28" width="10" height="12" fill="#fff"/><path d="M54 32h14v14" stroke="#fff" stroke-width="5" fill="none"/></svg>`, a:"Tűzoltó készülék helye", w:["Tűzveszélyes anyag","Tüzet rakni tilos"]},
+    {svg:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#005EB8"/><path d="M22 44h56v14a28 14 0 01-56 0z" fill="#fff"/><circle cx="36" cy="51" r="7" fill="#005EB8"/><circle cx="64" cy="51" r="7" fill="#005EB8"/></svg>`, a:"Védőszemüveg viselése kötelező", w:["Szemmosó állomás","Erős fény, vigyázz"]},
+    {svg:`<svg viewBox="0 0 100 100"><rect x="4" y="14" width="92" height="72" rx="4" fill="#00843D"/><rect x="16" y="26" width="24" height="48" fill="#fff"/><path d="M50 50h34M70 36l14 14-14 14" stroke="#fff" stroke-width="9" fill="none"/></svg>`, a:"Menekülési út, kijárat", w:["Bejárat csak dolgozóknak","Ajtót nyitva tartani tilos"]}
+  ];
+  let sIdx = 0, sOk = 0;
+  const sigOrder = shuffle(SIG);
+  function showSign() {
+    const s = sigOrder[sIdx];
+    document.getElementById("sigShow").innerHTML = s.svg;
+    document.getElementById("sigStep").textContent = `${sIdx + 1}. tábla a ${sigOrder.length}-ből`;
+    const box = document.getElementById("sigChoices"); box.innerHTML = "";
+    shuffle([s.a, ...s.w]).forEach(t => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "choice"; b.textContent = t;
+      b.addEventListener("click", () => {
+        box.querySelectorAll("button").forEach(x => { x.disabled = true; if (x.textContent === s.a) x.classList.add("right"); });
+        if (t === s.a) sOk++; else b.classList.add("wrong");
+        const nx = document.getElementById("sigNext");
+        nx.hidden = false; nx.textContent = sIdx < sigOrder.length - 1 ? "Következő tábla" : "Eredmény";
+        nx.focus();
+      });
+      box.appendChild(b);
+    });
+    document.getElementById("sigNext").hidden = true;
+  }
+  let sigFinished = false;
+  document.getElementById("sigNext").addEventListener("click", () => {
+    if (sigFinished) { sigFinished = false; sIdx = 0; sOk = 0; showSign(); return; }
+    if (sIdx < sigOrder.length - 1) { sIdx++; showSign(); return; }
+    sigFinished = true;
+    document.getElementById("sigShow").innerHTML = "";
+    document.getElementById("sigStep").textContent = `${sOk} / ${sigOrder.length} táblát ismertél fel.`;
+    document.getElementById("sigChoices").innerHTML = sOk >= sigOrder.length - 1
+      ? `<p>Szép munka. A jelzések kör, háromszög és téglalap alakja is jelent valamit, figyeld legközelebb is.</p>`
+      : `<p>Nézd át a fenti öt típust, aztán próbáld újra.</p>`;
+    document.getElementById("sigNext").textContent = "Teszt újrakezdése";
+    if (sOk >= sigOrder.length - 1) complete("signs", `Kész: ${sOk} / ${sigOrder.length} tábla helyes.`);
+  });
+  showSign();
+
+  // ---------- kvíz ----------
+  const Q = [
+    ["Mi a munkavédelem két fő területe?",["Munkabiztonság és munkaegészségügy","Tűzvédelem és környezetvédelem","Elsősegély és balesetjelentés"],0,"A munkabiztonság a balesetek, a munkaegészségügy a munkából eredő egészségkárosodások (por, zaj, vegyszer) megelőzésével foglalkozik."],
+    ["Melyik a munkavédelem legfontosabb jogszabálya?",["4/2002. (II. 20.) SzCsM–EüM rendelet","1993. évi XCIII. törvény","A munka törvénykönyve"],1,"Az 1993. évi XCIII. törvény a munkavédelemről. A 4/2002-es rendelet kifejezetten az építési munkahelyekre vonatkozik."],
+    ["Mikor KELL megtagadnod a munkát?",["Ha fáradt vagy","Ha a munka mások életét közvetlenül és súlyosan veszélyezteti","Ha nincs munkavezető a helyszínen"],1,"Saját súlyos veszélyeztetésed esetén megtagadhatod, mások közvetlen és súlyos veszélyeztetése esetén meg kell tagadnod."],
+    ["Mi a legnagyobb egészségügyi gond a csempe száraz, sarokcsiszolós vágásánál?",["A zaj miatt nem hallod a kollégát","Kristályos szilícium-dioxidot tartalmazó belélegezhető por","A csempe széle elszíneződik"],1,"Ez a por légzőszervi megbetegedést okozhat. Vizes vágás, elszívás és légzésvédő kell, a szilánkok és a zaj miatt szem- és hallásvédő is."],
+    ["Mit teszel egy sérült kábelű keverőgéppel?",["Szigetelőszalaggal megjavítod és dolgozol tovább","Áramtalanítod, nem használod, jelzed, szakemberrel javíttatod","Csak száraz padlón használod"],1,"Sérült eszközt használni tilos. Csak az adott munkára megfelelő, ép eszköz használható."],
+    ["Melyik a helyes emelés?",["Hajolj előre egyenes lábbal","A terhet tartsd a testedhez közel, emelés közben ne fordulj","Emelj gyorsan, hogy rövidebb ideig terheljen"],1,"Állj közel, vegyél fel stabil testhelyzetet, tartsd közel a terhet, és kerüld a törzsfordítást."],
+    ["Van-e mindenkire érvényes, biztonságos kilogrammhatár?",["Igen, 25 kg","Igen, 20 kg","Nincs, a személyt, a tárgyat és a körülményeket együtt kell mérlegelni"],2,"Nincs egységes, automatikusan biztonságos határ. Nehéz tárgyhoz segédeszköz vagy társ kell."],
+    ["Mi kell a tűz kialakulásához?",["Éghető anyag, oxigén, gyújtóforrás","Hő, víz, szél","Szikra és oldószer"],0,"Ez a tűz három feltétele. Ha egyet megszüntetsz, a tűz nem alakul ki vagy kialszik."],
+    ["Szabad-e feszültség alatt álló gépet vízzel oltani?",["Igen, ha kicsi a tűz","Nem, tilos","Csak ha nincs más oltóeszköz"],1,"Áramütés veszélye miatt tilos. Az oltóeszközt a tűz jellege és a használati előírás szerint kell választani."],
+    ["Mi a teendő, ha vegyszer kerül a szemedbe?",["Megdörzsölöd és vársz","Azonnali, bő vizes öblítés és sürgős orvosi segítség","Szemcseppet használsz"],1,"Vegyszernél minden perc számít: azonnal, bő vízzel öblíts, és kérj sürgős orvosi segítséget."],
+    ["Mit teszel a maradék csemperagasztóval?",["Kiöntöd a lefolyóba, ha még folyós","Elásod a kertben","Megkötni hagyod, és a besorolása szerint hulladékként leadod"],2,"Ragasztót, vegyszert, cementes iszapot tilos ellenőrizetlenül talajba, csatornába vagy élővízbe juttatni."],
+    ["Mit jelent a kék kör alakú tábla?",["Tiltást","Kötelező magatartást","Menekülési utat"],1,"Kék kör: rendelkező jelzés, például kötelező a sisak. Piros kör átlóval: tiltó. Zöld: elsősegély, menekülés."]
+  ];
+  let qi = 0, qScore = 0; const qRes = [];
+  const quizEl = document.getElementById("quiz");
+  function drawQ() {
+    if (qi >= Q.length) {
+      const good = qScore >= 10;
+      quizEl.innerHTML = `<div class="quiz-top"><div class="track">${qRes.map(r => `<i class="${r ? "r" : "w"}"></i>`).join("")}</div></div>
+        <p class="q">${qScore} / ${Q.length} helyes válasz.</p>
+        <p class="result">${good ? "Ez jó eredmény, a tudásod megvan a beadandóhoz." : "Nézd át a tananyagot, és próbáld újra. 10 helyes választól kész a rész."}</p>
+        <div class="row"><button class="btn${good ? " ghost" : ""}" type="button" id="qAgain">Kvíz újrakezdése</button></div>`;
+      document.getElementById("qAgain").onclick = () => { qi = 0; qScore = 0; qRes.length = 0; drawQ(); };
+      if (good) complete("quiz", `Kész: ${qScore} / ${Q.length} helyes.`);
+      return;
+    }
+    const [q, opts, right, why] = Q[qi];
+    quizEl.innerHTML = `<div class="quiz-top"><span class="status" style="margin:0">${qi + 1}. kérdés a ${Q.length}-ből</span>
+      <div class="track" aria-hidden="true">${Q.map((_, k) => `<i class="${k < qi ? (qRes[k] ? "r" : "w") : k === qi ? "c" : ""}"></i>`).join("")}</div></div>
+      <p class="q">${q}</p><div class="choices">${opts.map((o, k) => `<button class="choice" type="button" data-k="${k}">${o}</button>`).join("")}</div>
+      <div class="explain" id="qWhy"></div><div class="row"><button class="btn" type="button" id="qNext" hidden>${qi < Q.length - 1 ? "Következő kérdés" : "Eredmény"}</button></div>`;
+    quizEl.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => {
+      const k = +b.dataset.k, ok = k === right;
+      quizEl.querySelectorAll(".choice").forEach(x => { x.disabled = true; if (+x.dataset.k === right) x.classList.add("right"); });
+      if (!ok) b.classList.add("wrong");
+      qRes[qi] = ok; if (ok) qScore++;
+      const w = document.getElementById("qWhy"); w.innerHTML = `<b>${ok ? "Helyes." : "Nem ez."}</b> ${why}`; w.classList.add("show");
+      const n = document.getElementById("qNext"); n.hidden = false; n.focus();
+      n.onclick = () => { qi++; drawQ(); };
+    }));
+  }
+  drawQ();
+
+  // ---------- kártyák ----------
+  const CARDS = [
+    ["Mi a munkáltató feladata munkavédelemben?","Kockázatfelmérés, oktatás, megfelelő munkaeszköz és védőeszköz biztosítása, a szabályok betartatása."],
+    ["Mi a munkavállaló öt kötelessége?","Betartja az oktatást, rendeltetésszerűen használ szerszámot és védőeszközt, rendben tartja a területet, jelzi a veszélyt, nem veszélyeztet senkit."],
+    ["Mit kell ellenőrizni gép használata előtt?","Magát a gépet, a kábelt és a védőburkolatot. Sérült eszközt nem használunk."],
+    ["Mi a teendő szerszámcsere előtt?","A gépet biztonságosan áramtalanítani kell."],
+    ["Hogyan csökkented a port vágáskor?","Vizes technológiával vagy megfelelő porelszívással, és légzésvédőt viselsz."],
+    ["Tűz esetén mi az első lépés?","A veszélyeztetett személyek figyelmeztetése. Utána jelzés, 112, a terület elhagyása."],
+    ["Mikor oltasz te magad?","Csak kezdeti tüzet, csak ha nem veszélyezteted magad, és van megfelelő oltóeszközöd."],
+    ["Mit teszel áramütéses sérülttel?","Előbb biztonságosan megszünteted az áramforrást, aztán segélyhívás, szükség esetén újraélesztés."],
+    ["Hová kerül a tiszta, törött kerámialap?","Elkülönítve gyűjtött építési-bontási hulladékba."],
+    ["Hogyan tárolod a veszélyes anyagot?","Eredeti, azonosítható, címkézett csomagolásban, hőforrástól távol."],
+    ["Melyik rendelet vonatkozik az építési munkahelyekre?","A 4/2002. (II. 20.) SzCsM–EüM együttes rendelet."],
+    ["Hogyan csökkented az anyagveszteséget?","Pontos anyagszükséglet-számítással és a használható lapdarabok újrahasznosításával."]
+  ];
+  const seen = new Set();
+  const cardsEl = document.getElementById("cards");
+  CARDS.forEach(([f, b], k) => {
+    const c = document.createElement("button"); c.type = "button"; c.className = "card";
+    c.setAttribute("aria-label", `Kártya: ${f}`);
+    c.innerHTML = `<div class="in"><div class="face front"><b>${f}</b><small>Kattints a megfordításhoz</small></div><div class="face back"><span>${b}</span><small>Kattints a visszafordításhoz</small></div></div>`;
+    c.addEventListener("click", () => {
+      c.classList.toggle("flip"); c.classList.add("seen"); seen.add(k);
+      c.setAttribute("aria-label", c.classList.contains("flip") ? `Válasz: ${b}` : `Kártya: ${f}`);
+      if (seen.size === CARDS.length) complete("cards", "Kész: mind a tizenkét kártyát megnézted.");
+    });
+    cardsEl.appendChild(c);
+  });
+
+  // betöltéskor a már kész részek állapota
+  PARTS.forEach(p => { if (done[p]) { const st = document.querySelector(`[data-status="${p}"]`); if (st) { st.textContent = "Ezt a részt már elvégezted. Bármikor gyakorolhatod újra."; st.classList.add("ok"); } } });
+  renderProgress();
+})();
+</script>
+</body>
+</html>
