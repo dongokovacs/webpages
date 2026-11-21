@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vetületi szerkesztés – 6. feladat</title>
+<style>
+:root{--bg:#faf9f5;--card:#fff;--ink:#1f1e1d;--mut:#6b6a65;--line:#d9d6cc;--acc:#c2410c}
+@media(prefers-color-scheme:dark){:root{--bg:#1f1e1d;--card:#2a2927;--ink:#ecebe6;--mut:#a3a199;--line:#45443f;--acc:#f0997b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:0 auto;padding:16px}
+h1{font-size:20px;font-weight:600;margin:4px 0}
+.sub{color:var(--mut);margin:0 0 16px}
+.back{display:inline-block;color:var(--acc);text-decoration:none;font-size:14px;margin-bottom:6px}
+.back:hover{text-decoration:underline}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:860px){.grid{grid-template-columns:1.3fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+h2{font-size:16px;margin:0 0 8px;font-weight:600}
+svg#draw{width:100%;height:auto;display:block}
+.steps{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}
+.dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--mut);font-size:12px;cursor:pointer;padding:0}
+.dot.done{color:var(--ink);border-color:var(--ink)}
+.dot.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button.b{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer}
+button.b.p{background:var(--acc);border-color:var(--acc);color:#fff}
+button.b:disabled{opacity:.4;cursor:default}
+button.b.sel{border-color:var(--acc);color:var(--acc)}
+#stitle{font-weight:600;margin:12px 0 4px}
+#stext{margin:0}
+canvas{width:100%;aspect-ratio:1/1;display:block;touch-action:none;cursor:grab;border-radius:8px}
+.views{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+label.t{display:inline-flex;gap:6px;align-items:center;color:var(--mut);font-size:14px;margin:8px 14px 0 0}
+.hint{color:var(--mut);font-size:13px;margin:6px 0 0}
+#draw .ax{stroke:var(--mut);stroke-width:.8;fill:none}
+#draw .ob{stroke:var(--ink);stroke-width:2;fill:none;stroke-linejoin:round}
+#draw .hid{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 3;fill:none}
+#draw .rz{stroke:var(--mut);stroke-width:.6;stroke-dasharray:3 3;fill:none}
+#draw .dm{stroke:var(--mut);stroke-width:.6;fill:none}
+#draw .lbl{font-size:9px;fill:var(--mut)}
+#draw .vt{font-size:11px;fill:var(--mut)}
+#draw .dt{font-size:10px;fill:var(--ink)}
+#draw circle{fill:var(--ink)}
+#draw .cur .ob,#draw .cur .hid,#draw .cur .rz,#draw .cur .ax,#draw .cur .dm{stroke:var(--acc)}
+#draw .cur .lbl,#draw .cur .vt,#draw .cur .dt,#draw .cur circle{fill:var(--acc)}
+#draw.nolbl .lbl{display:none}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Burkoló tananyagok</a>
+<h1>Három vetület szerkesztése – 8. fejezet, 6. feladat</h1>
+<p class="sub">Nyeregtetős síklapú test: elöl- és felülnézetből az oldalnézet, lépésenként.</p>
+<div class="grid">
+  <section class="card">
+    <h2>Szerkesztés</h2>
+    <svg id="draw" viewBox="0 0 460 420" role="img" aria-label="Vetületi rajz lépésenként"></svg>
+    <div class="steps" id="dots"></div>
+    <div class="nav">
+      <button class="b" id="prev">‹ Előző</button>
+      <button class="b p" id="next">Következő ›</button>
+      <label class="t"><input type="checkbox" id="lbl2" checked> pontszámok</label>
+    </div>
+    <p id="stitle"></p>
+    <p id="stext"></p>
+  </section>
+  <section class="card">
+    <h2>Térbeli modell</h2>
+    <canvas id="cv"></canvas>
+    <div class="views">
+      <button class="b" data-v="iso">Térben</button>
+      <button class="b" data-v="front">Elölről</button>
+      <button class="b" data-v="top">Felülről</button>
+      <button class="b" data-v="left">Balról</button>
+    </div>
+    <label class="t"><input type="checkbox" id="lbl3" checked> pontszámok</label>
+    <label class="t"><input type="checkbox" id="hid3"> takart élek</label>
+    <label class="t"><input type="checkbox" id="sync" checked> kövesse a lépéseket</label>
+    <p class="hint">Húzd az ujjad vagy az egeret a forgatáshoz. A „Balról” nézet pontosan az oldalnézetet adja.</p>
+  </section>
+</div>
+</main>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('draw');
+function el(tag,a,p){const e=document.createElementNS(NS,tag);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;}
+function P(g,d,c){return el('path',{d,class:c},g);}
+function T(g,x,y,s,an,c){const t=el('text',{x,y,'text-anchor':an||'start',class:c||'lbl'},g);t.textContent=s;return t;}
+function tk(x,y){return `M${x-4} ${y+4}L${x+4} ${y-4}`;}
+
+const steps=[
+ {t:'1. Képtengelyek',d:'Húzd meg a vízszintes x₁,₂ és a függőleges x₂,₃ tengelyt. Az x₁,₂ fölé kerül az elölnézet, alá a felülnézet. Az x₂,₃-tól jobbra lesz az oldalnézet.',v:'iso',
+  f:g=>{P(g,'M14 170L456 170','ax');P(g,'M245 8L245 412','ax');T(g,14,164,'x1,2','start','vt');T(g,249,16,'x2,3','start','vt');}},
+ {t:'2. Elölnézet',d:'15 mm-rel az x₁,₂ fölött. A test 50 széles, a fal 30 magas, a gerinc középen 55-nél fut. A bal tetősík mögött van egy háromszög (9–10–13), amit a tetősík eltakar. Ezért a 8″–10″ és a 10″–12″ vonal szaggatott.',v:'front',
+  f:g=>{P(g,'M125 140L225 140L225 80L175 30L125 80Z','ob');P(g,'M125 80L175 80L175 30','hid');
+   T(g,121,152,'1"4"','end');T(g,229,152,'2"3"');T(g,121,83,'5"8"9"','end');T(g,229,83,'6"7"');T(g,179,94,'10"11"');T(g,175,24,'12"13"14"','middle');
+   T(g,175,122,'Elölnézet','middle','vt');}},
+ {t:'3. Felülnézet',d:'Függőleges rendezőkkel le, 15 mm-rel az x₁,₂ alá. Egy 50 × 70-es téglalap, középen végig a gerinc (12′–14′). A 9′–10′ vonal mutatja, hol ér véget a bal tetősík: 30 mm-re a hátoldaltól. Mögötte a 25 × 30-as levágott rész van.',v:'top',
+  f:g=>{P(g,'M125 140L125 200M175 140L175 200M225 140L225 200','rz');
+   P(g,'M125 200L225 200L225 340L125 340Z','ob');P(g,'M175 200L175 340M125 260L175 260','ob');
+   T(g,121,203,'4\'8\'','end');T(g,229,203,'3\'7\'');T(g,179,213,'11\'14\'');T(g,121,263,'9\'','end');T(g,171,256,'10\'13\'','end');
+   T(g,121,350,'1\'5\'','end');T(g,175,352,'12\'','middle');T(g,229,350,'2\'6\'');}},
+ {t:'4. 45°-os segédegyenes',d:'A két tengely metszéspontjából 45°-ban, jobbra lefelé. Ez fordítja át a felülnézet függőleges mélységeit az oldalnézet vízszintes távolságaivá. A hátoldal 15 mm-re van az x₁,₂-től, így az oldalnézetben is 15 mm-re lesz az x₂,₃-tól.',v:'iso',
+  f:g=>{P(g,'M245 170L432 357','ax');}},
+ {t:'5. Magasságok átvitele',d:'Az elölnézet jellemző magasságaiból (0, 30 és 55) vízszintes rendező megy jobbra az oldalnézetbe. A magasság a két nézetben pontosan ugyanaz.',v:'left',
+  f:g=>{P(g,'M175 30L422 30M225 80L422 80M225 140L422 140','rz');}},
+ {t:'6. Mélységek átvitele',d:'A felülnézet vonalaiból (hátoldal, a 30 mm-es vonal, az elülső él) vízszintesen a 45°-os egyenesig, onnan függőlegesen felfelé. Balról nézünk, ezért a test eleje kerül jobbra.',v:'left',
+  f:g=>{P(g,'M225 200L275 200L275 24M225 260L335 260L335 24M225 340L415 340L415 24','rz');}},
+ {t:'7. Az oldalnézet pontjai',d:'Ahol egy pont magassági és mélységi rendezője metszi egymást, ott van a háromvesszős vetülete. Például a 13 mélysége 30, magassága 55. A 7, 8, 11 pont egymás mögött van, ezért egybeesik.',v:'left',
+  f:g=>{[[275,140],[275,80],[275,30],[335,80],[335,30],[415,140],[415,80],[415,30]].forEach(([x,y])=>el('circle',{cx:x,cy:y,r:2.4},g));
+   T(g,275,153,"3'''4'''",'middle');T(g,415,153,"1'''2'''",'middle');T(g,279,93,"7'''8'''11'''");T(g,339,93,"9'''10'''");
+   T(g,419,83,"5'''6'''");T(g,279,42,"14'''");T(g,339,42,"13'''");T(g,419,30,"12'''");}},
+ {t:'8. Az oldalnézet élei',d:'Kösd össze a pontokat a test valódi élei szerint. A körvonal egy 70 × 55-ös téglalap. A 30-as magasságban fut az eresz vonala. Hátulról 30 mm-re, 30 és 55 között egy függőleges vonal van: ez a 9–10–13 háromszög élben. Balról minden él látszik, szaggatott vonal nem kell.',v:'left',
+  f:g=>{P(g,'M275 30L415 30L415 140L275 140Z','ob');P(g,'M275 80L415 80M335 80L335 30','ob');T(g,345,20,'Oldalnézet','middle','vt');}},
+ {t:'9. Méretek',d:'A feladat méretei: magasság 30 + 25 = 55, mélység 30 + 40 = 70, szélesség 25 + 25 = 50. A tengelytávolságok 15, 15 és 10 mm. Az oldalnézetet nem kell külön méretezni, minden mérete a másik két nézetből jön.',v:'iso',
+  f:g=>{P(g,'M76 30L76 140M50 30L50 140M76 200L76 340M50 200L50 340M140 140L140 200M225 230L245 230M125 366L225 366M125 390L225 390','dm');
+   P(g,[tk(76,30),tk(76,80),tk(76,140),tk(50,30),tk(50,140),tk(76,200),tk(76,260),tk(76,340),tk(50,200),tk(50,340),tk(140,140),tk(140,170),tk(140,200),tk(225,230),tk(245,230),tk(125,366),tk(175,366),tk(225,366),tk(125,390),tk(225,390)].join(''),'dm');
+   T(g,72,59,'25','end','dt');T(g,72,114,'30','end','dt');T(g,46,89,'55','end','dt');
+   T(g,72,234,'30','end','dt');T(g,72,304,'40','end','dt');T(g,46,274,'70','end','dt');
+   T(g,144,160,'15','start','dt');T(g,144,190,'15','start','dt');T(g,235,225,'10','middle','dt');
+   T(g,150,362,'25','middle','dt');T(g,200,362,'25','middle','dt');T(g,175,386,'50','middle','dt');
+   T(g,175,410,'Felülnézet','middle','vt');}}
+];
+const groups=steps.map(s=>{const g=el('g',{},svg);s.f(g);return g;});
+let cur=0;
+const dots=document.getElementById('dots');
+steps.forEach((s,i)=>{const b=document.createElement('button');b.className='dot';b.textContent=i+1;b.onclick=()=>go(i);dots.appendChild(b);});
+function go(i){
+  cur=Math.max(0,Math.min(steps.length-1,i));
+  groups.forEach((g,k)=>{g.style.display=k<=cur?'':'none';g.setAttribute('class',k===cur?'cur':'');});
+  [...dots.children].forEach((b,k)=>b.className='dot'+(k===cur?' on':k<cur?' done':''));
+  document.getElementById('stitle').textContent=steps[cur].t;
+  document.getElementById('stext').textContent=steps[cur].d;
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===steps.length-1;
+  if(document.getElementById('sync').checked)setView(steps[cur].v);
+}
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+document.getElementById('lbl2').onchange=e=>svg.classList.toggle('nolbl',!e.target.checked);
+
+/* 3D */
+const V={1:[0,70,0],2:[50,70,0],3:[50,0,0],4:[0,0,0],5:[0,70,30],6:[50,70,30],7:[50,0,30],8:[0,0,30],9:[0,30,30],10:[25,30,30],11:[25,0,30],12:[25,70,55],13:[25,30,55],14:[25,0,55]};
+const F=[[[1,2,3,4],[0,0,-1]],[[1,2,6,12,5],[0,1,0]],[[4,3,7,14,11,8],[0,-1,0]],[[1,5,9,8,4],[-1,0,0]],[[2,3,7,6],[1,0,0]],
+ [[6,7,14,12],[1,0,1]],[[5,12,13,9],[-1,0,1]],[[8,9,10,11],[0,0,1]],[[10,11,14,13],[-1,0,0]],[[9,10,13],[0,-1,0]]];
+const E=new Set();F.forEach(([p])=>p.forEach((a,i)=>{const b=p[(i+1)%p.length];E.add(a<b?a+'-'+b:b+'-'+a);}));
+const VIEWS={iso:[-0.62,0.5],front:[0,0],top:[0,Math.PI/2],left:[Math.PI/2,0]};
+let yaw=VIEWS.iso[0],pitch=VIEWS.iso[1],tyaw=yaw,tpitch=pitch,anim=false;
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+const dark=matchMedia('(prefers-color-scheme: dark)');
+function W([x,y,z]){return [x-25,z-27.5,y-35];}
+function R([X,Y,Z]){const cy=Math.cos(yaw),sy=Math.sin(yaw);const X1=X*cy+Z*sy,Z1=-X*sy+Z*cy;const cp=Math.cos(pitch),sp=Math.sin(pitch);return [X1,Y*cp-Z1*sp,Y*sp+Z1*cp];}
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function draw(){
+  const r=window.devicePixelRatio||1,w=cv.clientWidth;if(cv.width!==Math.round(w*r)){cv.width=Math.round(w*r);cv.height=Math.round(w*r);}
+  const S=cv.width,s=S/115,ox=S/2,oy=S/2;cx.clearRect(0,0,S,S);
+  const ink=css('--ink'),mut=css('--mut'),acc=css('--acc');
+  const pr={};for(const k in V){const q=R(W(V[k]));pr[k]=[ox+q[0]*s,oy-q[1]*s,q[2]];}
+  const L=[-0.35,0.65,0.68];
+  const vis=F.map(([p,n])=>{const nr=R([n[0],n[2],n[1]]);const len=Math.hypot(...n);return {p,z:p.reduce((a,k)=>a+pr[k][2],0)/p.length,nz:nr[2]/len,sh:Math.max(0,(n[0]*L[0]+n[2]*L[1]+n[1]*L[2])/len)};}).filter(f=>f.nz>1e-4).sort((a,b)=>a.z-b.z);
+  const vv=new Set();
+  vis.forEach(f=>{cx.beginPath();f.p.forEach((k,i)=>{const[x,y]=pr[k];i?cx.lineTo(x,y):cx.moveTo(x,y);});cx.closePath();
+    const l=dark.matches?24+f.sh*26:62+f.sh*30;cx.fillStyle=`hsl(35,14%,${l}%)`;cx.fill();
+    cx.lineWidth=2*r;cx.strokeStyle=ink;cx.lineJoin='round';cx.stroke();f.p.forEach(k=>vv.add(+k));});
+  if(document.getElementById('hid3').checked){cx.setLineDash([5*r,4*r]);cx.lineWidth=1*r;cx.strokeStyle=acc;
+    E.forEach(e=>{const[a,b]=e.split('-');cx.beginPath();cx.moveTo(pr[a][0],pr[a][1]);cx.lineTo(pr[b][0],pr[b][1]);cx.stroke();});cx.setLineDash([]);}
+  if(document.getElementById('lbl3').checked){cx.font=`${12*r}px system-ui,sans-serif`;cx.textAlign='center';cx.textBaseline='middle';
+    for(const k in pr){const[x,y]=pr[k];const on=vv.has(+k);cx.fillStyle=on?acc:mut;cx.globalAlpha=on?1:.45;
+      cx.beginPath();cx.arc(x,y,2.6*r,0,7);cx.fill();cx.fillText(k,x+9*r,y-9*r);}cx.globalAlpha=1;}
+}
+function tick(){if(anim){yaw+=(tyaw-yaw)*.18;pitch+=(tpitch-pitch)*.18;if(Math.abs(tyaw-yaw)<.002&&Math.abs(tpitch-pitch)<.002){yaw=tyaw;pitch=tpitch;anim=false;}draw();}requestAnimationFrame(tick);}
+function setView(v){[tyaw,tpitch]=VIEWS[v];
+  const tw=Math.PI*2;tyaw=yaw+((((tyaw-yaw)%tw)+tw+Math.PI)%tw-Math.PI);anim=true;
+  document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('sel',b.dataset.v===v));}
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>setView(b.dataset.v));
+let drag=null;
+cv.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];anim=false;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-drag[0])*.01;pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,pitch+(e.clientY-drag[1])*.01));drag=[e.clientX,e.clientY];
+  document.querySelectorAll('[data-v]').forEach(b=>b.classList.remove('sel'));draw();});
+cv.addEventListener('pointerup',()=>drag=null);cv.addEventListener('pointercancel',()=>drag=null);
+['lbl3','hid3'].forEach(id=>document.getElementById(id).onchange=draw);
+window.addEventListener('resize',draw);dark.addEventListener&&dark.addEventListener('change',draw);
+go(0);draw();tick();
+</script>
+</body>
+</html>

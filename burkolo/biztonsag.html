@@ -52,6 +52,8 @@ p{margin:.6em 0}
 .bar .wrap{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap}
 .bar strong{font-family:var(--display);font-stretch:80%;font-size:1.15rem;margin-right:auto}
 .bar strong span{font-weight:500;opacity:.75}
+.bar .back{color:#fff;text-decoration:none;font-size:1.2rem;padding:4px 10px;margin-left:-10px;border-radius:var(--radius)}
+.bar .back:hover{background:rgba(255,255,255,.12)}
 @media (max-width:560px){.bar strong span{display:none}}
 /* munkaterület-szalag a fejléc alján */
 .bar::after{content:"";display:block;height:14px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
@@ -204,6 +206,7 @@ footer{padding-block:40px 60px;color:var(--ink-soft);font-size:.92rem}
 
 <header class="bar">
   <div class="wrap">
+    <a class="back" href="./" aria-label="Vissza a burkoló tananyagokhoz">←</a>
     <strong>Biztonságos burkolás<span> – tanulj, keress, gyakorolj</span></strong>
     <nav aria-label="Részek">
       <a href="#tananyag">Tananyag</a>

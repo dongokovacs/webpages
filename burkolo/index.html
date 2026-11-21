@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Burkoló tananyagok</title>
+<meta name="description" content="Burkoló tananyagok: munka- és környezetvédelmi oktatás, valamint vetületi szerkesztés lépésről lépésre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#DDE1E3;--grout-dark:#C3C9CC;--tile:#FFFFFF;
+  --ink:#16232B;--ink-soft:#4A5862;
+  --yellow:#F2C200;--blue:#005EB8;--orange:#C2410C;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font:1.0625rem/1.6 var(--body);color:var(--ink);
+  background-color:var(--grout);
+  background-image:linear-gradient(var(--grout-dark) 1px,transparent 1px),linear-gradient(90deg,var(--grout-dark) 1px,transparent 1px);
+  background-size:48px 48px;min-height:100vh;
+}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+.bar{background:var(--ink);color:#fff}
+.bar .wrap{min-height:56px;display:flex;align-items:center}
+.bar strong{font-family:var(--display);font-stretch:80%;font-size:1.15rem}
+.bar::after{content:"";display:block;height:14px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
+header.hero{padding-block:56px 32px}
+h1{font-family:var(--display);font-stretch:80%;font-weight:900;font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.05;margin:0 0 12px}
+.lead{font-size:1.15rem;color:var(--ink-soft);max-width:48ch;margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:6px;background:var(--grout-dark);padding:6px;border-radius:4px;margin-bottom:64px}
+.card{display:flex;flex-direction:column;gap:14px;background:var(--tile);color:var(--ink);text-decoration:none;padding:28px;border-radius:3px;position:relative;min-height:280px;transition:transform .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(22,35,43,.14)}
+.card .icon{width:64px;height:64px;display:grid;place-items:center;border-radius:3px}
+.card.safe .icon{background:var(--yellow)}
+.card.proj .icon{background:var(--ink)}
+.card h2{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:1.9rem;line-height:1.1;margin:0}
+.card p{margin:0;color:var(--ink-soft)}
+.card ul{margin:0;padding-left:1.1em;color:var(--ink-soft);font-size:.95rem}
+.card .go{margin-top:auto;font-weight:700;color:var(--blue);display:inline-flex;gap:8px;align-items:center}
+.card:hover .go span{transform:translateX(4px)}
+.card .go span{transition:transform .18s ease}
+.card.safe{border-top:6px solid var(--yellow)}
+.card.proj{border-top:6px solid var(--orange)}
+@media (prefers-reduced-motion:reduce){.card,.card .go span{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap"><strong>Burkoló tananyagok</strong></div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <h1>Burkoló</h1>
+    <p class="lead">Interaktív tananyagok burkolóknak. Válaszd ki, mivel foglalkoznál!</p>
+  </header>
+
+  <div class="cards">
+    <a class="card safe" href="biztonsag.html">
+      <div class="icon" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 40 40"><path d="M20 4 37 34H3Z" fill="none" stroke="#16232B" stroke-width="3.5" stroke-linejoin="round"/><rect x="18.2" y="14" width="3.6" height="11" rx="1" fill="#16232B"/><circle cx="20" cy="29.5" r="2.2" fill="#16232B"/></svg>
+      </div>
+      <h2>Biztonság</h2>
+      <p>Munka- és környezetvédelem burkolóknak – tanulj, keress, gyakorolj.</p>
+      <ul>
+        <li>Tananyag modulokban</li>
+        <li>Veszélykereső játék, védőeszközök</li>
+        <li>Biztonsági jelzések és kvíz</li>
+      </ul>
+      <span class="go">Oktatóanyag megnyitása <span aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="card proj" href="vetulet.html">
+      <div class="icon" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"><path d="M5 34V18L13 10 21 18V34Z"/><path d="M25 34V18H35V34Z"/><path d="M25 10H35" stroke-dasharray="3 2.5"/></svg>
+      </div>
+      <h2>Vetületi szerkesztés</h2>
+      <p>Három vetület szerkesztése lépésről lépésre – nyeregtetős síklapú test.</p>
+      <ul>
+        <li>Elöl-, felül- és oldalnézet</li>
+        <li>Lépésenkénti szerkesztés</li>
+        <li>Forgatható 3D modell</li>
+      </ul>
+      <span class="go">Feladat megnyitása <span aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</main>
+</body>
+</html>
