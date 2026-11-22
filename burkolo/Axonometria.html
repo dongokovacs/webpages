@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Axonometria – 9. fejezet, 7. feladat</title>
+<style>
+:root{--bg:#faf9f5;--card:#fff;--ink:#1f1e1d;--mut:#6b6a65;--line:#d9d6cc;--acc:#c2410c;--fill:#efe9dc}
+@media(prefers-color-scheme:dark){:root{--bg:#1f1e1d;--card:#2a2927;--ink:#ecebe6;--mut:#a3a199;--line:#45443f;--acc:#f0997b;--fill:#35332f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:20px;font-weight:600;margin:4px 0}
+.sub{color:var(--mut);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.rows{display:flex;gap:6px;flex-wrap:wrap}
+button.b{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 12px;font-size:14px;cursor:pointer}
+button.b.p{background:var(--acc);border-color:var(--acc);color:#fff}
+button.b.sel{border-color:var(--acc);color:var(--acc);font-weight:600}
+button.b:disabled{opacity:.4;cursor:default}
+.params{color:var(--mut);font-size:14px;margin:10px 0 0}
+svg#draw{width:100%;height:auto;display:block;max-height:70vh}
+.steps{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}
+.dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--mut);font-size:12px;cursor:pointer;padding:0}
+.dot.done{color:var(--ink);border-color:var(--ink)}
+.dot.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+label.t{display:inline-flex;gap:6px;align-items:center;color:var(--mut);font-size:14px}
+#stitle{font-weight:600;margin:12px 0 4px}
+#stext{margin:0}
+table{border-collapse:collapse;font-size:14px;width:100%}
+td,th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left}
+th{color:var(--mut);font-weight:500}
+#draw .ax{stroke:var(--mut);stroke-width:.35;fill:none}
+#draw .ref{stroke:var(--mut);stroke-width:.25;stroke-dasharray:1.5 1.5;fill:none}
+#draw .con{stroke:var(--ink);stroke-width:.45;fill:none;opacity:.55}
+#draw .thin{stroke:var(--mut);stroke-width:.3;stroke-dasharray:1.5 1.2;fill:none}
+#draw .vis{stroke:var(--ink);stroke-width:.9;fill:none;stroke-linejoin:round;stroke-linecap:round}
+#draw .hid{stroke:var(--ink);stroke-width:.45;stroke-dasharray:2 1.3;fill:none}
+#draw .face{fill:var(--fill);stroke:none}
+#draw .cur{stroke:var(--acc)!important;opacity:1!important;stroke-width:.8}
+#draw text{font-size:3.6px;fill:var(--mut)}
+#draw text.dm{fill:var(--ink);font-size:3.8px}
+#draw text.c{fill:var(--acc)}
+#draw circle{fill:var(--ink)}
+#draw circle.c{fill:var(--acc)}
+</style>
+</head>
+<body>
+<main>
+<h1>Axonometrikus kép – 9. fejezet, 7. feladat</h1>
+<p class="sub">Nyeregtetős hasáb (ház alak). Válassz egy sort a táblázatból, és lépésenként felépül az axonometrikus kép.</p>
+
+<section class="card">
+  <div class="rows" id="rows"></div>
+  <p class="params" id="params"></p>
+</section>
+
+<section class="card">
+  <svg id="draw" role="img" aria-label="Axonometrikus szerkesztés lépésenként"></svg>
+  <div class="steps" id="dots"></div>
+  <div class="nav">
+    <button class="b" id="prev">‹ Előző</button>
+    <button class="b p" id="next">Következő ›</button>
+    <label class="t"><input type="checkbox" id="hid"> takart élek</label>
+  </div>
+  <p id="stitle"></p>
+  <p id="stext"></p>
+</section>
+
+<section class="card">
+  <table>
+    <tr><th></th><th>a</th><th>b</th><th>c</th><th>d</th><th>típus</th></tr>
+    <tr><td>a)</td><td>46</td><td>75</td><td>26</td><td>23</td><td>kétméretű</td></tr>
+    <tr><td>b)</td><td>60</td><td>90</td><td>32</td><td>30</td><td>kétméretű</td></tr>
+    <tr><td>c)</td><td>60</td><td>90</td><td>35</td><td>26</td><td>frontális</td></tr>
+    <tr><td>d)</td><td>64</td><td>98</td><td>40</td><td>30</td><td>frontális</td></tr>
+  </table>
+  <p class="params">a: szélesség (az elölnézet szélessége), b: hosszúság (mélység), c: falmagasság, d: tetőmagasság. A gerinc a szélesség közepén fut, végig a b hosszon.</p>
+</section>
+</main>
+<script>
+const ROWS={a:[46,75,26,23,'k'],b:[60,90,32,30,'k'],c:[60,90,35,26,'f'],d:[64,98,40,30,'f']};
+const rad=x=>x*Math.PI/180;
+let row='a',cur=0;
+const svg=document.getElementById('draw');
+const fmt=x=>(Math.round(x*10)/10).toString().replace('.',',');
+
+function setup(){
+  const [a,b,c,d,t]=ROWS[row];
+  let u,v,info;
+  if(t==='k'){u=[-Math.cos(rad(7)),Math.sin(rad(7))];v=[.5*Math.cos(rad(42)),.5*Math.sin(rad(42))];
+    info={type:'kétméretű',xl:'x · 7° · 1:1',yl:'y · 42° · 1:2',ya:42};}
+  else{u=[1,0];v=[-.5*Math.cos(rad(45)),.5*Math.sin(rad(45))];
+    info={type:'frontális',xl:'x · 0° · 1:1',yl:'y · 45° · 1:2',ya:45};}
+  const P=(x,y,z)=>[x*u[0]+y*v[0],-z+x*u[1]+y*v[1]];
+  const V={A1:[0,0,0],A2:[a,0,0],A3:[a,b,0],A4:[0,b,0],B1:[0,0,c],B2:[a,0,c],B3:[a,b,c],B4:[0,b,c],R1:[a/2,0,c+d],R2:[a/2,b,c+d],M1:[a/2,0,c],M2:[a/2,b,c]};
+  const S={};for(const k in V)S[k]=P(...V[k]);
+  const F=[[['A1','A2','A3','A4'],[0,0,-1]],[['A1','A2','B2','R1','B1'],[0,-1,0]],[['A4','A3','B3','R2','B4'],[0,1,0]],
+    [['A1','A4','B4','B1'],[-1,0,0]],[['A2','A3','B3','B2'],[1,0,0]],[['B1','B4','R2','R1'],[-d,0,a/2]],[['B2','B3','R2','R1'],[d,0,a/2]]];
+  let k=[-v[0],u[0],u[0]*v[1]-v[0]*u[1]];if(k[2]<0)k=k.map(q=>-q);
+  F.forEach(f=>f.vis=f[1][0]*k[0]+f[1][1]*k[1]+f[1][2]*k[2]>1e-9);
+  const edges={};F.forEach(f=>f[0].forEach((p,i)=>{const q=f[0][(i+1)%f[0].length];const key=[p,q].sort().join('-');(edges[key]=edges[key]||[]).push(f.vis);}));
+  return {a,b,c,d,t,u,v,P,S,F,edges,info};
+}
+
+function L(S,p,q,cls){const[a,b]=[S[p],S[q]];return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="${cls}"/>`;}
+function lab(G,p,q,txt,cx,cy,cls){const A=G.S[p],B=G.S[q];const mx=(A[0]+B[0])/2,my=(A[1]+B[1])/2;let ex=B[0]-A[0],ey=B[1]-A[1];const n=Math.hypot(ex,ey)||1;let nx=-ey/n,ny=ex/n;
+  if(nx*(mx-cx)+ny*(my-cy)<0){nx=-nx;ny=-ny;}const an=nx>0.45?'start':nx<-0.45?'end':'middle';
+  return `<text x="${mx+nx*3.5}" y="${my+ny*3.5+(ny>0.3?2.6:ny<-0.3?-0.6:1.2)}" text-anchor="${an}" class="${cls||'dm'}">${txt}</text>`;}
+
+function cEdge(G){const k=['A1','A2','A3','A4'].reduce((m,p)=>G.S[p][0]>G.S[m][0]?p:m,'A1');return [k,'B'+k[1]];}
+const STEPS=[
+ {t:'1. Tengelykereszt',d:G=>G.t==='k'
+   ?'Az O pontból: a z tengely függőleges. Az x tengely 7°-ban lejt balra, rajta valódi méretet mérsz fel. Az y tengely 42°-ban lejt jobbra, rajta minden méret a fele (1:2). A szöget a vízszinteshez (szaggatott vonal) mérd.'
+   :'Az O pontból: a z tengely függőleges, az x tengely vízszintes, mindkettőn valódi méret. Az y tengely 45°-ban fut balra le, rajta minden méret a fele (1:2). Ezért a homlokzat (elölnézet) torzítás nélkül, valódi alakban rajzolható.'},
+ {t:'2. Alaplap',d:G=>`A test a koordinátasíkokhoz illeszkedik: az egyik alsó csúcs az O pontban van. Az x tengelyre a = ${G.a} mm kerül, valódi méretben. Az y tengelyre b/2 = ${fmt(G.b/2)} mm kerül, mert a b = ${G.b} mm felére rövidül. A két irányban húzott párhuzamosok adják ki az alaplap paralelogrammáját.`},
+ {t:'3. Függőleges élek',d:G=>`Mind a négy sarokból függőleges egyenest húzol, és felméred rá a c = ${G.c} mm falmagasságot. A z tengelyen nincs rövidülés.`},
+ {t:'4. Ereszvonal',d:G=>`A függőleges élek végpontjait összekötöd. Ez a felső paralelogramma, a falak teteje (z = ${G.c}). Pontosan az alaplap eltolt mása.`},
+ {t:'5. Gerinc',d:G=>`A két oromfal ereszélének felezőpontjából (az elülsőn és a hátsón) függőlegesen felméred a d = ${G.d} mm tetőmagasságot. A két csúcspontot összekötöd: ez a gerinc, párhuzamos az y tengellyel.`},
+ {t:'6. Tetősíkok',d:()=>'A gerinc két végpontját összekötöd az oromfalak ereszsarkaival. Így kijön a két ötszögű oromfal és a két ferde tetősík.'},
+ {t:'7. Kihúzás, láthatóság',d:G=>'A látható éleket vastagon húzod ki, a segédvonalakat elhagyod. Mivel a test konvex, egy él csak akkor takart, ha mindkét szomszédos lapja hátrafelé néz. Ilyen a hátsó alsó sarok három éle. Az ábrán ezek el is hagyhatók; a „takart élek” kapcsolóval szaggatottan megjelennek.'}
+];
+
+function render(){
+  const G=setup();const {S,P,a,b,c,d}=G;
+  const all=Object.values(S);
+  const axX=P(a+18,0,0),axY=P(0,b+22,0),axZ=P(0,0,c+d+14);
+  [axX,axY,axZ,[0,0]].forEach(p=>all.push(p));
+  let minx=Math.min(...all.map(p=>p[0]))-30,maxx=Math.max(...all.map(p=>p[0]))+30,miny=Math.min(...all.map(p=>p[1]))-10,maxy=Math.max(...all.map(p=>p[1]))+12;
+  svg.setAttribute('viewBox',`${minx} ${miny} ${maxx-minx} ${maxy-miny}`);
+  const cx=(S.A1[0]+S.A3[0]+S.R1[0]+S.R2[0])/4,cy=(S.A1[1]+S.A3[1]+S.R1[1]+S.R2[1])/4;
+  let h='';
+  const C=(i)=>i===cur?'con cur':'con';
+  const final=cur===6, showHid=document.getElementById('hid').checked;
+  // axes
+  const axc=cur===0?'ax cur':'ax';
+  h+=`<line x1="${minx+4}" y1="0" x2="${maxx-4}" y2="0" class="ref"/>`;
+  h+=`<line x1="0" y1="0" x2="${axX[0]}" y2="${axX[1]}" class="${axc}"/><line x1="0" y1="0" x2="${axY[0]}" y2="${axY[1]}" class="${axc}"/><line x1="0" y1="0" x2="${axZ[0]}" y2="${axZ[1]}" class="${axc}"/>`;
+  const tc=cur===0?' class="c"':'';
+  const ancX=axX[0]<0?'end':'start',ancY=axY[0]<0?'end':'start';
+  h+=`<text x="${axX[0]+(axX[0]<0?-1:1)}" y="${axX[1]+4}" text-anchor="${ancX}"${tc}>${G.info.xl}</text>`;
+  h+=`<text x="${axY[0]+(axY[0]<0?-1:1)}" y="${axY[1]+4}" text-anchor="${ancY}"${tc}>${G.info.yl}</text>`;
+  h+=`<text x="${axZ[0]+2}" y="${axZ[1]+2}"${tc}>z · 1:1</text><text x="-2" y="-2" text-anchor="end"${tc}>O</text>`;
+  if(final){
+    G.F.filter(f=>f.vis).forEach(f=>{h+=`<polygon class="face" points="${f[0].map(p=>S[p].join(',')).join(' ')}"/>`;});
+    for(const key in G.edges){const[p,q]=key.split('-');const vs=G.edges[key];
+      if(vs.some(x=>x))h+=L(S,p,q,'vis');else if(showHid)h+=L(S,p,q,'hid');}
+    h+=`<line x1="${S.M2[0]}" y1="${S.M2[1]}" x2="${S.R2[0]}" y2="${S.R2[1]}" class="thin"/>`;
+    h+=lab(G,'A4','A3','a = '+a,cx,cy)+lab(G,'A3','A2','b/2 = '+fmt(b/2),cx,cy)+lab(G,cEdge(G)[0],cEdge(G)[1],'c = '+c,cx,cy);
+    h+=`<text x="${S.M2[0]+1.5}" y="${(S.M2[1]+S.R2[1])/2+1.2}" class="dm">d = ${d}</text>`;
+  } else {
+    if(cur>=1){['A1-A2','A2-A3','A3-A4','A4-A1'].forEach(e=>{const[p,q]=e.split('-');h+=L(S,p,q,C(1));});}
+    if(cur>=2){['A1-B1','A2-B2','A3-B3','A4-B4'].forEach(e=>{const[p,q]=e.split('-');h+=L(S,p,q,C(2));});}
+    if(cur>=3){['B1-B2','B2-B3','B3-B4','B4-B1'].forEach(e=>{const[p,q]=e.split('-');h+=L(S,p,q,C(3));});}
+    if(cur>=4){h+=L(S,'M1','R1',cur===4?'thin cur':'thin')+L(S,'M2','R2',cur===4?'thin cur':'thin')+L(S,'R1','R2',C(4));
+      ['M1','M2'].forEach(m=>h+=`<circle cx="${S[m][0]}" cy="${S[m][1]}" r=".7"${cur===4?' class="c"':''}/>`);}
+    if(cur>=5){['B1-R1','B2-R1','B3-R2','B4-R2'].forEach(e=>{const[p,q]=e.split('-');h+=L(S,p,q,C(5));});}
+    const lc=i=>i===cur?'dm c':'dm';
+    if(cur===1)h+=lab(G,'A4','A3','a = '+a,cx,cy,lc(1))+lab(G,'A3','A2','b/2 = '+fmt(b/2),cx,cy,lc(1));
+    if(cur===2)h+=lab(G,cEdge(G)[0],cEdge(G)[1],'c = '+c,cx,cy,lc(2));
+    if(cur===4)h+=`<text x="${S.M2[0]+1.5}" y="${(S.M2[1]+S.R2[1])/2+1.2}" class="dm c">d = ${d}</text>`;
+  }
+  svg.innerHTML=h;
+  document.getElementById('stitle').textContent=STEPS[cur].t;
+  document.getElementById('stext').textContent=STEPS[cur].d(G);
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===STEPS.length-1;
+  [...document.getElementById('dots').children].forEach((x,i)=>x.className='dot'+(i===cur?' on':i<cur?' done':''));
+  const [ra,rb,rc,rd]=ROWS[row];
+  document.getElementById('params').textContent=`${row}) sor: a = ${ra}, b = ${rb} (rajzon ${fmt(rb/2)}), c = ${rc}, d = ${rd} mm · ${G.info.type} axonometria`;
+  [...document.getElementById('rows').children].forEach(x=>x.classList.toggle('sel',x.dataset.r===row));
+}
+const rowsEl=document.getElementById('rows');
+Object.keys(ROWS).forEach(r=>{const bt=document.createElement('button');bt.className='b';bt.dataset.r=r;bt.textContent=r+') '+(ROWS[r][4]==='k'?'kétméretű':'frontális');bt.onclick=()=>{row=r;render();};rowsEl.appendChild(bt);});
+const dots=document.getElementById('dots');
+STEPS.forEach((s,i)=>{const bt=document.createElement('button');bt.className='dot';bt.textContent=i+1;bt.onclick=()=>{cur=i;render();};dots.appendChild(bt);});
+document.getElementById('prev').onclick=()=>{cur=Math.max(0,cur-1);render();};
+document.getElementById('next').onclick=()=>{cur=Math.min(STEPS.length-1,cur+1);render();};
+document.getElementById('hid').onchange=render;
+render();
+</script>
+</body>
+</html>
