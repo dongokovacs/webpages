@@ -138,7 +138,7 @@ jobs:
           cp -r nanogas/tests-py/allure-report/. _site/nanogas-allure-report/ || true
           cp -r beauty _site/beauty
           cp vakolatbolt/index.html _site/vakolatbolt/
-          cp burkolo/index.html burkolo/biztonsag.html burkolo/vetulet.html _site/burkolo/
+          cp burkolo/index.html burkolo/biztonsag.html burkolo/vetulet.html burkolo/Axonometria.html _site/burkolo/
           # régi URL átirányítása
           printf '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../burkolo/biztonsag.html"><link rel="canonical" href="../burkolo/biztonsag.html"><a href="../burkolo/biztonsag.html">Átköltözött: burkolo/biztonsag.html</a>' > _site/burkolobiztonsag/index.html
           mkdir -p _site/kozmavivienmakeupartist
