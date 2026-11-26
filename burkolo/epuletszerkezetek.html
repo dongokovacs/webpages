@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Épületszerkezetek tananyag PDF-előnézete. A rétegrendekhez készülő, nyilakkal jelölt magyarázat hamarosan érkezik.">
+<title>Épületszerkezetek – Burkoló tananyagok</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#dde1e3;--grout-dark:#c3c9cc;--paper:#f7f7f4;
+  --ink:#16232b;--soft:#4a5862;--yellow:#f2c200;--blue:#005eb8;--orange:#c2410c;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--grout);font:1rem/1.6 var(--body)}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1120px,100% - 36px);margin-inline:auto}
+.topbar{background:var(--ink);color:#fff}
+.topbar-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{color:#fff;text-decoration:none;font:800 1rem/1.1 var(--display)}
+.back{color:var(--yellow);font-weight:700;text-decoration:none}
+.back:hover{text-decoration:underline;text-underline-offset:4px}
+.hazard{height:16px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 16px,var(--ink) 16px 32px)}
+.hero{padding:48px 0 28px}
+.eyebrow{margin:0 0 10px;color:var(--orange);font:800 .78rem/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase}
+h1,h2,p{margin-top:0}
+h1,h2{font-family:var(--display);font-stretch:85%;line-height:1.1}
+h1{margin-bottom:12px;font-size:clamp(2.4rem,6vw,4.4rem);font-weight:900;letter-spacing:-.04em}
+.lead{max-width:65ch;margin:0;color:var(--soft);font-size:1.08rem}
+.construction{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;margin:0 0 22px;padding:18px 22px;background:#fff0a8;border-left:6px solid var(--yellow)}
+.construction strong{display:block;font:900 1.15rem/1.2 var(--display);letter-spacing:.04em}
+.construction p{margin:4px 0 0}
+.construction-mark{display:grid;place-items:center;width:54px;height:54px;background:var(--ink);color:var(--yellow);font:900 1.5rem/1 var(--display)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;background:var(--ink);color:#fff;font-weight:700;text-decoration:none}
+.button:hover{background:#2c414b}
+.button.secondary{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.button.secondary:hover{background:#fff}
+.viewer{margin:0 0 60px;background:var(--paper);border-top:5px solid var(--yellow)}
+.viewer-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:12px 16px}
+.viewer-head h2{margin:0;font-size:1.1rem}
+.viewer-head span{color:var(--soft);font-size:.85rem}
+.pdf{display:block;width:100%;height:min(78vh,1000px);min-height:560px;border:0;background:#fff}
+.pdf-fallback{margin:0;padding:16px;color:var(--ink)}
+.footer{background:var(--ink);color:#fff;padding:18px 0;font-size:.9rem}
+.footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.footer a{color:var(--yellow)}
+@media(max-width:620px){
+  .wrap{width:min(100% - 28px,560px)}
+  .topbar-inner{min-height:56px}
+  .hero{padding:36px 0 22px}
+  .construction{grid-template-columns:1fr;gap:10px;padding:16px}
+  .construction-mark{display:none}
+  .pdf{height:72vh;min-height:480px}
+  .viewer-head{align-items:flex-start;flex-direction:column;gap:2px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">BURKOLÓ · TANANYAGOK</a>
+    <a class="back" href="index.html">← Vissza a tananyagokhoz</a>
+  </div>
+</header>
+<div class="hazard" aria-hidden="true"></div>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tananyag · előnézet</p>
+    <h1>Épületszerkezetek</h1>
+    <p class="lead">A forrásként kapott tananyag PDF-ben, közvetlenül az oldalon olvasható.</p>
+  </header>
+
+  <section class="construction" aria-label="Fejlesztés alatt">
+    <span class="construction-mark" aria-hidden="true">!</span>
+    <div>
+      <strong>UNDER CONSTRUCTION</strong>
+      <p>A rétegrendek nyilakkal és feliratokkal jelölt, részletes magyarázata később kerül fel. Most a teljes PDF-et tudod átnézni.</p>
+    </div>
+  </section>
+
+  <div class="actions">
+    <a class="button" href="forras/vizsga/Epuletszerkezetek.pdf" target="_blank" rel="noopener">PDF megnyitása külön lapon ↗</a>
+    <a class="button secondary" href="forras/vizsga/Epuletszerkezetek.pdf" download>PDF letöltése ↓</a>
+  </div>
+
+  <section class="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-head">
+      <h2 id="viewer-title">Tananyag előnézete</h2>
+      <span>Ha az előnézet nem jelenik meg, használd a fenti PDF-gombok egyikét.</span>
+    </div>
+    <iframe class="pdf" src="forras/vizsga/Epuletszerkezetek.pdf#view=FitH" title="Épületszerkezetek PDF-előnézete">
+      <p class="pdf-fallback">A böngésződ nem támogatja a PDF-előnézetet. <a href="forras/vizsga/Epuletszerkezetek.pdf">Nyisd meg a PDF-et.</a></p>
+    </iframe>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Burkoló tananyagok · Épületszerkezetek</span>
+    <a href="index.html">Vissza a tananyagokhoz ↑</a>
+  </div>
+</footer>
+</body>
+</html>
