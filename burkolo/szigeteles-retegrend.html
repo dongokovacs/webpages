@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Három épületszerkezeti rétegrend vizuális, görgethető magyarázata: homlokzati hőszigetelés, úsztatott padlóburkolat és tetőfedés.">
+<title>Szigetelés és rétegrendek – Burkoló tananyagok</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#dde1e3;--grout-dark:#c3c9cc;--tile:#fff;--paper:#f7f7f4;
+  --ink:#16232b;--soft:#4a5862;--yellow:#f2c200;--blue:#005eb8;--orange:#c2410c;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;color:var(--ink);background:var(--grout);font:1rem/1.65 var(--body)}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1160px,100% - 40px);margin-inline:auto}
+.topbar{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;border-bottom:4px solid var(--yellow)}
+.topbar-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{color:#fff;text-decoration:none;font:800 1rem/1.1 var(--display)}
+.topnav{display:flex;align-items:center;gap:20px;font-size:.88rem}
+.topnav a{color:#fff;text-decoration:none}
+.topnav a:hover{text-decoration:underline;text-underline-offset:4px}
+.topnav .home{color:var(--yellow);font-weight:700}
+.hero{padding:70px 0 54px}
+.eyebrow{margin:0 0 14px;color:var(--orange);font:800 .78rem/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.12}
+h1{max-width:900px;margin-bottom:16px;font-size:clamp(2.6rem,7vw,5.5rem);font-weight:900;letter-spacing:-.05em}
+h2{margin-bottom:10px;font-size:clamp(1.8rem,4vw,2.7rem);font-weight:850;letter-spacing:-.03em}
+h3{margin-bottom:8px;font-size:1.22rem;font-weight:800}
+.lead{max-width:68ch;margin:0;color:var(--soft);font-size:1.13rem}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.jump a{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--ink);color:var(--ink);font-weight:700;text-decoration:none}
+.jump a:hover{background:var(--ink);color:#fff}
+.jump b{color:var(--orange);font-family:var(--display)}
+.story{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:auto 1fr;column-gap:clamp(30px,6vw,82px);align-items:start;padding:62px 0 70px;border-top:1px solid var(--grout-dark);scroll-margin-top:78px}
+.story-head{grid-column:1;grid-row:1;margin-bottom:8px}
+.story-head .eyebrow{margin-bottom:10px}
+.story-head p:last-child{max-width:49ch;margin-bottom:0;color:var(--soft)}
+.build{grid-column:2;grid-row:1 / span 2;position:sticky;top:88px;min-height:440px;height:min(70vh,680px);margin:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:var(--paper);border-left:6px solid var(--yellow);padding:clamp(16px,2.6vw,28px)}
+.build-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.build-kicker{margin:0;color:var(--soft);font:800 .77rem/1.2 var(--display);letter-spacing:.08em;text-transform:uppercase}
+.build-count{color:var(--orange);font:800 .9rem/1.2 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.build svg{display:block;width:100%;height:auto;max-height:430px;overflow:visible}
+.build-current{display:none}
+.build figcaption{margin-top:8px;color:var(--soft);font-size:.9rem}
+.steps{grid-column:1;grid-row:2}
+.step{position:relative;min-height:34vh;padding:24px 0 30px;border-top:1px solid var(--grout-dark);display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;align-content:center;scroll-margin-top:100px}
+.step:first-child{border-top:0}
+.step-no{display:grid;place-items:center;width:34px;height:34px;background:var(--yellow);font:900 .95rem/1 var(--display);font-variant-numeric:tabular-nums}
+.step h3{margin:0 0 8px}
+.step p{max-width:52ch;margin:0;color:var(--soft)}
+.step[aria-current="step"] h3{color:var(--orange)}
+.layer{transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+html.js .layer{transform:translate(var(--dx,0px),var(--dy,0px));opacity:.3}
+html.js .layer.is-built{transform:translate(0,0);opacity:1}
+.guide{opacity:.55}
+.masonry{fill:#c5b39a;stroke:#5a5146;stroke-width:2}
+.masonry-line{stroke:#8d7b65;stroke-width:2}
+.adhesive{fill:#c87f44;stroke:#7d4421;stroke-width:1.5}
+.insulation{fill:#f1d88e;stroke:#b08b35;stroke-width:2}
+.mesh-bed{fill:#dce7df;stroke:#698778;stroke-width:2}
+.mesh-line{stroke:#567c69;stroke-width:2}
+.plaster{fill:#f7f4e9;stroke:#8b887c;stroke-width:2}
+.fastener{fill:#687c8b;stroke:#344551;stroke-width:2}
+.concrete{fill:#b9c0c2;stroke:#68777c;stroke-width:2}
+.floating{fill:#f2c200;stroke:#9a7b00;stroke-width:2}
+.screed{fill:#c4c6bf;stroke:#777a72;stroke-width:2}
+.leveler{fill:#e2d9c8;stroke:#8e8067;stroke-width:2}
+.tile-surface{fill:#fff;stroke:#16232b;stroke-width:2}
+.grout{stroke:#69757a;stroke-width:1.5}
+.perimeter{fill:#e6a184;stroke:#a64e2d;stroke-width:2}
+.timber{fill:#b68555;stroke:#654b33;stroke-width:2}
+.membrane{fill:#74a6bc;stroke:#315b6d;stroke-width:2}
+.roof-batten{fill:#8c6745;stroke:#533e2a;stroke-width:2}
+.roof-tile{fill:#c96d4b;stroke:#743a29;stroke-width:2}
+.svg-label{fill:var(--ink);font:700 15px var(--body)}
+.svg-small{fill:var(--soft);font:700 12px var(--body)}
+.note{margin:18px 0 0;padding:16px 18px;background:#fff4c2;border-left:5px solid var(--yellow)}
+.note strong{font-family:var(--display)}
+.source{padding:50px 0 62px;border-top:1px solid var(--grout-dark)}
+.source-grid{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:30px;align-items:start}
+.source-copy p{color:var(--soft)}
+.source-image{margin:0;background:#fff;padding:12px}
+.source-image a{display:block}
+.source-image img{display:block;width:100%;height:auto}
+.source-image figcaption{margin:9px 4px 3px;color:var(--soft);font-size:.9rem}
+.footer{background:var(--ink);color:#fff;padding:18px 0;font-size:.9rem}
+.footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.footer a{color:var(--yellow)}
+@media(max-width:900px){
+  .story{column-gap:28px}
+  .build{min-height:380px}
+  .step{min-height:30vh}
+}
+@media(max-width:700px){
+  .wrap{width:min(100% - 30px,560px)}
+  .topnav{gap:12px}.topnav a:not(.home){display:none}
+  .hero{padding:44px 0 36px}
+  .story{display:flex;flex-direction:column;padding:42px 0 50px;gap:18px}
+  .story-head{margin:0}
+  .build{position:sticky;z-index:2;top:64px;width:100%;height:auto;min-height:0;max-height:70vh;padding:14px;justify-content:flex-start}
+  .build svg{max-height:35vh}
+  .build-current{display:block;margin-top:5px}
+  .build-current strong{display:block;font:800 1rem/1.25 var(--display)}
+  .build-current p{margin:4px 0 0;color:var(--soft);font-size:.88rem;line-height:1.4}
+  .build figcaption{font-size:.78rem;margin-top:2px}
+  .steps{padding-top:8px}
+  .step{min-height:36vh;width:100%;padding:0;border:0}
+  .step-no,.step>div{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .source-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .layer{transition:none!important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">BURKOLÓ · TANANYAGOK</a>
+    <nav class="topnav" aria-label="Rétegrendek">
+      <a href="#homlokzat">Homlokzat</a>
+      <a href="#padlo">Padló</a>
+      <a href="#teto">Tető</a>
+      <a class="home" href="index.html">← Vissza</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="page-title">
+    <p class="eyebrow">Épületszerkezetek · rétegrendi tananyag</p>
+    <h1 id="page-title">Három szerkezet.<br>Rétegenként összeállítva.</h1>
+    <p class="lead">Görgetés közben építsd fel a forrásábra három különböző szerkezetét: a homlokzati hőszigetelést, az úsztatott padlóburkolatot és a tetőfedést. Kövesd, melyik réteg mire kerül, és mi a feladata.</p>
+    <nav class="jump" aria-label="Ugrás a rétegrendhez">
+      <a href="#homlokzat"><b>01</b> Homlokzati hőszigetelés</a>
+      <a href="#padlo"><b>02</b> Úsztatott padló</a>
+      <a href="#teto"><b>03</b> Tetőfedés</a>
+    </nav>
+  </section>
+
+  <div class="wrap">
+    <section class="story" id="homlokzat" data-story aria-labelledby="wall-title">
+      <header class="story-head">
+        <p class="eyebrow">01 · Külső falszerkezet</p>
+        <h2 id="wall-title">Homlokzati hőszigetelés</h2>
+        <p>A rétegek a teherhordó fal külső oldalára kerülnek. Haladj a faltól kifelé: ragasztás, hőszigetelő lap, erősített alapréteg, végül a homlokzati vakolat.</p>
+      </header>
+      <figure class="build" data-build data-active="0">
+        <div class="build-top"><p class="build-kicker">Rétegek felépítése</p><span class="build-count" data-count>01 / 05</span></div>
+        <svg viewBox="0 0 640 430" role="img" aria-labelledby="wall-svg-title wall-svg-desc">
+          <title id="wall-svg-title">Homlokzati hőszigetelő rendszer rétegei</title>
+          <desc id="wall-svg-desc">A meglévő falra kerül ragasztóréteg, hőszigetelő lap, üvegszövet hálóval erősített alapréteg, majd homlokzati vakolat.</desc>
+          <g class="layer" data-step="0">
+            <rect x="352" y="95" width="220" height="250" rx="2" class="masonry"/>
+            <path d="M352 157H572M352 220H572M352 283H572M425 95V157M500 95V157M390 157V220M465 157V220M535 157V220M425 220V283M500 220V283M390 283V345M465 283V345M535 283V345" class="masonry-line" fill="none"/>
+          </g>
+          <g class="layer" data-step="1" style="--dx:-46px">
+            <path d="M336 125h16v13h-16zm0 58h16v13h-16zm0 58h16v13h-16zm0 58h16v13h-16z" class="adhesive"/>
+          </g>
+          <g class="layer" data-step="2" style="--dx:-98px">
+            <rect x="276" y="95" width="60" height="250" class="insulation"/>
+            <path d="M276 120h60M276 155h60M276 190h60M276 225h60M276 260h60M276 295h60M276 330h60" stroke="#d0b767" stroke-width="2" fill="none"/>
+          </g>
+          <g class="layer" data-step="2" style="--dx:-98px">
+            <path d="M276 220H430" stroke="#344551" stroke-width="9"/>
+            <path d="M276 208v24" stroke="#344551" stroke-width="7"/>
+            <circle cx="430" cy="220" r="8" class="fastener"/>
+          </g>
+          <g class="layer" data-step="3" style="--dx:-142px">
+            <rect x="260" y="95" width="16" height="250" class="mesh-bed"/>
+            <path d="M260 108h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16m-16 24h16" class="mesh-line"/>
+          </g>
+          <g class="layer" data-step="4" style="--dx:-178px">
+            <rect x="238" y="95" width="22" height="250" class="plaster"/>
+            <path d="M241 105h16M241 335h16" stroke="#cbc6b4" stroke-width="2"/>
+          </g>
+          <path d="M238 370H572" stroke="#16232b" stroke-width="2"/>
+          <text x="238" y="395" class="svg-small">KÜLTÉR</text>
+          <text x="498" y="395" class="svg-small">BELSŐ TÉR</text>
+          <path d="M234 80H572" stroke="#c3c9cc" stroke-width="1" stroke-dasharray="5 6"/>
+        </svg>
+        <div class="build-current" aria-hidden="true"><strong data-current-title>Teherhordó fal</strong><p data-current-text>A meglévő falszerkezet a rétegrend alapja.</p></div>
+        <figcaption data-status>A rétegek a fal felől kifelé épülnek.</figcaption>
+      </figure>
+      <div class="steps">
+        <article class="step" data-step aria-current="step">
+          <span class="step-no">01</span><div><h3>Teherhordó fal</h3><p>A meglévő falszerkezet a rétegrend alapja. A felületnek alkalmasnak kell lennie a rendszer fogadására.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">02</span><div><h3>Ragasztóréteg</h3><p>A hőszigetelő táblákat a rendszerhez előírt ragasztással rögzítik a falhoz.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">03</span><div><h3>Hőszigetelő táblák</h3><p>A táblák folytonos hőszigetelő réteget alkotnak. A rajzon rögzítődübel is látható; annak típusa és kiosztása rendszerfüggő.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">04</span><div><h3>Háló és erősítő alapréteg</h3><p>Az üvegszövet hálót az alaprétegbe ágyazzák. Ez erősíti a felületet és segít a repedések mérséklésében.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">05</span><div><h3>Homlokzati vakolat</h3><p>A külső, látható bevonat védi és kialakítja a homlokzat felületét. A rétegrend együtt, rendszerként működik.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="story" id="padlo" data-story aria-labelledby="floor-title">
+      <header class="story-head">
+        <p class="eyebrow">02 · Padlószerkezet</p>
+        <h2 id="floor-title">Úsztatott padlóburkolat</h2>
+        <p>Itt a fogadószerkezettől haladunk felfelé. Az úsztató réteg elválasztja a fölötte készülő aljzatot az alsó szerkezettől; a peremszigetelés a fal melletti kapcsolatot választja le.</p>
+      </header>
+      <figure class="build" data-build data-active="0">
+        <div class="build-top"><p class="build-kicker">Rétegek felépítése</p><span class="build-count" data-count>01 / 05</span></div>
+        <svg viewBox="0 0 640 430" role="img" aria-labelledby="floor-svg-title floor-svg-desc">
+          <title id="floor-svg-title">Úsztatott padlóburkolat rétegei</title>
+          <desc id="floor-svg-desc">Alul a fogadószerkezet, felette az úsztató réteg, az aljzatbeton, az aljzatkiegyenlítő és végül a burkolat helyezkedik el. A fal mellett peremszigetelő sáv látható.</desc>
+          <g class="guide">
+            <rect x="100" y="125" width="48" height="270" fill="#d2d3cd"/>
+            <path d="M100 125h48M100 395h48" stroke="#747773" stroke-width="2"/>
+          </g>
+          <g class="layer" data-step="0">
+            <rect x="148" y="338" width="420" height="54" class="concrete"/>
+            <path d="M170 350h376M170 368h376M170 384h376" stroke="#899599" stroke-width="2"/>
+          </g>
+          <g class="layer" data-step="1" style="--dy:-42px">
+            <rect x="148" y="312" width="420" height="26" class="floating"/>
+            <path d="M166 325h384" stroke="#9a7b00" stroke-width="2" stroke-dasharray="8 6"/>
+          </g>
+          <g class="layer" data-step="2" style="--dy:-78px">
+            <rect x="148" y="246" width="420" height="66" class="screed"/>
+            <path d="M170 261h376M170 296h376" stroke="#999b93" stroke-width="2"/>
+          </g>
+          <g class="layer" data-step="3" style="--dy:-112px">
+            <rect x="148" y="234" width="420" height="12" class="leveler"/>
+          </g>
+          <g class="layer" data-step="4" style="--dy:-145px">
+            <rect x="148" y="204" width="420" height="30" class="tile-surface"/>
+            <path d="M218 204v30M288 204v30M358 204v30M428 204v30M498 204v30" class="grout"/>
+          </g>
+          <g class="layer" data-step="1" style="--dx:-25px;--dy:-12px">
+            <rect x="148" y="204" width="14" height="134" class="perimeter"/>
+          </g>
+          <path d="M148 405H568" stroke="#16232b" stroke-width="2"/>
+          <text x="168" y="425" class="svg-small">FOGADÓSZERKEZET FELŐL</text>
+          <path d="M148 188H568" stroke="#c3c9cc" stroke-width="1" stroke-dasharray="5 6"/>
+        </svg>
+        <div class="build-current" aria-hidden="true"><strong data-current-title>Fogadószerkezet</strong><p data-current-text>A teherhordó födém vagy aljzat, amelyre a padlórétegek készülnek.</p></div>
+        <figcaption data-status>A padló a fogadószerkezettől felfelé épül.</figcaption>
+      </figure>
+      <div class="steps">
+        <article class="step" data-step aria-current="step">
+          <span class="step-no">01</span><div><h3>Fogadószerkezet</h3><p>A teherhordó födém vagy aljzat, amelyre a padlórétegek készülnek.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">02</span><div><h3>Úsztató- és peremszigetelő réteg</h3><p>Az úsztató réteg anyaga a kialakítástól függ. A függőleges peremszigetelő sáv a falat választja el a padlótól; nem egy újabb vízszintes réteg.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">03</span><div><h3>Aljzatbeton</h3><p>Az úsztató rétegen fekvő aljzatbeton elosztja a terheket. A réteg nem kapcsolódhat mereven a falhoz, ha úsztatott szerkezet készül.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">04</span><div><h3>Aljzatkiegyenlítő</h3><p>A burkolás előtt kialakítja a szükséges, egyenletes fogadófelületet. A terméket és vastagságot az aljzat állapota határozza meg.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">05</span><div><h3>Burkolat</h3><p>A járólap a legfelső, használatnak kitett réteg. A rajz rétegrendi szemléltetés; a burkolatragasztó és fuga nincs külön feltüntetve.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="story" id="teto" data-story aria-labelledby="roof-title">
+      <header class="story-head">
+        <p class="eyebrow">03 · Magastető</p>
+        <h2 id="roof-title">Tetőfedés</h2>
+        <p>A tető rétegei a szarufák felől kifelé épülnek. Az ellenlécek légrést alakítanak ki az alátétfólia felett; a tetőlécekre kerülnek a cserepek.</p>
+      </header>
+      <figure class="build" data-build data-active="0">
+        <div class="build-top"><p class="build-kicker">Rétegek felépítése</p><span class="build-count" data-count>01 / 05</span></div>
+        <svg viewBox="0 0 640 430" role="img" aria-labelledby="roof-svg-title roof-svg-desc">
+          <title id="roof-svg-title">Cserépfedés rétegei a szarufáktól kifelé</title>
+          <desc id="roof-svg-desc">A szarufák felett alátétfólia, ellenlécek, tetőlécek, majd hódfarkú alapcserepek vannak. A cserepek alkotják a külső fedést.</desc>
+          <g transform="rotate(-23 340 235)">
+            <g class="layer" data-step="0">
+              <rect x="110" y="291" width="465" height="58" class="timber"/>
+              <path d="M205 291v58M320 291v58M435 291v58M550 291v58" stroke="#654b33" stroke-width="3"/>
+            </g>
+            <g class="layer" data-step="1" style="--dy:-34px">
+              <rect x="102" y="278" width="485" height="10" class="membrane"/>
+              <path d="M102 283h485" stroke="#d6edf5" stroke-width="2" stroke-dasharray="8 7"/>
+            </g>
+            <g class="layer" data-step="2" style="--dy:-69px">
+              <rect x="145" y="245" width="20" height="32" class="roof-batten"/>
+              <rect x="260" y="245" width="20" height="32" class="roof-batten"/>
+              <rect x="375" y="245" width="20" height="32" class="roof-batten"/>
+              <rect x="490" y="245" width="20" height="32" class="roof-batten"/>
+            </g>
+            <g class="layer" data-step="3" style="--dy:-103px">
+              <rect x="115" y="225" width="32" height="18" class="roof-batten"/>
+              <rect x="220" y="225" width="32" height="18" class="roof-batten"/>
+              <rect x="325" y="225" width="32" height="18" class="roof-batten"/>
+              <rect x="430" y="225" width="32" height="18" class="roof-batten"/>
+              <rect x="535" y="225" width="32" height="18" class="roof-batten"/>
+              <rect x="100" y="225" width="18" height="25" class="roof-batten"/>
+            </g>
+            <g class="layer" data-step="4" style="--dy:-140px">
+              <path d="M105 183h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66zm58 0h66v40h-66z" class="roof-tile"/>
+              <path d="M163 183v40m58-40v40m58-40v40m58-40v40m58-40v40m58-40v40m58-40v40" stroke="#e59a7d" stroke-width="2"/>
+            </g>
+          </g>
+          <path d="M120 374H558" stroke="#16232b" stroke-width="2"/>
+          <text x="120" y="400" class="svg-small">BELSŐ TÉR</text>
+          <text x="481" y="400" class="svg-small">KÜLTÉR</text>
+        </svg>
+        <div class="build-current" aria-hidden="true"><strong data-current-title>Szarufák</strong><p data-current-text>A tető teherhordó faelemei, amelyekre a bemutatott fedési rétegrend épül.</p></div>
+        <figcaption data-status>A szarufáktól a külső fedés felé épül.</figcaption>
+      </figure>
+      <div class="steps">
+        <article class="step" data-step aria-current="step">
+          <span class="step-no">01</span><div><h3>Szarufák</h3><p>A tető teherhordó faelemei, amelyekre a bemutatott fedési rétegrend épül.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">02</span><div><h3>Alátétfólia</h3><p>A fedés alá kerülő másodlagos védőréteg. Nem azonos a hőszigeteléssel, és nem helyettesíti a teljes tető rétegrendjét.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">03</span><div><h3>Ellenlécek</h3><p>Az alátétfólia fölött, a szarufák irányában futnak. Légrést biztosítanak a fedés alatt.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">04</span><div><h3>Tetőlécek</h3><p>Az ellenlécekre keresztben rögzülnek; a kiosztásukat a választott cserép és a gyártói előírás határozza meg. Az ereszlécet a rajz a tető alsó szélén külön is jelöli.</p></div>
+        </article>
+        <article class="step" data-step>
+          <span class="step-no">05</span><div><h3>Hódfarkú alapcserepek</h3><p>A cserepek adják a külső héjazatot, amely védi az épületet az időjárástól.</p></div>
+        </article>
+      </div>
+      <aside class="note"><strong>Figyeld a különbséget:</strong> a forrásábrán tetőfedés látható. A szarufák közötti hőszigetelés, párazáró réteg és belső burkolat nincs ezen a rajzon feltüntetve.</aside>
+    </section>
+  </div>
+
+  <section class="source wrap" aria-labelledby="source-title">
+    <div class="source-grid">
+      <div class="source-copy">
+        <p class="eyebrow">Kiinduló ábra</p>
+        <h2 id="source-title">A három eredeti rétegrend</h2>
+        <p>A könyv ábrái mutatják a magyarázat alapjául szolgáló szerkezeteket. Kattints a fotóra a teljes méretű kép megnyitásához.</p>
+      </div>
+      <figure class="source-image">
+        <a href="forras/vizsga/szigeteles-retegrend.jpg" target="_blank" rel="noopener">
+          <img src="forras/vizsga/szigeteles-retegrend.jpg" alt="Tankönyvi oldal három épületszerkezeti ábrával: homlokzati hőszigetelő rendszer, úsztatott padlóburkolati rétegrend és tetőfedés." loading="lazy" decoding="async">
+        </a>
+        <figcaption>Homlokzati hőszigetelés · úsztatott padló · tetőfedés.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Burkoló tananyagok · Épületszerkezeti rétegrendek</span>
+    <a href="index.html">Vissza a tananyagokhoz ↑</a>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+const stories = [...document.querySelectorAll('[data-story]')];
+const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function updateStories() {
+  const marker = window.innerHeight * 0.52;
+
+  stories.forEach(story => {
+    const steps = [...story.querySelectorAll('.step[data-step]')];
+    const build = story.querySelector('[data-build]');
+    if (!steps.length || !build) return;
+
+    let active = 0;
+    let nearest = Infinity;
+    steps.forEach((step, index) => {
+      const rect = step.getBoundingClientRect();
+      const distance = Math.abs(rect.top + rect.height / 2 - marker);
+      if (distance < nearest) {
+        nearest = distance;
+        active = index;
+      }
+    });
+
+    build.dataset.active = active;
+    build.querySelector('[data-count]').textContent =
+      `${String(active + 1).padStart(2, '0')} / ${String(steps.length).padStart(2, '0')}`;
+    build.querySelector('[data-current-title]').textContent = steps[active].querySelector('h3').textContent;
+    build.querySelector('[data-current-text]').textContent = steps[active].querySelector('p').textContent;
+    build.querySelectorAll('.layer[data-step]').forEach(layer => {
+      layer.classList.toggle('is-built', Number(layer.dataset.step) <= active);
+    });
+    steps.forEach((step, index) => {
+      if (index === active) step.setAttribute('aria-current', 'step');
+      else step.removeAttribute('aria-current');
+    });
+  });
+}
+
+let scheduled = false;
+function scheduleUpdate() {
+  if (scheduled) return;
+  scheduled = true;
+  requestAnimationFrame(() => {
+    updateStories();
+    scheduled = false;
+  });
+}
+
+if (motionReduced) {
+  stories.forEach(story => {
+    const steps = [...story.querySelectorAll('.step[data-step]')];
+    const build = story.querySelector('[data-build]');
+    if (build) {
+      build.querySelectorAll('.layer[data-step]').forEach(layer => layer.classList.add('is-built'));
+      build.querySelector('[data-count]').textContent = `${String(steps.length).padStart(2, '0')} / ${String(steps.length).padStart(2, '0')}`;
+      build.querySelector('[data-current-title]').textContent = steps.at(-1).querySelector('h3').textContent;
+      build.querySelector('[data-current-text]').textContent = steps.at(-1).querySelector('p').textContent;
+    }
+    steps.forEach(step => step.removeAttribute('aria-current'));
+  });
+} else {
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+  updateStories();
+}
+</script>
+</body>
+</html>

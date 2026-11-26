@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Gres járólap anyagszükségletének kiszámítása: az alaprajz területe, 5% vágási ráhagyás és a szükséges dobozszám, lépésről lépésre.">
+<title>Gres járólap – anyagszükséglet számítása</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#dde1e3;--grout-dark:#c3c9cc;--tile:#fff;--paper:#f7f7f4;
+  --ink:#16232b;--soft:#4a5862;--yellow:#f2c200;--blue:#005eb8;--orange:#c2410c;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;color:var(--ink);background:var(--grout);font:1rem/1.65 var(--body)}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1080px,100% - 36px);margin-inline:auto}
+.topbar{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;border-bottom:4px solid var(--yellow)}
+.topbar-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{color:#fff;text-decoration:none;font:800 1rem/1.1 var(--display)}
+.topnav{display:flex;align-items:center;gap:20px;font-size:.88rem}
+.topnav a{color:#fff;text-decoration:none}
+.topnav a:hover{text-decoration:underline;text-underline-offset:4px}
+.topnav .home{color:var(--yellow);font-weight:700}
+.hero{padding:62px 0 34px}
+.eyebrow{margin:0 0 12px;color:var(--orange);font:800 .78rem/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.12}
+h1{max-width:850px;margin-bottom:16px;font-size:clamp(2.5rem,7vw,5.1rem);font-weight:900;letter-spacing:-.045em}
+h2{margin-bottom:10px;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:850;letter-spacing:-.025em}
+h3{margin-bottom:8px;font-size:1.2rem;font-weight:800}
+.lead{max-width:66ch;margin:0;color:var(--soft);font-size:1.12rem}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:32px;border-block:1px solid var(--grout-dark)}
+.stat{padding:16px 18px 17px 0}
+.stat+.stat{padding-left:20px;border-left:1px solid var(--grout-dark)}
+.stat strong{display:block;font:800 clamp(1.35rem,3vw,2rem)/1.1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:5px;color:var(--soft);font-size:.88rem}
+.section{padding:28px 0 44px;scroll-margin-top:78px}
+.section-head{display:grid;grid-template-columns:60px minmax(0,1fr);gap:16px;align-items:start;margin-bottom:20px}
+.section-no{display:grid;place-items:center;width:52px;height:52px;background:var(--yellow);font:900 1.3rem/1 var(--display)}
+.section-intro{max-width:68ch;margin:0;color:var(--soft)}
+.paper{background:var(--paper);padding:clamp(20px,4vw,34px);border-top:1px solid var(--grout-dark)}
+.plan{margin:0;padding:16px;background:#fff}
+.plan svg{display:block;width:100%;height:auto}
+.plan figcaption,.photo figcaption{margin-top:9px;color:var(--soft);font-size:.9rem}
+.region{stroke:var(--ink);stroke-width:2}
+.measure{stroke:var(--blue);stroke-width:2;fill:none}
+.dimension{fill:var(--blue);font:700 19px var(--body)}
+.area-label{fill:var(--ink);font:800 18px var(--body);text-anchor:middle}
+.area-small{fill:var(--soft);font:700 14px var(--body);text-anchor:middle}
+.split{stroke:#fff;stroke-width:3;stroke-dasharray:8 7;fill:none}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.formula{margin:14px 0;padding:14px 16px;background:#fff;border-left:4px solid var(--orange);font-size:1.02rem}
+.formula strong{font-variant-numeric:tabular-nums}
+.formula .result{display:block;margin-top:4px;font:800 1.22rem/1.35 var(--display);font-variant-numeric:tabular-nums}
+.copy{color:var(--soft)}
+.callout{margin:18px 0 0;padding:16px 18px;background:#fff4c2;border-left:5px solid var(--yellow)}
+.callout strong{font-family:var(--display)}
+.answer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;margin-top:18px;padding:22px;background:var(--ink);color:#fff}
+.answer strong{display:block;color:var(--yellow);font:850 clamp(1.8rem,4vw,2.6rem)/1.1 var(--display)}
+.answer p{margin:6px 0 0;color:#d9e0e3}
+.answer .math{padding-left:20px;border-left:1px solid #53616a;font-variant-numeric:tabular-nums}
+.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.photo{margin:0;background:#fff;padding:12px}
+.photo a{display:block}
+.photo img{display:block;width:100%;height:auto}
+.photo figcaption{padding:0 4px 4px}
+.footer{margin-top:12px;background:var(--ink);color:#fff;padding:17px 0;font-size:.9rem}
+.footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.footer a{color:var(--yellow)}
+@media(max-width:760px){
+  .topnav{gap:12px}.topnav a:not(.home){display:none}
+  .hero{padding-top:42px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){padding-left:0;border-left:0;border-top:1px solid var(--grout-dark)}
+  .stat:nth-child(4){border-top:1px solid var(--grout-dark)}
+  .grid-2,.photos{grid-template-columns:1fr}
+  .section-head{grid-template-columns:46px minmax(0,1fr);gap:12px}
+  .section-no{width:42px;height:42px;font-size:1.1rem}
+  .answer{grid-template-columns:1fr}
+  .answer .math{padding:14px 0 0;border-left:0;border-top:1px solid #53616a}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">BURKOLÓ · TANANYAGOK</a>
+    <nav class="topnav" aria-label="Oldal navigáció">
+      <a href="#terulet">Terület</a>
+      <a href="#dobozok">Dobozszám</a>
+      <a href="#munkalap">Eredeti munkalap</a>
+      <a class="home" href="index.html">← Vissza</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="page-title">
+    <p class="eyebrow">Számítási útmutató · kidolgozott példa</p>
+    <h1 id="page-title">Gres járólap,<br>kiszámolva lépésről lépésre.</h1>
+    <p class="lead">Először bontsd egyszerű alakzatokra a helyiség alaprajzát, majd számold hozzá a vágási veszteséget. A végén a szükséges lapmennyiséget egész dobozra kell felfelé kerekíteni.</p>
+    <div class="hero-stats" aria-label="A példa fő adatai">
+      <div class="stat"><strong>31,00 m²</strong><span>burkolandó alapterület</span></div>
+      <div class="stat"><strong>+5%</strong><span>vágási ráhagyás</span></div>
+      <div class="stat"><strong>32,55 m²</strong><span>megrendelendő lapmennyiség</span></div>
+      <div class="stat"><strong>26 doboz</strong><span>1,26 m²-es kiszerelésből</span></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="terulet" aria-labelledby="area-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">01</span>
+      <div>
+        <h2 id="area-title">Bontsd fel az alaprajzot</h2>
+        <p class="section-intro">Az összetett helyiség alakját három könnyen számolható részre osztjuk. A ferde oldal 5 m, a hozzá tartozó befogók 3 m és 4 m: ez egy 3–4–5-ös derékszögű háromszög.</p>
+      </div>
+    </div>
+    <div class="paper grid-2">
+      <figure class="plan">
+        <svg viewBox="0 0 760 590" role="img" aria-labelledby="plan-title plan-desc">
+          <title id="plan-title">A burkolandó helyiség alaprajza három részre bontva</title>
+          <desc id="plan-desc">A helyiség egy 3-szor 3 méteres téglalapból, egy 3 és 4 méteres befogójú derékszögű háromszögből, valamint egy 4-szer 4 méteres téglalapból áll. A ferde oldal 5 méter.</desc>
+          <defs>
+            <marker id="arrow-start" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M7 0 0 3.5 7 7" fill="none" stroke="#005eb8" stroke-width="1.5"/></marker>
+            <marker id="arrow-end" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="m0 0 7 3.5L0 7" fill="none" stroke="#005eb8" stroke-width="1.5"/></marker>
+          </defs>
+          <path d="M130 90H340V300H130Z" fill="#f2c200" class="region"/>
+          <path d="M340 90 620 300H340Z" fill="#f6df82" class="region"/>
+          <path d="M340 300H620V580H340Z" fill="#d9e8ef" class="region"/>
+          <path d="M340 90V300M130 300H340M340 300H620" class="split"/>
+          <path d="M130 62H340M130 70V54M340 70V54" class="measure" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+          <text x="235" y="48" class="dimension" text-anchor="middle">3 m</text>
+          <path d="M92 90V300M100 90H84M100 300H84" class="measure" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+          <text x="65" y="200" class="dimension" text-anchor="middle" transform="rotate(-90 65 200)">3 m</text>
+          <path d="M340 335H620M340 327V343M620 327V343" class="measure" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+          <text x="480" y="367" class="dimension" text-anchor="middle">4 m</text>
+          <path d="M655 300V580M647 300H663M647 580H663" class="measure" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+          <text x="690" y="445" class="dimension" text-anchor="middle" transform="rotate(-90 690 445)">4 m</text>
+          <text x="485" y="164" class="dimension" text-anchor="middle" transform="rotate(36.9 485 164)">5 m</text>
+          <text x="235" y="190" class="area-label">3 × 3 m</text>
+          <text x="235" y="218" class="area-small">9,00 m²</text>
+          <text x="435" y="245" class="area-label">3 × 4 ÷ 2</text>
+          <text x="435" y="272" class="area-small">6,00 m²</text>
+          <text x="480" y="435" class="area-label">4 × 4 m</text>
+          <text x="480" y="463" class="area-small">16,00 m²</text>
+        </svg>
+        <figcaption>Az ábra nem méretarányos. A szaggatott vonalak jelzik, hol bontjuk részekre az alaprajzot.</figcaption>
+      </figure>
+      <div>
+        <h3>A méreteket váltsd méterre</h3>
+        <p class="copy">A területet négyzetméterben számoljuk, ezért a milliméteres adatokat el kell osztani 1000-rel.</p>
+        <div class="formula"><strong>3000 mm ÷ 1000 = 3 m</strong></div>
+        <div class="formula"><strong>4000 mm ÷ 1000 = 4 m</strong></div>
+        <div class="formula"><strong>5000 mm ÷ 1000 = 5 m</strong></div>
+        <div class="callout"><strong>Gyors ellenőrzés:</strong> a ferde oldal hossza megfelel a Pitagorasz-tételnek: √(3² + 4²) = 5 m.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="base-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">02</span>
+      <div>
+        <h2 id="base-title">Add össze a részterületeket</h2>
+        <p class="section-intro">A téglalap területe oldal × oldal, a derékszögű háromszögé befogó × befogó ÷ 2.</p>
+      </div>
+    </div>
+    <div class="paper">
+      <div class="grid-2">
+        <div>
+          <h3>1. téglalap</h3>
+          <div class="formula">3 m × 3 m <span class="result">= 9,00 m²</span></div>
+        </div>
+        <div>
+          <h3>2. téglalap</h3>
+          <div class="formula">4 m × 4 m <span class="result">= 16,00 m²</span></div>
+        </div>
+        <div>
+          <h3>Derékszögű háromszög</h3>
+          <div class="formula">(3 m × 4 m) ÷ 2 <span class="result">= 6,00 m²</span></div>
+        </div>
+        <div>
+          <h3>Teljes alapterület</h3>
+          <div class="formula">9,00 + 16,00 + 6,00 <span class="result">= 31,00 m²</span></div>
+        </div>
+      </div>
+      <div class="callout"><strong>Eddig a nettó felületet kaptuk meg.</strong> Burkolólapot nem érdemes pontosan erre a mennyiségre rendelni: a szabás és a törés miatt ráhagyásra lesz szükség.</div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="dobozok" aria-labelledby="boxes-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">03</span>
+      <div>
+        <h2 id="boxes-title">Számold hozzá a ráhagyást, majd a dobozokat</h2>
+        <p class="section-intro">A példában 5% veszteséggel számolunk, egy doboz pedig 1,26 m² burkolólapot tartalmaz.</p>
+      </div>
+    </div>
+    <div class="paper">
+      <div class="grid-2">
+        <div>
+          <h3>1. Növeld meg a területet 5%-kal</h3>
+          <p class="copy">Az 1,05-ös szorzó az alapmennyiséget és az 5% ráhagyást együtt jelenti.</p>
+          <div class="formula">31,00 m² × 1,05 <span class="result">= 32,55 m²</span></div>
+        </div>
+        <div>
+          <h3>2. Oszd el a doboz kiszerelésével</h3>
+          <p class="copy">A dobozok száma nem lehet tört, ezért az eredményt mindig felfelé kerekítsd.</p>
+          <div class="formula">32,55 m² ÷ 1,26 m²/doboz <span class="result">= 25,83 doboz → 26 doboz</span></div>
+        </div>
+      </div>
+      <div class="answer" aria-label="A példa végeredménye">
+        <div>
+          <strong>26 doboz</strong>
+          <p>Ennyit kell megrendelni a teljes burkolandó felülethez.</p>
+        </div>
+        <div class="math">
+          <b>Ellenőrzés</b><br>
+          26 × 1,26 = 32,76 m²<br>
+          32,76 − 32,55 = 0,21 m² marad
+        </div>
+      </div>
+      <div class="callout"><strong>Fontos:</strong> ne a legközelebbi egészre kerekíts, hanem mindig felfelé. A tényleges ráhagyás függhet a lap méretétől, a rakásmintától, a vágásoktól és a helyszíni adottságoktól; nagyobb vagy bonyolultabb felületnél ezt külön is mérlegeld.</div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="munkalap" aria-labelledby="source-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">04</span>
+      <div>
+        <h2 id="source-title">Az eredeti levezetés</h2>
+        <p class="section-intro">A magyarázat alapjául szolgáló két lap fotója. Kattints a képre a teljes méretű változat megnyitásához.</p>
+      </div>
+    </div>
+    <div class="photos">
+      <figure class="photo">
+        <a href="forras/gres_kiszamitas1.jpg" target="_blank" rel="noopener">
+          <img src="forras/gres_kiszamitas1.jpg" alt="Az eredeti számítás első oldala: méretátváltás, az alaprajz részeinek területe és a 31 négyzetméteres összeg." loading="lazy" decoding="async">
+        </a>
+        <figcaption>1. lap – a méretek átváltása és a helyiség alapterülete.</figcaption>
+      </figure>
+      <figure class="photo">
+        <a href="forras/gres_kiszamitas2.jpg" target="_blank" rel="noopener">
+          <img src="forras/gres_kiszamitas2.jpg" alt="Az eredeti számítás második oldala: 5 százalékos ráhagyás, 26 dobozra kerekítés és mennyiség-ellenőrzés." loading="lazy" decoding="async">
+        </a>
+        <figcaption>2. lap – ráhagyás, dobozszám és ellenőrzés.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>Burkoló tananyagok · Gres járólap anyagszükséglete</span>
+    <a href="index.html">Vissza a tananyagokhoz ↑</a>
+  </div>
+</footer>
+</body>
+</html>

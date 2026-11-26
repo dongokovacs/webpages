@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kétkarú lépcső méretezése és burkolóanyag-szükséglet számítása közérthetően, levezetett példával és ábrákkal.">
+<title>Lépcsőburkolás – számítási útmutató</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#dde1e3;--grout-dark:#c3c9cc;--tile:#fff;--paper:#f7f7f4;
+  --ink:#16232b;--soft:#4a5862;--yellow:#f2c200;--blue:#005eb8;--orange:#c2410c;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;color:var(--ink);background:var(--grout);font:1rem/1.65 var(--body)}
+a{color:var(--blue)}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1120px,100% - 36px);margin-inline:auto}
+.topbar{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;border-bottom:4px solid var(--yellow)}
+.topbar-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{color:#fff;text-decoration:none;font:800 1rem/1.1 var(--display);letter-spacing:.01em}
+.topnav{display:flex;align-items:center;gap:22px;font-size:.88rem}
+.topnav a{color:#fff;text-decoration:none}
+.topnav a:hover{text-decoration:underline;text-underline-offset:4px}
+.topnav .home{color:var(--yellow);font-weight:700}
+.hero{padding:64px 0 42px}
+.eyebrow{margin:0 0 12px;color:var(--orange);font:800 .78rem/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.12}
+h1{max-width:820px;margin-bottom:16px;font-size:clamp(2.5rem,7vw,5.3rem);font-weight:900;letter-spacing:-.045em}
+.lead{max-width:64ch;margin:0;color:var(--soft);font-size:1.12rem}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px;border-block:1px solid var(--grout-dark)}
+.stat{padding:16px 18px 17px 0}
+.stat+.stat{padding-left:20px;border-left:1px solid var(--grout-dark)}
+.stat strong{display:block;font:800 clamp(1.35rem,3vw,2rem)/1.1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:5px;color:var(--soft);font-size:.88rem}
+.hero-visual{margin:28px 0 0;background:var(--tile);border-left:6px solid var(--yellow);padding:18px 22px 10px}
+.hero-visual svg,.diagram svg{display:block;width:100%;height:auto}
+.visual-caption{margin:3px 0 5px;color:var(--soft);font-size:.86rem}
+.section{padding:30px 0 46px;scroll-margin-top:78px}
+.section-head{display:grid;grid-template-columns:70px minmax(0,1fr);gap:18px;align-items:start;margin-bottom:22px}
+.section-no{display:grid;place-items:center;width:56px;height:56px;background:var(--yellow);font:900 1.35rem/1 var(--display)}
+h2{margin-bottom:8px;font-size:clamp(1.75rem,4vw,2.7rem);font-weight:850;letter-spacing:-.025em}
+.section-intro{max-width:68ch;margin:0;color:var(--soft)}
+.paper{background:var(--paper);padding:clamp(20px,4vw,36px);border-top:1px solid var(--grout-dark)}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.subhead{margin-bottom:10px;font-size:1.18rem;font-weight:800}
+.copy{color:var(--soft)}
+.formula{margin:14px 0;padding:14px 16px;background:#fff;border-left:4px solid var(--orange);font-size:1.04rem}
+.formula strong{color:var(--ink)}
+.formula .result{display:block;margin-top:4px;font:800 1.2rem/1.35 var(--display);font-variant-numeric:tabular-nums}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:11px 12px;border-bottom:1px solid var(--grout-dark);text-align:left;vertical-align:top}
+th{font:800 .83rem/1.3 var(--display);color:var(--soft)}
+td:last-child,th:last-child{text-align:right}
+.table-note{margin:12px 0 0;color:var(--soft);font-size:.9rem}
+.callout{margin:18px 0 0;padding:16px 18px;background:#fff4c2;border-left:5px solid var(--yellow)}
+.callout strong{font-family:var(--display)}
+.diagram{margin:0;background:#fff;padding:18px}
+.diagram figcaption{margin-top:8px;color:var(--soft);font-size:.88rem}
+.svg-ink{stroke:var(--ink);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.svg-faint{stroke:var(--grout-dark);fill:none;stroke-width:1.5}
+.svg-accent{stroke:var(--orange);fill:none;stroke-width:2}
+.svg-dash{stroke:var(--soft);fill:none;stroke-width:1.5;stroke-dasharray:6 5}
+.svg-label{fill:var(--ink);font:700 15px var(--body)}
+.svg-small{fill:var(--soft);font:14px var(--body)}
+.area-calc{display:grid;gap:0}
+.area-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;padding:13px 0;border-bottom:1px solid var(--grout-dark)}
+.area-line strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+.area-line.total{padding-top:18px;border:0;font:850 1.28rem/1.3 var(--display)}
+.area-line.total strong{color:var(--orange)}
+.choice-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.choice{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:9px 14px;cursor:pointer;font-weight:700}
+.choice[aria-pressed="true"]{background:var(--ink);color:#fff}
+.tile-result{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;background:var(--ink);color:#fff;padding:22px;margin:16px 0}
+.tile-result strong{display:block;color:var(--yellow);font:850 clamp(1.7rem,4vw,2.5rem)/1.1 var(--display);font-variant-numeric:tabular-nums}
+.tile-result span{font-size:.9rem;color:#d9e0e3}
+.tile-result p{margin:8px 0 0}
+.tile-math{padding-left:20px;border-left:1px solid #53616a;font-variant-numeric:tabular-nums}
+.tile-math b{color:#fff}
+.layout-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.layout-item{padding:16px 0;border-top:4px solid var(--yellow)}
+.layout-item h3{margin:0 0 8px;font-size:1.18rem}
+.layout-item p{margin:10px 0 0;color:var(--soft);font-size:.93rem}
+.tile-plan{width:100%;height:auto;display:block;background:#fff}
+.tile-plan .full{fill:#f2c200;stroke:#16232b;stroke-width:1}
+.tile-plan .cut{fill:#f7d95b;stroke:#16232b;stroke-width:1}
+.tile-plan .grout{stroke:#16232b;stroke-width:1}
+.material-table td:nth-child(3),.material-table th:nth-child(3){text-align:right}
+.material-table td:last-child,.material-table th:last-child{text-align:right;font-weight:700}
+.endnote{padding:24px 0 58px;color:var(--soft);font-size:.9rem}
+.endnote strong{color:var(--ink)}
+.footer{background:var(--ink);color:#fff;padding:17px 0;font-size:.88rem}
+.footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer a{color:var(--yellow)}
+@media(max-width:760px){
+  .topnav{gap:12px}.topnav a:not(.home){display:none}
+  .hero{padding-top:42px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){padding-left:0;border-left:0;border-top:1px solid var(--grout-dark)}
+  .stat:nth-child(4){border-top:1px solid var(--grout-dark)}
+  .grid-2,.grid-3,.layout-grid{grid-template-columns:1fr}
+  .section-head{grid-template-columns:48px minmax(0,1fr);gap:12px}
+  .section-no{width:42px;height:42px;font-size:1.1rem}
+  .tile-result{grid-template-columns:1fr}
+  .tile-math{padding:14px 0 0;border-left:0;border-top:1px solid #53616a}
+  th,td{padding:9px 8px}
+}
+@media print{
+  body{background:#fff;font-size:10pt}
+  .topbar{position:static;background:#fff;color:#000;border-bottom:2px solid #000}
+  .brand,.topnav a{color:#000}
+  .topnav a:not(.home),.choice-row,.footer{display:none}
+  .hero{padding:20px 0}
+  .section{padding:16px 0}
+  .paper,.hero-visual,.diagram{break-inside:avoid}
+  .tile-result{background:#eee;color:#000}
+  .tile-result strong{color:#000}
+  a{color:inherit;text-decoration:none}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">BURKOLÓ · TANANYAGOK</a>
+    <nav class="topnav" aria-label="Oldal navigáció">
+      <a href="#geometria">Geometria</a>
+      <a href="#felulet">Felületek</a>
+      <a href="#anyagok">Anyaglista</a>
+      <a class="home" href="index.html">← Vissza</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="page-title">
+    <p class="eyebrow">Számítási útmutató · kidolgozott példa</p>
+    <h1 id="page-title">Lépcsőburkolás,<br>érthetően kiszámolva.</h1>
+    <p class="lead">Egy kétkarú lépcsőn végigvesszük, hogyan lesz a szintkülönbségből kényelmes fok, a méretekből burkolandó felület, a felületből pedig megrendelhető anyagmennyiség.</p>
+    <div class="hero-stats" aria-label="A példa fő adatai">
+      <div class="stat"><strong>300 cm</strong><span>szintkülönbség</span></div>
+      <div class="stat"><strong>16</strong><span>fellépő összesen</span></div>
+      <div class="stat"><strong>25 × 25 cm</strong><span>választott burkolólap</span></div>
+      <div class="stat"><strong>17,94 m²</strong><span>nettó burkolandó felület</span></div>
+    </div>
+    <figure class="hero-visual">
+      <svg viewBox="0 0 860 290" role="img" aria-labelledby="hero-svg-title hero-svg-desc">
+        <title id="hero-svg-title">Egy lépcsőkar oldalnézeti méretezése</title>
+        <desc id="hero-svg-desc">Nyolc fellépő 150 centimétert emelkedik, hét belépő 175 centimétert halad előre.</desc>
+        <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0 0 8 4 0 8Z" fill="#005eb8"/></marker></defs>
+        <path d="M100 245 V224 H148 V203 H196 V182 H244 V161 H292 V140 H340 V119 H388 V98 H436 V77 H505" class="svg-ink"/>
+        <path d="M87 245H530" class="svg-faint"/>
+        <path d="M130 257H430" stroke="#005eb8" stroke-width="1.7" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+        <path d="M116 241V83" stroke="#005eb8" stroke-width="1.7" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+        <path d="M150 224 430 77" class="svg-dash"/>
+        <text x="275" y="280" text-anchor="middle" class="svg-label">7 belépő × 25 cm = 175 cm</text>
+        <text x="70" y="164" text-anchor="middle" transform="rotate(-90 70 164)" class="svg-label">8 fellépő × 18,75 cm = 150 cm</text>
+        <text x="507" y="68" class="svg-small">felső pihenő szintje</text>
+        <text x="476" y="152" class="svg-small">α ≈ 40,6°</text>
+        <text x="105" y="267" class="svg-small">alsó szint</text>
+      </svg>
+      <figcaption class="visual-caption">Egy kar emelkedése 150 cm; a másik kar ugyanennyit emel, így együtt adják ki a 300 cm-t.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section wrap" id="geometria" aria-labelledby="geometry-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">01</span>
+      <div><h2 id="geometry-title">Először a fokok méretét találjuk meg</h2>
+        <p class="section-intro">A jó kiindulás nem a lap mérete, hanem a két szint közötti magasság. Ebből számoljuk a fellépést, utána választunk hozzá kényelmes belépőt.</p></div>
+    </div>
+    <div class="paper grid-2">
+      <div>
+        <h3 class="subhead">A lépcső adatai</h3>
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr><th>Szintkülönbség</th><td>300 cm</td></tr>
+              <tr><th>Lépcsőkarok száma</th><td>2 egyforma kar</td></tr>
+              <tr><th>Fellépők száma</th><td>16 összesen · 8 karonként</td></tr>
+              <tr><th>Belépők száma</th><td>14 összesen · 7 karonként</td></tr>
+              <tr><th>Karszélesség</th><td>120 cm</td></tr>
+              <tr><th>Pihenő mérete</th><td>260 × 130 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">A fellépő a függőleges emelkedés; a belépő az a vízszintes felület, ahová a láb kerül.</p>
+      </div>
+      <div>
+        <h3 class="subhead">1. A fellépő magassága</h3>
+        <p class="copy">A teljes emelkedést egyenlő magasságú fokokra osztjuk. Az egyenlő fellépés biztonságosabb és járás közben kiszámíthatóbb.</p>
+        <div class="formula">300 cm ÷ 16 fellépő <span class="result">= 18,75 cm / fellépő</span></div>
+        <h3 class="subhead">2. A belépő ellenőrzése</h3>
+        <p class="copy">A szokásos lépcsőfok-ellenőrzés: <strong>2 × fellépő + belépő = 60–64 cm</strong>. Ebből kiszámítható, milyen belépő fér a tartományba.</p>
+        <div class="formula">60 − 2 × 18,75 ≤ belépő ≤ 64 − 2 × 18,75
+          <span class="result">22,5 cm ≤ belépő ≤ 26,5 cm</span></div>
+        <div class="callout"><strong>Választás:</strong> 25 cm-es belépővel a képlet értéke 2 × 18,75 + 25 = <strong>62,5 cm</strong>, tehát beleesik a 60–64 cm-es ellenőrző tartományba.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="slope-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">02</span>
+      <div><h2 id="slope-title">A kar hossza és a teljes helyigény</h2>
+        <p class="section-intro">A karonkénti 8 fellépés 150 cm emelkedést ad. Mivel az utolsó fellépés a pihenőre érkezik, ehhez karonként 7 belépő tartozik.</p></div>
+    </div>
+    <div class="paper grid-2">
+      <div>
+        <h3 class="subhead">Egy kar méretei</h3>
+        <div class="formula">8 × 18,75 cm = <strong>150 cm emelkedés</strong><br>7 × 25 cm = <strong>175 cm vízszintes hossz</strong></div>
+        <div class="formula">tan(α) = 150 ÷ 175 = 0,8571
+          <span class="result">α = arctan(0,8571) ≈ 40,6°</span></div>
+        <p class="copy">A 40,6° a feladatban megadott, helytakarékos lakáslépcsőre jellemző tartományba esik. A fokszabály csak gyors ellenőrzés: a végleges méreteket a helyi előírásokkal és a tervvel is egyeztetni kell.</p>
+      </div>
+      <div>
+        <h3 class="subhead">Alaprajzi befoglaló méret</h3>
+        <figure class="diagram">
+          <svg viewBox="0 0 520 230" role="img" aria-labelledby="plan-title plan-desc">
+            <title id="plan-title">A lépcsőház alaprajzi befoglaló mérete</title>
+            <desc id="plan-desc">Két 120 centiméter széles kar és egy 20 centiméteres orsótér összesen 260 centiméter. A hossz 130 plusz 175 plusz 130, összesen 435 centiméter.</desc>
+            <rect x="95" y="32" width="300" height="150" fill="#f7f7f4" stroke="#16232b" stroke-width="2"/>
+            <rect x="95" y="32" width="138" height="150" fill="#f2c200" opacity=".8"/>
+            <rect x="257" y="32" width="138" height="150" fill="#f2c200" opacity=".8"/>
+            <rect x="233" y="32" width="24" height="150" fill="#dde1e3" stroke="#16232b" stroke-width="1"/>
+            <path d="M103 166h118M103 145h118M103 124h118M103 103h118M103 82h118M103 61h118M103 40h118M265 40h118M265 61h118M265 82h118M265 103h118M265 124h118M265 145h118M265 166h118" class="svg-faint"/>
+            <path d="M88 24H402M88 24v8M402 24v8" class="svg-accent"/>
+            <text x="245" y="18" text-anchor="middle" class="svg-label">260 cm = 120 + 20 + 120</text>
+            <path d="M418 32v150m-5-150h10m-10 150h10" class="svg-accent"/>
+            <text x="439" y="111" transform="rotate(90 439 111)" text-anchor="middle" class="svg-label">435 cm = 130 + 175 + 130</text>
+            <text x="164" y="106" text-anchor="middle" class="svg-small">1. kar</text>
+            <text x="245" y="108" text-anchor="middle" class="svg-small" transform="rotate(-90 245 108)">orsótér</text>
+            <text x="326" y="106" text-anchor="middle" class="svg-small">2. kar</text>
+          </svg>
+          <figcaption>Sematikus felülnézet. A szélességben két 120 cm-es kar és a 20 cm-es középső orsótér szerepel.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="felulet" aria-labelledby="area-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">03</span>
+      <div><h2 id="area-title">A burkolandó felület összeadása</h2>
+        <p class="section-intro">Ne csak a vízszintes fokokat mérjük: a függőleges fellépők és mindhárom pihenő is burkolatot kap. Minden métert méterre váltunk, mielőtt területet számolunk.</p></div>
+    </div>
+    <div class="paper grid-2">
+      <div class="area-calc" aria-label="Burkolandó felületek részletes számítása">
+        <div class="area-line"><span><strong>Pihenők</strong><br>3 × 2,60 m × 1,30 m</span><strong>10,14 m²</strong></div>
+        <div class="area-line"><span><strong>Fellépők</strong><br>16 × 1,20 m × 0,1875 m</span><strong>3,60 m²</strong></div>
+        <div class="area-line"><span><strong>Belépők</strong><br>14 × 1,20 m × 0,25 m</span><strong>4,20 m²</strong></div>
+        <div class="area-line total"><span>Nettó burkolandó felület</span><strong>17,94 m²</strong></div>
+      </div>
+      <div>
+        <h3 class="subhead">Miért 14 belépő, ha 16 fellépő van?</h3>
+        <p class="copy">A fokok vízszintes lapjai nem fedik le a pihenőket. Karonként 8 fellépés vezet fel a pihenő szintjére, de csak 7 külön belépő van a karon; a következő vízszintes felület már a pihenő.</p>
+        <div class="callout"><strong>Területellenőrzés:</strong> 10,14 + 3,60 + 4,20 = <strong>17,94 m²</strong>. Ez a nettó felület; a ráhagyás csak a laprendelésnél kerül hozzá.</div>
+        <p class="table-note">Az oldallapok, homloklapok vagy külön lábazat nincsenek beleszámítva, mert a feladat nem ad meg ilyen burkolandó felületet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="tiles-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">04</span>
+      <div><h2 id="tiles-title">Hány lapot érdemes rendelni?</h2>
+        <p class="section-intro">A 25 × 25 cm-es lap területe 0,0625 m², ezért 1 m²-re 16 darab jut. A szabás miatt a nettó felülethez ráhagyást adunk.</p></div>
+    </div>
+    <div class="paper">
+      <div class="grid-2">
+        <div>
+          <h3 class="subhead">Válaszd ki a fektetési módot</h3>
+          <p class="copy">Az alábbi százalékok a feladatban használt becslések. Bonyolult alaprajznál, sok saroknál vagy eltérő lapméretnél a tényleges vágási terv módosíthatja őket.</p>
+          <div class="choice-row" role="group" aria-label="Fektetési mód">
+            <button class="choice" type="button" data-waste="10" aria-pressed="true">Hálós · 10%</button>
+            <button class="choice" type="button" data-waste="12" aria-pressed="false">Kötésben · 12%</button>
+            <button class="choice" type="button" data-waste="15" aria-pressed="false">Diagonál · 15%</button>
+          </div>
+        </div>
+        <div>
+          <h3 class="subhead">A számítás menete</h3>
+          <div class="formula">Nettó terület × (1 + ráhagyás)
+            <span class="result">17,94 × 1,10 = 19,734 m²</span></div>
+          <p class="copy">A lapdarabszámot felfelé kerekítjük. A dobozok száma is egész doboz: a példában 1 doboz = 1 m² = 16 lap.</p>
+        </div>
+      </div>
+      <div class="tile-result" aria-live="polite" aria-atomic="true">
+        <div><strong id="gross-area">19,73 m²</strong><span id="method-name">Hálós lerakás · 10% ráhagyás</span>
+          <p><b id="tile-count">316 lap</b> szükséges, azaz <b id="box-count">20 doboz</b> (320 lap).</p></div>
+        <div class="tile-math"><span id="tile-equation">17,94 × 1,10 = 19,734 m² → 316 lap → 20 doboz</span><br><span>Mindig egész lapra, majd teljes dobozra kerekítünk felfelé.</span></div>
+      </div>
+      <p class="table-note">A vágási ráhagyás nem azt jelenti, hogy minden négyzetméteren pontosan ennyi anyag vész el; ez tervezési tartalék a vágásokhoz, töréshez és mintakiosztáshoz.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="layout-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">05</span>
+      <div><h2 id="layout-title">A kiosztás a levágott darabokat is befolyásolja</h2>
+        <p class="section-intro">A burkoló előre kijelöli a középvonalat, és ehhez igazítja a fugákat. Így a széleken kiegyensúlyozott vágott darabok maradnak, nem egy keskeny csík.</p></div>
+    </div>
+    <div class="paper layout-grid">
+      <article class="layout-item">
+        <h3>Hálós, egyenes</h3>
+        <svg class="tile-plan" viewBox="0 0 260 105" role="img" aria-label="Szimmetrikus egyenes kiosztás: három egész lap és két szélső vágás">
+          <rect x="10" y="15" width="240" height="72" fill="#fff" stroke="#16232b"/>
+          <path d="M55 15v72M105 15v72M155 15v72M205 15v72" class="grout"/>
+          <path d="M55 15H10v72h45M205 15h45v72h-45" class="cut"/>
+          <text x="32" y="55" text-anchor="middle" class="svg-small">22,5</text>
+          <text x="80" y="55" text-anchor="middle" class="svg-small">25</text>
+          <text x="130" y="55" text-anchor="middle" class="svg-small">25</text>
+          <text x="180" y="55" text-anchor="middle" class="svg-small">25</text>
+          <text x="228" y="55" text-anchor="middle" class="svg-small">22,5</text>
+        </svg>
+        <p>A 120 cm-es szélességben 3 egész lap (75 cm) mellé két, egyenként 22,5 cm-es szélső darab kerül. A 25 cm-es belépőmélység éppen egy lap szélessége.</p>
+      </article>
+      <article class="layout-item">
+        <h3>Félkötésben</h3>
+        <svg class="tile-plan" viewBox="0 0 260 120" role="img" aria-label="Váltott soros félkötéses kiosztás, 12,5 centiméteres eltolással">
+          <rect x="10" y="12" width="240" height="80" fill="#fff" stroke="#16232b"/>
+          <path d="M60 12v40M110 12v40M160 12v40M210 12v40M35 52v40M85 52v40M135 52v40M185 52v40M235 52v40M10 52h240" class="grout"/>
+          <path d="M210 12h40v40h-40M10 52h25v40H10M235 52h15v40h-15" class="cut"/>
+          <text x="130" y="112" text-anchor="middle" class="svg-small">minden második sor 12,5 cm-rel eltolva</text>
+        </svg>
+        <p>A sorok fél lapnyival eltolódnak. A példában a szélső vágások váltakoznak: az egyik sorban 22,5 cm, a következőben 10 cm széles darabokkal.</p>
+      </article>
+      <article class="layout-item">
+        <h3>Diagonál, 45°</h3>
+        <svg class="tile-plan" viewBox="0 0 220 105" role="img" aria-label="Négyzetes burkolólapok 45 fokos átlós kiosztása, a széleken háromszög alakú vágásokkal">
+          <defs><pattern id="diag" width="50" height="50" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="50" height="50" fill="#fff"/><path d="M0 0H50V50" fill="none" stroke="#16232b" stroke-width="1.2"/></pattern></defs>
+          <rect x="10" y="12" width="240" height="80" fill="url(#diag)" stroke="#16232b"/>
+          <path d="M10 12 55 12 10 57ZM250 47 250 92 205 92Z" fill="#f2c200" opacity=".75"/>
+        </svg>
+        <p>A lapok átlója 25 × √2 ≈ 35,36 cm. A széleken több háromszög alakú vágás keletkezik, ezért a feladat ehhez a módhoz adja a legnagyobb, 15%-os ráhagyást.</p>
+      </article>
+      <div class="callout" style="grid-column:1/-1"><strong>Fontos a valós kiosztásnál:</strong> a fenti méretek névlegesek. A fuga szélességét, a lap tényleges méretét, az élvédő helyét és a lépcső geometriáját a helyszínen ellenőrizni kell a vágások véglegesítése előtt.</div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="anyagok" aria-labelledby="materials-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">06</span>
+      <div><h2 id="materials-title">Segédanyagok és rendelési mennyiségek</h2>
+        <p class="section-intro">A segédanyagok becslése a 17,94 m² nettó felületből és a dokumentumban megadott fajlagos felhasználásból indul. A csomagokat egészre kerekítjük.</p></div>
+    </div>
+    <div class="paper">
+      <div class="table-wrap">
+        <table class="material-table">
+          <thead><tr><th>Anyag</th><th>Hogyan számoljuk?</th><th>Számított igény</th><th>Rendelési mennyiség</th></tr></thead>
+          <tbody>
+            <tr><td>Burkolólap</td><td>17,94 m² × ráhagyás; 16 lap/m²</td><td id="table-tile-count">316 db</td><td id="table-box-count">20 doboz · 320 db</td></tr>
+            <tr><td>Flexibilis csemperagasztó</td><td>17,94 × 4,5 kg/m² (kétoldali kenéssel)</td><td>80,73 kg</td><td>4 × 25 kg = 100 kg</td></tr>
+            <tr><td>Flexibilis fugázó, 3 mm fugához</td><td>17,94 × 0,45 kg/m²</td><td>8,07 kg</td><td>2 × 5 kg = 10 kg</td></tr>
+            <tr><td>Lépcsőélvédő profil</td><td>16 él × 1,20 m</td><td>19,20 fm</td><td>8 × 2,50 m = 20 fm</td></tr>
+            <tr><td>Kenhető vízszigetelés, 2 réteg</td><td>17,94 × 1,5 kg/m²</td><td>26,91 kg</td><td>2 × 15 kg = 30 kg</td></tr>
+            <tr><td>Hajlaterősítő szalag</td><td>3 × 5,20 m + 2 × 2,31 m</td><td>20,21 fm</td><td>3 × 10 m = 30 m</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><strong>Ragasztó példa:</strong> 17,94 m² × 4,5 kg/m² = 80,73 kg. 25 kg-os zsákokból 80,73 ÷ 25 = 3,23 zsák, ezért legalább <strong>4 zsákkal</strong> kell számolni. A tényleges fogyás függ az aljzat síkpontosságától, a fogazott glettvas méretétől és a gyártói előírástól.</div>
+      <p class="table-note">A fuga- és vízszigetelő anyag fajlagos fogyasztása termékenként eltérhet. Rendelés előtt a kiválasztott termék adatlapján ellenőrizd a kiadósságot. A lapmennyiség táblázata a fektetési mód gombjával együtt frissül.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="check-title">
+    <div class="section-head">
+      <span class="section-no" aria-hidden="true">✓</span>
+      <div><h2 id="check-title">Gyors ellenőrző lista</h2>
+        <p class="section-intro">A levezetés akkor kerek, ha a fő számok egymással is összhangban vannak.</p></div>
+    </div>
+    <div class="paper grid-3">
+      <div><h3 class="subhead">Magasság</h3><p class="copy">16 × 18,75 cm = <strong>300 cm</strong>, tehát a két szint közötti emelkedés kijön.</p></div>
+      <div><h3 class="subhead">Karonként</h3><p class="copy">8 fellépő × 18,75 cm = <strong>150 cm</strong>; 7 belépő × 25 cm = <strong>175 cm</strong>.</p></div>
+      <div><h3 class="subhead">Burkolat</h3><p class="copy">10,14 + 3,60 + 4,20 = <strong>17,94 m² nettó</strong>; csak ezután adjuk hozzá a vágási ráhagyást.</p></div>
+    </div>
+  </section>
+
+  <aside class="endnote wrap">
+    <strong>Megjegyzés:</strong> ez oktatási célú, a megadott feladat adataira épülő mennyiségi levezetés. Nem helyettesíti a helyszíni felmérést, a statikai vagy építészeti tervet, a hatályos előírások ellenőrzését és az adott burkolatrendszer gyártói útmutatóját.
+  </aside>
+</main>
+<footer class="footer"><div class="wrap"><span>Burkoló tananyagok · lépcsőburkolás</span><a href="index.html">Vissza a tananyagokhoz</a></div></footer>
+
+<script>
+(() => {
+  const netArea = 17.94;
+  const tilesPerSquareMeter = 16;
+  const modes = {
+    10: { name: "Hálós lerakás", factor: 1.10 },
+    12: { name: "Kötésben rakás", factor: 1.12 },
+    15: { name: "Diagonál lerakás", factor: 1.15 }
+  };
+  const fmt = (value, digits = 2) => value.toFixed(digits).replace(".", ",");
+  const update = (waste) => {
+    const mode = modes[waste];
+    const grossArea = netArea * mode.factor;
+    const tileCount = Math.ceil(grossArea * tilesPerSquareMeter);
+    const boxCount = Math.ceil(tileCount / tilesPerSquareMeter);
+    const orderedTiles = boxCount * tilesPerSquareMeter;
+    document.getElementById("gross-area").textContent = `${fmt(grossArea)} m²`;
+    document.getElementById("method-name").textContent = `${mode.name} · ${waste}% ráhagyás`;
+    document.getElementById("tile-count").textContent = `${tileCount} lap`;
+    document.getElementById("box-count").textContent = `${boxCount} doboz`;
+    document.getElementById("tile-equation").textContent =
+      `17,94 × ${fmt(mode.factor, 2)} = ${fmt(grossArea, 3)} m² → ${tileCount} lap → ${boxCount} doboz`;
+    document.getElementById("table-tile-count").textContent = `${tileCount} db`;
+    document.getElementById("table-box-count").textContent = `${boxCount} doboz · ${orderedTiles} db`;
+    document.querySelectorAll(".choice").forEach((button) => {
+      button.setAttribute("aria-pressed", String(Number(button.dataset.waste) === waste));
+    });
+  };
+  document.querySelectorAll(".choice").forEach((button) => {
+    button.addEventListener("click", () => update(Number(button.dataset.waste)));
+  });
+  update(10);
+})();
+</script>
+</body>
+</html>
