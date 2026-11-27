@@ -165,6 +165,9 @@ td.num span{display:inline-grid;place-items:center;min-width:30px;height:30px;ba
   border:2px dashed var(--blue);background:#eef5fc;color:var(--ink);font:700 clamp(9px,1.35cqw,14px)/1 var(--body);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
 .slot:hover{background:#dcebfa;z-index:3}
 .slot.filled{border-style:solid;border-color:var(--ink);background:#fff8d6}
+.slot.missing{border-color:var(--orange);border-style:solid;background:#ffe2cf;box-shadow:0 0 0 2px var(--orange)}
+.slot.current{outline:4px solid var(--yellow);outline-offset:2px;z-index:5}
+.q.current{outline:4px solid var(--yellow);outline-offset:2px}
 .slot.armed{outline:3px solid var(--orange);outline-offset:1px;background:#ffe9db}
 .slot.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);z-index:4;overflow:visible}
 .slot .t{overflow:hidden;text-overflow:ellipsis}
@@ -191,7 +194,10 @@ td.num span{display:inline-grid;place-items:center;min-width:30px;height:30px;ba
 .btn{border:0;cursor:pointer;font:800 1.15rem/1 var(--display);padding:18px 28px;background:var(--yellow);color:var(--ink)}
 .btn:hover{filter:brightness(1.06)}
 .btn.ghost{background:transparent;color:#fff;border:2px solid #fff;font-size:1rem;padding:12px 20px}
-.finish-msg{color:#ffd5c2;font-size:.95rem;min-height:1.4em}
+.finish-msg{color:#ffd5c2;font-size:.95rem;min-height:1.4em;max-width:62ch;margin:0}
+.finish-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn.next{background:var(--orange);color:#fff}
+.btn.warn{background:#fff;color:var(--red)}
 .result{margin-top:34px;background:var(--tile);color:var(--ink);padding:clamp(20px,4vw,36px);border-top:8px solid var(--yellow)}
 .score{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
 .score .big{font:900 clamp(3rem,10vw,5.5rem)/.9 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
@@ -495,7 +501,10 @@ footer{padding:30px 0 50px;color:var(--soft);font-size:.9rem}
     </div>
 
     <div class="finish">
-      <button class="btn" id="evalBtn" type="button">Kiértékelés</button>
+      <div class="finish-row">
+        <button class="btn" id="evalBtn" type="button">Kiértékelés</button>
+        <button class="btn next" id="nextBtn" type="button" hidden>Következő hiányzó →</button>
+      </div>
       <p class="finish-msg" id="finishMsg" role="status"></p>
     </div>
     <div id="result" hidden></div>
@@ -580,13 +589,13 @@ function renderQs(list,host,part){
       var opts=el("div","opts"); opts.setAttribute("role","radiogroup");
       shuffle(item.o.map(function(t,k){return {t:t,k:k};})).forEach(function(op){
         var lab=el("label","opt"); var inp=document.createElement("input"); inp.type="radio"; inp.name=id; inp.value=op.k;
-        inp.addEventListener("change",function(){answers[id]=op.k;box.classList.remove("missing");update();});
+        inp.addEventListener("change",function(){answers[id]=op.k;box.classList.remove("missing","current");update();});
         lab.appendChild(inp); lab.appendChild(el("span",null,op.t)); lab.dataset.k=op.k; opts.appendChild(lab);
       });
       box.appendChild(opts);
     }else{
       var row=el("div","numrow"); var inp=document.createElement("input"); inp.type="text"; inp.inputMode="decimal"; inp.autocomplete="off"; inp.setAttribute("aria-label",item.q);
-      inp.addEventListener("input",function(){var v=inp.value.trim(); if(v){answers[id]=v;box.classList.remove("missing");}else delete answers[id]; update();});
+      inp.addEventListener("input",function(){var v=inp.value.trim(); if(v){answers[id]=v;box.classList.remove("missing","current");}else delete answers[id]; update();});
       row.appendChild(inp); row.appendChild(el("span",null,item.unit)); box.appendChild(row);
     }
     host.appendChild(box);
@@ -640,7 +649,7 @@ function paint(st){
   var g=st.g;
   st.slotEls.forEach(function(b,i){
     var s=g.slots[i], cid=st.place[i]; b.innerHTML="";
-    b.classList.toggle("filled",cid!=null); b.classList.toggle("armed",st.armed===i);
+    b.classList.toggle("filled",cid!=null); b.classList.toggle("armed",st.armed===i); if(cid!=null) b.classList.remove("missing","current");
     if(g.pt) b.appendChild(el("span","n",String(s.n)));
     if(cid!=null){ var t=chipById(st,cid).t; b.appendChild(el("span","t",t)); b.title=t+" (kattints a visszavételhez)"; b.setAttribute("aria-label",(s.n?s.n+". hely: ":"")+t+", kattints a visszavételhez"); }
     else { b.title="Üres hely"; b.setAttribute("aria-label",(s.n?s.n+". ":"")+"üres hely"); }
@@ -666,28 +675,53 @@ function update(){
   var t=totals();
   document.getElementById("pDone").textContent=t.done; document.getElementById("pAll").textContent=t.all;
   document.getElementById("pBar").style.width=(t.all?100*t.done/t.all:0)+"%";
-  if(t.done===t.all) document.getElementById("finishMsg").textContent="";
+  if(warned) warnMsg(t);
 }
 update();
 
 /* ---------- Kiértékelés ---------- */
 function numOk(item,v){var n=parseFloat(String(v).replace(",",".").replace(/[^\d.\-]/g,""));return !isNaN(n)&&Math.abs(n-item.num)<0.01;}
+var warned=false, lastJump=null;
+function missingList(){
+  return Array.prototype.filter.call(document.querySelectorAll("#teszt .q, #teszt .slot"),function(e){
+    return e.classList.contains("q") ? answers[e.id.slice(2)]==null : !e.classList.contains("filled");
+  });
+}
+function jumpTo(e){
+  document.querySelectorAll("#teszt .current").forEach(function(x){x.classList.remove("current");});
+  e.classList.add("current"); lastJump=e;
+  e.scrollIntoView({behavior:"smooth",block:"center"});
+  var f=e.querySelector&&e.querySelector("input"); if(f){ try{f.focus({preventScroll:true});}catch(_){} } else { try{e.focus({preventScroll:true});}catch(_){} }
+}
+function warnMsg(t){
+  var miss=t.all-t.done, msg=document.getElementById("finishMsg"), btn=document.getElementById("evalBtn"), nx=document.getElementById("nextBtn");
+  if(!miss){ msg.textContent="Minden kész, mehet a kiértékelés!"; btn.textContent="Kiértékelés"; btn.className="btn"; nx.hidden=true; return; }
+  msg.textContent="Még "+miss+" válasz hiányzik, narancssárgával jelöltük őket. A „Következő hiányzó” gombbal sorban végigmehetsz rajtuk. Ha így is a Kiértékelésre kattintasz, a hiányzók hibának számítanak.";
+  btn.textContent="Kiértékelés így ("+miss+" hiányzó = hiba)"; btn.className="btn warn"; nx.hidden=false;
+}
+document.getElementById("nextBtn").addEventListener("click",function(){
+  var list=missingList(); if(!list.length){update();return;}
+  var nxt=list[0];
+  if(lastJump){ for(var i=0;i<list.length;i++){ if(lastJump.compareDocumentPosition(list[i]) & Node.DOCUMENT_POSITION_FOLLOWING){ nxt=list[i]; break; } } }
+  jumpTo(nxt);
+});
 document.getElementById("evalBtn").addEventListener("click",function(){
   if(locked){reset();return;}
-  var t=totals(), msg=document.getElementById("finishMsg");
-  if(t.done<t.all){
-    var first=null;
-    allQ.forEach(function(it){if(answers[it.id]==null){var b=document.getElementById("q-"+it.id);b.classList.add("missing");if(!first)first=b;}});
-    if(!first){for(var k in games){var g=games[k];for(var i=0;i<g.g.slots.length;i++){if(g.place[i]==null){first=g.slotEls[i];break;}}if(first)break;}}
-    msg.textContent="Még "+(t.all-t.done)+" válasz hiányzik. Odaugrottam az első kitöltetlenhez.";
-    if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+  var t=totals();
+  if(t.done<t.all && !warned){
+    warned=true;
+    var list=missingList();
+    list.forEach(function(e){e.classList.add("missing");});
+    warnMsg(t);
+    if(list.length) jumpTo(list[0]);
     return;
   }
   evaluate();
 });
 
 function evaluate(){
-  locked=true;
+  locked=true; document.getElementById("nextBtn").hidden=true;
+  document.querySelectorAll("#teszt .missing, #teszt .current").forEach(function(x){x.classList.remove("missing","current");});
   var wrong=[], parts=[], score=0, total=0;
   function part(name,ok,all){parts.push({n:name,ok:ok,all:all});score+=ok;total+=all;}
   [["I. Tetőszerkezet kérdések",Q1],["V. Lépcsőméretezés",Q2]].forEach(function(p){
@@ -695,9 +729,10 @@ function evaluate(){
     p[1].forEach(function(it){
       var box=document.getElementById("q-"+it.id), a=answers[it.id], good, yours, right;
       box.querySelectorAll("input").forEach(function(i){i.disabled=true;});
-      if(it.o){ good=(+a===it.c); yours=it.o[a]; right=it.o[it.c];
+      var none=(a==null);
+      if(it.o){ good=!none&&(+a===it.c); yours=none?"nincs válasz":it.o[a]; right=it.o[it.c];
         if(!good){ box.querySelectorAll(".opt").forEach(function(l){ if(+l.dataset.k===+a) l.classList.add("is-wrong"); if(+l.dataset.k===it.c) l.classList.add("is-right"); }); }
-      }else{ good=numOk(it,a); yours=a+" "+it.unit; right=it.num+" "+it.unit+" ("+it.ex+")";
+      }else{ good=!none&&numOk(it,a); yours=none?"nincs válasz":a+" "+it.unit; right=it.num+" "+it.unit+" ("+it.ex+")";
         if(!good) box.querySelector("input").classList.add("is-wrong"); }
       if(good) ok++; else {
         box.classList.add("wrong");
@@ -711,11 +746,11 @@ function evaluate(){
   ["fedelszek","haz","lepcso"].forEach(function(k){
     var st=games[k], ok=0;
     st.g.slots.forEach(function(s,i){
-      var t=chipById(st,st.place[i]).t;
+      var cid=st.place[i], t=cid!=null?chipById(st,cid).t:null;
       if(t===s.a) ok++; else {
         var b=st.slotEls[i]; b.classList.add("wrong");
         var tip=el("span","wrongtip","helyes: "+s.a); b.appendChild(tip);
-        wrong.push({src:names[k],q:(s.n?s.n+". szám":"Hely")+(s.n?"":" a rajzon"),yours:t,right:s.a,el:b});
+        wrong.push({src:names[k],q:(s.n?s.n+". szám":"Hely")+(s.n?"":" a rajzon"),yours:t==null?"üresen hagytad":t,right:s.a,el:b});
       }
     });
     part(names[k],ok,st.g.slots.length);
@@ -752,7 +787,7 @@ function showResult(score,total,parts,wrong){
   r.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function reset(){
-  locked=false; answers={};
+  locked=false; answers={}; warned=false; lastJump=null; document.getElementById("nextBtn").hidden=true;
   document.querySelectorAll(".q").forEach(function(b){b.remove();});
   allQ=[]; qNo=0;
   renderQs(Q1,document.getElementById("qs1"),"t1"); renderQs(Q2,document.getElementById("qs2"),"t2");
