@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tetőszerkezetek és lépcsőszerkesztés: állószékes fedélszék, az épület szerkezeti elemei, lépcsőfogalmak és lépcsőméretezés, interaktív témazáró gyakorló teszttel.">
+<title>Tetőszerkezet és lépcső – Burkoló tananyagok</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..900&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grout:#dde1e3;--grout-dark:#c3c9cc;--tile:#fff;--paper:#f7f7f4;
+  --ink:#16232b;--soft:#4a5862;--yellow:#f2c200;--blue:#005eb8;--orange:#c2410c;
+  --red:#b42318;--red-bg:#fde8e6;--green:#1d7a46;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;color:var(--ink);background:var(--grout);font:1rem/1.65 var(--body)}
+a{color:var(--blue)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+.topbar{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;border-bottom:4px solid var(--yellow)}
+.topbar-inner{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{color:#fff;text-decoration:none;font:800 1rem/1.1 var(--display)}
+.topnav{display:flex;align-items:center;gap:18px;font-size:.88rem;flex-wrap:wrap}
+.topnav a{color:#fff;text-decoration:none}
+.topnav a:hover{text-decoration:underline;text-underline-offset:4px}
+.topnav .home{color:var(--yellow);font-weight:700}
+.topnav .cta{background:var(--yellow);color:var(--ink);padding:6px 12px;font-weight:700}
+@media (max-width:760px){.topnav a:not(.home):not(.cta){display:none}}
+
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.12}
+h1{max-width:900px;margin-bottom:16px;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;letter-spacing:-.04em}
+h2{margin-bottom:12px;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:850;letter-spacing:-.03em}
+h3{margin-bottom:8px;font-size:1.2rem;font-weight:800}
+.eyebrow{margin:0 0 12px;color:var(--orange);font:800 .78rem/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase}
+.lead{max-width:66ch;color:var(--soft);font-size:1.12rem}
+.hero{padding:64px 0 44px}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:6px;background:var(--grout-dark);padding:6px;margin-top:30px;counter-reset:p}
+.path a{background:var(--tile);padding:14px 16px;text-decoration:none;color:var(--ink);font-weight:700;line-height:1.3;display:flex;gap:10px;align-items:flex-start}
+.path a::before{counter-increment:p;content:counter(p);font:900 .9rem/1 var(--display);background:var(--yellow);min-width:26px;height:26px;display:grid;place-items:center}
+.path a.test::before{content:"✓";background:var(--ink);color:#fff}
+.path a:hover{background:var(--paper)}
+
+section.mod{padding:56px 0;border-top:1px solid var(--grout-dark);scroll-margin-top:70px}
+.mod-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,60px);align-items:start}
+@media (max-width:860px){.mod-grid{grid-template-columns:1fr}}
+.panel{background:var(--tile);padding:clamp(18px,3vw,28px);border-top:6px solid var(--yellow)}
+.panel.orange{border-top-color:var(--orange)}
+.panel.ink{border-top-color:var(--ink)}
+.prose p,.prose li{color:var(--soft)}
+.prose strong{color:var(--ink)}
+.prose ul{padding-left:1.15em;margin:0 0 14px}
+.prose li{margin-bottom:6px}
+figure{margin:0}
+figure.shot{background:var(--tile);padding:10px}
+figure.shot img{width:100%;height:auto}
+figure.shot figcaption{padding:10px 4px 2px;color:var(--soft);font-size:.9rem}
+.stack-gap>*+*{margin-top:18px}
+.note{margin:16px 0 0;padding:14px 16px;background:#fff4c2;border-left:5px solid var(--yellow);font-size:.95rem}
+.note.blue{background:#e6f0fa;border-left-color:var(--blue)}
+
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:6px;background:var(--grout-dark);padding:6px;margin:18px 0 0}
+.term{background:var(--tile);padding:16px 18px}
+.term b{display:block;font:800 1.05rem/1.2 var(--display);font-stretch:90%;margin-bottom:4px}
+.term span{color:var(--soft);font-size:.95rem;line-height:1.5;display:block}
+.term .tag{display:inline-block;margin-bottom:8px;padding:2px 8px;font:800 .7rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff}
+.term .tag.y{background:var(--yellow);color:var(--ink)}
+.term .tag.o{background:var(--orange)}
+
+.layers{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column-reverse;gap:4px}
+.layers li{display:flex;align-items:center;gap:12px;padding:10px 14px;font-weight:700;color:var(--ink);background:var(--paper);border-left:10px solid var(--c)}
+.layers li small{font-weight:400;color:var(--soft)}
+.layers li i{font-style:normal;font:900 .85rem/1 var(--display);color:var(--soft);margin-left:auto}
+
+.symbols{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--grout-dark);padding:6px;margin-top:14px}
+.symbols div{background:var(--tile);padding:14px 10px;text-align:center;font-size:.9rem}
+.symbols svg{display:block;margin:0 auto 8px}
+
+.table-wrap{overflow-x:auto;background:var(--tile)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--grout);vertical-align:top}
+th{font:800 .78rem/1.3 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);background:var(--paper)}
+td.num{font:900 1rem/1.3 var(--display);font-variant-numeric:tabular-nums;width:56px;text-align:center}
+td.num span{display:inline-grid;place-items:center;min-width:30px;height:30px;background:var(--yellow)}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:6px;background:var(--grout-dark);padding:6px}
+.group{background:var(--tile);padding:16px 18px}
+.group h3{font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.group h3::before{content:"";width:12px;height:12px;background:var(--c)}
+.group ol{list-style:none;margin:0;padding:0;font-size:.93rem}
+.group li{display:flex;gap:10px;padding:4px 0;border-top:1px dashed var(--grout)}
+.group li b{font-family:var(--display);min-width:24px;text-align:right;color:var(--soft);font-variant-numeric:tabular-nums}
+
+.calc{counter-reset:c;list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.calc>li{background:var(--tile);padding:18px 20px 18px 64px;position:relative}
+.calc>li::before{counter-increment:c;content:counter(c);position:absolute;left:18px;top:18px;width:32px;height:32px;display:grid;place-items:center;background:var(--orange);color:#fff;font:900 1rem/1 var(--display)}
+.calc h3{margin-bottom:6px}
+.calc p{margin:0 0 6px;color:var(--soft)}
+.formula{display:inline-block;margin-top:4px;padding:8px 14px;background:var(--ink);color:#fff;font:800 1.15rem/1.3 var(--display);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.formula em{font-style:normal;color:var(--yellow)}
+.datas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:6px;background:var(--grout-dark);padding:6px;margin-bottom:18px}
+.datas div{background:var(--tile);padding:12px 14px}
+.datas b{display:block;font:900 1.6rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.datas span{color:var(--soft);font-size:.88rem}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.compare div{padding:12px 14px;background:var(--paper);border-left:5px solid var(--c)}
+.compare b{font-family:var(--display)}
+@media (max-width:560px){.compare{grid-template-columns:1fr}}
+
+/* ---------- TESZT ---------- */
+#teszt{background:var(--ink);color:#fff;padding:60px 0 80px;border-top:6px solid var(--yellow)}
+#teszt h2{color:#fff}
+#teszt .lead{color:#c9d1d6}
+#teszt .eyebrow{color:var(--yellow)}
+.progress{position:sticky;top:64px;z-index:15;margin:24px 0 30px;background:var(--ink);padding:10px 0}
+.progress-row{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;color:#c9d1d6;margin-bottom:6px}
+.progress-row b{color:#fff;font-variant-numeric:tabular-nums}
+.bar{height:10px;background:#2c3b44;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--yellow);transition:width .3s ease}
+.tpart{margin-top:44px}
+.tpart>h3{color:#fff;font-size:1.5rem;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tpart>h3 small{font:700 .85rem var(--body);color:#c9d1d6}
+.tpart>p.hint{color:#c9d1d6;max-width:70ch}
+.q{background:var(--tile);color:var(--ink);padding:20px 22px;margin-top:8px;border-left:6px solid transparent}
+.q.missing{border-left-color:var(--orange)}
+.q.wrong{border-left-color:var(--red)}
+.q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.q-no{flex:none;min-width:34px;height:34px;display:grid;place-items:center;background:var(--yellow);font:900 .95rem/1 var(--display);font-variant-numeric:tabular-nums}
+.q-text{font-weight:700;font-size:1.05rem;line-height:1.45;padding-top:4px}
+.opts{display:grid;gap:6px;padding-left:46px}
+@media (max-width:560px){.opts{padding-left:0}}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border:2px solid var(--grout);cursor:pointer;line-height:1.4;background:var(--tile)}
+.opt:hover{border-color:var(--grout-dark);background:var(--paper)}
+.opt input{margin:3px 0 0;accent-color:var(--ink);width:18px;height:18px;flex:none}
+.opt:has(input:checked){border-color:var(--ink);background:#fff8d6}
+.opt.is-wrong{border-color:var(--red);background:var(--red-bg)}
+.opt.is-right{border-color:var(--green);border-style:dashed}
+.numrow{padding-left:46px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+@media (max-width:560px){.numrow{padding-left:0}}
+.numrow input{width:140px;padding:10px 12px;font:800 1.2rem var(--display);border:2px solid var(--grout-dark);font-variant-numeric:tabular-nums}
+.numrow input:focus{border-color:var(--ink);outline:none}
+.numrow input.is-wrong{border-color:var(--red);background:var(--red-bg)}
+.numrow span{font-weight:700;color:var(--soft)}
+.fb{margin:12px 0 0 46px;padding:10px 14px;background:var(--red-bg);color:#5c130d;font-size:.95rem;border-left:4px solid var(--red)}
+@media (max-width:560px){.fb{margin-left:0}}
+.fb b{color:var(--red)}
+
+/* Képes feladat */
+.game{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:8px;margin-top:12px;align-items:start}
+@media (max-width:900px){.game{grid-template-columns:1fr}}
+.game-fig{background:var(--tile);padding:8px;min-width:0}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll-hint{display:none;color:var(--soft);font-size:.82rem;padding:6px 4px 0}
+.board{position:relative;container-type:inline-size;user-select:none}
+.board img{width:100%;height:auto}
+.board.wide{min-width:860px}
+@media (max-width:900px){.board.wide+.x,.scroll-hint.show{display:block}}
+.slot{position:absolute;transform:translateY(-50%);height:var(--h,3.6cqw);min-height:18px;padding:0 5px;display:flex;align-items:center;gap:4px;
+  border:2px dashed var(--blue);background:#eef5fc;color:var(--ink);font:700 clamp(9px,1.35cqw,14px)/1 var(--body);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.slot:hover{background:#dcebfa;z-index:3}
+.slot.filled{border-style:solid;border-color:var(--ink);background:#fff8d6}
+.slot.armed{outline:3px solid var(--orange);outline-offset:1px;background:#ffe9db}
+.slot.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);z-index:4;overflow:visible}
+.slot .t{overflow:hidden;text-overflow:ellipsis}
+.slot.pt{transform:translate(-50%,-50%);min-width:26px;justify-content:center;border-radius:14px;padding:0 7px;font-size:clamp(10px,2.3cqw,14px);height:auto;min-height:24px}
+.slot.pt .n{font-family:var(--display);font-weight:900}
+.slot.pt.filled{max-width:44%}
+.slot.pt.rt{transform:translate(calc(-100% + 14px),-50%);flex-direction:row-reverse}
+.slot.pt.filled:hover,.slot.pt.filled:focus-visible{max-width:none;z-index:6}
+.wrongtip{position:absolute;left:0;top:100%;margin-top:3px;background:var(--red);color:#fff;font:700 11px/1.3 var(--body);padding:3px 6px;white-space:nowrap;z-index:7;pointer-events:none}
+.bank{background:#22323b;padding:12px;position:sticky;top:130px;max-height:calc(100vh - 150px);overflow:auto}
+@media (max-width:900px){.bank{position:sticky;top:auto;bottom:0;max-height:38vh;z-index:10;box-shadow:0 -8px 20px rgba(0,0,0,.35)}}
+.bank-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px;color:#c9d1d6;font-size:.82rem}
+.bank-head b{color:#fff;font-family:var(--display);font-size:1rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:0;background:#fff;color:var(--ink);padding:7px 10px;font:700 .88rem/1.2 var(--body);cursor:pointer;text-align:left}
+.chip:hover{background:#fff4c2}
+.chip.sel{background:var(--yellow);box-shadow:0 0 0 3px #fff inset,0 0 0 2px var(--yellow)}
+.bank-empty{color:#9fb0ba;font-size:.88rem}
+.howto{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;padding:0;list-style:none;color:#c9d1d6;font-size:.92rem}
+.howto li{display:flex;gap:8px;align-items:center}
+.howto b{display:inline-grid;place-items:center;width:24px;height:24px;background:var(--yellow);color:var(--ink);font:900 .8rem var(--display)}
+
+.finish{margin-top:50px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.btn{border:0;cursor:pointer;font:800 1.15rem/1 var(--display);padding:18px 28px;background:var(--yellow);color:var(--ink)}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:#fff;border:2px solid #fff;font-size:1rem;padding:12px 20px}
+.finish-msg{color:#ffd5c2;font-size:.95rem;min-height:1.4em}
+.result{margin-top:34px;background:var(--tile);color:var(--ink);padding:clamp(20px,4vw,36px);border-top:8px solid var(--yellow)}
+.score{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.score .big{font:900 clamp(3rem,10vw,5.5rem)/.9 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.score .big small{font-size:.4em;color:var(--soft)}
+.score .grade{padding:10px 16px;background:var(--ink);color:#fff;font:800 1rem/1.3 var(--display)}
+.score .grade b{display:block;font-size:2rem;color:var(--yellow)}
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:6px;background:var(--grout);padding:6px;margin-bottom:24px}
+.parts div{background:var(--tile);padding:10px 14px;font-size:.9rem;color:var(--soft)}
+.parts b{display:block;color:var(--ink);font:900 1.3rem var(--display);font-variant-numeric:tabular-nums}
+.wronglist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.wronglist li{padding:12px 16px;background:var(--red-bg);border-left:5px solid var(--red);line-height:1.5}
+.wronglist .src{font:800 .72rem/1.2 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:3px}
+.wronglist .yours{color:#7a2a22;text-decoration:line-through}
+.wronglist .right{color:var(--green);font-weight:700}
+.allgood{padding:18px;background:#e6f4ec;border-left:5px solid var(--green);font-weight:700}
+footer{padding:30px 0 50px;color:var(--soft);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar span{transition:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html">Burkoló tananyagok</a>
+  <nav class="topnav" aria-label="Fejezetek">
+    <a class="home" href="index.html">← Vissza</a>
+    <a href="#fedelszek">Fedélszék</a>
+    <a href="#epulet">Épületelemek</a>
+    <a href="#lepcso">Lépcső</a>
+    <a class="cta" href="#teszt">Teszt</a>
+  </nav>
+</div></div>
+
+<main>
+<header class="wrap hero">
+  <p class="eyebrow">Építőipari alapismeretek · Témazáró B</p>
+  <h1>Tetőszerkezet és lépcső</h1>
+  <p class="lead">Végigmegyünk az órai jegyzeten: a hagyományos és a dőlt állószékes fedélszéken, a ház szerkezeti elemein, a lépcső fogalmain és a lépcső méretezésén. A végén egy gyakorló témazáró jön, a képes feladatokban a neveket kattintással kell a helyükre tenni.</p>
+  <nav class="path" aria-label="Tananyag lépései">
+    <a href="#fedelszek">Állószékes fedélszék</a>
+    <a href="#dolt">Dőlt állószékes fedélszék</a>
+    <a href="#epulet">Az épület szerkezeti elemei</a>
+    <a href="#lepcso">Lépcsőfogalmak</a>
+    <a href="#meretezes">Lépcsőméretezés</a>
+    <a class="test" href="#teszt">Gyakorló témazáró</a>
+  </nav>
+</header>
+
+<!-- 1. FEDÉLSZÉK -->
+<section class="mod" id="fedelszek">
+  <div class="wrap">
+    <p class="eyebrow">1. modul</p>
+    <h2>Hagyományos fedélszék: a kétállószékes fedélszék</h2>
+    <div class="mod-grid">
+      <div class="prose">
+        <p>Az órán megnézett szerkezet egy <strong>kétállószékes fedélszék</strong>: két sor oszlop (két „állószék”) tartja a szelemeneket, azokon fekszenek a szarufák. A tető vége <strong>le van kontyolva</strong>, vagyis a homlokzat felől is ferde tetősík zárja.</p>
+        <p>A kontyolt tetősík súlya többletterhet ad a csúcsra. Ezért a főállás oszlopai mellett a tetőcsúcsnál egy <strong>plusz csonka oszlop</strong> is be van toldva, ami nem fut le a padlóig.</p>
+        <div class="note blue">A rajz méretei: a szarufa hossza legfeljebb <b>7,0 m</b>, a fesztáv legfeljebb <b>11,0 m</b>.</div>
+      </div>
+      <figure class="shot">
+        <img src="forras/vizsga/tetoszerkezet/fedelszek.jpg" width="790" height="585" alt="Kétállószékes fedélszék keresztmetszete feliratokkal: taréjszelemen, fogópár (kakasülő), szarufa, széldeszka, derék fogópár, derékszelemen, könyökfa, ferdetámasz, talpszelemen, oszlop, papucsfa." loading="lazy">
+        <figcaption>Kétállószékes fedélszék, a szerkezeti elemek nevével. A teszt első képes feladata ez a rajz lesz.</figcaption>
+      </figure>
+    </div>
+
+    <h3 style="margin-top:40px">Szelemenek: a vízszintes tartógerendák</h3>
+    <div class="terms">
+      <div class="term"><span class="tag y">lent</span><b>Talpszelemen</b><span>A legalsó gerenda, a falon vagy a födémen fekszik.</span></div>
+      <div class="term"><span class="tag y">középen</span><b>Derékszelemen</b><span>A tetősík közepénél végigfutó vízszintes tartógerenda.</span></div>
+      <div class="term"><span class="tag y">fent</span><b>Taréjszelemen</b><span>A tető legfelső pontján, a gerincen végigfutó vízszintes gerenda.</span></div>
+    </div>
+
+    <div class="mod-grid" style="margin-top:40px">
+      <div class="prose">
+        <h3>Szarufák és héjazat</h3>
+        <p>A szelemenekre <strong>méterenként</strong> fekszenek fel a szarufák, ezek hordják a tető héjazatát. A rétegrend alulról felfelé:</p>
+        <ol class="layers" aria-label="Tető rétegrendje alulról felfelé">
+          <li style="--c:#b68555">Szarufa <i>1</i></li>
+          <li style="--c:#74a6bc">Másodlagos vízszigetelő fólia <small>(PE-fólia)</small> <i>2</i></li>
+          <li style="--c:#8c6745">Ellenléc <small>(leszorítóléc)</small> <i>3</i></li>
+          <li style="--c:#a57b52">Cserépléc <small>(tetőléc)</small> <i>4</i></li>
+          <li style="--c:#c96d4b">Cserépfedés <i>5</i></li>
+        </ol>
+        <div class="note"><b>Deszkaburkolat</b> kell az <b>eresznél</b> és a <b>vápánál</b>, mert ide kerül a vizet elvezető bádogozás, és erre fut ki a tetőfólia is.</div>
+      </div>
+      <figure class="shot">
+        <img src="forras/vizsga/tetoszerkezet/tabla.jpg" width="1600" height="1158" alt="Táblarajz a kétállószékes fedélszékről: héjalás, tetőléc, leszorító léc, tetőcserép, PE-fólia, kúpcserép, taréjszelemen, derék fogópár, szarufa, derékszelemen, ferdetámasz, talpszelemen, könyökfa, oszlop, papucsfa, koszorú, faltartó, vasbeton födém." loading="lazy">
+        <figcaption>Az órai táblarajz: balra fent a héjalás rétegei (PE-fólia, leszorító léc, tetőléc, tetőcserép), lent a vasbeton födém, a koszorú és a papucsfák.</figcaption>
+      </figure>
+    </div>
+
+    <div class="mod-grid" style="margin-top:40px">
+      <div class="prose">
+        <h3>Főállás és mellékállás</h3>
+        <p>Általában <strong>minden 4–5. szarufaállásnál</strong> van egy oszlopokkal alátámasztott <strong>főállás</strong>. A köztük lévő szarufaállások a <strong>mellékállások</strong>.</p>
+        <h3 style="margin-top:22px">Tervrajzi jelölések</h3>
+        <div class="symbols">
+          <div><svg width="60" height="40" viewBox="0 0 60 40" aria-hidden="true"><circle cx="30" cy="20" r="12" fill="none" stroke="#16232b" stroke-width="3"/></svg><b>Oszlop</b><br>kör</div>
+          <div><svg width="60" height="40" viewBox="0 0 60 40" aria-hidden="true"><path d="M4 14H56M4 26H56" stroke="#16232b" stroke-width="3"/></svg><b>Gerenda (szelemen)</b><br>két párhuzamos vonal</div>
+          <div><svg width="60" height="40" viewBox="0 0 60 40" aria-hidden="true"><path d="M4 20H56" stroke="#16232b" stroke-width="3" stroke-dasharray="12 4 3 4"/></svg><b>Szarufa</b><br>egy tengelyvonal</div>
+        </div>
+      </div>
+      <div class="prose">
+        <h3>Merevítések és rögzítések</h3>
+        <ul>
+          <li><strong>Könyökfák:</strong> a szelemeneket és az oszlopokat merevítik <b>hosszirányban</b> (térbeli merevítés).</li>
+          <li><strong>Ferdetámasz és papucsfa:</strong> a főállásban az oszlopokat ferdetámaszok támasztják ki. Ezek alul egy <b>teherelosztó papucsfába</b> futnak, ami a padlószerkezethez van rögzítve, lehorgonyozva.</li>
+          <li><strong>Fogópárok</strong> (taréjfogópár, derékfogópár): a szelemenek alatt futnak, átkarolják a szarufákat, és átmenő csavarokkal rögzülnek az oszlopokhoz. Ezek adják a <b>keresztirányú merevítést</b>, és megakadályozzák a szétcsúszást.</li>
+          <li><strong>Kötőelemek:</strong> átmenő csavar, lehorgonyzó csavar, ácskapocs, és a hagyományos fakötések (bemarás, befaragás).</li>
+          <li><strong>Térbeli merevség (X, Y, Z):</strong> mindhárom irányban merevíteni kell. Ha a vízszintes síkban hiányzik a merevítés, azt gyakran <b>ácskapoccsal</b> vagy <b>andráskereszttel</b> pótolják.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. DŐLT -->
+<section class="mod" id="dolt">
+  <div class="wrap">
+    <p class="eyebrow">2. modul</p>
+    <h2>Dőlt állószékes fedélszék</h2>
+    <div class="mod-grid">
+      <div class="panel orange prose">
+        <h3>Miért dőlnek meg az oszlopok?</h3>
+        <p>Itt az oszlopok nem függőlegesek: <strong>a szarufákra merőlegesen meg vannak döntve</strong>. Azért, mert a tetőtér alatt <strong>folyosó</strong> húzódik, ezért a terheket a <strong>folyosó melletti teherhordó falakra</strong> kellett átadni.</p>
+        <p>A keresztmetszeteket és a teherátadást minden esetben a <strong>statikus</strong> számítja ki.</p>
+      </div>
+      <div class="panel ink prose">
+        <h3>Szerkezeti sajátosságok</h3>
+        <ul>
+          <li><strong>Taréjfogópár:</strong> minden szarufaállásnál megvan.</li>
+          <li><strong>Derékfogópár:</strong> csak a főállásokban van, itt csonkítva: csak az oszlopig fut be.</li>
+          <li>A <strong>ferdetámaszok</strong>, a <strong>könyökfák</strong> és a lehorgonyzott <strong>papucsfák</strong> itt is mindhárom irányban merevítenek.</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin-top:36px">Az óra végi kikérdezés: mi hova tartozik?</h3>
+    <div class="terms">
+      <div class="term"><span class="tag o">Főállás</span><b>Oszlop, szelemenek, derékfogópár, ferdetámasz, papucsfa</b><span>A derékfogópár csak a főállásokban van.</span></div>
+      <div class="term"><span class="tag">Mellékállás</span><b>Szarufák és taréjfogópár</b><span>A taréjfogópár minden szarufaállásnál ott van.</span></div>
+      <div class="term"><span class="tag y">Merevítések</span><b>Könyökfa, ferdetámasz</b><span>Könyökfa: hosszirányban. Ferdetámasz: az oszlopot támasztja ki.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ÉPÜLET -->
+<section class="mod" id="epulet">
+  <div class="wrap">
+    <p class="eyebrow">3. modul · Témazáró 2. feladat</p>
+    <h2>Az épület szerkezeti elemei</h2>
+    <p class="lead">A témazáró ábrája egy átmetszett ház, 41 számozott elemmel. Könnyebb megtanulni, ha a ház szerint, föntről lefelé csoportosítod őket.</p>
+    <figure class="shot" style="margin-top:20px">
+      <div class="scroller"><img src="forras/vizsga/tetoszerkezet/haz.jpg" width="946" height="658" alt="Átmetszett családi ház axonometrikus rajza, 41 számozott szerkezeti elemmel a kürtőtől az alapig." loading="lazy" style="min-width:700px"></div>
+      <figcaption>Az eredeti feladatlap ábrája a nevekkel. A tesztben a nevek nélkül kapod meg.</figcaption>
+    </figure>
+    <div class="groups" style="margin-top:18px">
+      <div class="group" style="--c:#c96d4b"><h3>Tető</h3><ol>
+        <li><b>1</b>kürtő (kéményfej)</li><li><b>2</b>kémény</li><li><b>3</b>kúpcserép</li><li><b>4</b>tetőhéjalás</li><li><b>5</b>szorítóléc (ellenléc)</li><li><b>6</b>tetőfólia</li><li><b>7</b>eresz</li><li><b>8</b>taréjszelemen</li><li><b>9</b>szarufa</li><li><b>10</b>fogópárok</li><li><b>11</b>talpszelemen</li></ol></div>
+      <div class="group" style="--c:#c5b39a"><h3>Falak és nyílászárók</h3><ol>
+        <li><b>12</b>homlokzati fal</li><li><b>13</b>ablak</li><li><b>14</b>párkány (belül ablakkönyöklő)</li><li><b>30</b>áthidaló</li><li><b>34</b>belső fal</li><li><b>35</b>külső (teherhordó) fal</li><li><b>37</b>belső ajtó</li><li><b>38</b>belső téglafal (válaszfal)</li><li><b>39</b>térdfal</li><li><b>41</b>összekötő vasbeton oszlop</li></ol></div>
+      <div class="group" style="--c:#8f9aa0"><h3>Födémek, koszorúk, padló</h3><ol>
+        <li><b>24</b>talajon fekvő padló</li><li><b>25</b>pincefödém</li><li><b>26</b>közbenső födém</li><li><b>27</b>zárófödém</li><li><b>28</b>padlószerkezet</li><li><b>29</b>koszorú</li><li><b>36</b>padlóburkolat</li><li><b>40</b>térdfal koszorú</li></ol></div>
+      <div class="group" style="--c:#74a6bc"><h3>Erkély</h3><ol>
+        <li><b>31</b>erkélylemez</li><li><b>32</b>hőszigetelés</li><li><b>33</b>korlát (erkélykorlát)</li></ol></div>
+      <div class="group" style="--c:#7d6b52"><h3>Lábazat, pince, talaj</h3><ol>
+        <li><b>15</b>lábazat</li><li><b>16</b>járda</li><li><b>17</b>előlépcső</li><li><b>18</b>kavicsfeltöltés</li><li><b>19</b>termett talaj</li><li><b>20</b>szigetelést védő téglafal</li><li><b>21</b>vízszigetelés</li><li><b>22</b>pincefal</li><li><b>23</b>alap (sávalap)</li></ol></div>
+    </div>
+    <div class="note">A <b>29-es koszorú</b> kétszer szerepel a rajzon: kívül a homlokzatnál és belül a zárófödémnél. A <b>11-es szám</b> is kétszer van, de csak a talpszelemennek van neve. A jegyzet táblázata a 32-est „kent szigetelésnek” írja, a rajzon <b>hőszigetelés</b> áll, a tesztben a rajz szerinti nevek vannak.</div>
+  </div>
+</section>
+
+<!-- 4. LÉPCSŐ FOGALMAI -->
+<section class="mod" id="lepcso">
+  <div class="wrap">
+    <p class="eyebrow">4. modul · Lépcső / lépcsőház fogalmai</p>
+    <h2>Lépcsőfogalmak a rajzon</h2>
+    <div class="mod-grid">
+      <figure class="shot">
+        <img src="forras/vizsga/tetoszerkezet/lepcso.jpg" width="520" height="625" alt="Kétkarú lépcső metszete (fent) és alaprajza (lent), 1-től 16-ig számozott méretekkel és elemekkel." loading="lazy">
+        <figcaption>Fent a metszet, lent az alaprajz. A számok a feladatlap jelölései.</figcaption>
+      </figure>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sz.</th><th>Fogalom</th><th>Mit jelent?</th></tr></thead>
+          <tbody>
+            <tr><td class="num"><span>1</span></td><td><b>emeletmagasság</b></td><td>A két egymás feletti szint padlóvonala közötti teljes függőleges távolság.</td></tr>
+            <tr><td class="num"><span>2</span></td><td><b>induló/érkező pihenő vtg.</b></td><td>Az induló és az érkező szint födémvastagsága.</td></tr>
+            <tr><td class="num"><span>3</span></td><td><b>közbenső pihenő vtg.</b></td><td>A két kar közötti közbenső pihenőlemez vastagsága.</td></tr>
+            <tr><td class="num"><span>4</span></td><td><b>lépcső lemez</b></td><td>A ferde lépcsőkar teherhordó vasbeton lemezének vastagsága.</td></tr>
+            <tr><td class="num"><span>6</span></td><td><b>belépő</b></td><td>A lépcsőfok vízszintes felülete, erre lépünk rá.</td></tr>
+            <tr><td class="num"><span>7</span></td><td><b>fellépő</b></td><td>A lépcsőfok függőleges felülete (homloklapja).</td></tr>
+            <tr><td class="num"><span>8</span></td><td><b>lépcsőkorlát</b></td><td>Kiesés elleni védelem a lépcsőkar belső oldalán.</td></tr>
+            <tr><td class="num"><span>9</span></td><td><b>járóvonal</b></td><td>A karok tengelyében futó vonal: körrel indul, nyíllal végződik.</td></tr>
+            <tr><td class="num"><span>10</span></td><td><b>pihenő szélesség</b></td><td>A pihenő hasznos szélessége (mélysége).</td></tr>
+            <tr><td class="num"><span>11</span></td><td><b>lépcsőkar szélesség</b></td><td>Egy lépcsőkar hasznos szélessége.</td></tr>
+            <tr><td class="num"><span>12</span></td><td><b>indulókar</b></td><td>Az alsó szintről induló első lépcsőkar.</td></tr>
+            <tr><td class="num"><span>13</span></td><td><b>érkezőkar</b></td><td>A közbenső pihenőtől a felső szintre érkező kar.</td></tr>
+            <tr><td class="num"><span>14</span></td><td><b>lépcső szélesség</b></td><td>A lépcső szélessége.</td></tr>
+            <tr><td class="num"><span>15</span></td><td><b>lépcsőkar hosszúság</b></td><td>A lépcsőkar vízszintes vetületi hossza az alaprajzon.</td></tr>
+            <tr><td class="num"><span>16</span></td><td><b>orsótér</b></td><td>A két lépcsőkar közötti keskeny szabad rés.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:28px;max-width:760px">
+      <h3>Lépcsőforduló és orsótér: helyszíni megfigyelés</h3>
+      <p>A szép, szabályos szerkesztés alapja, hogy <strong>az orsótér és a lemez (kar, pihenő) csatlakozása, valamint a lépcsőfokok törésvonala egy vonalba essen</strong>. Ha ettől eltér, a lépcső attól még működik, csak a forduló nem lesz olyan rendezett.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. MÉRETEZÉS -->
+<section class="mod" id="meretezes">
+  <div class="wrap">
+    <p class="eyebrow">5. modul · Lépcsőméretezés</p>
+    <h2>A lépcső kiszámítása lépésről lépésre</h2>
+    <p class="lead">Az adatokat a feladatlapról olvassuk le, a hiányzó méreteket négy lépésben számoljuk ki, a végén ellenőrzünk.</p>
+    <div class="datas" style="margin-top:20px">
+      <div><b>272 cm</b><span>(1) emeletmagasság, H</span></div>
+      <div><b>28 cm</b><span>belépő szélessége, sz</span></div>
+      <div><b>20 cm</b><span>(2) födémvastagság</span></div>
+      <div><b>120 cm</b><span>(14) lépcső szélesség</span></div>
+      <div><b>8 + 8 db</b><span>fellépő karonként (alaprajzról)</span></div>
+    </div>
+    <ol class="calc">
+      <li>
+        <h3>Fellépő magassága (m)</h3>
+        <p>A teljes emeletmagasságot elosztjuk az összes fellépő számával. Az alaprajzon karonként 8 fellépő van, összesen n = 8 + 8 = 16.</p>
+        <span class="formula">m = 272 / 16 = <em>17 cm</em></span>
+      </li>
+      <li>
+        <h3>Belépő szélessége (sz)</h3>
+        <p>A belépő, vagyis egy lépcsőfok vízszintes mélysége a feladatban adott.</p>
+        <span class="formula">sz = <em>28 cm</em></span>
+      </li>
+      <li>
+        <h3>Lépcsőkar vízszintes hossza (15)</h3>
+        <p>Egy karon a belépők száma <strong>mindig eggyel kevesebb</strong>, mint a fellépőké, mert a kar utolsó fellépője már a pihenő (vagy az érkező födém) síkjára lép. 8 fellépőhöz tehát 8 − 1 = 7 belépő tartozik.</p>
+        <span class="formula">(15) = 7 × 28 = <em>196 cm</em></span>
+      </li>
+      <li>
+        <h3>Lépcsőkar szélessége (11)</h3>
+        <p>A megoldólap szerint a lépcsőkar szélessége megegyezik a megadott 120 cm-rel.</p>
+        <span class="formula">(11) = <em>120 cm</em></span>
+      </li>
+      <li>
+        <h3>Ellenőrzés a lépcsőképlettel</h3>
+        <p>A lépcső akkor kényelmes, ha <strong>2m + sz = 60–64 cm</strong>.</p>
+        <span class="formula">2 × 17 + 28 = <em>62 cm</em> → megfelel</span>
+        <div class="compare">
+          <div style="--c:var(--green)"><b>sz = 28 cm:</b> 34 + 28 = 62 cm. Pont a 60–64 cm-es sáv közepén van.</div>
+          <div style="--c:var(--red)"><b>sz = 20 cm:</b> 34 + 20 = 54 cm. Túl meredek lenne, ezért nem lehet ennyi a belépő.</div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- TESZT -->
+<section id="teszt">
+  <div class="wrap">
+    <p class="eyebrow">Gyakorló témazáró</p>
+    <h2>Most te jössz!</h2>
+    <p class="lead">Válaszolj minden kérdésre, és töltsd ki a három ábrát. Ha minden kész, a <b>Kiértékelés</b> gomb megmutatja a pontszámot és azt, amit elrontottál.</p>
+    <ul class="howto" aria-label="Így működnek a képes feladatok">
+      <li><b>1</b> Kattints egy névre a listában</li>
+      <li><b>2</b> Kattints a helyére a képen</li>
+      <li><b>↺</b> Egy beírt névre kattintva visszaveheted</li>
+    </ul>
+
+    <div class="progress" aria-live="polite">
+      <div class="progress-row"><span>Kitöltve</span><span><b id="pDone">0</b> / <b id="pAll">0</b></span></div>
+      <div class="bar"><span id="pBar"></span></div>
+    </div>
+
+    <div class="tpart" id="t-kerdes1">
+      <h3>I. Tetőszerkezetek <small>kérdések</small></h3>
+      <div id="qs1"></div>
+    </div>
+
+    <div class="tpart" id="t-kep-fedelszek">
+      <h3>II. Nevezd meg a fedélszék elemeit! <small>11 hely</small></h3>
+      <p class="hint">Tedd a neveket a kék keretes helyekre.</p>
+      <div data-game="fedelszek"></div>
+    </div>
+
+    <div class="tpart" id="t-kep-haz">
+      <h3>III. Az épület szerkezeti elemei <small>42 hely</small></h3>
+      <p class="hint">A számok a helyükön maradtak, csak a nevek tűntek el. A koszorú kétszer szerepel, ezért kétszer van a listában is.</p>
+      <div data-game="haz"></div>
+    </div>
+
+    <div class="tpart" id="t-kep-lepcso">
+      <h3>IV. Lépcső / lépcsőház fogalmai <small>15 hely</small></h3>
+      <p class="hint">Kattints a fogalomra, majd arra a számra a rajzon, amelyik azt jelöli.</p>
+      <div data-game="lepcso"></div>
+    </div>
+
+    <div class="tpart" id="t-kerdes2">
+      <h3>V. Lépcsőméretezés <small>számolás</small></h3>
+      <p class="hint">Adatok: emeletmagasság H = 272 cm, karonként 8 fellépő (összesen 16), belépő sz = 28 cm. Csak a számot írd be, cm-ben.</p>
+      <div id="qs2"></div>
+    </div>
+
+    <div class="finish">
+      <button class="btn" id="evalBtn" type="button">Kiértékelés</button>
+      <p class="finish-msg" id="finishMsg" role="status"></p>
+    </div>
+    <div id="result" hidden></div>
+  </div>
+</section>
+</main>
+<footer class="wrap">Forrás: Építőipari alapismeretek, órai jegyzet és témazáró (B), 2026. november. <a href="index.html">Vissza a burkoló tananyagokhoz</a></footer>
+
+<script>
+(function(){
+"use strict";
+var IMG="forras/vizsga/tetoszerkezet/";
+
+/* ---------- Kérdések ---------- */
+var Q1=[
+ {q:"Milyen szerkezet látható a fedélszékes rajzon (két sor oszlop tartja a szelemeneket)?",o:["Kétállószékes fedélszék","Egyállószékes fedélszék","Dőlt állószékes fedélszék","Függesztőműves fedélszék"],c:0},
+ {q:"Hol fekszik a talpszelemen?",o:["A falon vagy a födémen, ez a legalsó szelemen","A tetősík közepén","A gerincen, a tető legfelső pontján","A szarufák tetején, a cserépléc alatt"],c:0},
+ {q:"Melyik szelemen fut végig a gerincen?",o:["Taréjszelemen","Derékszelemen","Talpszelemen","Könyökfa"],c:0},
+ {q:"Milyen sűrűn fekszenek fel a szarufák a szelemenekre?",o:["Méterenként","Kétméterenként","Félméterenként","Csak a főállásoknál"],c:0},
+ {q:"Mi a tető helyes rétegrendje alulról felfelé?",o:["Szarufa → tetőfólia → ellenléc → cserépléc → cserép","Szarufa → cserépléc → tetőfólia → ellenléc → cserép","Szarufa → ellenléc → tetőfólia → cserépléc → cserép","Tetőfólia → szarufa → cserépléc → ellenléc → cserép"],c:0},
+ {q:"Miért kell deszkaburkolat az eresznél és a vápánál?",o:["Ide kerül a vízelvezető bádogozás, és erre fut ki a tetőfólia","Mert ott a legnagyobb a hóteher","Hogy a madarak ne jussanak be","Mert ott nincs szarufa"],c:0},
+ {q:"Általában hányadik szarufaállásnál van oszlopokkal alátámasztott főállás?",o:["Minden 4–5. szarufaállásnál","Minden szarufaállásnál","Minden 2. szarufaállásnál","Csak a tető két végén"],c:0},
+ {q:"Mi a könyökfa feladata?",o:["A szelemenek és oszlopok hosszirányú merevítése","A szarufák keresztirányú összefogása","A héjazat tartása","A terhek átadása a falra"],c:0},
+ {q:"Mi a papucsfa?",o:["Teherelosztó fa, amelybe a ferdetámasz alul befut, és le van horgonyozva","A gerincen futó gerenda","A szarufa alsó vége az eresznél","Az ellenléc másik neve"],c:0},
+ {q:"Mi a fogópárok feladata?",o:["Keresztirányú merevítés, megakadályozzák a szétcsúszást","Hosszirányú merevítés","A cserépléc rögzítése","A tetőfólia leszorítása"],c:0},
+ {q:"Hogyan jelöljük a tervrajzon az oszlopot?",o:["Körrel","Két párhuzamos vonallal","Egyetlen tengelyvonallal","Ferde vonalkázással"],c:0},
+ {q:"Hogyan jelöljük a tervrajzon a szarufát?",o:["Egyetlen tengelyvonallal","Két párhuzamos vonallal","Körrel","Négyzettel"],c:0},
+ {q:"Kontyolt tetővégnél miért van egy plusz csonka oszlop a tetőcsúcsnál?",o:["Mert a kontyolt tetősík súlya többletterhet ad a csúcsra","Mert ott fut a kémény","Hogy elférjen a padlásfeljáró","Mert a talpszelemen ott véget ér"],c:0},
+ {q:"Ha a vízszintes síkban hiányzik a merevítés, mivel szokták pótolni?",o:["Ácskapoccsal vagy andráskereszttel","Plusz szarufával","Vastagabb cseréplécekkel","Tetőfóliával"],c:0},
+ {q:"Dőlt állószékes fedélszéknél miért vannak megdöntve az oszlopok?",o:["A tetőtér alatt folyosó van, ezért a terhet a folyosó melletti teherhordó falakra kell átadni","Hogy nagyobb legyen a tetőtér","Mert így kevesebb fa kell","Esztétikai okból"],c:0},
+ {q:"Ki számítja ki a keresztmetszeteket és a teherátadást?",o:["A statikus","Az ács","A kőműves","A beruházó"],c:0},
+ {q:"Dőlt állószékes fedélszéknél hol van derékfogópár?",o:["Csak a főállásokban, csonkítva, az oszlopig","Minden szarufaállásnál","Csak a mellékállásokban","Sehol"],c:0},
+ {q:"Melyek a mellékállás elemei?",o:["Szarufák és taréjfogópár","Oszlop, ferdetámasz, papucsfa","Derékfogópár és könyökfa","Talpszelemen és oszlop"],c:0},
+ {q:"Mikor rendezett a lépcsőforduló?",o:["Ha az orsótér és a lemez csatlakozása meg a fokok törésvonala egy vonalba esik","Ha a pihenő szélesebb a karnál","Ha minden fok más magasságú","Ha nincs orsótér"],c:0}
+];
+var Q2=[
+ {q:"Mekkora egy fellépő magassága (m)?",num:17,unit:"cm",ex:"m = 272 / 16 = 17 cm"},
+ {q:"Hány belépő van egy 8 fellépős karon?",num:7,unit:"db",ex:"Eggyel kevesebb, mint a fellépő: 8 − 1 = 7"},
+ {q:"Mekkora a lépcsőkar vízszintes hossza, a (15)-ös méret?",num:196,unit:"cm",ex:"7 × 28 = 196 cm"},
+ {q:"Mennyi 2m + sz?",num:62,unit:"cm",ex:"2 × 17 + 28 = 62 cm"},
+ {q:"Megfelel-e a lépcső a 2m + sz = 60–64 cm szabálynak?",o:["Igen, 62 cm, a sáv közepén van","Nem, túl meredek","Nem, túl lapos","Nem lehet eldönteni"],c:0}
+];
+
+/* ---------- Képes feladatok ---------- */
+var GAMES={
+ fedelszek:{img:"fedelszek-ures.jpg",w:790,h:585,hgt:"3cqw",title:"Fedélszék",slots:[
+  {x:47.1,y:8,w:15.3,a:"taréjszelemen"},{x:49.1,y:12.5,w:20.5,a:"fogópár (kakasülő)"},{x:55.6,y:16.5,w:12,a:"szarufa"},
+  {x:54.1,y:21.5,w:13,a:"széldeszka"},{x:58.1,y:26,w:15.3,a:"derék fogópár"},{x:62.6,y:29.5,w:15.3,a:"derékszelemen"},
+  {x:63.1,y:34.5,w:13,a:"könyökfa"},{x:68.1,y:39.5,w:14,a:"ferdetámasz"},{x:76.6,y:49,w:15,a:"talpszelemen"},
+  {x:42.6,y:50,w:11.4,a:"oszlop"},{x:34.6,y:54.4,w:13,a:"papucsfa"}]},
+ haz:{img:"haz-ures.jpg",w:946,h:658,hgt:"2.3cqw",wide:true,title:"Épület",slots:[]},
+ lepcso:{img:"lepcso.jpg",w:520,h:625,pt:true,title:"Lépcső",slots:[
+  {x:30.6,y:30.1,n:3,a:"közbenső pihenő vtg."},{x:52.9,y:11.1,n:8,a:"lépcsőkorlát"},{x:86,y:7.9,n:13,a:"érkezőkar"},
+  {x:93.4,y:10.5,n:2,a:"induló/érkező pihenő vtg."},{x:85.1,y:17,n:7,a:"fellépő"},{x:76.9,y:20.3,n:6,a:"belépő"},
+  {x:69.4,y:24.4,n:4,a:"lépcső lemez"},{x:89.3,y:34.2,n:1,a:"emeletmagasság"},{x:84.3,y:44,n:12,a:"indulókar"},
+  {x:92.6,y:65.3,n:14,a:"lépcső szélesség"},{x:66.1,y:73.5,n:16,a:"orsótér"},{x:31.4,y:75.1,n:11,a:"lépcsőkar szélesség"},
+  {x:41.3,y:80,n:9,a:"járóvonal"},{x:38,y:92.3,n:10,a:"pihenő szélesség"},{x:59.5,y:92.3,n:15,a:"lépcsőkar hosszúság"}]}
+};
+[[82.5,10,5.5,"kürtő",1],[82.5,12.8,6.3,"kémény",2],[82.5,15.5,8.6,"kúpcserép",3],[82.5,17.9,10.2,"tetőhéjalás",4],[82.5,20.2,17,"szorítóléc (ellenléc)",5],
+ [82.5,22.6,8.6,"tetőfólia",6],[82.9,26,6,"eresz",7],[83.8,36,12.5,"homlokzati fal",12],[84.3,39.6,8,"koszorú",29],[83.9,43,6.5,"ablak",13],
+ [83.9,46.5,16,"párkány (v. könyöklő)",14],[84,50,8,"lábazat",15],[88.8,57,10,"előlépcső",17],[88.8,62,8,"járda",16],[88.8,66,11,"termett talaj",19],
+ [89.3,70.6,10.7,"kavicsfeltöltés",18],[89.3,75.6,10.7,"szigetelést védő téglafal",20],[89.3,80.2,10.7,"vízszigetelés",21],[89.4,85.6,9,"pincefal",22],[89.4,90.2,7,"alap",23],
+ [37.2,8,11.7,"taréjszelemen",8],[37.2,11,9,"szarufa",9],[37.9,13.9,9,"fogópárok",10],[37.7,20.6,11,"talpszelemen",11],
+ [9.3,20.6,13.3,"térdfal koszorú",40],[9.3,25,9,"térdfal",39],[9.3,30.6,9,"korlát",33],[20,36.6,12.5,"padlószerkezet",28],[19.5,40.6,9,"zárófödém",27],
+ [19.4,44.6,9,"koszorú",29],[8.8,47.6,9,"áthidaló",30],[20,51.6,12.5,"közbenső födém",26],[8.8,56,11,"hőszigetelés",32],[8.8,58.6,10.2,"erkélylemez",31],
+ [8.8,64.6,9,"belső fal",34],[8.4,69.6,9,"külső fal",35],[8.4,74.6,11.7,"padlóburkolat",36],[8.4,79,9.4,"belső ajtó",37],[8.4,85.6,12.5,"belső téglafal",38],
+ [29.9,87,19,"összekötő vasbeton oszlop",41],[59.2,87,15,"talajon fekvő padló",24],[56.9,90.6,9.4,"pincefödém",25]
+].forEach(function(r){GAMES.haz.slots.push({x:r[0],y:r[1],w:Math.min(r[2],99.5-r[0]),a:r[3],n:r[4],big:r[4]===20});});
+
+/* ---------- Állapot ---------- */
+var answers={}, games={}, locked=false;
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+var qNo=0, allQ=[];
+
+function renderQs(list,host,part){
+  list.forEach(function(item,i){
+    var id=part+"-"+i; qNo++; item.id=id; item.no=qNo; item.part=part; allQ.push(item);
+    var box=el("div","q"); box.id="q-"+id;
+    var head=el("div","q-head"); head.appendChild(el("span","q-no",String(qNo))); head.appendChild(el("div","q-text",item.q)); box.appendChild(head);
+    if(item.o){
+      var opts=el("div","opts"); opts.setAttribute("role","radiogroup");
+      shuffle(item.o.map(function(t,k){return {t:t,k:k};})).forEach(function(op){
+        var lab=el("label","opt"); var inp=document.createElement("input"); inp.type="radio"; inp.name=id; inp.value=op.k;
+        inp.addEventListener("change",function(){answers[id]=op.k;box.classList.remove("missing");update();});
+        lab.appendChild(inp); lab.appendChild(el("span",null,op.t)); lab.dataset.k=op.k; opts.appendChild(lab);
+      });
+      box.appendChild(opts);
+    }else{
+      var row=el("div","numrow"); var inp=document.createElement("input"); inp.type="text"; inp.inputMode="decimal"; inp.autocomplete="off"; inp.setAttribute("aria-label",item.q);
+      inp.addEventListener("input",function(){var v=inp.value.trim(); if(v){answers[id]=v;box.classList.remove("missing");}else delete answers[id]; update();});
+      row.appendChild(inp); row.appendChild(el("span",null,item.unit)); box.appendChild(row);
+    }
+    host.appendChild(box);
+  });
+}
+renderQs(Q1,document.getElementById("qs1"),"t1");
+renderQs(Q2,document.getElementById("qs2"),"t2");
+
+function renderGame(host){
+  var key=host.dataset.game, g=GAMES[key];
+  var st={key:key,g:g,place:{},sel:null,armed:null,chips:[]};
+  games[key]=st;
+  g.slots.forEach(function(s,i){st.chips.push({id:key+"c"+i,t:s.a});});
+  var wrap=el("div","game");
+  var fig=el("div","game-fig"); var sc=el("div","scroller"); var board=el("div","board"+(g.wide?" wide":""));
+  var img=document.createElement("img"); img.src=IMG+g.img; img.width=g.w; img.height=g.h; img.alt=g.title+" ábra, a nevek helyén üres, kattintható mezőkkel"; img.draggable=false;
+  board.appendChild(img);
+  st.slotEls=g.slots.map(function(s,i){
+    var b=el("button","slot"+(g.pt?" pt":"")+(g.pt&&s.x>75?" rt":"")); b.type="button";
+    b.style.left=s.x+"%"; b.style.top=s.y+"%";
+    if(!g.pt){b.style.width=s.w+"%"; b.style.setProperty("--h",s.big?"4.4cqw":g.hgt);}
+    b.addEventListener("click",function(){clickSlot(st,i);});
+    board.appendChild(b); return b;
+  });
+  sc.appendChild(board); fig.appendChild(sc);
+  if(g.wide){var hint=el("p","scroll-hint show","← Az ábra oldalra görgethető →"); fig.appendChild(hint);}
+  var bank=el("div","bank"); var bh=el("div","bank-head"); var bt=el("b",null,"Nevek"); var bc=el("span"); bh.appendChild(bt); bh.appendChild(bc);
+  var chips=el("div","chips"); bank.appendChild(bh); bank.appendChild(chips);
+  st.bankEl=chips; st.countEl=bc;
+  wrap.appendChild(fig); wrap.appendChild(bank); host.appendChild(wrap);
+  paint(st);
+}
+function usedChip(st,id){for(var k in st.place){if(st.place[k]===id)return true;}return false;}
+function chipById(st,id){for(var i=0;i<st.chips.length;i++)if(st.chips[i].id===id)return st.chips[i];}
+function clickSlot(st,i){
+  if(locked)return;
+  if(st.sel){ // név kiválasztva -> lerakás
+    st.place[i]=st.sel; st.sel=null; st.armed=null;
+  }else if(st.place[i]!=null){ // visszavétel
+    delete st.place[i]; st.armed=null;
+  }else{ st.armed=(st.armed===i?null:i); }
+  paint(st); update();
+}
+function clickChip(st,id){
+  if(locked)return;
+  if(st.armed!=null){ st.place[st.armed]=id; st.armed=null; st.sel=null; }
+  else st.sel=(st.sel===id?null:id);
+  paint(st); update();
+}
+function paint(st){
+  var g=st.g;
+  st.slotEls.forEach(function(b,i){
+    var s=g.slots[i], cid=st.place[i]; b.innerHTML="";
+    b.classList.toggle("filled",cid!=null); b.classList.toggle("armed",st.armed===i);
+    if(g.pt) b.appendChild(el("span","n",String(s.n)));
+    if(cid!=null){ var t=chipById(st,cid).t; b.appendChild(el("span","t",t)); b.title=t+" (kattints a visszavételhez)"; b.setAttribute("aria-label",(s.n?s.n+". hely: ":"")+t+", kattints a visszavételhez"); }
+    else { b.title="Üres hely"; b.setAttribute("aria-label",(s.n?s.n+". ":"")+"üres hely"); }
+  });
+  st.bankEl.innerHTML="";
+  var free=st.chips.filter(function(c){return !usedChip(st,c.id);}).sort(function(a,b){return a.t.localeCompare(b.t,"hu");});
+  free.forEach(function(c){
+    var b=el("button","chip"+(st.sel===c.id?" sel":""),c.t); b.type="button"; b.setAttribute("aria-pressed",st.sel===c.id?"true":"false");
+    b.addEventListener("click",function(){clickChip(st,c.id);}); st.bankEl.appendChild(b);
+  });
+  if(!free.length) st.bankEl.appendChild(el("p","bank-empty","Minden név a helyén van."));
+  st.countEl.textContent=free.length+" maradt";
+}
+document.querySelectorAll("[data-game]").forEach(renderGame);
+
+/* ---------- Haladás ---------- */
+function totals(){
+  var all=allQ.length, done=Object.keys(answers).length;
+  for(var k in games){var g=games[k]; all+=g.g.slots.length; done+=Object.keys(g.place).length;}
+  return {all:all,done:done};
+}
+function update(){
+  var t=totals();
+  document.getElementById("pDone").textContent=t.done; document.getElementById("pAll").textContent=t.all;
+  document.getElementById("pBar").style.width=(t.all?100*t.done/t.all:0)+"%";
+  if(t.done===t.all) document.getElementById("finishMsg").textContent="";
+}
+update();
+
+/* ---------- Kiértékelés ---------- */
+function numOk(item,v){var n=parseFloat(String(v).replace(",",".").replace(/[^\d.\-]/g,""));return !isNaN(n)&&Math.abs(n-item.num)<0.01;}
+document.getElementById("evalBtn").addEventListener("click",function(){
+  if(locked){reset();return;}
+  var t=totals(), msg=document.getElementById("finishMsg");
+  if(t.done<t.all){
+    var first=null;
+    allQ.forEach(function(it){if(answers[it.id]==null){var b=document.getElementById("q-"+it.id);b.classList.add("missing");if(!first)first=b;}});
+    if(!first){for(var k in games){var g=games[k];for(var i=0;i<g.g.slots.length;i++){if(g.place[i]==null){first=g.slotEls[i];break;}}if(first)break;}}
+    msg.textContent="Még "+(t.all-t.done)+" válasz hiányzik. Odaugrottam az első kitöltetlenhez.";
+    if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  evaluate();
+});
+
+function evaluate(){
+  locked=true;
+  var wrong=[], parts=[], score=0, total=0;
+  function part(name,ok,all){parts.push({n:name,ok:ok,all:all});score+=ok;total+=all;}
+  [["I. Tetőszerkezet kérdések",Q1],["V. Lépcsőméretezés",Q2]].forEach(function(p){
+    var ok=0;
+    p[1].forEach(function(it){
+      var box=document.getElementById("q-"+it.id), a=answers[it.id], good, yours, right;
+      box.querySelectorAll("input").forEach(function(i){i.disabled=true;});
+      if(it.o){ good=(+a===it.c); yours=it.o[a]; right=it.o[it.c];
+        if(!good){ box.querySelectorAll(".opt").forEach(function(l){ if(+l.dataset.k===+a) l.classList.add("is-wrong"); if(+l.dataset.k===it.c) l.classList.add("is-right"); }); }
+      }else{ good=numOk(it,a); yours=a+" "+it.unit; right=it.num+" "+it.unit+" ("+it.ex+")";
+        if(!good) box.querySelector("input").classList.add("is-wrong"); }
+      if(good) ok++; else {
+        box.classList.add("wrong");
+        var fb=el("div","fb"); fb.innerHTML="<b>Helyes válasz:</b> "; fb.appendChild(document.createTextNode(right)); box.appendChild(fb);
+        wrong.push({src:it.no+". kérdés",q:it.q,yours:yours,right:right,el:box});
+      }
+    });
+    part(p[0],ok,p[1].length);
+  });
+  var names={fedelszek:"II. Fedélszék ábra",haz:"III. Épület ábra",lepcso:"IV. Lépcső ábra"};
+  ["fedelszek","haz","lepcso"].forEach(function(k){
+    var st=games[k], ok=0;
+    st.g.slots.forEach(function(s,i){
+      var t=chipById(st,st.place[i]).t;
+      if(t===s.a) ok++; else {
+        var b=st.slotEls[i]; b.classList.add("wrong");
+        var tip=el("span","wrongtip","helyes: "+s.a); b.appendChild(tip);
+        wrong.push({src:names[k],q:(s.n?s.n+". szám":"Hely")+(s.n?"":" a rajzon"),yours:t,right:s.a,el:b});
+      }
+    });
+    part(names[k],ok,st.g.slots.length);
+  });
+  document.querySelectorAll(".chip,.slot").forEach(function(b){b.disabled=true;});
+  showResult(score,total,parts,wrong);
+}
+function grade(p){return p>=85?5:p>=70?4:p>=55?3:p>=40?2:1;}
+function showResult(score,total,parts,wrong){
+  var r=document.getElementById("result"); r.innerHTML=""; r.hidden=false;
+  var pct=Math.round(100*score/total);
+  var box=el("div","result");
+  var sc=el("div","score");
+  var big=el("div","big"); big.textContent=score; var sm=el("small",null," / "+total+" pont"); big.appendChild(sm);
+  var gr=el("div","grade"); gr.appendChild(el("b",null,String(grade(pct)))); gr.appendChild(document.createTextNode(pct+"%, tájékoztató jegy"));
+  sc.appendChild(big); sc.appendChild(gr); box.appendChild(sc);
+  var ps=el("div","parts"); parts.forEach(function(p){var d=el("div");d.appendChild(el("b",null,p.ok+" / "+p.all));d.appendChild(document.createTextNode(p.n));ps.appendChild(d);}); box.appendChild(ps);
+  if(!wrong.length){ box.appendChild(el("div","allgood","Hibátlan! Minden válaszod jó.")); }
+  else{
+    box.appendChild(el("h3",null,"Ezeket rontottad el ("+wrong.length+")"));
+    var ul=el("ul","wronglist");
+    wrong.forEach(function(w){
+      var li=el("li"); li.appendChild(el("span","src",w.src));
+      li.appendChild(el("div",null,w.q));
+      var line=el("div"); line.appendChild(document.createTextNode("Te: ")); line.appendChild(el("span","yours",w.yours)); line.appendChild(document.createTextNode(" → helyes: ")); line.appendChild(el("span","right",w.right));
+      li.appendChild(line); ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    box.appendChild(el("p","note","Az ábrákon pirossal látod a rossz helyeket, alattuk a helyes nevet. A jó válaszokat nem jelöltük."));
+  }
+  r.appendChild(box);
+  var btn=document.getElementById("evalBtn"); btn.textContent="Újrakezdés"; btn.className="btn ghost";
+  document.getElementById("finishMsg").textContent="";
+  r.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function reset(){
+  locked=false; answers={};
+  document.querySelectorAll(".q").forEach(function(b){b.remove();});
+  allQ=[]; qNo=0;
+  renderQs(Q1,document.getElementById("qs1"),"t1"); renderQs(Q2,document.getElementById("qs2"),"t2");
+  document.querySelectorAll("[data-game]").forEach(function(h){h.innerHTML="";renderGame(h);});
+  document.getElementById("result").hidden=true;
+  var btn=document.getElementById("evalBtn"); btn.textContent="Kiértékelés"; btn.className="btn";
+  update(); document.getElementById("t-kerdes1").scrollIntoView({behavior:"smooth"});
+}
+})();
+</script>
+</body>
+</html>

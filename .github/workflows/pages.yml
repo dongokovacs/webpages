@@ -142,6 +142,7 @@ jobs:
           mkdir -p _site/burkolo/forras/vizsga
           cp burkolo/forras/gres_kiszamitas1.jpg burkolo/forras/gres_kiszamitas2.jpg _site/burkolo/forras/
           cp burkolo/forras/vizsga/szigeteles-retegrend.jpg burkolo/forras/vizsga/Epuletszerkezetek.pdf _site/burkolo/forras/vizsga/
+          cp -r burkolo/forras/vizsga/tetoszerkezet _site/burkolo/forras/vizsga/
           # régi URL átirányítása
           printf '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../burkolo/biztonsag.html"><link rel="canonical" href="../burkolo/biztonsag.html"><a href="../burkolo/biztonsag.html">Átköltözött: burkolo/biztonsag.html</a>' > _site/burkolobiztonsag/index.html
           mkdir -p _site/kozmavivienmakeupartist
