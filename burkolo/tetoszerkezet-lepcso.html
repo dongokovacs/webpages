@@ -32,7 +32,8 @@ img{max-width:100%;display:block}
 .topnav a:hover{text-decoration:underline;text-underline-offset:4px}
 .topnav .home{color:var(--yellow);font-weight:700}
 .topnav .cta{background:var(--yellow);color:var(--ink);padding:6px 12px;font-weight:700}
-@media (max-width:760px){.topnav a:not(.home):not(.cta){display:none}}
+.topnav .study{color:var(--yellow);font-weight:700}
+@media (max-width:760px){.topnav a:not(.home):not(.cta):not(.study){display:none}}
 
 h1,h2,h3,p{margin-top:0}
 h1,h2,h3{font-family:var(--display);font-stretch:85%;line-height:1.12}
@@ -73,6 +74,20 @@ figure.shot figcaption{padding:10px 4px 2px;color:var(--soft);font-size:.9rem}
 .term .tag{display:inline-block;margin-bottom:8px;padding:2px 8px;font:800 .7rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff}
 .term .tag.y{background:var(--yellow);color:var(--ink)}
 .term .tag.o{background:var(--orange)}
+.study-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:8px}
+.study-card{background:var(--tile);padding:12px}
+.study-card.wide{grid-column:1/-1}
+.study-card.wide a{overflow-x:auto}
+.study-card h3{margin:8px 4px}
+.study-card p{margin:0 4px 8px;color:var(--soft);font-size:.92rem}
+.study-card img{width:100%;height:auto}
+.study-card a{display:block}
+.study-card figcaption{padding:10px 4px 2px;color:var(--soft);font-size:.9rem}
+.study-stair{margin-top:8px;background:var(--grout-dark);padding:6px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:6px;align-items:start}
+.study-stair figure,.study-stair .table-wrap{background:var(--tile);padding:10px}
+.study-stair figure img{width:100%;height:auto}
+.study-stair figcaption{padding:10px 4px 2px;color:var(--soft);font-size:.9rem}
+@media (max-width:760px){.study-stair{grid-template-columns:1fr}}
 
 .layers{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column-reverse;gap:4px}
 .layers li{display:flex;align-items:center;gap:12px;padding:10px 14px;font-weight:700;color:var(--ink);background:var(--paper);border-left:10px solid var(--c)}
@@ -222,6 +237,7 @@ footer{padding:30px 0 50px;color:var(--soft);font-size:.9rem}
   <a class="brand" href="index.html">Burkoló tananyagok</a>
   <nav class="topnav" aria-label="Fejezetek">
     <a class="home" href="index.html">← Vissza</a>
+    <a class="study" href="#rajzok">Rajzok</a>
     <a href="#fedelszek">Fedélszék</a>
     <a href="#epulet">Épületelemek</a>
     <a href="#lepcso">Lépcső</a>
@@ -239,10 +255,66 @@ footer{padding:30px 0 50px;color:var(--soft);font-size:.9rem}
     <a href="#dolt">Dőlt állószékes fedélszék</a>
     <a href="#epulet">Az épület szerkezeti elemei</a>
     <a href="#lepcso">Lépcsőfogalmak</a>
+    <a href="#rajzok">Feliratos rajzok tanulmányozása</a>
     <a href="#meretezes">Lépcsőméretezés</a>
     <a class="test" href="#teszt">Gyakorló témazáró</a>
   </nav>
 </header>
+
+<!-- FELIRATOS RAJZOK -->
+<section class="mod" id="rajzok">
+  <div class="wrap">
+    <p class="eyebrow">Tanulófül · feliratos ábrák</p>
+    <h2>Rajzok tanulmányozása</h2>
+    <p class="lead">Nézd át a feliratozott rajzokat a teszt előtt. A képekre kattintva az eredeti méretű ábrát is megnyithatod.</p>
+    <div class="study-grid">
+      <figure class="study-card">
+        <h3>Kétállószékes fedélszék</h3>
+        <a href="forras/vizsga/tetoszerkezet/fedelszek.jpg" target="_blank" rel="noopener">
+          <img src="forras/vizsga/tetoszerkezet/fedelszek.jpg" width="790" height="585" alt="Feliratozott kétállószékes fedélszék-keresztmetszet. A rajz széldeszkának nevezi a szarufánál jelölt elemet." loading="lazy">
+        </a>
+        <figcaption>Tanuld meg a szelemenek, fogópárok és merevítések helyét. A tesztben a széldeszkaként jelölt elem neve <strong>viharléc (merevítő)</strong>.</figcaption>
+      </figure>
+      <figure class="study-card wide">
+        <h3>Az épület szerkezeti elemei</h3>
+        <a href="forras/vizsga/tetoszerkezet/haz.jpg" target="_blank" rel="noopener">
+          <img src="forras/vizsga/tetoszerkezet/haz.jpg" width="946" height="658" alt="Feliratozott, 41 számozott szerkezeti elemet bemutató, átmetszett ház axonometrikus rajza." loading="lazy" style="min-width:700px">
+        </a>
+        <figcaption>A számozott elemek nevei közvetlenül a rajzon szerepelnek. Kattints a képre a nagyobb, eredeti méretű változatért.</figcaption>
+      </figure>
+    </div>
+    <div class="study-stair">
+      <figure>
+        <a href="forras/vizsga/tetoszerkezet/lepcso.jpg" target="_blank" rel="noopener">
+          <img src="forras/vizsga/tetoszerkezet/lepcso.jpg" width="520" height="625" alt="Kétkarú lépcső metszete és alaprajza, 1-től 16-ig számozott jelölésekkel." loading="lazy">
+        </a>
+        <figcaption>A lépcsőrajz számai a jobb oldali fogalomtáblázathoz tartoznak.</figcaption>
+      </figure>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Sz.</th><th>Rajzi fogalom</th></tr></thead>
+          <tbody>
+            <tr><td class="num"><span>1</span></td><td>emeletmagasság</td></tr>
+            <tr><td class="num"><span>2</span></td><td>induló/érkező pihenő vastagsága</td></tr>
+            <tr><td class="num"><span>3</span></td><td>közbenső pihenő vastagsága</td></tr>
+            <tr><td class="num"><span>4</span></td><td>lépcsőlemez</td></tr>
+            <tr><td class="num"><span>6</span></td><td>belépő</td></tr>
+            <tr><td class="num"><span>7</span></td><td>fellépő</td></tr>
+            <tr><td class="num"><span>8</span></td><td>lépcsőkorlát</td></tr>
+            <tr><td class="num"><span>9</span></td><td>járóvonal</td></tr>
+            <tr><td class="num"><span>10</span></td><td>pihenő szélessége</td></tr>
+            <tr><td class="num"><span>11</span></td><td>lépcsőkar szélessége</td></tr>
+            <tr><td class="num"><span>12</span></td><td>indulókar</td></tr>
+            <tr><td class="num"><span>13</span></td><td>érkezőkar</td></tr>
+            <tr><td class="num"><span>14</span></td><td>lépcső szélessége</td></tr>
+            <tr><td class="num"><span>15</span></td><td>lépcsőkar hossza</td></tr>
+            <tr><td class="num"><span>16</span></td><td>orsótér</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- 1. FEDÉLSZÉK -->
 <section class="mod" id="fedelszek">
@@ -552,7 +624,7 @@ var Q2=[
 var GAMES={
  fedelszek:{img:"fedelszek-ures.jpg",w:790,h:585,hgt:"3cqw",title:"Fedélszék",slots:[
   {x:47.1,y:8,w:15.3,a:"taréjszelemen"},{x:49.1,y:12.5,w:20.5,a:"fogópár (kakasülő)"},{x:55.6,y:16.5,w:12,a:"szarufa"},
-  {x:54.1,y:21.5,w:13,a:"széldeszka"},{x:58.1,y:26,w:15.3,a:"derék fogópár"},{x:62.6,y:29.5,w:15.3,a:"derékszelemen"},
+  {x:54.1,y:21.5,w:13,a:"viharléc"},{x:58.1,y:26,w:15.3,a:"derék fogópár"},{x:62.6,y:29.5,w:15.3,a:"derékszelemen"},
   {x:63.1,y:34.5,w:13,a:"könyökfa"},{x:68.1,y:39.5,w:14,a:"ferdetámasz"},{x:76.6,y:49,w:15,a:"talpszelemen"},
   {x:42.6,y:50,w:11.4,a:"oszlop"},{x:34.6,y:54.4,w:13,a:"papucsfa"}]},
  haz:{img:"haz-ures.jpg",w:946,h:658,hgt:"2.3cqw",wide:true,title:"Épület",slots:[]},
